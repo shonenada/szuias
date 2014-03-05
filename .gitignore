@@ -1,0 +1,5 @@
+composer.lock
+cache/
+static/components
+*.conf.php
+vendor/

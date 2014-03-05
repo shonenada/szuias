@@ -1,0 +1,9 @@
+{
+    "name": "Shenzhen University Institute for Advanced Study",
+    "version": "1",
+    "dependencies": {
+        "jquery": "~1.10.2",
+        "jquery.tools": "1.2.6",
+        "reset-css": "http://meyerweb.com/eric/tools/css/reset/reset.css"
+    }
+}
