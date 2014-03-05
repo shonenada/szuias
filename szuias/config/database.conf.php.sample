@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * 数据库配置
+ * @author
+ *
+ */
+
+return array(
+    'dbname' => 'szuias',
+    'user' => 'root',
+    'password' => '',
+    'host' => 'localhost',
+    'driver' => 'pdo_mysql'
+);
