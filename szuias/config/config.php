@@ -20,6 +20,7 @@ return array(
     'cookies.cipher' => MCRYPT_RIJNDAEL_256,
     // Cookie 加密模式
     'cookies.cipher_mode' => MCRYPT_MODE_CBC,
+    'cookies.httponly' => true,
     // HTTP 版本，使用 1.1 允许 PUT、DELETE 等 HTTP 方法。
     'http.version' => '1.1',
 );

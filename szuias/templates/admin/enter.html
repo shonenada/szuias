@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="shortcut icon" href="{{ siteUrl('static/favicon.ico') }}" type="image/x-icon" />
+  <link type="text/css" href="{{ siteUrl('static/styles/common.css') }}" rel="stylesheet" />
+  <link type="text/css" href="{{ siteUrl('static/styles/enter.css') }}" rel="stylesheet" />
+  <script type="text/javascript" src="{{ siteUrl('static/components/jquery/jquery.min.js') }}" charset="utf-8"></script>
+  <title>{% if siteTitle %}{{ siteTitle }}{% else %}{{ webTitle }}{% endif %}</title>
+</head>
+
+<body>
+  <div id="enter">
+    <form action="{{ siteUrl('admin/enter') }}" method="post">
+      <div id="cp_title">用户登陆</div>
+      {% if errors %}
+        <div class="error-tip">{{ errors }}</div>
+      {% endif %}
+      <table>
+         <tr>
+            <td id="cp_tips">用户帐号:</td>
+            <td id="cp_content"><input type="text" name="username" value="{% if username %}{{ username }}{% endif %}" /></td>
+         </tr>
+         <tr>
+            <td id="cp_tips">用户密码:</td>
+            <td id="cp_content"><input type="password" name="password" /></td>
+         </tr>
+         <tr>
+            <td id="cp_tips">验&nbsp;证&nbsp;码:</td>
+            <td id="cp_content"><input type="text" name="captchaCode" /></td>
+         </tr>
+         <tr>
+            <td ></td>
+            <td id="cp_pic">
+                <img id="code_img" src="{{ siteUrl('captcha') }}" />
+                <span><a id="other_code">看不清</a></span>
+            </td>
+         </tr>
+         <tr>
+            <td></td>
+            <td id="keeplogin cp_tips"><input type="checkbox" name="remember_me"/>一周内自动登录</td>
+         </tr>
+     </table>
+      <div id="cp_save">
+        <input type="submit" value="登录"/>
+        <input type="reset" value="重置"/>               
+      </div>
+   </form>
+ </div>
+ <script type="text/javascript">
+    $("#code_img, #other_code").click(function(){
+        var srcTp = "{{ siteUrl('captcha') }}";
+        var src = srcTp.replace("$",(new Date()).getTime());
+        $("#code_img").attr("src",src);
+    });
+ </script>
+</body>
+</html>

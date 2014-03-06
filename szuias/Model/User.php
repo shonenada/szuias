@@ -16,18 +16,16 @@ use \RBAC\Authentication;
  * @property integer   $id
  * @property string    $username
  * @property string    $password
- * @property string    $name
+ * @property string    $email
+ * @property string    $phone
  * @property datetime  $created
- * @property datetime  $lastLogin
- * @property string    $ip
- * @property integer   $level
+ * @property integer   $ia_admin
+ * @property integer   $is_delete
+ *
  **/
 
 class User extends ModelBase{
 
-    const USER_LEVEL = 1;
-    const ADMIN_LEVEL = 15;
-    
     /**
      * @Column(name="id", type="integer", nullable=false)
      * @Id
@@ -46,9 +44,14 @@ class User extends ModelBase{
     private $password;
 
     /**
-     * @Column(name="name", type="string", length=10)
+     * @Column(name="email", type="string", length=50)
      **/
-    private $name;
+    private $email;
+
+    /**
+     * @Column(name="phone", type="string", length=1)
+     **/
+    private $phone;
 
     /**
      * @Column(name="created", type="datetime")
@@ -56,29 +59,14 @@ class User extends ModelBase{
     private $created;
 
     /**
-     * @Column(name="lastLogin", type="datetime")
+     * @Column(name="is_admin", type="boolean")
      **/
-    private $lastLogin;
+    private $is_admin;
 
     /**
-     * @Column(name="ip", type="string", length=16)
+     * @Column(name="is_delete", type="boolean")
      **/
-    private $ip;
-
-    /**
-     * @Column(name="short_intro", type="text")
-     **/
-    private $shortIntro;
-
-    /**
-     * @Column(name="intro", type="text")
-     **/
-    private $intro;
-
-    /**
-     * @Column(name="level", type="integer")
-     **/
-    private $level;
+    private $is_delete;
 
     public function getId() {
         return $this->id;
@@ -93,47 +81,36 @@ class User extends ModelBase{
         $this->password = $hashPassword;
     }
 
-    public function getName() {
-        return $this->name;
+    public function getEmail() {
+        return $this->email;
     }
 
-    public function setName($name) {
-        $this->name = $name;
+    public function setEmail($email) {
+        $this->email = $email;
     }
 
     public function getCreated() {
         return $this->created;
     }
 
-    public function getLastLogin() {
-        return $this->lastLogin;
+    public function getPhone() {
+        return $this->phone;
     }
 
-    public function setLastLogin($ll) {
-        $this->lastLogin = $ll;
-    }
-
-    public function getIP() {
-        return $this->ip;
-    }
-
-    public function setIP($ip) {
-        $this->ip = $ip;
-    }
-
-    public function getLevel() {
-        return $this->level;
-    }
-
-    public function setLevel($level) {
-        $this->level = $level;
+    public function setPhone($phone) {
+        $this->phone = $phone;
     }
 
     public function __construct($username) {
         $this->username = $username;
     }
 
-    public function hasPermission ($resource, $method) {
+    public function checkPassword($rawPassword, $salt) {
+        $password = User::hashPassword($rawPassword, $salt);
+        return ($this->password == $password);
+    }
+
+    public function hasPermission($resource, $method) {
         $ptable = require(APPROOT . "permissions.php");
         $auth = new Authentication();
         $auth->load($ptable);
@@ -168,19 +145,13 @@ class User extends ModelBase{
     }
 
     static public function findByUsername($username) {
-        return static::query()->findBy(array('username' => $username));
-    }
-
-    static public function getTeamList() {
-        $dql = sprintf(
-            'SELECT n FROM %s n WHERE n.level = %d or n.level = %d'.
-            'ORDER BY n.created ASC',
-            get_called_class(),
-            User::TEACHER_LEVEL,
-            User::SUPER_USER_LEVE
-        );
-        $query = static::em()->createQuery($dql);
-        return $query->useQueryCache(false)->getResult();
+        $query = static::query()->findBy(array('username' => $username));
+        if ($query != null){
+            return $query[0];
+        }
+        else {
+            return null;
+        }
     }
 
 }

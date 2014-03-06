@@ -21,6 +21,7 @@ $config = require_once(APPROOT . 'config/config.php');
 // 的控制器，Explicit is better than impliccit. (Thanks bcho)
 $controllers = array (
     'home_app' => 'master',
+    'admin_enter' => 'admin/enter',
 );
 
 // 系统入口工厂函数
@@ -31,10 +32,8 @@ function create_app ($config_files=array()) {
     // 初始化 app
     $app = new Slimx();
 
-    // 使用全局 config 变量
-    global $config;
-
     // 载入配置
+    global $config;
     $app->config($config);
 
     // 读取用户自定义的配置
@@ -46,6 +45,11 @@ function create_app ($config_files=array()) {
 
     // 安装 Twig 视图引擎
     setup_views($app);
+    // 导入视图全局变量
+    setup_view_globals($app);
+
+    // 安装中间件
+    setup_middleware($app);
 
     // 注册控制
     global $controllers;

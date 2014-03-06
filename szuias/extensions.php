@@ -15,7 +15,7 @@ function setup_views ($app) {
     $view = $app->view();
     $view->setTemplatesDirectory($app->config('templates.path'));
 
-    $view_options = require_once(APPROOT. 'config/views.php');
+    $view_options = require_once(APPROOT. 'config/view.php');
     $view->parserOptions = $view_options;
 
     $view->parserExtensions = array(
@@ -23,6 +23,22 @@ function setup_views ($app) {
     );
 
     $twigEnv = $view->getEnvironment();
+}
+
+
+// 导入视图全局变量
+function setup_view_globals ($app) {
+    $globals = require_once(APPROOT . 'config/viewGlobal.php');
+    $viewEnv = $app->view()->getEnvironment();
+    foreach ($globals as $key => $value) {
+        $viewEnv->addGlobal($key, $value);
+    }
+}
+
+
+// 安装中间件
+function setup_middleware ($app) {
+    $app->add(new \Slim\Middleware\SessionCookie());
 }
 
 
