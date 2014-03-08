@@ -1,5 +1,5 @@
 composer.lock
 cache/
-static/components
+wwwroot/static/components
 *.conf.php
 vendor/
