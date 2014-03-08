@@ -1,0 +1,111 @@
+@CHARSET "UTF-8";
+.settings{
+	margin-bottom: 15px;
+}
+.index-title{
+	color: #009AD9;
+	position: relative;
+	font-size: 18px;
+	border-bottom: 1px solid #009AD9;
+	font-family: "微软雅黑","Microsoft Yahei",Tahoma;
+	margin-bottom: 15px;
+}
+.settings-left{
+	float: left;
+	width: 400px;
+	margin-left: 10px;
+}
+.settings-right{
+	float: right;
+	margin-right: 10px;
+}
+.admin-table{
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #C8E4F7;
+	background-color: #F7F7F7;
+}
+.admin-table td,.admin-table th{
+	border: 1px solid #C8E4F7;
+	padding: 3px 5px;
+	text-align: center;
+	font-size: 14px;
+}
+.admin-table th{
+	color: #666;
+	line-height: 30px;
+}
+.td1{
+	width: 15%;
+}
+.step-main{
+	border: 1px #CCC solid;
+}
+.step-title{
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #009AD9;
+}
+.step-ul{
+	position: relative;
+	height: 210px;
+	width: 500px;
+}
+.step-li{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 210px;
+}
+.step-bottom{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 35px;
+	line-height: 35px;
+}
+.step-li-tip-bg{
+	background: url("../../image/step-img-bg.png") 0 0 repeat-x;
+}
+.step-li-tip{
+	font: 18px "微软雅黑","宋体";
+	color: white;
+	line-height: 35px;
+	text-align: center;
+}
+#text-help{
+	float:left;
+	width:665px;
+	padding:10px;
+	border:1px dotted #009AD9;
+	margin-bottom:10px;
+	line-height:30px;
+}
+.head-link{
+    background:#fff;
+	border-top:2px solid #ccc;
+	border-left:2px solid #ccc;	
+	width: 100%;
+}
+.step{
+	padding:0 31px;
+	font-size:20px;
+	height:35px;
+	line-height:35px;
+	cursor:pointer;
+	background:#DEDDDD;
+}
+.step-on{
+	color:#ffffff;
+	background:#009AD9;
+}
+.index_pic{
+	width: 500px;
+}
+.index_pic p{
+	margin: 7px 0;
+	font-size: 12px;
+}
+
