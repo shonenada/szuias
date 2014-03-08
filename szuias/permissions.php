@@ -25,6 +25,8 @@ return array(
     "allow" => array(
         array($everyone, "/", "*"),
         array($everyone, "/captcha", "*"),
+        array($everyone, "/article/list", "*"),
+        array($everyone, "/article/\d+", "*"),
 
         array($everyone, "/admin/enter", "*"),
     ),

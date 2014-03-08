@@ -5,6 +5,7 @@ use \Captcha;
 return array(
     "export" => function($app) {
         $app->get("/", function() use($app) {
+            $home = true;
             $app->render("index.html", get_defined_vars());
         });
         $app->get('/captcha', function () {

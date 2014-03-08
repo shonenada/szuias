@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="article-box">
+  <h2>{{ category }}</h2>
+  
+  <div class="article">
+    <div class="title">第二届华南计算机学科发展研讨会在深圳大学</div>
+    <div class="info">2012-01-05</div>
+    <div class="content">
+     content
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <h2>{{ category }}</h2>
+    <ul>
+    {% for one in sub_categories %}
+      <a href="javascript:void()"><li>{{ one.name }}</li></a>
+    {% endfor %}
+    </ul>
+  </div>
+
+</div>
+{% endblock %}

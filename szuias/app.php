@@ -21,7 +21,8 @@ $config = require_once(APPROOT . 'config/config.php');
 // 的控制器，Explicit is better than impliccit. (Thanks bcho)
 $controllers = array (
     'home_app' => 'master',
-    'admin_enter' => 'admin/enter',
+    'article_app' => 'article',
+    'admin_enter_app' => 'admin/enter',
 );
 
 // 系统入口工厂函数
