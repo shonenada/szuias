@@ -6,7 +6,7 @@
   <link type="text/css" href="{{ siteUrl('static/styles/common.css') }}" rel="stylesheet" />
   <link type="text/css" href="{{ siteUrl('static/styles/enter.css') }}" rel="stylesheet" />
   <script type="text/javascript" src="{{ siteUrl('static/components/jquery/jquery.min.js') }}" charset="utf-8"></script>
-  <title>{% if siteTitle %}{{ siteTitle }}{% else %}{{ webTitle }}{% endif %}</title>
+  <title>{% if webTitle %}{{ webTitle }}{% else %}{{ siteTitle }}{% endif %}</title>
 </head>
 
 <body>

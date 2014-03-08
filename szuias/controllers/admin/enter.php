@@ -41,7 +41,7 @@ return array(
                 return $app->render('admin/enter.html', array('errors' => '用户或密码错误'));
             }
 
-            return $app->redirect('/admin/dashborad');
+            return $app->redirect('/admin');
 
         });
 
