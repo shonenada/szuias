@@ -747,6 +747,15 @@ article.hentry + article.hentry:before {
 	padding: 5px 20px 20px 20px;
 }
 
+.banner .news .articles .more {
+	font-size: 14px;
+	float: right;
+}
+
+.banner .news .articles .more a {
+	color: #0000ff;
+}
+
 .banner .news .datetime {
 	float: right;
 }
@@ -954,7 +963,8 @@ article.hentry + article.hentry:before {
 }
 
 .article, .article-list {
-	width: 700px;
+	margin-left: 10px;
+	width: 740px;
 	float: left;
 }
 
@@ -979,15 +989,18 @@ article.hentry + article.hentry:before {
 .article .title {
 	color: #0a2b4a;
 	font-weight: bold;
-	font-size: 24px;
+	font-size: 28px;
+	text-align: center;
 }
 
 .article .info {
-	font-size: 12px;
-	padding-left: 20px;
+	margin-top: 10px;
+	font-size: 14px;
+	text-align: center;
 }
 
 .article .content {
+	text-indent: 2em;
 	margin: 5px 0 20px 0;
 }
 
@@ -1011,14 +1024,14 @@ article.hentry + article.hentry:before {
 }
 
 .sidebar-nav {
-	float: right;
-	width: 240px;
+	float: left;
+	width: 200px;
 	padding: 0 10px 10px 10px;
 	margin-bottom: 30px;
 }
 
 .sidebar-nav h2 {
-	font-size: 24px;
+	font-size: 20px;
 	font-weight: bold;
 	margin:0 10px 15px 10px;
 	color: #0a2b4a;
@@ -1031,11 +1044,12 @@ article.hentry + article.hentry:before {
 }
 
 .sidebar-nav li {
-	border-bottom: solid 1px #aaa;
+	border-bottom: solid 1px #E4E4E4;
 	color: #576681;
 	text-indent: 1em;
 	font-weight: bold;
 	padding: 3px 0;
+	font-size: 15px;
 }
 
 .sidebar-nav li:hover{

@@ -4,6 +4,15 @@
 <div class="article-box">
   <h2>{{ category }}</h2>
   
+  <div class="sidebar-nav">
+    <h2>{{ category }}</h2>
+    <ul>
+    {% for one in sub_categories %}
+      <a href="javascript:void()"><li>{{ one.name }}</li></a>
+    {% endfor %}
+    </ul>
+  </div>
+
   <div class="article-list">
     <div class="top-nav">
     {% for one in sub_categories %}
@@ -19,15 +28,6 @@
       <li><a href="#">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-15</span></li>
       <li><a href="#">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-15</span></li>
       <li><a href="#">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-15</span></li>
-    </ul>
-  </div>
-
-  <div class="sidebar-nav">
-    <h2>{{ category }}</h2>
-    <ul>
-    {% for one in sub_categories %}
-      <a href="javascript:void()"><li>{{ one.name }}</li></a>
-    {% endfor %}
     </ul>
   </div>
 
