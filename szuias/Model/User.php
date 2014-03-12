@@ -19,7 +19,10 @@ use \RBAC\Authentication;
  * @property string    $email
  * @property string    $phone
  * @property datetime  $created
- * @property integer   $ia_admin
+ * @property datetime  $last_login
+ * @property string    $last_ip
+ * @property string    $token
+ * @property integer   $is_admin
  * @property integer   $is_delete
  *
  **/
@@ -57,6 +60,21 @@ class User extends ModelBase{
      * @Column(name="created", type="datetime")
      **/
     private $created;
+
+    /**
+     * @Column(name="last_login", type="datetime")
+     **/
+    private $last_login;
+
+    /**
+     * @Column(name="last_ip", type="string", length=64)
+     **/
+    private $last_ip;
+
+    /**
+     * @Column(name="token", type="string", length=64)
+     **/
+    private $token;
 
     /**
      * @Column(name="is_admin", type="boolean")
@@ -101,6 +119,34 @@ class User extends ModelBase{
         $this->phone = $phone;
     }
 
+    public function getIp(){
+        return $this->last_ip;
+    }
+
+    public function setIp($ip) {
+        $this->last_ip = $ip;
+    }
+
+    public function getLastLogin () {
+        return $this->last_login;
+    }
+
+    public function setLastLogin ($datetime) {
+        $this->last_login = $datetime;
+    }
+
+    public function setToken ($token) {
+        $this->token = $token;
+    }
+
+    public function isActivity() {
+        return ($this->is_deleted == 0);
+    }
+
+    public function isAdmin() {
+        return ($this->is_admin == 1);
+    }
+
     public function __construct($username) {
         $this->username = $username;
     }
@@ -117,15 +163,12 @@ class User extends ModelBase{
         return $auth->accessiable($this, $resource, $method);
     }
 
-    static public function validateToken($user, $token, $salt) {
-        $ip = $user->getIP();
-        $lastLogin = $user->getLastLogin()->format('Y-m-d H:i:s');
-        $hash = md5($lastLogin . "{" . $salt . "}" . $ip);
-        if($hash == $token){
-            return $user;
-        }else{
-            return NULL;
-        }
+    public function validateToken($token) {
+        return $this->token == $token;
+    }
+
+    public function validateIp($ip) {
+        return $this->last_ip == $ip;
     }
 
     static public function hashPassword($password, $salt) {
