@@ -4,14 +4,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="shortcut icon" href="{{ siteUrl('static/favicon.ico') }}" type="image/x-icon" />
   <link type="text/css" href="{{ siteUrl('static/styles/common.css') }}" rel="stylesheet" />
-  <link type="text/css" href="{{ siteUrl('static/styles/enter.css') }}" rel="stylesheet" />
+  <link type="text/css" href="{{ siteUrl('static/styles/signin.css') }}" rel="stylesheet" />
   <script type="text/javascript" src="{{ siteUrl('static/components/jquery/jquery.min.js') }}" charset="utf-8"></script>
   <title>{% if webTitle %}{{ webTitle }}{% else %}{{ siteTitle }}{% endif %}</title>
 </head>
 
 <body>
-  <div id="enter">
-    <form action="{{ siteUrl('admin/enter') }}" method="post">
+  <div id="signin">
+    <form action="{{ siteUrl('admin/signin') }}" method="post">
       <div id="cp_title">用户登陆</div>
       {% if errors %}
         <div class="error-tip">{{ errors }}</div>

@@ -1,12 +1,12 @@
 @CHARSET "UTF-8";
-#enter{
+#signin{
 	width:450px;
 	font-size:14px;
 	margin:200px auto;
 	border:1px solid #009AD9;
 	background:#F1F1F1;
 }
-#enter table {
+#signin table {
 	margin: 10px 0 0 100px;
 }
 #cp_title {

@@ -22,7 +22,8 @@ $config = require_once(APPROOT . 'config/config.php');
 $controllers = array (
     'home_app' => 'master',
     'article_app' => 'article',
-    'admin_enter_app' => 'admin/enter',
+    'admin_index_app' => 'admin/index',
+    'admin_signin_app' => 'admin/signin',
 );
 
 // 系统入口工厂函数

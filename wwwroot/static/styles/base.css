@@ -1,0 +1,51 @@
+a:hover {
+    cursor: pointer;
+}
+
+#header {
+    height: 100px;
+}
+
+#header #logo {
+    display: block;
+    background: url('/static/images/logo.png');
+    width: 604px;
+    height: 100px;
+}
+
+#header #nav {
+    height: 40px;
+    line-height: 40px;
+}
+
+#nav .dropdown > ul {
+    position: absolute;
+}
+#nav .dropdown > ul > li {
+    position: relative;
+    font-size: 12px;
+    height: 35px;
+    background-position-y: -25px;
+    line-height: 35px;
+    width: 120px;
+    text-align: left;
+    padding-left: 30px;
+}
+
+#header #nav ul > li{
+    display: inline-block;
+    margin: 0 5px;
+}
+
+#main {
+
+}
+
+#footer {
+
+}
+
+.wrapper {
+    width: 978px;
+    margin: 0 auto;
+}

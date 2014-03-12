@@ -20,7 +20,6 @@ $everyone = new EveryOne();
 $normal = new NormalUser();
 $administrator = new Administrator();
 
-
 return array(
     "allow" => array(
         array($everyone, "/", "*"),
@@ -28,7 +27,8 @@ return array(
         array($everyone, "/article/list", "*"),
         array($everyone, "/article/\d+", "*"),
 
-        array($everyone, "/admin/enter", "*"),
+        array($everyone, "/admin/signin", "*"),
+        array($administrator, "/admin", "*"),
     ),
     "deny" => array(
     )

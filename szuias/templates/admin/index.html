@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="shortcut icon" href="{{ siteUrl('static/favicon.ico') }}" type="image/x-icon" />
+  <link type="text/css" href="{{ siteUrl('static/styles/admin/common.css') }}" rel="stylesheet" />
+  <link type="text/css" href="{{ siteUrl('static/styles/admin/page/index.css') }}" rel="stylesheet"  />
+  <script type="text/javascript" src="{{ siteUrl('static/components/jquery/jquery.min.js') }}" charset="utf-8"></script>
+  <script type="text/javascript" src="{{ siteUrl('static/scripts/common.js') }}"></script>
+  <script type="text/javascript" src="{{ siteUrl('static/scripts/admin/index_view.js') }}"></script>
+  <title>{% if webTitle %}{{ webTitle }}{% else %}{{ siteTitle }}{% endif %} - 后台管理 - 首页管理</title> 
+</head>
+<body>
+
+  <div id="main">
+    <!-- 头部 -->
+    <div id="header" class="clearfix">
+      <div id="head_logo">
+        <a href="{{ siteUrl('/') }}">深圳大学高等研究院</a>
+      </div>
+      <div id="welcome">
+        <ul>
+          <li>欢迎您回来，</li>
+          <li>
+            <a>{{ username }}</a>
+          </li>
+          <li>
+            <a onclick="if(!confirm('是否注销登录？')) return false;" href="{{ siteUrl('/admin/logout') }}">| 注销 |</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- 导航 -->
+    <div id="nav" class="clearfix">
+      <ul>
+        {% for row in data.model %}
+        <li class="first-nav0">
+          <a href="{{ siteUrl('/admin/index') }}">{{ row.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <!-- *************内容页************* -->
+    <div id="content" class="clearfix">
+      <!-- *****************************头条设置**************************************** -->
+      <div class="settings">
+        <div class="index-title">头条设置</div>
+        <div class="clearfix">
+          <div class="settings-left">
+            <table class="admin-table">
+              <tr>
+                <th class="td1">排序</th>
+                <th class="td2">链接地址</th>
+              </tr>
+              {% for x in null %}
+              <tr>
+                <td class="td1">{{ i }}</td>
+                <td >
+                  <input type="text" name="index_top_{{ i - 1}}" value="{{ x.item }}" class="td2 head-link" /></td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+          <div class="settings-right step-main">
+            <div class="step-title">
+              <table>
+                <tr>
+                  <td class="step step-on" id="first_step">第一步</td>
+                  <td class="step" id="second_step">第二步</td>
+                  <td class="step" id="third_step">第三步</td>
+                  <td class="step" id="fourth_step">第四步</td>
+                </tr>
+              </table>
+            </div>
+            <div>
+              <ul class="step-ul">
+                <li id="first_pic" class="step-li">
+                  <div>
+                    <img src="{{ siteUrl('static/image/step-img1.gif') }}" title="使用说明图示1" /></div>
+                  <div class="step-bottom step-li-tip-bg"></div>
+                  <div class="step-bottom step-li-tip">在任意前台界面，点击菜单的二级菜单进入列表页</div>
+                </li>
+                <li id="second_pic" class="step-li" style="display:none;">
+                  <div>
+                    <img src="{{ siteUrl('static/image/step-img2.gif') }}" title="使用说明图示2" /></div>
+                  <div class="step-bottom step-li-tip-bg"></div>
+                  <div class="step-bottom step-li-tip">在列表页界面，点击列表文章标题进入内容页</div>
+                </li>
+                <li id="third_pic" class="step-li" style="display:none;">
+                  <div>
+                    <img src="{{ siteUrl('static/image/step-img3.gif') }}" title="使用说明图示3" /></div>
+                  <div class="step-bottom step-li-tip-bg"></div>
+                  <div class="step-bottom step-li-tip">在内容页界面，复制文章网址</div>
+                </li>
+                <li id="fourth_pic" class="step-li" style="display:none;">
+                  <div>
+                    <img src="{{ siteUrl('static/image/step-img4.gif') }}" title="使用说明图示4" /></div>
+                  <div class="step-bottom step-li-tip-bg"></div>
+                  <div class="step-bottom step-li-tip">进入首页管理界面，把所复制的网址粘贴在链接地址框内</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- *****************************图片设置**************************************** -->
+      <div class="settings">
+        <div class="index-title">飘动图片</div>
+        <div class="clearfix">
+          <div class="settings-left">
+            <table class="admin-table">
+              <tr>
+                <th class="td3">图片数量</th>
+                <th class="td4">图片更新时间</th>
+                <th class="td5">图片来源</th>
+              </tr>
+              <tr>
+                <td class="td3">
+                  <select name="index_pic_count" style="width:100%;">
+                    <option value="1"{% if count == 1 %} selected="selected"{% endif %}>1</option>
+                    <option value="2"{% if count == 2 %} selected="selected"{% endif %}>2</option>
+                    <option value="3"{% if count == 3 %} selected="selected"{% endif %}>3</option>
+                    <option value="4"{% if count == 4 %} selected="selected"{% endif %}>4</option>
+                    <option value="5"{% if count == 5 %} selected="selected"{% endif %}>5</option>
+                  </select>
+                </td>
+                <td class="td4">
+                  <select name="index_pic_renewtime" style="width:100%;">
+                    <option value="0"{%if renewtime == 0 %} selected="selected"{% endif %}>不限</option>
+                    <option value="1"{%if renewtime == 1 %} selected="selected"{% endif %}>一天内</option>
+                    <option value="7"{%if renewtime == 7 %} selected="selected"{% endif %}>一周内</option>
+                    <option value="30"{%if renewtime == 30 %} selected="selected"{% endif %}>一个月内</option>
+                    <option value="365"{%if renewtime == 365 %} selected="selected"{% endif %}>一年内</option>
+                  </select>
+                </td>
+                <td class="td5">
+                  <select name="index_pic_source" style="width:100%;">
+                  {% for v in list %}
+                    <option value="v.mid"{% if source == v.mid %} selected="selected"{% endif %}>{{ v.mtitle }}</option>
+                  {% endfor %}
+                  </select>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="settings-right index_pic">
+            <p>1.显示条数：编辑者可选择飘动图片的张数(如此时右侧的飘动图片张数为3张)</p>
+            <p>2.图片更新时间：编辑者可选择飘动图片的更新的速度，以便让学院信息适当更新</p>
+            <p>3.图片来源：编辑者可选择飘动图片的出处，由数据库自动调用</p>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="text_end">
+    <span>
+      <a data-href="{{ siteUrl('admin/save') }}" href="javascript:void(0);" id="submit">保存</a>
+      <a href="javascript:void(0);" id="cancel">取消</a>
+    </span>
+  </div>
+</div>
+</body>
+</html>

@@ -16,6 +16,6 @@ class Administrator extends NormalUser {
     }
 
     public function authenticate(\Model\User $user=null) {
-        return $user != null && $user->getLevel() >= 15;
+        return $user != null && $user->isAdmin();
     }
 }
