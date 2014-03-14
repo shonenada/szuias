@@ -4,7 +4,7 @@
  * 文章模型类
  * @author shonenada
  * 
- */
+ **/
 
 namespace Model;
 
@@ -51,14 +51,16 @@ class Menu extends ModelBase{
     private $content;
 
     /**
-     * @Column(name="menu_id", type="integer")
-     **/
-    private $menu_id;
+     * @OneToOne(targetEntity="Menu")
+     * @JoinColumn(name="menu_id", referencedColumnName="id", nullable=true)
+     */
+    private $menu;
 
     /**
-     * @Column(name="category_id", type="integer")
+     * @OneToOne(targetEntity="Category")
+     * @JoinColumn(name="category_id", referencedColumnName="id")
      **/
-    private $category_id;
+    private $category;
 
     /**
      * @OneToOne(targetEntity="User")
@@ -97,7 +99,7 @@ class Menu extends ModelBase{
     private $sort;
 
     /**
-     * @Column(name="redirect_url", type="string")
+     * @Column(name="redirect_url", type="string", length="255")
      **/
     private $redirect_url;
 
