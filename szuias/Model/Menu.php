@@ -1,33 +1,29 @@
 <?php
 
 /**
- * 文章模型类
+ * 菜单模型类
  * @author shonenada
  * 
- **/
+ */
 
 namespace Model;
 
 /** 
  * @Entity 
- * @Table(name="article")
+ * @Table(name="menu")
  *
- * @property integer   $id
- * @property string    $title         标题
- * @property text      $content       内容
- * @property integer   $menu_id       菜单 ID
- * @property integer   $category_id   分类 ID
- * @property integer   $author_id     作者
- * @property integer   $last_editor   最后修改人
- * @property datetime  $created       发布日期
- * @property datetime  $edit_time     修改日期
- * @property integer   $view_count    浏览次数
- * @property boolean   $is_top        是否置顶
- * @property integer   $sort          顺序
- * @property string    $redirect_url  重定向 URL
- * @property integer   $open_style    窗口打开方式 (0: 原窗口打开，1: 新窗口打开)
- * @property integer   $display_style 是否可见
- * @property boolean   $is_deleted    是否已删除
+ * @property integer   $id          
+ * @property string    $title         菜单标题
+ * @property string    $intro         菜单介绍
+ * @property integer   $type          菜单的类型  0：为节点菜单；1：为单页内容；：为多记录列表；3：为外部URL；
+ * @property integer   $parent_id     父级菜单ID
+ * @property integer   $sort          菜单排序
+ * @property boolean   $classify      是否必须归档
+ * @property string    $outside_url   外部链接
+ * @property integer   $open_style    打开方式  0：原窗口打开；1：新窗口打开。
+ * @property datetime  $created       创建时间
+ * @property boolean   $is_hide       是否可见  0：可见；1：不可见
+ * @property boolean   $is_intranet   仅内部访问  0：否；  1：是
  *
  **/
 
@@ -46,52 +42,19 @@ class Menu extends ModelBase{
     private $title;
 
     /**
-     * @Column(name="content", type="text")
+     * @Column(name="intro", type="string", length=255)
      **/
-    private $content;
+    private $intro;
 
     /**
-     * @OneToOne(targetEntity="Menu")
-     * @JoinColumn(name="menu_id", referencedColumnName="id", nullable=true)
-     */
-    private $menu;
-
-    /**
-     * @OneToOne(targetEntity="Category")
-     * @JoinColumn(name="category_id", referencedColumnName="id")
+     * @Column(name="type", type="integer")
      **/
-    private $category;
+    private $type;
 
     /**
-     * @OneToOne(targetEntity="User")
-     * @JoinColumn(name="author_id", referencedColumnName="id")
-     */
-    private $author;
-
-    /**
-     * @Column(name="last_editor", type="integer")
+     * @Column(name="parent_id", type="integer")
      **/
-    private $last_editor;
-
-    /**
-     * @Column(name="created", type="datetime")
-     **/
-    private $created;
-
-    /**
-     * @Column(name="edit_time", type="datetime")
-     **/
-    private $edit_time;
-
-    /**
-     * @Column(name="view_count", type="integer")
-     **/
-    private $view_count;
-
-    /**
-     * @Column(name="is_top", type="boolean")
-     **/
-    private $is_top;
+    private $parent_id;
 
     /**
      * @Column(name="sort", type="integer")
@@ -99,31 +62,37 @@ class Menu extends ModelBase{
     private $sort;
 
     /**
-     * @Column(name="redirect_url", type="string", length="255")
+     * @Column(name="classify", type="boolean", default=0)
      **/
-    private $redirect_url;
+    private $classify;
 
     /**
-     * @Column(name="open_style", type="integer")
+     * @Column(name="outsite_url", type="string", length="255")
+     **/
+    private $outsite_url;
+
+    /**
+     * @Column(name="open_style", type="integer", default=0)
      **/
     private $open_style;
 
     /**
-     * @Column(name="display_style", type="integer")
+     * @Column(name="created", type="datetime")
      **/
-    private $display_style;
+    private $created;
 
     /**
-     * @Column(name="is_deleted", type="boolean")
+     * @Column(name="is_hide", type="boolean", default=0)
      **/
-    private $is_deleted;
+    private $is_hide;
+
+    /**
+     * @Column(name="is_intranet", type="boolean", default=0)
+     **/
+    private $is_intranet;
 
     public function getId() {
         return $this->id;
-    }
-
-    public function setId($id) {
-        $this->id = $id;
     }
 
     public function getTitle() {
@@ -134,72 +103,28 @@ class Menu extends ModelBase{
         $this->title = $title;
     }
 
-    public function getMenuId() {
-        return $this->menu_id;
+    public function getIntro() {
+        return $this->intro;
     }
 
-    public function setMenuId($mid) {
-        $this->menu_id = $mid;
+    public function setIntro($intro) {
+        $this->intro;
     }
 
-    public function getCategoryId() {
-        return $this->category_id;
+    public function getType() {
+        return $this->type;
     }
 
-    public function setCategoryId($cid) {
-        $this->category_id = $cid;
+    public function setType($type) {
+        $this->type = $type;
     }
 
-    public function getAuthor() {
-        return $this->author;
+    public function getParentId() {
+        return $this->parent_id;
     }
 
-    public function setAuthor(User $author) {
-        $this->author = $author;
-    }
-
-    public function getLastEditor() {
-        return $this->last_editor;
-    }
-
-    public function setLastEditor($last_editor) {
-         $this->last_editor = $last_editor;
-    }
-
-    public function getCreated() {
-        return $this->created;
-    }
-
-    public function setCreated($created) {
-        $this->created = $created;
-    }
-
-    public function getEditTime() {
-        return $this->edit_time;
-    }
-
-    public function setEditTime($edit_time) {
-        return $this->edit_time = $edit_time;
-    }
-
-    public function getViewCount() {
-        return $this->view_count;
-    }
-
-    public function setViewCount($view_count) {
-        $this->view_count;
-    }
-
-    public function isTop() {
-        return $this->is_top == true;
-    }
-
-    public function setTop() {
-        $this->is_top = true;
-    }
-
-    public function setNotTop() {
-        $this->is_top = false;
+    public function setParentId($pid) {
+        $this->parent_id = $pid;
     }
 
     public function getSort() {
@@ -210,12 +135,20 @@ class Menu extends ModelBase{
         $this->sort;
     }
 
-    public function getRedirectUrl() {
-        return $this->redirect_url;
+    public function getClassify() {
+        return $this->classify;
     }
 
-    public function setRedirectUrl($redirect_url) {
-        $this->redirect_url = $redirect_url;
+    public function setClassify($classify) {
+        $this->classify = $classify;
+    }
+
+    public function getOutsiteUrl() {
+        return $this->outsite_url;
+    }
+
+    public function setOutsideUrl($outside_url) {
+        $this->outside_url = $outside_url;
     }
 
     public function getOpenStyle() {
@@ -226,20 +159,43 @@ class Menu extends ModelBase{
         $this->open_style = $open_style;
     }
 
-    public function getDisplayStyle() {
-        return $this->display_style;
+    public function getCreated() {
+        return $this->created;
     }
 
-    public function setDisplayStyle($display_style) {
-        $this->display_style = $display_style;
+    public function setCreated($created) {
+        $this->created = $created;
     }
 
-    public function isDeleted() {
-        return ($this->is_deleted == true);
+    public function getIsHide() {
+        return $this->is_hide;
     }
 
-    public function delete() {
-        $this->is_deleted = true;
+    public function setHide() {
+        $this->is_hide = true;
+    }
+
+    public function setShow() {
+        $this->is_hide = false;
+    }
+
+    public function IsIntranet() {
+        return $this->is_intranet;
+    }
+
+    public function setIsIntranet($is_intranet) {
+        $this->is_intranet = $is_intranet;
+    }
+
+    static public function getList($page=1, $pagesize=20, $asc=false) {
+        $dql = sprintf(
+            'SELECT n FROM %s n WHERE n.level > 0'.
+            'ORDER BY n.id %s',
+            get_called_class(),
+            $asc ? 'ASC' : 'DESC'
+        );
+        $query = static::em()->createQuery($dql)->setMaxResults($pagesize)->setFirstResult($pagesize*($page-1));
+        return $query->useQueryCache(false)->getResult();
     }
 
 }
