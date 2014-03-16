@@ -62,17 +62,17 @@ class Menu extends ModelBase{
     private $sort;
 
     /**
-     * @Column(name="classify", type="boolean", default=0)
+     * @Column(name="classify", type="boolean")
      **/
     private $classify;
 
     /**
-     * @Column(name="outsite_url", type="string", length="255")
+     * @Column(name="outside_url", type="string", length=255)
      **/
-    private $outsite_url;
+    private $outside_url;
 
     /**
-     * @Column(name="open_style", type="integer", default=0)
+     * @Column(name="open_style", type="integer")
      **/
     private $open_style;
 
@@ -82,12 +82,12 @@ class Menu extends ModelBase{
     private $created;
 
     /**
-     * @Column(name="is_hide", type="boolean", default=0)
+     * @Column(name="is_hide", type="boolean")
      **/
     private $is_hide;
 
     /**
-     * @Column(name="is_intranet", type="boolean", default=0)
+     * @Column(name="is_intranet", type="boolean")
      **/
     private $is_intranet;
 

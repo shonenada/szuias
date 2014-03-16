@@ -41,6 +41,17 @@ class ModelBase {
         return ORMManager::getEntityManager();
     }
 
+    static public function all($asc=true) {
+        $dql = sprintf(
+            'SELECT n FROM %s n '.
+            'ORDER BY n.id %s', 
+            get_called_class(),
+            $asc ? 'ASC' : 'DESC'
+        );
+        $query = static::em()->createQuery($dql);
+        return $query->useQueryCache(true)->getResult();
+    }
+
     static public function getList($page=1, $pagesize=20, $asc=false) {
         $dql = sprintf(
             'SELECT n FROM %s n '.
