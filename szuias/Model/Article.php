@@ -26,7 +26,7 @@ namespace Model;
  * @property integer   $sort          顺序
  * @property string    $redirect_url  重定向 URL
  * @property integer   $open_style    窗口打开方式 (0: 原窗口打开，1: 新窗口打开)
- * @property integer   $display_style 是否可见
+ * @property boolean   $is_hide       是否可见
  * @property boolean   $is_deleted    是否已删除
  *
  **/
@@ -109,9 +109,9 @@ class Article extends ModelBase{
     private $open_style;
 
     /**
-     * @Column(name="display_style", type="integer")
+     * @Column(name="is_hide", type="boolean")
      **/
-    private $display_style;
+    private $is_hide;
 
     /**
      * @Column(name="is_deleted", type="boolean")
@@ -226,12 +226,12 @@ class Article extends ModelBase{
         $this->open_style = $open_style;
     }
 
-    public function getDisplayStyle() {
-        return $this->display_style;
+    public function isHide() {
+        return ($this->is_hide == true);
     }
 
-    public function setDisplayStyle($display_style) {
-        $this->display_style = $display_style;
+    public function hide() {
+        $this->is_hide == true;
     }
 
     public function isDeleted() {
