@@ -5,6 +5,7 @@ namespace RBAC;
 class Authentication{
 
     private $ptable = array();
+    private $redirect = array();
 
     public function allow(Role $role, $resource, $method){
         $this->record($role, $resource, $method, 'allow');
@@ -22,7 +23,7 @@ class Authentication{
             return $r ? $r->authenticate($u) : false;
         };
 
-        $allow = array_filter($this->ptable, function($i)use($user, $resource, $method, $auth){
+        $allow = array_filter($this->ptable, function($i) use ($user, $resource, $method, $auth){
             $pattern = sprintf("/^%s$/", str_replace('/', '\/', $i['resource']));
             preg_match($pattern, $resource, $matches);
             return $matches != null
@@ -31,7 +32,7 @@ class Authentication{
                 && $i['action'] == 'allow';
         });
         
-        $deny = array_filter($this->ptable, function($i)use($user, $resource, $method, $auth){
+        $deny = array_filter($this->ptable, function($i) use ($user, $resource, $method, $auth){
             $pattern = sprintf("/^%s$/", str_replace('/', '\/', $i['resource']));
             preg_match($pattern, $resource, $matches);
             return $matches != null
@@ -39,6 +40,7 @@ class Authentication{
                 && $auth($i['role'], $user)
                 && $i['action'] == 'deny';
         });
+
         return (!empty($allow) && empty($deny));
 
     }
@@ -50,12 +52,22 @@ class Authentication{
             $role = $p[0];
             $resource = $p[1];
             $method = $p[2];
+            if (isset($p[3])){
+                $redirect_url = $p[3];
+            }else {
+                $redirect_url = null;
+            }
             $this->allow($role, $resource, $method);
         }
         foreach($deny as $p){
             $role = $p[0];
             $resource = $p[1];
             $method = $p[2];
+            if (isset($p[3])){
+                $redirect_url = $p[3];
+            }else {
+                $redirect_url = null;
+            }
             $this->deny($role, $resource, $method);
         }
     }
@@ -66,7 +78,7 @@ class Authentication{
             "role" => $role,
             "resource" => $resource,
             "method" => $method,
-            "action" => $action
+            "action" => $action,
         );
     }
 

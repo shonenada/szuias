@@ -1,0 +1,63 @@
+@CHARSET "UTF-8";@CHARSET "UTF-8";
+/************ 左边内容***************/
+#content_left{
+	float:left;
+	width:145px;
+	border:1px solid #009AD9;
+	background:#ffffff;
+	
+}
+#headtitle{
+	height:35px;
+	line-height:35px;
+	font-size:18px;
+	font-family:"微软雅黑","Microsoft Yahei",Tahoma;
+    color:#ffffff;
+	text-align:center;
+    border-bottom:1px solid  #ffffff;
+    background:#009AD9;
+}
+/*************************修改密码***************************/
+#changepassword{
+	width:450px;
+	font-size:14px;
+	margin-left:80px;
+	margin-top:20px;
+	border:1px solid #009AD9;
+	background:#F1F1F1;
+}
+#changepassword table {
+	margin-top:30px;
+	margin-left:100px;
+}
+
+#changepassword table tbody{
+
+}
+
+#cp_title {
+	 height:30px;
+	 font-size:20px;
+	 color:#ffffff;
+	 padding-top:5px;  
+	 text-align:center;
+	 background:#009AD9;
+}
+#cp_save{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+#cp_save #save1,#save2{
+	margin-left:50px;
+}
+
+#changepassword .msg-tip{
+	background-color: #EFEABA;
+	color: #EAA643;
+	border: 1px solid #DAAA8A;
+	height: 40px;
+	line-height: 40px;
+	font-size: 16px;
+	margin: 10px 0;
+	text-align: center;
+}

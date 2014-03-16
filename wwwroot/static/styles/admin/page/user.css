@@ -1,0 +1,155 @@
+@CHARSET "UTF-8";
+.user-title{
+	color: #009AD9;
+	position: relative;
+	font-size: 18px;
+	border-bottom: 1px solid #009AD9;
+	font-family: "微软雅黑","Microsoft Yahei",Tahoma;
+	margin-bottom: 15px;
+}
+.add-user{
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 14px;
+	color: #000;
+	cursor: pointer;
+}
+.add-user-pic{
+	float: left;
+	width: 18px;
+	height: 18px;
+	background: url("../../image/add-user2.png") 0 0 no-repeat;
+}
+.add-user:hover .add-user-pic{
+	transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	transition: all 1s ease;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+.add-user-text{
+	float: left;
+	margin-left: 3px;
+}
+.add-user:hover .add-user-text{
+	color: #369;
+	transition: all 0.8s ease-out;
+	-webkit-transition: all 0.8s ease-out;
+	-moz-transition: all 0.8s ease-out;
+	-o-transition: all 0.8s ease-out;
+}
+.user-list{
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #C8E4F7;
+	background-color: #F7F7F7;
+}
+.user-list td,.user-list th{
+	border: 1px solid #C8E4F7;
+	padding: 3px 5px;
+	font-size: 14px;
+	text-align: left;
+}
+.user-list th{
+	color: #666;
+	line-height: 30px;
+}
+.user-list .td-1{
+	width: 5%;
+	text-align: center;
+}
+.user-list .td-6{
+	width: 30%;
+	text-align: center;
+}
+.reg-li{
+	height: 35px;
+	line-height: 35px;
+	overflow: hidden;
+}
+.reg-li div{
+	float: left;
+	margin-left: 10px;
+}
+.reg-li div em{
+	color: red;
+	padding-right: 4px;
+}
+.reg-title{
+	text-align: right;
+	width: 80px;
+	color: #666;
+	font-size: 14px;
+}
+#reg .reg-input{
+	height: 22px;
+    line-height: 21px;
+    width: 180px;
+    margin: 2px 0 0;
+    font-size: 16px;
+    color: #999999;
+    font-family: Arial,Helvetica,sans-serif;
+}
+#reg .reg-input:hover{
+	color: #000;
+}
+.reg-tip{
+	display: none;
+	line-height: 17px;
+	width: 190px;
+	height: 34px;
+	overflow: hidden;
+}
+.model_div{
+	
+}
+.model_div_title, .menu_div_title{
+	height: 25px;
+	line-height: 25px;
+	color: #369;
+	font-size: 16px;
+	font-family: "微软雅黑","Microsoft Yahei",Tahoma;
+}
+.model_div_value{
+	
+}
+.model_label_list {
+	border: 1px solid #ADADAD;
+	background-color: #F6F6F6;
+	*padding-bottom: 2px;		/*IE6、7 BUG*/
+}
+.menu_label_list table{
+	border-collapse: collapse;
+	width: 100%;
+	border: 1px solid #ADADAD;
+	background-color: #F6F6F6;
+}
+.menu_label_list table td{
+	border: 1px solid #ADADAD;
+	text-align: center;
+	font-size: 14px;
+}
+.menu-title{
+	font-size: 14px;
+	font-family: "微软雅黑","Microsoft Yahei",Tahoma;
+	width: 80px;
+}
+.model_div_value label, .menu_div_value label{
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	margin: 2px;
+	cursor: pointer;
+	display: inline;
+	padding-right: 5px;
+	background-color: #FFF;
+	border: 1px solid #ADADAD;
+	white-space:nowrap; 
+}
+.model-button,.menu-button{
+	text-align: center;
+}

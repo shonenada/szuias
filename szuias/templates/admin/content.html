@@ -1,0 +1,150 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div id="content" class="clearfix">
+  <!-- ****************左边内容页******************** -->
+  <div id="content_left">
+    <div id="headtitle">内容管理</div>
+      <div id="left_nav">
+      {% for menu in menus %}
+        <ul>
+          <li class="left-first-nav">
+            <a class="list_title">{{ menu.title }}</a>
+            <ul class="left-second-nav" style="display:{% if menu.id == currentMenu.id %}block{% else %}none{% endif %};">
+            {% for s in second_menu %}
+              <li><a class="open" href="{{ siteUrl('/admin/menu/{{ s.id }}/content') }}">{{ s.title }}</a></li>
+            {% endfor %}
+            </ul>
+          </li>
+        </ul>
+      {% endfor %}
+      </div>
+    </div>
+
+    <!-- ******************右边内容页************************** -->
+    <div id="content_right" class="clearfix">
+      <div id="content_right_top">
+        <span id="location">当前位置：内容管理&nbsp;&gt;&gt;&nbsp;{{ currentMenu.title }}{% if currentSubMenu %}&nbsp;&gt;&gt;&nbsp;{{ currentSubMenu.title }}{% endif %}</span>
+           <a class="a-btn add-new" href="<?php echo makeurl("admin","index",array("m" => "model","action" => "add","mid" => $data['focus_mid']));?>">新增</a>
+       </div>
+   <!-- ************************搜索**************************** -->
+       <div id="search_frame">
+        <form action="<?php echo makeurl('admin','index',array('mid' => $data['focus_mid']))?>" method="post" target="_self">
+            <span>
+         <input type="text" name="title" value="<?php echo empty($data['search']['title'])?"请输入列表标题":$data['search']['title'];?>" class="search_txt" style="width:270px;" onfocus="if (this.value =='请输入列表标题'){value =''}" onblur="if (value ==''){value='请输入列表标题'}"/>
+            </span>
+            <span>
+                  <select name="cid" class="search-select" style="width:120px;">
+                     <option value="">请选择分类</option>
+                     <?php foreach ($data['category']['categories'] as $category):?>
+                     <option value="<?php echo $category['cid'];?>" <?php if ($category['cid'] == $data['search']['cid']){?> selected="selected" <?php }?>><?php echo $category['title'];?></option>
+                     <?php endforeach;?>
+                  </select>
+            </span>
+            <span>
+                  <select name="creator" class="search-select" style="width:120px;">
+                     <option value="0">请选择发表人</option>
+                     <?php foreach ($data['creator'] as $row):?>
+                     <option value="<?php echo $row['uid'];?>" <?php if ($row['uid'] == $data['search']['creator']){?> selected="selected" <?php }?>><?php echo $row['username'];?></option>
+                     <?php endforeach;?>
+                  </select>
+            </span>
+            <span>
+                  <select name="time" class="search-select" style="width:100px;">
+                     <option value="0" <?php if (0 == $data['search']['time']){?> selected="selected" <?php }?>>发表时间</option>
+                     <option value="7" <?php if (7 == $data['search']['time']){?> selected="selected" <?php }?>>一周内</option>
+                     <option value="30" <?php if (30 == $data['search']['time']){?> selected="selected" <?php }?>>一个月内</option>
+                     <option value="182" <?php if (182 == $data['search']['time']){?> selected="selected" <?php }?>>半年内</option>
+                     <option value="365" <?php if (365 == $data['search']['time']){?> selected="selected" <?php }?>>一年内</option>
+                  </select>
+            </span>
+            <span>
+                 <input type="submit" value="搜索" class="button-btn search_btn" />
+                 <input type="button" value="重置" class="button-btn reset_btn" />
+            </span>
+          </form>
+   </div>
+       <!-- ***********************搜索结束******************************** -->
+       <div id="show_list" class="clearfix">
+             <table>
+                  <tr>
+                      <th id="number">排序</th>
+                      <th id="article_type">类别</th>
+                      <th id="list">列表标题</th>
+                      <th id="viewcount">浏览量</th>
+                          <th id="post_people">发表人</th>
+                          <th id="time">发表/修改</th>
+                        <th id="list_operate">列表操作</th>
+                  </tr>
+                  <?php 
+                    $data['article']['offset'] += 1; 
+                    foreach ($data['article']['articledetail'] as $item):
+                  ?>
+                  <tr class="<?php echo ($data['article']['offset']%2 == 0)?'odd':'even'?>" data-aid="<?php echo $item['aid']?>">
+                      <td class="number">
+                         <input type="text" name="sort" value="<?php echo $item['sort']?>" style="width:30px;"/>
+                      </td>
+                      <td><?php echo $item['cate_title']?></td>
+                      <td style="text-align:left">
+                      <?php if ($item['istop']) {?><img src="<?php echo base_url();?>static/image/icon_up.gif" />
+                    <?php }
+              if (empty($item['url'])){
+          ?>
+                        <a href="<?php echo makeurl('article','view',array('aid' => $item['aid']))?>" target="_blank">
+                        <?php echo $item['title']?>
+                        </a>
+                        <?php }else {?>
+                        <a href="<?php echo $item['url']?>" target="_blank">
+                        <?php echo $item['title']?>
+                        </a>
+                        <?php }
+                        if (time() - $item['createtime'] < 604800) {
+                      ?><img src="<?php echo base_url();?>static/image/icon_new.gif" />
+                      <?php }?>
+                      </td>
+                      <td><?php echo $item['viewcount']?></td>
+                          <td><?php echo $item['creator']?></td>
+                        <td><?php echo date('Y/m/d', $item['createtime'])?><br />
+                            <?php echo date('Y/m/d', $item['lastedittime'])?>
+                        </td>
+                        <td>
+                          <?php if (empty($item['url'])) {?>
+                          <a href="<?php echo makeurl('article','view',array('aid' => $item['aid']))?>" target="_blank">查看</a>&nbsp;&nbsp;
+            <?php }else {?>
+            <a href="<?php echo $item['url']?>" style="color:red" target="_blank">转跳</a>&nbsp;&nbsp;
+                          <?php }?>
+                          <a href="<?php echo makeurl("admin","index",array("m" => "model", "action" => "edit", "aid" => $item['aid']));?>">修改</a>&nbsp;&nbsp;
+                          <a class="delete" href="<?php echo makeurl('admin','delete',array('aid' => $item['aid']))?>">删除</a>
+                          <br />
+                          <?php if ($item['istop']) {?>
+                          <a class="cancel_maketop" href="<?php echo makeurl('admin','cancel_maketop',array('aid' => $item['aid']))?>">不置顶</a>&nbsp;&nbsp;
+                          <?php }else {?>
+                          <a class="maketop" href="<?php echo makeurl('admin','maketop',array('aid' => $item['aid']))?>">置顶</a>&nbsp;&nbsp;
+                          <?php }?>
+                          <a class="<?php echo $item['displaystyle'] == 1?'display':'hide'?>" href="<?php echo makeurl('admin', 'isVisible', array('aid' => $item['aid']))?>"><?php echo $item['displaystyle'] == 1?'显示':'隐藏'?></a>
+                        </td>
+                  </tr>
+                  <?php endforeach;?>
+             </table>
+             <div id="pagebar" class="clearfix">
+                        <div id="page_info">
+                    共<?php echo $data['article']['totallist']?>条信息，当前为第<?php echo $data['article']['currentpage']?>页，共<?php echo $data['article']['pagenum']?>页 
+              </div>
+              <div id="page_change">
+                  <a href="<?php echo makeurl('admin','index',array('m' => 'model','mid' => $data['article']['mid'],'page' => '1'))?>">首页</a>
+                  <a href="<?php echo makeurl('admin','index',array('m' => 'model','mid' => $data['article']['mid'],'page' => $data['article']['prevpage']))?>">上一页</a>
+            <a href="<?php echo makeurl('admin','index',array('m' => 'model','mid' => $data['article']['mid'],'page' => $data['article']['nextpage']))?>">下一页</a>
+                  <a href="<?php echo makeurl('admin','index',array('m' => 'model','mid' => $data['article']['mid'],'page' => $data['article']['pagenum']))?>" >尾页</a>
+                                         转到&nbsp;<input name="page" type="text" style="width:30px;height:15px;font-size:18px;"/>&nbsp;页
+                  <a href="javascript:void(0);" id="go_page" >转</a>
+             </div>
+             </div>
+             <div class="text_end">
+                <span>
+                  <a data-href="<?php echo makeurl("admin","save_articleSort");?>" href="<?php echo makeurl("admin","save_articleSort");?>"  id="submit">保存</a>
+                  <a href="javascript:" id="cancel">取消</a>
+                </span>
+        </div>
+       </div>
+      </div>
+  </div>
+{% endblock %}

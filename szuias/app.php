@@ -24,6 +24,8 @@ $controllers = array (
     'article_app' => 'article',
     'admin_index_app' => 'admin/index',
     'admin_signin_app' => 'admin/signin',
+    'admin_menu_app' => 'admin/menu',
+    'admin_content_app' => 'admin/content',
 );
 
 // 系统入口工厂函数

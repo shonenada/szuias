@@ -1,0 +1,54 @@
+@CHARSET "UTF-8";
+.category-title{
+	color: #009AD9;
+	position: relative;
+	font-size: 18px;
+	border-bottom: 1px solid #009AD9;
+	font-family: "微软雅黑","Microsoft Yahei",Tahoma;
+	margin-bottom: 15px;
+}
+.out-table{
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #C8E4F7;
+	background-color: #F7F7F7;
+	margin-bottom: 15px;
+}
+.out-table td,.out-table th{
+	border: 1px solid #C8E4F7;
+	padding: 3px 5px;
+	text-align: center;
+	font-size: 14px;
+}
+.sort input,.title input{
+	background-color: #F9F9F9;
+}
+.in-table{
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #C8E4F7;
+	background-color: #FFF;
+}
+.in-table td, .in-table th{
+	padding: 1px 2px;
+	color: #666;
+}
+.sort input{
+	width: 30px;
+}
+td.title{
+	text-align: left;
+}
+.no-category{
+	height: 26px;
+	line-height: 26px;
+}
+.must-category{
+	cursor: pointer;
+}
+.operate{
+	cursor: pointer;
+}
+.add-category{
+	cursor: pointer;
+}

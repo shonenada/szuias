@@ -1,0 +1,53 @@
+@CHARSET "UTF-8";
+/************ 左边内容***************/
+#content_left{
+	float:left;
+	width:145px;
+	border:1px solid #009AD9;
+	background:#ffffff;
+	
+}
+#headtitle{
+	height:35px;
+	line-height:35px;
+	font-size:18px;
+	font-family:"微软雅黑","Microsoft Yahei",Tahoma;
+    color:#ffffff;
+	text-align:center;
+    border-bottom:1px solid  #ffffff;
+    background:#009AD9;
+}
+/******************个人信息*********************/
+#info{
+	font-size:14px;
+	margin-top:10px;
+}
+#info table{
+	width:520px;
+}
+#info table tr td{
+	padding:5px;
+}
+#info #photo{
+    border:1px solid #ccc;
+	background:url(../../image/self_photo1.gif) no-repeat center center;
+}
+#info_tips{
+	text-align:center;
+	width:100px;
+	background:#C8E4F7;
+	border-bottom:1px solid #009AD9;
+	border-left:1px solid #009AD9;
+}
+#info_content{
+	background:#F9F9F9;
+	border-bottom:1px solid #ADADAD;
+	border-left:1px solid #ADADAD;
+	border-right:1px solid #ADADAD;
+}
+#info #info_content.td1{
+	width:220px;
+}
+
+
+

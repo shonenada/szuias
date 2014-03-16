@@ -28,7 +28,10 @@ return array(
         array($everyone, "/article/\d+", "*"),
 
         array($everyone, "/admin/signin", "*"),
+
         array($administrator, "/admin", "*"),
+        array($administrator, "/admin/menu", "*"),
+        array($administrator, "/admin/content", "*"),
     ),
     "deny" => array(
     )

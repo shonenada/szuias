@@ -1,0 +1,71 @@
+@CHARSET "UTF-8";
+/************ 左边内容***************/
+#content_left{
+	float:left;
+	width:145px;
+	border:1px solid #009AD9;
+	background:#ffffff;
+	
+}
+#headtitle{
+	height:35px;
+	line-height:35px;
+	font-size:18px;
+	font-family:"微软雅黑","Microsoft Yahei",Tahoma;
+    color:#ffffff;
+	text-align:center;
+    border-bottom:1px solid  #ffffff;
+    background:#009AD9;
+}
+
+/*中间部分*/
+#data_content{
+	margin-top: 10px;
+}
+/*备份数据*/
+#select_table{
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #C8E4F7;
+	background-color: #F7F7F7;
+}
+#select_table .bak_head,#select_table .ret_head{
+	color: #666;
+	line-height: 30px;
+	height: 30px;
+}
+#select_table tr{
+	line-height: 24px;
+	height: 24px;	
+}
+#select_table td,#select_table th{
+	border: 1px solid #C8E4F7;
+	padding: 3px 5px;
+	text-align: center;
+	font-size: 14px;
+}
+#select_table .td_1{
+	width:5%;
+}
+#select_table .td_2{
+	text-align: left;
+}
+#select_table .td_3{
+	width:10%;
+}
+#select_table .td_4{
+	width:15%;
+}
+#select_table .td_5{
+	text-align: left;
+}
+#select_table .subsection_td{
+	text-align: left;
+}
+.b-center{
+	text-align: center;
+	margin-top: 10px;
+}
+.b-button{
+	padding: 5px 15px;
+}

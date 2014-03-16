@@ -13,7 +13,7 @@ return array(
     // 视图模版目录
     'templates.path' => APPROOT. '/templates',
     // 开启 Cookie 加密
-    'cookies.secure' => true,
+    'cookies.encrypt' => true,
     // 设置 Cookie 时间
     'cookies.lifetime' => '10 days',
     // Cookie 加密方式

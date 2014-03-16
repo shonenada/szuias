@@ -21,5 +21,11 @@ return array(
             $app->render("admin/index.html", get_defined_vars());
         });
 
+        $app->get('/admin/signin', function() use ($app) {
+            $app->deleteCookie('user_id');
+            $app->deleteCookie('token');
+            return $app->redirect('/admin/signin');
+        });
+
     }
 );

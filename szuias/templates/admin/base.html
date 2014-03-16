@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>{% if webTitle %}{{ webTitle }}{% else %}{{ siteTitle }}{% endif %} - 后台管理 - 首页管理</title>
+  <link rel="shortcut icon" href="{{ siteUrl('static/favicon.ico') }}" type="image/x-icon" />
+  <link type="text/css" href="{{ siteUrl('static/styles/admin/common.css') }}" rel="stylesheet" />
+  <script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/jquery-1.7.2.min.js') }}" charset="utf-8"></script>
+  <script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/jquery.json-2.3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ siteUrl('static/scripts/common.js') }}"></script>
+  {% block static %}
+  {% endblock %}
+</head>
+<body>
+  <div id="main">
+    <!-- 头部 -->
+    <div id="header" class="clearfix">
+      <div id="head_logo">
+        <a href="{{ siteUrl('/') }}">深圳大学高等研究院</a>
+      </div>
+      <div id="welcome">
+        <ul>
+          <li>欢迎您回来，{{ loggedUser.username }}</li>
+          <li>
+            <a onclick="if(!confirm('是否注销登录？')) return false;" href="{{ siteUrl('/admin/logout') }}">| 注销 |</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- 导航 -->
+    <div id="nav" class="clearfix">
+      <ul>
+        <li class="first-nav">
+          <a href="{{ siteUrl('/admin/content') }}">内容管理</a>
+        </li>
+        <li class="first-nav">
+          <a href="{{ siteUrl('/admin/account') }}">用户管理</a>
+        </li>
+        <li class="first-nav">
+          <a href="{{ siteUrl('/admin/menu') }}">菜单设置</a>
+        </li>
+        <li class="first-nav">
+          <a href="{{ siteUrl('/admin/category') }}">分类设置</a>
+        </li>
+        <li class="first-nav">
+          <a href="{{ siteUrl('/admin/setting') }}">首页设置</a>
+        </li>
+        <li class="first-nav">
+          <a href="{{ siteUrl('/admin/profile') }}">个人中心</a>
+        </li>
+        <li class="first-nav">
+          <a href="{{ siteUrl('/admin/data') }}">数据管理</a>
+        </li>
+      </ul>
+    </div>
+    <!-- *************内容页************* -->
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+</html>

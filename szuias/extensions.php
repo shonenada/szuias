@@ -55,18 +55,20 @@ function add_global_view_variable ($app, $key, $value) {
 // 将 权限验证 (RBAC) 添加到 app 的钩子数字中。
 function permission_check_hook ($app) {
     $app->hook("slim.before.router", function () use ($app){
+
         $uid = $app->getCookie("user_id");
         $ip = $app->request->getIp();
         $token = $app->getCookie("token");
         if (empty($uid)){
             $user = null;
-        }
-        $user = User::find($uid);
-        if (!($user->validateToken($token) && $user->validateIp($ip))) {
-            $user = null;
+        }else {
+            $user = User::find($uid);
+            if ($user && !($user->validateToken($token) && $user->validateIp($ip))) {
+                $user = null;
+            }
         }
         $app->environment['user'] = $user;
-        add_global_view_variable($app, 'currentUser', $user);
+        add_global_view_variable($app, 'loggedUser', $user);
     });
 
     $app->hook("slim.before.dispatch", function () use ($app){
