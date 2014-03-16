@@ -3,3 +3,4 @@ cache/
 wwwroot/static/components
 *.conf.php
 vendor/
+.DS_Store
