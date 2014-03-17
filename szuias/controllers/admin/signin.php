@@ -60,5 +60,11 @@ return array(
 
         });
 
+        $app->get('/admin/signout', function() use ($app) {
+            $app->deleteCookie('user_id');
+            $app->deleteCookie('token');
+            return $app->redirect('/admin/signin');
+        });
+
     }
 );

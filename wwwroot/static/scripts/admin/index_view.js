@@ -13,13 +13,10 @@ $(function(){
 	$("#submit").click(function(){
 		common.alert.loading("正在保存...");
 		var href = $(this).attr("data-href"),
-			post = {};
-		post.index_top_1 = $("input[name='index_top_1']").val();
-		post.index_top_2 = $("input[name='index_top_2']").val();
-		post.index_top_3 = $("input[name='index_top_3']").val();
-		post.index_pic_count = $("select[name='index_pic_count']").val();
-		post.index_pic_renewtime = $("select[name='index_pic_renewtime']").val();
-		post.index_pic_source = $("select[name='index_pic_source']").val();
+		post = {};
+		post.index_slider_nums = $("select[name='index_slider_nums']").val();
+		post.index_slider_fresh_time = $("select[name='index_slider_fresh_time']").val();
+		post.index_slider_source = $("select[name='index_slider_source']").val();
 		$.post(href, post, function(data){
 			common.alert.closeLoading();
 			if (data.success) {
@@ -27,7 +24,7 @@ $(function(){
 				alert("保存成功!");
 			}		
 			else alert(data.info);
-		});
+		}, 'json');
 		return false;
 	});
 	

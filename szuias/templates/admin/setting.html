@@ -1,0 +1,62 @@
+{% extends 'admin/base.html' %}
+
+{% block static %}
+  <link type="text/css" href="{{ siteUrl('static/styles/admin/page/index.css') }}" rel="stylesheet" />
+<script type="text/javascript" src="{{ siteUrl('static/scripts/admin/index_view.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="content" class="clearfix">
+  <!-- *****************************图片设置**************************************** -->
+  <div class="settings">
+    <div class="index-title">飘动图片</div>
+    <div class="clearfix">
+      <div class="settings-left">
+        <table class="admin-table">
+          <tr>
+            <th class="td3">图片数量</th>
+            <th class="td4">图片更新时间</th>
+            <th class="td5">图片来源</th>
+          </tr>
+          <tr>
+            <td class="td3">
+              <select name="index_slider_nums" style="width:100%;">
+              {% for i in 1..5 %}
+                <option value="{{ i }}"{% if slider_nums == i %} selected="selected"{% endif %}>{{ i }}</option>
+              {% endfor %}
+              </select>
+            </td>
+            <td class="td4">
+              <select name="index_slider_fresh_time" style="width:100%;">
+                <option value="0"{%if slider_fresh_time == 0 %} selected="selected"{% endif %}>不限</option>
+                <option value="1"{%if slider_fresh_time == 1 %} selected="selected"{% endif %}>一天内</option>
+                <option value="7"{%if slider_fresh_time == 7 %} selected="selected"{% endif %}>一周内</option>
+                <option value="30"{%if slider_fresh_time == 30 %} selected="selected"{% endif %}>一个月内</option>
+                <option value="365"{%if slider_fresh_time == 365 %} selected="selected"{% endif %}>一年内</option>
+              </select>
+            </td>
+            <td class="td5">
+              <select name="index_slider_source" style="width:100%;">
+              {% for v in menu_list %}
+                <option value="{{ v.id }}"{% if slider_source == v.id %} selected="selected"{% endif %}>{{ v.title }}</option>
+              {% endfor %}
+              </select>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="settings-right index_pic">
+        <p>1.显示条数：编辑者可选择飘动图片的张数(如此时右侧的飘动图片张数为3张)</p>
+        <p>2.图片更新时间：编辑者可选择飘动图片的更新的速度，以便让首页信息适当更新</p>
+        <p>3.图片来源：编辑者可选择飘动图片的出处，由数据库自动调用</p>
+      </div>
+    </div>
+</div>
+</div>
+<div class="text_end">
+<span>
+  <a data-href="{{ siteUrl('admin/setting/save') }}" href="javascript:void(0);" id="submit">保存</a>
+  <a href="javascript:void(0);" id="cancel">取消</a>
+</span>
+</div>
+{% endblock %}

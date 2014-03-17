@@ -23,15 +23,22 @@ $administrator = new Administrator();
 return array(
     "allow" => array(
         array($everyone, "/", "*"),
+
         array($everyone, "/captcha", "*"),
+        
         array($everyone, "/article/list", "*"),
         array($everyone, "/article/\d+", "*"),
 
         array($everyone, "/admin/signin", "*"),
 
         array($administrator, "/admin", "*"),
+
+        array($administrator, "/admin/setting", "*"),
+        array($administrator, "/admin/setting/save", "*"),
+
         array($administrator, "/admin/menu", "*"),
         array($administrator, "/admin/menu/(create|(\d+?)/delete)", "*"),
+
         array($administrator, "/admin/content", "*"),
     ),
     "deny" => array(
