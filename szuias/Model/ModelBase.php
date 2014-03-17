@@ -44,8 +44,12 @@ class ModelBase {
         return static::em()->find(get_called_class(), $id);
     }
 
-    static public function findOneBy($array) {
-        return static::query()->findOneBy($array);   
+    static public function findBy($criteria, $order_by=null, $limit=null, $offset=null) {
+        return static::query()->findBy($criteria, $order_by, $limit, $offset);
+    }
+
+    static public function findOneBy($array, $order_by=null) {
+        return static::query()->findOneBy($array, $order_by);
     }
 
     static public function query()
