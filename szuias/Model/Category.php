@@ -29,38 +29,38 @@ class Category extends ModelBase {
      * @Id
      * @GeneratedValue
      **/
-    private $id;
+    public $id;
 
     /**
      * @Column(name="name", type="string", length=40)
      **/
-    private $name;
+    public $name;
 
     /**
-     * @OneToOne(targetEntity="Menu")
+     * @ManyToOne(targetEntity="Menu", inversedBy="categories")
      * @JoinColumn(name="menu_id", referencedColumnName="id")
      **/
-    private $menu_id;
+    public $menu;
 
     /**
      * @Column(name="sort", type="integer")
      **/
-    private $sort;
+    public $sort;
 
     /**
      * @OneToOne(targetEntity="User")
      * @JoinColumn(name="creator_id", referencedColumnName="id")
      */
-    private $creator;
+    public $creator;
 
     /**
      * @Column(name="created", type="datetime")
      **/
-    private $created;
+    public $created;
 
     /**
      * @Column(name="is_deleted", type="boolean")
      **/
-    private $is_deleted;
+    public $is_deleted;
 
 }

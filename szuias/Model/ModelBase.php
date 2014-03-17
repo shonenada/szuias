@@ -60,7 +60,8 @@ class ModelBase {
     static public function all($asc=true) {
         $dql = sprintf(
             'SELECT n FROM %s n '.
-            'ORDER BY n.id %s', 
+            'WHERE n.is_deleted = 0 '.
+            'ORDER BY n.id %s ',
             get_called_class(),
             $asc ? 'ASC' : 'DESC'
         );

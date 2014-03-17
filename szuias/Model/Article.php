@@ -99,7 +99,7 @@ class Article extends ModelBase {
     public $sort;
 
     /**
-     * @Column(name="redirect_url", type="string", length="255")
+     * @Column(name="redirect_url", type="string", length=255)
      **/
     public $redirect_url;
 

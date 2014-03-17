@@ -28,7 +28,7 @@ namespace Model;
  *
  **/
 
-class Menu extends ModelBase{
+class Menu extends ModelBase {
 
     /**
      * @Column(name="id", type="integer", nullable=false)
@@ -53,20 +53,25 @@ class Menu extends ModelBase{
     public $type;
 
     /**
-     * @OneToMany(targetEntity="Menu", mappedBy="parent")
-     **/
-    public $sub_menus;
-
-    /**
      * @ManyToOne(targetEntity="Menu", inversedBy="sub_menus")
      * @JoinColumn(name="parent_id", referencedColumnName="id")
      **/
     public $parent;
 
     /**
+     * @OneToMany(targetEntity="Menu", mappedBy="parent")
+     **/
+    public $sub_menus;
+
+    /**
      * @OneToMany(targetEntity="Article", mappedBy="menu")
      **/
     public $articles;
+
+    /**
+     * @OneToMany(targetEntity="Category", mappedBy="menu")
+     **/
+    public $categories;
 
     /**
      * @Column(name="sort", type="integer")
@@ -127,8 +132,9 @@ class Menu extends ModelBase{
     }
 
     public function __construct() {
-        $this->sub_menus = new \Doctrine\Common\Collections\ArrayCollection();
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sub_menus = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     static public function getTopMenus() {

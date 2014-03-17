@@ -31,7 +31,7 @@ return array(
             }
             $menu->delete();
             return json_encode(array('success' => true, 'info' => '删除成功!'));
-        })->condition(array('mid' => '\d+'));
+        })->conditions(array('mid' => '\d+'));
 
 
         // 获取来自客户端的提交信息，更新信息。
