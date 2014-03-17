@@ -31,6 +31,7 @@ return array(
 
         array($administrator, "/admin", "*"),
         array($administrator, "/admin/menu", "*"),
+        array($administrator, "/admin/menu/(create|(\d+?)/delete)", "*"),
         array($administrator, "/admin/content", "*"),
     ),
     "deny" => array(

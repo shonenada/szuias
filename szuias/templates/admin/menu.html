@@ -15,9 +15,9 @@
                 <td class="td3">菜单类型</td>
                 <td class="td4">外部URL地址</td>
                 <td class="td5">打开方式</td>
-                <td class="td6"></td>
                 <td class="td9" style="text-align:left;">显示</td>
                 <td class="td10" style="text-align:left;">访问权限</td>
+                <td class="td6"></td>
             </tr>
         </table>
     </div>
@@ -49,9 +49,6 @@
                                     <option value="1"{% if menu.open_style == 1 %} selected="selected"{% endif %}>新窗口打开</option>
                                 </select>
                             </td>
-                            <td class="td6">
-                                <a class="deletefirst" href="{{ siteUrl('admin/menu/{{ menu.id }}/delete') }}" data-count="{{ menu.count }}">删除</a>
-                            </td>
                             <td class="td9">
                                 <select name="is_hide">
                                     <option value="0">是</option>
@@ -63,6 +60,10 @@
                                     <option value="0">公网</option>
                                     <option value="1"{% if menu.isIntranet() %} selected="selected"{% endif %}>仅内网</option>
                                 </select>
+                            </td>
+                            <td class="td6">
+                                {% set menu_delete_url = siteUrl('admin/menu/') ~ menu.id ~ '/delete' %}
+                                <a class="deletefirst" href="{{ menu_delete_url }}" data-count="{{ menu.article.count }}">删除</a>
                             </td>
                         </tr>
                     </thead>
@@ -87,9 +88,6 @@
                                 <option value="1"{% if sub.open_style == 1 %} selected="selected"{% endif %}>新窗口打开</option>
                             </select>
                         </td>
-                        <td class="td6">
-                            <a class="deletesecond" href="{{ siteUrl('admin/menu/{{ sub.id }}/delete') }}" data-count="{{ sub.count }}">删除</a>
-                        </td>
                         <td class="td9">
                             <select name="is_hide"> 
                                 <option value="0">是</option>
@@ -101,6 +99,10 @@
                                 <option value="0">公网</option>
                                 <option value="1"{% if sub.isIntranet() %} selected="selected"{% endif %}>仅内网</option>
                             </select>
+                        </td>
+                        <td class="td6">
+                            {% set sub_menu_delete_url = siteUrl('admin/menu/') ~ menu.id ~ '/delete' %}
+                            <a class="deletesecond" href="{{ sub_menu_delete_url }}" data-count="{{ sub.article.count }}">删除</a>
                         </td>
                         {% endfor %}
                         </tr>

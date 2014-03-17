@@ -110,11 +110,11 @@ $(function(){
 	                 + '<td class="td4"><input type="text" name="outside_url" class="outlinks" value="" style="display:none;"></td>'
 	                 + '<td class="td5"><select name="open_style"><option value="0">原窗口打开</option><option value="1">新窗口打开</option>'
 	                 + '</select></td>'
-	                 + '<td class="td6"><a class="deletefirst" href="javascript::void(0)">删除</a></td>'
 	                 + '<td class="td9"><select name="is_hide"><option value="0">是</option><option value="1">否</option>'
 	                 + '</select></td>'
 	                 + '<td class="td10"><select name="intranet"><option value="0">公网</option><option value="1">仅内网</option>'
 	                 + '</select></td>'
+	                 + '<td class="td6"><a class="deletefirst" href="javascript:void(0)">删除</a></td>'
 	           		 + '</tr></thead><tbody><tr><td colspan="6" class="td8">'
 	                 + '<a href="javascript:void(0)" class="add-second-menu">新增二级菜单</a></td>'
 	                 + '</tr></tbody></table></div>';
@@ -148,9 +148,9 @@ $(function(){
 		       + '</select></td>'
 		       + '<td class="td4"><input type="text" name="outside_url" class="outlinks" value="" style="display:none;"></td>'
 		       + '<td class="td5"><select name="open_style"><option value="0">原窗口打开</option><option value="1">新窗口打开</option></select></td>'
-		       + '<td class="td6"><a class="deletesecond" href="javascript:void(0)">删除</a></td>'
 		       + '<td class="td9"><select name="is_hide"><option value="0">是</option><option value="1">否</option></select></td>'
 		       + '<td class="td9"><select name="intranet"><option value="0">公网</option><option value="1">仅内网</option></select></td>'
+		       + '<td class="td6"><a class="deletesecond" href="javascript:void(0)">删除</a></td>'
 		       + '</tr>';
        Tr.before(htmlStr);
 	});

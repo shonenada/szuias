@@ -18,6 +18,22 @@ return array(
             $app->render("admin/menu.html", get_defined_vars());
         });
 
+
+        // 删除 menu
+        $app->get('/admin/menu/:mid/delete', function ($mid) use($app) {
+            // TODO: 联动权限表删除
+            $menu = Menu::find($mid);
+            if ($menu == null) {
+                return json_encode(array('success' => false, 'info' => '对象不存在'));
+            }
+            foreach ($menu->articles as $a){
+                $a->delete();
+            }
+            $menu->delete();
+            return json_encode(array('success' => true, 'info' => '删除成功!'));
+        })->condition(array('mid' => '\d+'));
+
+
         // 获取来自客户端的提交信息，更新信息。
         $app->post('/admin/menu/create', function() use($app) {
             // 从 客户端 获取 post 的信息，并进行解码
