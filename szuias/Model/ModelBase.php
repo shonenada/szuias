@@ -10,15 +10,31 @@ namespace Model;
 
 class ModelBase {
 
-    public function save() {
+    // 永久化对象
+    public function save($flush=true) {
         static::em()->persist($this);
+        if ($flush) {
+            self::flush();
+        }
     }
 
-    public function remove()
-    {
+    // 移除对象
+    public function remove($flush=true) {
         static::em()->remove($this);
+        if ($flush) {
+            self::flush();
+        }
     }
-    
+
+    // 从 array 中赋值 property
+    public function populate_from_array($array=array()) {
+        foreach($array as $key => $value){
+            if (property_exists($this, $key)){
+                $this->$key = $value;
+            }
+        }
+        return $this;
+    }
 
     static public function flush(){
         static::em()->flush();

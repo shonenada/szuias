@@ -34,168 +34,90 @@ class Menu extends ModelBase{
      * @Id
      * @GeneratedValue
      **/
-    private $id;
+    public $id;
 
     /**
      * @Column(name="title", type="string", length=40)
      **/
-    private $title;
+    public $title;
 
     /**
      * @Column(name="intro", type="string", length=255)
      **/
-    private $intro;
+    public $intro;
 
     /**
      * @Column(name="type", type="integer")
      **/
-    private $type;
+    public $type;
 
     /**
-     * @Column(name="parent_id", type="integer")
+     * @OneToMany(targetEntity="Menu", mappedBy="parent")
      **/
-    private $parent_id;
+    public $sub_menus;
+
+    /**
+     * @ManyToOne(targetEntity="Menu", inversedBy="sub_menus")
+     * @JoinColumn(name="parent_id", referencedColumnName="id")
+     **/
+    public $parent;
 
     /**
      * @Column(name="sort", type="integer")
      **/
-    private $sort;
+    public $sort;
 
     /**
      * @Column(name="classify", type="boolean")
      **/
-    private $classify;
+    public $classify;
 
     /**
      * @Column(name="outside_url", type="string", length=255)
      **/
-    private $outside_url;
+    public $outside_url;
 
     /**
      * @Column(name="open_style", type="integer")
      **/
-    private $open_style;
+    public $open_style;
 
     /**
      * @Column(name="created", type="datetime")
      **/
-    private $created;
+    public $created;
 
     /**
      * @Column(name="is_hide", type="boolean")
      **/
-    private $is_hide;
+    public $is_hide;
 
     /**
      * @Column(name="is_intranet", type="boolean")
      **/
-    private $is_intranet;
+    public $is_intranet;
 
-    public function getId() {
-        return $this->id;
+    public function removeSubMenu(Menu $sub) {
+        $this->sub_menus->remvoeElement($sub);
     }
 
-    public function getTitle() {
-        return $this->title;
-    }
-
-    public function setTitle($title) {
-        $this->title = $title;
-    }
-
-    public function getIntro() {
-        return $this->intro;
-    }
-
-    public function setIntro($intro) {
-        $this->intro;
-    }
-
-    public function getType() {
-        return $this->type;
-    }
-
-    public function setType($type) {
-        $this->type = $type;
-    }
-
-    public function getParentId() {
-        return $this->parent_id;
-    }
-
-    public function setParentId($pid) {
-        $this->parent_id = $pid;
-    }
-
-    public function getSort() {
-        return $this->sort;
-    }
-
-    public function setSort($sort) {
-        $this->sort;
-    }
-
-    public function getClassify() {
-        return $this->classify;
-    }
-
-    public function setClassify($classify) {
-        $this->classify = $classify;
-    }
-
-    public function getOutsiteUrl() {
-        return $this->outsite_url;
-    }
-
-    public function setOutsideUrl($outside_url) {
-        $this->outside_url = $outside_url;
-    }
-
-    public function getOpenStyle() {
-        return $this->open_style;
-    }
-
-    public function setOpenStyle($open_style) {
-        $this->open_style = $open_style;
-    }
-
-    public function getCreated() {
-        return $this->created;
-    }
-
-    public function setCreated($created) {
-        $this->created = $created;
-    }
-
-    public function getIsHide() {
-        return $this->is_hide;
-    }
-
-    public function setHide() {
+    public function hide() {
         $this->is_hide = true;
     }
 
-    public function setShow() {
+    public function show() {
         $this->is_hide = false;
     }
 
-    public function IsIntranet() {
-        return $this->is_intranet;
+    public function __construct() {
+        $this->sub_menus = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function setIsIntranet($is_intranet) {
-        $this->is_intranet = $is_intranet;
+    static public function getTopMenus() {
+        $allMenus = self::all();
+        $topMenus = array_filter($allMenus, function($one) {
+            return $one->parent == null;
+        });
+        return $topMenus;
     }
-
-    static public function getList($page=1, $pagesize=20, $asc=false) {
-        $dql = sprintf(
-            'SELECT n FROM %s n WHERE n.level > 0'.
-            'ORDER BY n.id %s',
-            get_called_class(),
-            $asc ? 'ASC' : 'DESC'
-        );
-        $query = static::em()->createQuery($dql)->setMaxResults($pagesize)->setFirstResult($pagesize*($page-1));
-        return $query->useQueryCache(false)->getResult();
-    }
-
 }
