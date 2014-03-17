@@ -1,13 +1,22 @@
 $(function(){
 	//绑定一级菜单菜单类型下拉框
 	$(".first-menu-select").live("change",function(){
-			var val = parseInt($(this).val(),10),
-				input = $(this).parent().next().find('input');
-			if(val != 3){
-				input.hide();
+			var val = parseInt($(this).val(), 10);
+			var	input = $(this).parent().next().find('input');
+			if (val == 0) {
 				$(this).val(0);
+				input.hide();
 			}
-			else {
+
+			else if (val == 1) {
+				$(this).val(1);
+				input.hide();
+			}
+			else if (val == 2) {
+				$(this).val(2);
+				input.hide();
+			}
+			else if (val == 3) {
 				$(this).val(3);
 				input.show();
 				$(this).parent().parent().parent().next().find(".two_menu").remove();
@@ -16,19 +25,17 @@ $(function(){
 	
 	//绑定二级菜单菜单类型下拉框
 	$(".second-menu-select").live("change",function(){
-		var val = $(this).val(),
-			input = $(this).parent().next().find('input');
-		if(val != 3){
-			if(val == 1){
-				$(this).val(1);
-				input.hide();
-			}
-			else{
-				$(this).val(2);
-				input.hide();
-			}
+		var val = $(this).val();
+		var input = $(this).parent().next().find('input');
+		if(val == 1) {
+			$(this).val(1);
+			input.hide();
 		}
-		else {
+		else if (val == 2) {
+			$(this).val(2);
+			input.hide();
+		}
+		else if (val == 3){
 			input.show();
 			$(this).val(3);
 		}
@@ -105,7 +112,7 @@ $(function(){
 	                 + MaxSort
 	                 + '"></td>'
 	                 + '<td class="td2"><input type="text" name="title" class="links" value=""></td>'
-	                 + '<td class="td3"><select name="type" class="select-type first-menu-select"><option value="0" selected="">节点菜单</option><option value="3">外部URL</option>'
+	                 + '<td class="td3"><select name="type" class="select-type first-menu-select"><option value="0" selected="">节点菜单</option><option value="1">单页内容</option><option value="2">多记录列表</option><option value="3">外部URL</option>'
 	                 + '</select></td>'
 	                 + '<td class="td4"><input type="text" name="outside_url" class="outlinks" value="" style="display:none;"></td>'
 	                 + '<td class="td5"><select name="open_style"><option value="0">原窗口打开</option><option value="1">新窗口打开</option>'

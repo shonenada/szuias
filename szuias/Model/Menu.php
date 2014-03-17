@@ -15,7 +15,7 @@ namespace Model;
  * @property integer   $id          
  * @property string    $title         菜单标题
  * @property string    $intro         菜单介绍
- * @property integer   $type          菜单的类型  0：为节点菜单；1：为单页内容；：为多记录列表；3：为外部URL；
+ * @property integer   $type          菜单的类型  0：为节点菜单；1：为单页内容； 2：为多记录列表；3：为外部URL；
  * @property integer   $parent_id     父级菜单ID
  * @property integer   $sort          菜单排序
  * @property boolean   $classify      是否必须归档

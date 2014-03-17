@@ -37,11 +37,13 @@
                             <td class="td3">
                                 <select name="type" class="select-type first-menu-select" title="无法直接修改菜单类型">
                                     <option value="0">节点菜单</option>
+                                    <option value="1"{% if menu.type == 1 %} selected="selected"{% endif %}>单页内容</option>
+                                    <option value="2"{% if menu.type == 2 %} selected="selected"{% endif %}>多记录列表</option>
                                     <option value="3"{% if menu.type == 3 %} selected="selected"{% endif %}>外部URL</option>
                                 </select>
                             </td>
                             <td class="td4">
-                                <input type="text" name="outside_url" class="outlinks" value="{{ menu.outside_url }}" style="{% if menu.type != 3 %}diplay: none;{% endif %}"/>
+                                <input type="text" name="outside_url" class="outlinks" value="{{ menu.outside_url }}" style="{% if menu.type != 3 %}display: none;{% endif %}"/>
                             </td>
                             <td class="td5">
                                 <select name="open_style">

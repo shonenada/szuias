@@ -29,11 +29,29 @@
       <ul>
         {% for m in menus %}
         <li class="nav-main-item{% if m.sub_menus | length > 0 %} parent{% endif %}">
-          <a href="{{ siteUrl('/') }}">{{ m.title }}</a>
+          {% if m.type == 3 %}
+          {% set url = m.outsite_url %}
+          {% elseif m.type == 2 %}
+          {% set url = siteUrl('menu/') ~ m.id ~ '/list' %}
+          {% elseif m.type == 1 %}
+          {% set url = siteUrl('menu/') ~ m.id ~ '/show' %}
+          {% elseif m.type == 0 %}
+          {% set url = 'javascript:void(0);' %}
+          {% endif %}
+          <a href="{{ url }}">{{ m.title }}</a>
           {% if m.sub_menus | length > 0 %}
           <ul>
             {% for sub in m.sub_menus %}
-            <li class="page_item"><a href="{{ siteUrl('/') }}"> {{ sub.title }}</a></li>
+              {% if sub.type == 3 %}
+              {% set sub_url = sub.outsite_url %}
+              {% elseif sub.type == 2 %}
+              {% set sub_url = siteUrl('menu/') ~ sub.id ~ '/list' %}
+              {% elseif sub.type == 1 %}
+              {% set sub_url = siteUrl('menu/') ~ sub.id ~ '/show' %}
+              {% elseif sub.type == 0 %}
+              {% set url = 'javascript:void(0);' %}
+              {% endif %}
+            <li class="page_item"><a href="{{ sub_url }}"> {{ sub.title }}</a></li>
             {% endfor %}
           </ul>
           {% endif %}
