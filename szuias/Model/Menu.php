@@ -24,6 +24,7 @@ namespace Model;
  * @property datetime  $created       创建时间
  * @property boolean   $is_hide       是否可见  0：可见；1：不可见
  * @property boolean   $is_intranet   仅内部访问  0：否；  1：是
+ * @property boolean   $is_deleted    是否被删除  0：否；  1：是
  *
  **/
 
@@ -63,6 +64,11 @@ class Menu extends ModelBase{
     public $parent;
 
     /**
+     * @OneToMany(targetEntity="Article", mappedBy="menu")
+     **/
+    public $articles;
+
+    /**
      * @Column(name="sort", type="integer")
      **/
     public $sort;
@@ -97,6 +103,12 @@ class Menu extends ModelBase{
      **/
     public $is_intranet;
 
+    /**
+     * @Column(name="is_deleted", type="boolean")
+     **/
+    private $is_deleted;
+
+
     public function removeSubMenu(Menu $sub) {
         $this->sub_menus->remvoeElement($sub);
     }
@@ -109,8 +121,14 @@ class Menu extends ModelBase{
         $this->is_hide = false;
     }
 
+    public function delete() {
+        $this->is_deleted = true;
+        $this->save();
+    }
+
     public function __construct() {
         $this->sub_menus = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     static public function getTopMenus() {
