@@ -9,6 +9,7 @@
  */
 
 use \Model\User;
+use \Model\Menu;
 
 return array(
     "export" => function($app) {

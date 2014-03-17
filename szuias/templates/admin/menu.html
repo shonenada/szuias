@@ -21,18 +21,18 @@
             </tr>
         </table>
     </div>
-    <form id="menu" action=="" method="post">
+    <form id="menu" action="{{ siteUrl('admin/menu/create') }}" method="post">
         <div id="category">
             {% for menu in menus %}
             <div class="one_menu">
                 <table>
                     <thead>
-                        <tr data-mid="{{ menu.id }}" data-type="{{ menu.type }}" >
+                        <tr data-id="{{ menu.id }}" data-type="{{ menu.type }}" >
                             <td class="td1">
                                 <input type="text" name="sort" class="order" value="{{ menu.sort }}" />
                             </td>
                             <td class="td2">
-                                <input type="text" name="mtitle" class="links" value="{{ menu.title }}"/>
+                                <input type="text" name="title" class="links" value="{{ menu.title }}"/>
                             </td>
                             <td class="td3">
                                 <select name="type" class="select-type first-menu-select" title="无法直接修改菜单类型">
@@ -41,10 +41,10 @@
                                 </select>
                             </td>
                             <td class="td4">
-                                <input type="text" name="outsideurl" class="outlinks" value="{{ menu.outside_url }}" style="{% if menu.type != 3 %}diplay: none;{% endif %}"/>
+                                <input type="text" name="outside_url" class="outlinks" value="{{ menu.outside_url }}" style="{% if menu.type != 3 %}diplay: none;{% endif %}"/>
                             </td>
                             <td class="td5">
-                                <select name="openstyle">
+                                <select name="open_style">
                                     <option value="0">原窗口打开</option>
                                     <option value="1"{% if menu.open_style == 1 %} selected="selected"{% endif %}>新窗口打开</option>
                                 </select>
@@ -53,13 +53,13 @@
                                 <a class="deletefirst" href="{{ siteUrl('admin/menu/{{ menu.id }}/delete') }}" data-count="{{ menu.count }}">删除</a>
                             </td>
                             <td class="td9">
-                                <select name="displaystyle">
+                                <select name="is_hide">
                                     <option value="0">是</option>
                                     <option value="1"{% if menu.isHide() %} selected="selected">{% endif %}>否</option>
                                 </select>
                             </td>
                             <td class="td10">
-                                <select name="onStyle"> 
+                                <select name="intranet"> 
                                     <option value="0">公网</option>
                                     <option value="1"{% if menu.isIntranet() %} selected="selected"{% endif %}>仅内网</option>
                                 </select>
@@ -67,10 +67,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for sub in menu.second %}
-                        <tr class="two_menu" data-mid="{{ sub.id }}">
+                        {% for sub in menu.sub_menus %}
+                        <tr class="two_menu" data-id="{{ sub.id }}">
                         <td class="td1"><input type="text" name="sort" class="order" value="{{ sub.sort }}" /></td>
-                        <td class="td7"><input type="text" name="mtitle" class="links" value="{{ sub.title }}"/></td>
+                        <td class="td7"><input type="text" name="title" class="links" value="{{ sub.title }}"/></td>
                         <td class="td3">
                             <select name="type" class="select-type second-menu-select" title="无法直接修改菜单类型">
                                 <option value="1"{% if sub.type == 1 %} selected="selected"{% endif %}>单页内容</option>
@@ -79,10 +79,10 @@
                             </select>
                         </td>
                         <td class="td4">
-                            <input type="text" name="outsideurl" class="outlinks" value="{{ sub.outside_url }}" style="{% if sub.type != 3 %}display:none;{% endif %}"/>
+                            <input type="text" name="outside_url" class="outlinks" value="{{ sub.outside_url }}" style="{% if sub.type != 3 %}display:none;{% endif %}"/>
                         </td>
                         <td class="td5">
-                            <select name="openstyle">
+                            <select name="open_style">
                                 <option value="0">原窗口打开</option>
                                 <option value="1"{% if sub.open_style == 1 %} selected="selected"{% endif %}>新窗口打开</option>
                             </select>
@@ -91,13 +91,13 @@
                             <a class="deletesecond" href="{{ siteUrl('admin/menu/{{ sub.id }}/delete') }}" data-count="{{ sub.count }}">删除</a>
                         </td>
                         <td class="td9">
-                            <select name="displaychilstyle"> 
+                            <select name="is_hide"> 
                                 <option value="0">是</option>
                                 <option value="1"{% if sub.isHide() %} selected="selected"{% endif %}>否</option>
                             </select>
                         </td>
                         <td class="td10">
-                            <select name="onChilstyle"> 
+                            <select name="intranet"> 
                                 <option value="0">公网</option>
                                 <option value="1"{% if sub.isIntranet() %} selected="selected"{% endif %}>仅内网</option>
                             </select>
@@ -121,7 +121,7 @@
 
         <div class="text_end">
             <span>
-                <a data-href="{{ siteUrl('admin/menu/save') }}" href="{{ siteUrl('admin/menu/save') }}" id="submit">保存</a>
+                <a data-href="{{ siteUrl('admin/menu/create') }}" href="{{ siteUrl('admin/menu/create') }}" id="submit">保存</a>
                 <a href="javascript:" id="cancel">取消</a>
             </span>
         </div>
