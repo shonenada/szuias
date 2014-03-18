@@ -52,6 +52,8 @@ function create_app ($config_files=array()) {
     setup_views($app);
     // 导入视图全局变量
     setup_view_globals($app);
+    // 安装视图函数
+    setup_view_functions($app);
 
     // 安装中间件
     setup_middleware($app);

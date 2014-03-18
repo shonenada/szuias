@@ -36,6 +36,16 @@ function setup_view_globals ($app) {
 }
 
 
+// 设置自定义视图函数
+function setup_view_functions ($app) {
+    $funcs = require_once(APPROOT . 'config/viewFunc.php');
+    $viewEnv = $app->view()->getEnvironment();
+    foreach ($funcs as $func) {
+        $viewEnv->addFunction($func);
+    }
+}
+
+
 // 安装中间件
 function setup_middleware ($app) {
     $app->add(new \Slim\Middleware\SessionCookie());
