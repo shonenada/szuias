@@ -23,7 +23,7 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	background: url(../../image/add-article.gif) left top no-repeat;
+	background: url("/static/images/admin/add-article.gif") left top no-repeat;
 }
 #search_frame{
 	*display: inline-block;
@@ -77,15 +77,15 @@
 }
 .one-add{
 	margin-left: 10px;
-	background: url(../../image/add-article.gif) left top no-repeat;
+	background: url("/static/images/admin/add-article.gif") left top no-repeat;
 }
 .one-edit{
 	margin-left: 10px;
-	background: url(../../image/edit-article.gif) left top no-repeat;
+	background: url("/static/images/admin/edit-article.gif") left top no-repeat;
 }
 .one-pre{
 	margin-left: 10px;
-	background: url(../../image/pre-article.gif) left top no-repeat;
+	background: url("/static/images/admin/image/pre-article.gif") left top no-repeat;
 }
 /*文本编辑*/
 .add-form{

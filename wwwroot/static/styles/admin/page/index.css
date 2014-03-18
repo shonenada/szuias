@@ -67,7 +67,7 @@
 	line-height: 35px;
 }
 .step-li-tip-bg{
-	background: url("../../image/step-img-bg.png") 0 0 repeat-x;
+	background: url("/staic/images/admin/step-img-bg.png") 0 0 repeat-x;
 }
 .step-li-tip{
 	font: 18px "微软雅黑","宋体";
