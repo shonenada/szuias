@@ -47,7 +47,6 @@ function create_app ($config_files=array()) {
 
     // 安装钩子
     setup_hooks($app);
-
     // 安装 Twig 视图引擎
     setup_views($app);
     // 导入视图全局变量
