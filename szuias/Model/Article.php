@@ -51,6 +51,11 @@ class Article extends ModelBase {
     public $content;
 
     /**
+     * @Column(name="menu_id", type="integer")
+     **/
+    private $menu_id;
+
+    /**
      * @ManyToOne(targetEntity="Menu", inversedBy="menu")
      * @JoinColumn(name="menu_id", referencedColumnName="id", nullable=true)
      */
@@ -141,6 +146,20 @@ class Article extends ModelBase {
     public function delete() {
         $this->is_deleted = true;
         $this->save();
+    }
+
+    static public function paginate_with_mid($page, $pagesize, $mid, $asc=true, $order_by='id') {
+        $dql = sprintf(
+            'SELECT n FROM %s n '.
+            'WHERE n.is_deleted = 0 AND '.
+            'n.menu_id = %s '.
+            'ORDER BY n.%s %s',
+            get_called_class(),
+            $mid, $asc, $order_by
+        );
+        $query = static::em()->createQuery($dql)->setFirstResult($pagesize*($page-1))->setMaxResults($pagesize);
+        $pager = new \Doctrine\ORM\Tools\Pagination\Paginator($query);
+        return $pager;
     }
 
 }
