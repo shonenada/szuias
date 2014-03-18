@@ -27,7 +27,7 @@
 
     <nav class="nav-main" role="navigation">
       <ul>
-        {% for m in globalTopMenus %}
+        {% for m in global_top_menus %}
         <li class="nav-main-item{% if m.sub_menus | length > 0 %} parent{% endif %}">
           {% if m.type == 3 %}
           {% set url = m.outsite_url %}
