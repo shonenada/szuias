@@ -77,7 +77,7 @@ $(function(){
 	$(".hide").live("click",function(){
 		var ele = $(this),
 			href = ele.attr("href");
-			$.get(href,function(data){
+			$.post(href,function(data){
 				//成功
 				if (data.success){
 					alert("成功设置该文章为隐藏状态！");
@@ -85,7 +85,7 @@ $(function(){
 				}
 				//失败
 				else alert(data.info);
-			},"json"); 
+			}, "json"); 
 			//取消默认行为
 			return false;
 	});
@@ -94,7 +94,7 @@ $(function(){
 	$(".display").live("click",function(){
 		var ele = $(this),
 			href = ele.attr("href");
-			$.get(href,function(data){
+			$.post(href,function(data){
 				//成功
 				if (data.success){
 					alert("成功设置该文章为显示状态！");
@@ -102,7 +102,7 @@ $(function(){
 				}
 				//失败
 				else alert(data.info);
-			},"json"); 
+			}, "json"); 
 			//取消默认行为
 			return false;
 	});

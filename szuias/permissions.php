@@ -43,8 +43,9 @@ return array(
         array($administrator, "/admin/category/(save|(\d+?)/delete)", "*"),
 
         array($administrator, "/admin/content", "*"),
-        array($administrator, "/admin/content/menu/\d+/create", "*"),
         array($administrator, "/admin/content/menu/\d+", "*"),
+        array($administrator, "/admin/content/menu/\d+/create", "*"),
+        array($administrator, "/admin/content/\d+/hide/toggle", "*"),
     ),
     "deny" => array(
     )

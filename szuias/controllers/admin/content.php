@@ -100,5 +100,20 @@ return array(
             return $app->redirect('/admin/content/menu/' . $menu_id);
         })->conditions(array('id' => '\d+'));
 
+        $app->post('/admin/content/:aid/hide/toggle', function($aid) use ($app) {
+            $article = Article::find($aid);
+            if ($article) {
+                if ($article->is_hide) {
+                    $article->show();
+                } else {
+                    $article->hide();
+                }
+                $article->save();
+                return json_encode(array('success' => true, 'info' => '设置成功'));
+            }else {
+                return json_encode(array('success' => true, 'info' => '文章不存在'));
+            }
+        })->conditions(array('aid' => '\d+'));
+
     }
 );

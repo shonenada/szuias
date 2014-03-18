@@ -92,7 +92,7 @@ class Article extends ModelBase {
     /**
      * @Column(name="is_top", type="boolean")
      **/
-    public $is_top = 0;
+    public $is_top = false;
 
     /**
      * @Column(name="sort", type="integer")
@@ -112,12 +112,12 @@ class Article extends ModelBase {
     /**
      * @Column(name="is_hide", type="boolean")
      **/
-    public $is_hide = 0;
+    public $is_hide = false;
 
     /**
      * @Column(name="is_deleted", type="boolean")
      **/
-    public $is_deleted = 0;
+    public $is_deleted = false;
 
     public function __construct() {
     }
@@ -131,7 +131,11 @@ class Article extends ModelBase {
     }
 
     public function hide() {
-        $this->is_hide == true;
+        $this->is_hide = true;
+    }
+
+    public function show() {
+        $this->is_hide = false;
     }
 
     public function delete() {
