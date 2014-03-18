@@ -22,32 +22,35 @@ $administrator = new Administrator();
 
 return array(
     "allow" => array(
-        array($everyone, "/", "*"),
+        array($everyone, "/", array('GET')),
 
-        array($everyone, "/captcha", "*"),
+        array($everyone, "/captcha", array('GET')),
         
-        array($everyone, "/article/list", "*"),
-        array($everyone, "/article/\d+", "*"),
-        array($everyone, "/menu/\d+/list", "*"),
-        array($everyone, "/menu/\d+/show", "*"),
+        array($everyone, "/article/list", array('GET')),
+        array($everyone, "/article/\d+", array('GET')),
+        array($everyone, "/menu/\d+/list", array('GET')),
+        array($everyone, "/menu/\d+/show", array('GET')),
 
-        array($everyone, "/admin/signin", "*"),
+        array($everyone, "/admin/signin", array('GET', 'POST')),
 
-        array($administrator, "/admin", "*"),
+        array($administrator, "/admin", array('GET')),
 
-        array($administrator, "/admin/setting", "*"),
-        array($administrator, "/admin/setting/save", "*"),
+        array($administrator, "/admin/setting", array('GET')),
+        array($administrator, "/admin/setting/save", array('POST')),
 
-        array($administrator, "/admin/menu", "*"),
-        array($administrator, "/admin/menu/(save|(\d+?)/delete)", "*"),
+        array($administrator, "/admin/menu", array('GET')),
+        array($administrator, "/admin/menu/(save|(\d+?)/delete)", array('POST')),
 
-        array($administrator, "/admin/category", "*"),
-        array($administrator, "/admin/category/(save|(\d+?)/delete)", "*"),
+        array($administrator, "/admin/category", array('GET')),
+        array($administrator, "/admin/category/(save|(\d+?)/delete)", array('POST')),
 
-        array($administrator, "/admin/content", "*"),
-        array($administrator, "/admin/content/menu/\d+", "*"),
-        array($administrator, "/admin/content/menu/\d+/create", "*"),
-        array($administrator, "/admin/content/\d+/hide/toggle", "*"),
+        array($administrator, "/admin/content", array('GET')),
+        array($administrator, "/admin/content/menu/\d+", array('GET')),
+        array($administrator, "/admin/content/menu/\d+/create", array('GET', 'POST')),
+        array($administrator, "/admin/content/\d+/edit", array('GET', 'POST')),
+        array($administrator, "/admin/content/\d+/delete", array('POST')),
+        array($administrator, "/admin/content/\d+/top/(create|delete)", array('POST')),
+        array($administrator, "/admin/content/\d+/hide/(create|delete)", array('POST')),
     ),
     "deny" => array(
     )

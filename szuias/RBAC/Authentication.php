@@ -27,7 +27,7 @@ class Authentication{
             $pattern = sprintf("/^%s$/", str_replace('/', '\/', $i['resource']));
             preg_match($pattern, $resource, $matches);
             return $matches != null
-                && ('*' == $i['method'] || $i['method'] == $method)
+                && ('*' == $i['method'] || in_array(strtolower($method), array_map(function ($one) { return strtolower($one); }, $i['method'])))
                 && $auth($i['role'], $user)
                 && $i['action'] == 'allow';
         });
@@ -36,7 +36,7 @@ class Authentication{
             $pattern = sprintf("/^%s$/", str_replace('/', '\/', $i['resource']));
             preg_match($pattern, $resource, $matches);
             return $matches != null
-                && ('*' == $i['method'] || $i['method'] == $method)
+                && ('*' == $i['method'] || in_array(strtolower($method), array_map(function ($one) { return strtolower($one); }, $i['method'])))
                 && $auth($i['role'], $user)
                 && $i['action'] == 'deny';
         });
@@ -73,7 +73,7 @@ class Authentication{
     }
 
     private function record(Role $role, $resource, $method, $action){
-        $key = "{$role->getRoleName()}-{$action}-{$method}-{$resource}";
+        $key = "{$role->getRoleName()}-{$action}-{$resource}";
         $this->ptable[$key] = array(
             "role" => $role,
             "resource" => $resource,
