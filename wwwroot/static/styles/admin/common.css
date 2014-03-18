@@ -2,7 +2,7 @@
 html{overflow-y: scroll;}
 body{
 	font: 12px "宋体",simsun,Arial;
-	background: #EDEDED url(/static/images/admin/bg.png) center top repeat-y;
+	background: #EDEDED url("/static/images/admin/bg.png") center top repeat-y;
 	word-wrap:break-word;
 	word-break:break-all;
 }
@@ -257,13 +257,13 @@ ul{
 	background-position: 0px 0px;
 }
 .search_btn {
-	background-image: url(/static/images/admin/search.gif);
+	background-image: url("/static/images/admin/search.gif");
 }
 .reset_btn {
-	background-image: url(static/images/admin/reset.gif);
+	background-image: url("/static/images/admin/reset.gif");
 }
 .add_btn {
-	background-image: url(/static/images/admin/add.gif);
+	background-image: url("/static/images/admin/add.gif");
 }
 /*弹出层*/
 .pop-div-in{
@@ -271,7 +271,7 @@ ul{
 	top: 50%;
 	left: 50%;
 	margin: -20px 0 0 -70px;
-	background: white url(/static/images/admin/loading.gif) no-repeat scroll 10px center;
+	background: white url("/static/images/admin/loading.gif") no-repeat scroll 10px center;
 	border-radius: 3px;
 	border: solid 3px #369;
 	padding: 10px 10px 10px 50px;
