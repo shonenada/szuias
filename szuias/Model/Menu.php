@@ -122,10 +122,6 @@ class Menu extends ModelBase {
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function removeSubMenu(Menu $sub) {
-        $this->sub_menus->remvoeElement($sub);
-    }
-
     public function hide() {
         $this->is_hide = true;
     }
@@ -140,7 +136,20 @@ class Menu extends ModelBase {
     }
 
     public function getArticleNums() {
+        // Twig 需要使用驼峰命令获取 articleNums 的值
         return 0;
+    }
+
+    public function is_parent() {
+        return $this->parent == null;
+    }
+
+    public function has_sub() {
+        return $this->sub_menus->count();
+    }
+
+    public function remove_element(Menu $sub) {
+        $this->sub_menus->remvoeElement($sub);
     }
 
     static public function sort_menu($menus) {
@@ -152,9 +161,18 @@ class Menu extends ModelBase {
     }
 
     static public function get_first_menu() {
-        $types = array(0);
-        $menus = self::sort_menu(self::get_by_types($types));
+        $top_menu_types = array(0);
+        $menus = self::sort_menu(self::get_by_types($top_menu_types));
         return array_shift($menus);
+    }
+
+    static public function get_first_sub_menu() {
+        // 只获取节点菜单
+        $top_menu_types = array(0);
+        $menus = self::sort_menu(self::get_by_types($top_menu_types));
+        $first_menu = array_shift($menus);
+        $sub_menus = $first_menu->sub_menus;
+        return $sub_menus->first();
     }
 
     static public function get_by_types($types=array()) {
@@ -165,9 +183,34 @@ class Menu extends ModelBase {
         return $result;
     }
 
+    static public function list_admin_menus() {
+        $types = array(1, 2);
+        $top_menus = self::get_top_menus();
+        $menus = array_filter($top_menus, function($one) use($types){
+            if (in_array($one->type, $types)) {
+                return true;
+            }
+            foreach($one->sub_menus as $s) {
+                if (in_array($s->type, $types)){
+                    return true;
+                }
+            }
+            return false;
+        });
+        return $menus;
+    }
+
     static public function get_listable_menus() {
         $listable_array = array(0, 2);
         return self::get_by_types($listable_array);
+    }
+
+    static public function get_children() {
+        $all_menus = self::all();
+        $children = array_filter($all_menus, function($one) {
+            return $one->parent != null;
+        });
+        return $children;
     }
 
     static public function get_top_menus() {

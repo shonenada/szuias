@@ -23,7 +23,7 @@ use \RBAC\Authentication;
  * @property string    $last_ip
  * @property string    $token
  * @property integer   $is_admin
- * @property integer   $is_delete
+ * @property integer   $is_deleted
  *
  **/
 
@@ -45,6 +45,11 @@ class User extends ModelBase{
      * @Column(name="password", type="string", length=50)
      **/
     private $password;
+
+    /**
+     * @Column(name="name", type="string", length=50)
+     **/
+    private $name;
 
     /**
      * @Column(name="email", type="string", length=50)
@@ -82,9 +87,9 @@ class User extends ModelBase{
     private $is_admin;
 
     /**
-     * @Column(name="is_delete", type="boolean")
+     * @Column(name="is_deleted", type="boolean")
      **/
-    private $is_delete;
+    private $is_deleted;
 
     public function getId() {
         return $this->id;
@@ -97,6 +102,10 @@ class User extends ModelBase{
     public function setPassword($raw, $salt) {
         $hashPassword = User::hashPassword($raw, $salt);
         $this->password = $hashPassword;
+    }
+
+    public function getName() {
+        return $this->name;
     }
 
     public function getEmail() {
