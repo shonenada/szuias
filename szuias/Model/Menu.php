@@ -131,10 +131,25 @@ class Menu extends ModelBase {
         $this->save();
     }
 
+    public function getArticleNums() {
+        return 0;
+    }
+
     public function __construct() {
+        $this->is_deleted = false;
+        $this->is_intranet = false;
+        $this->is_hide = false;
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->sub_menus = new \Doctrine\Common\Collections\ArrayCollection();
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    static public function getListableMenus() {
+        $allMenus = self::all();
+        $listable = array_filter($allMenus, function($one) {
+            return $one->type == 0 || $one->type == 2;
+        });
+        return $listable;
     }
 
     static public function getTopMenus() {

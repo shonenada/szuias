@@ -29,7 +29,7 @@ class ModelBase {
     // 从 array 中赋值 property
     public function populate_from_array($array=array()) {
         foreach($array as $key => $value){
-            if (property_exists($this, $key)){
+            if ($key != 'id' && property_exists($this, $key)){
                 $this->$key = $value;
             }
         }
