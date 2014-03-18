@@ -35,7 +35,7 @@ return array(
 
 
         // 获取来自客户端的提交信息，更新信息。
-        $app->post('/admin/menu/create', function() use($app) {
+        $app->post('/admin/menu/save', function() use($app) {
             // 从 客户端 获取 post 的信息，并进行解码
             $post = urldecode($app->request->params('menus'));
             $menus = json_decode($post, true);

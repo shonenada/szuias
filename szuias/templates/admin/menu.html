@@ -21,7 +21,7 @@
             </tr>
         </table>
     </div>
-    <form id="menu" action="{{ siteUrl('admin/menu/create') }}" method="post">
+    <form id="menu" action="{{ siteUrl('admin/menu/save') }}" method="post">
         <div id="category">
             {% for menu in menus %}
             <div class="one_menu">
@@ -125,7 +125,7 @@
 
         <div class="text_end">
             <span>
-                <a data-href="{{ siteUrl('admin/menu/create') }}" href="{{ siteUrl('admin/menu/create') }}" id="submit">保存</a>
+                <a data-href="{{ siteUrl('admin/menu/save') }}" href="{{ siteUrl('admin/menu/save') }}" id="submit">保存</a>
                 <a href="javascript:" id="cancel">取消</a>
             </span>
         </div>

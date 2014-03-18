@@ -25,6 +25,7 @@ $controllers = array (
     'admin_index_app' => 'admin/index',
     'admin_signin_app' => 'admin/signin',
     'admin_menu_app' => 'admin/menu',
+    'admin_category_app' => 'admin/category',
     'admin_content_app' => 'admin/content',
 );
 

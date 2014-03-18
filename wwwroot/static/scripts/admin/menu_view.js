@@ -171,7 +171,7 @@ $(function(){
 			if ($(this).val().replace(" ","") == ""){
 				flag = false;
 				alert("菜单标题不能为空！");
-				window.location.reload();
+				// window.location.reload();
 				return false;
 			}
 		});
@@ -179,7 +179,7 @@ $(function(){
 			if (!/^\d+$/.test($(this).val())){
 				flag = false;
 				alert("排序只能为数字！");
-				window.location.reload();
+				// window.location.reload();
 				return false;
 			}
 		});

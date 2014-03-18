@@ -37,7 +37,10 @@ return array(
         array($administrator, "/admin/setting/save", "*"),
 
         array($administrator, "/admin/menu", "*"),
-        array($administrator, "/admin/menu/(create|(\d+?)/delete)", "*"),
+        array($administrator, "/admin/menu/(save|(\d+?)/delete)", "*"),
+
+        array($administrator, "/admin/category", "*"),
+        array($administrator, "/admin/category/(save|(\d+?)/delete)", "*"),
 
         array($administrator, "/admin/content", "*"),
     ),

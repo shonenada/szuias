@@ -37,7 +37,7 @@ $(function(){
 				else{
 					alert(data.info);
 				}
-			});
+			}, 'json');
 		}
 		else{
 			$(this).parent().parent().remove();
@@ -92,7 +92,7 @@ $(function(){
 				window.location.reload();
 			}		
 			else alert(data.info);
-		});
+		}, 'json');
 		return false;
 	});
 	

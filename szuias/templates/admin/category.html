@@ -1,0 +1,75 @@
+{% extends 'admin/base.html' %}
+
+{% block static %}
+<script type="text/javascript" src="{{ siteUrl('static/scripts/admin/category_view.js') }}"></script>
+<link type="text/css" href="{{ siteUrl('static/styles/admin/page/category.css') }}" rel="stylesheet"/>
+<script type="text/javascript">
+    var deleteCategoryHref = "{{ siteUrl('admin/category/delete') }}";
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="content" class="clearfix">
+    <div class="category-title">分类设置（*只有多记录列表才拥有分类）</div>
+    <table class="out-table">
+        <thead>
+            <tr>
+            <th style="width: 5%;">序号</th>
+            <th style="width: 25%;">菜单名</th>
+            <th>分类详情</th>
+            <th style="width: 24%;">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set i = 0 %}
+        {% for m in menus %}
+        {% set i = i + 1 %}
+            <tr data-mid="{{ m.id }}">
+                <td>{{ i }}</td>
+                <td><a href="javascript:void(0);" title="{{ m.parent.title }} >> {{ m.title }}">{{ m.title }}</a></td>
+                <td>
+                    <table class="in-table">
+                        <thead>
+                            <tr>
+                            <th style="width: 40px;">排序</th>
+                            <th>分类名</th>
+                            <th style="width: 60px;">文章数</th>
+                            <th style="width: 80px;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for r in m.categories %}
+                            <tr class="one-category" data-cid="{{ r.id }}">
+                                <td class="sort">
+                                <input type="text" name="sort" value="{{ r.sort }}" />
+                                </td>
+                                <td class="title">
+                                <input type="text" name="title" value="{{ r.title }}" />
+                                </td>
+                                <td>{{ r.count }}</td>
+                                <td>
+                                <input type="hidden" value="{{ r.id }}" />
+                                <input type="button" value="删除" class="operate delete-category" />
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <tr class="no-category"><td colspan="4">此菜单没有分类文章共有 {{ m.articleNums }} 篇</td></tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <label class="must-category" title="选中必须归类后文章列表中将不再显示没有分类的文章"><input type="checkbox" value="1"{% if c.classify == 1 %}"checked=checked"{% endif %} />是否必须归类</label>
+                    <input type="button" value="增加分类" class="add-category" />
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="text_end">
+        <span>
+            <a data-href="{{ siteUrl('admin/category/save') }}" href="javascript:void(0);" id="submit">保存</a>
+            <a href="javascript:void(0);" id="cancel">取消</a>
+        </span>
+    </div>
+</div>
+{% endblock %}
