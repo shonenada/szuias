@@ -61,6 +61,17 @@ class ModelBase {
         return ORMManager::getEntityManager();
     }
 
+    static public function paginate($page, $pagesize) {
+        $dql = sprintf(
+            'SELECT n FROM %s n '.
+            'WHERE n.is_deleted = 0 ',
+            get_called_class()
+        );
+        $query = static::em()->createQuery($dql)->setFirstResult($pagesize*($page-1))->setMaxResults($pagesize);
+        $pager = new \Doctrine\ORM\Tools\Pagination\Paginator($query);
+        return $pager;
+    }
+
     static public function all($asc=true) {
         $dql = sprintf(
             'SELECT n FROM %s n '.
