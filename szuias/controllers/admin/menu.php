@@ -14,7 +14,7 @@ return array(
 
         // 渲染菜单管理页面
         $app->get("/admin/menu", function() use($app) {
-            $menus = Menu::getTopMenus();
+            $menus = Menu::get_top_menus();
             $app->render("admin/menu.html", get_defined_vars());
         });
 

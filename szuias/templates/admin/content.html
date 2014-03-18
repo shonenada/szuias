@@ -1,17 +1,23 @@
 {% extends 'admin/base.html' %}
+
+{% block static %}
+<script type="text/javascript" src="{{ siteUrl('static/scripts/admin/content_view.js') }}"></script>
+<link type="text/css" href="{{ siteUrl('static/styles/admin/page/content.css') }}" rel="stylesheet"/>
+{% endblock %}
+
 {% block content %}
 <div id="content" class="clearfix">
-  <!-- ****************左边内容页******************** -->
   <div id="content_left">
     <div id="headtitle">内容管理</div>
       <div id="left_nav">
-      {% for menu in menus %}
+      {% for menu in listable %}
         <ul>
           <li class="left-first-nav">
             <a class="list_title">{{ menu.title }}</a>
             <ul class="left-second-nav" style="display:{% if menu.id == currentMenu.id %}block{% else %}none{% endif %};">
-            {% for s in second_menu %}
-              <li><a class="open" href="{{ siteUrl('/admin/menu/{{ s.id }}/content') }}">{{ s.title }}</a></li>
+            {% for s in menu.sub_menus %}
+              {% set target_url = siteUrl('admin/menu/') ~ s.id ~ '/content' %}
+              <li><a class="open" href="{{ target_url }}">{{ s.title }}</a></li>
             {% endfor %}
             </ul>
           </li>
@@ -20,7 +26,6 @@
       </div>
     </div>
 
-    <!-- ******************右边内容页************************** -->
     <div id="content_right" class="clearfix">
       <div id="content_right_top">
         <span id="location">当前位置：内容管理&nbsp;&gt;&gt;&nbsp;{{ currentMenu.title }}{% if currentSubMenu %}&nbsp;&gt;&gt;&nbsp;{{ currentSubMenu.title }}{% endif %}</span>

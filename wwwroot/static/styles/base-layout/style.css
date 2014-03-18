@@ -450,7 +450,7 @@ a:focus {
 .nav-main li a {
 	display: block;
 	padding: 0 10px;
-	margin: 0 10px;
+	margin: 0 5px;
 	height: 38px;
 	color: #576681;
 	font-size: 16px;

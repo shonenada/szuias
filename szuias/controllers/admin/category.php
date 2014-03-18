@@ -15,7 +15,7 @@ return array(
     "export" => function($app) {
 
         $app->get('/admin/category', function () use ($app) {
-            $menus = Menu::getListableMenus();
+            $menus = Menu::get_listable_menus();
             return $app->render('admin/category.html', get_defined_vars());
         });
 
