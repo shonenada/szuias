@@ -1,10 +1,10 @@
 {% extends 'admin/base.html' %}
 
 {% block static %}
-<script type="text/javascript" src="{{ siteUrl('static/scripts/admin/content_view.js') }}"></script>
 <link type="text/css" href="{{ siteUrl('static/styles/admin/page/content.css') }}" rel="stylesheet"/>
-<script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/DatePicker/WdatePicker.js') }}" charset="utf-8"></script>
 <script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/kindeditor/kindeditor-min.js') }}" charset="utf-8"></script>
+<script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/kindeditor/lang/zh_CN.js') }}" charset="utf-8"></script>
+<script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/DatePicker/WdatePicker.js') }}" charset="utf-8"></script>
 {% endblock %}
 
 {% block content %}
@@ -31,14 +31,14 @@
     <div id="content_right_top">
       <span id="location">当前位置：内容管理&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% if focus_sub_menu %}&nbsp;&gt;&gt;&nbsp;{{ focus_sub_menu.title }}{% endif %}&nbsp;&gt;&gt;&nbsp;新增</span>
     </div>
-    <form class="add-form" method="post" action="{{ siteUrl('admin/content/' ~ post_menu.id ~ '/create') }}" class="">
+    <form class="add-form" method="post" action="{{ siteUrl('admin/content/menu/' ~ post_menu.id ~ '/create') }}" class="">
       <div class="editor-title-div">
         <input type="text" name="title" value="请在这里输入标题" maxlength="50" class="editor-title" onfocus="if(this.value == '请在这里输入标题') this.value='';" onblur="if(this.value == '') this.value='请在这里输入标题';" placeholder="请在这里输入标题" style="width:730px;" />
       </div>
       <div class="editor-other-div clearfix">
         <div>
           <label>分类：</label>
-          <select class="search-select mt2r2" name="cid" data-classify="{{ menu.classify }}" style="width:150px;">
+          <select class="search-select mt2r2" name="category_id" data-classify="{{ menu.classify }}" style="width:150px;">
             <option value="0">暂无分类</option>
             {% for ca in post_menu.categories %}
             <option value="{{ ca.id }}">{{ ca.title }}</option>
@@ -96,7 +96,7 @@ $(function(){
     alert("标题不能为空！");
     return false;
   }
-  if ($("select[name='cid']").attr("data-classify") == "1" && $("select[name='cid']").val() == "0"){
+  if ($("select[name='category_id']").attr("data-classify") == "1" && $("select[name='category_id']").val() == "0"){
     alert("请选择分类！");
     return false;
   }

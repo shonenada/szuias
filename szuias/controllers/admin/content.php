@@ -35,7 +35,7 @@ return array(
                 $focus_menu = $focus_menu->parent;
             }
             $c_mid = $focus_sub_menu->id;
-            $now = time();
+            $now = new \DateTime();
             $admin_menus = Menu::list_admin_menus();
             $categories = Category::all();
             $admin_list = User::all();
@@ -69,6 +69,35 @@ return array(
             $admin_menus = Menu::list_admin_menus();
             $timestamp = $_SESSION['add_timestamp'] = time() * 10000 + rand(0, 9999);
             return $app->render('admin/content_create.html', get_defined_vars());
+        })->conditions(array('id' => '\d+'));
+
+        $app->post('/admin/content/menu/:id/create', function($menu_id) use ($app) {
+            if ($_SESSION['add_timestamp'] != $app->request->post('timestamp')) {
+                return $app->render("admin/content_create.html", get_defined_vars());
+            }
+            $menu = Menu::find($menu_id);
+            $user = $app->environment['user'];
+            if ($menu->type == 1) {
+                // 单页
+                $a = Article::findOneBy(array('menu' => $menu));
+                if ($a != null) {
+                    $info = '单页菜单只允许存在一篇文章，新增失败！';
+                    return $app->render("admin/content_create.html", get_defined_vars());
+                }
+            }
+            $article = new Article();
+            $category = Category::find($app->request->post('category_id'));
+            $data = array(
+                'title' => $app->request->post('title'),
+                'content' => $app->request->post('content'),
+                'menu' => $menu,
+                'category' => $category,
+                'author' => $user,
+                'editor' => $user,
+                'edit_time' => new \DateTime($app->request->post('moditime')),
+            );
+            $article->populate_from_array($data)->save();
+            return $app->redirect('/admin/content/menu/' . $menu_id);
         })->conditions(array('id' => '\d+'));
 
     }

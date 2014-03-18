@@ -79,7 +79,7 @@
             <th id="list_operate">列表操作</th>
           </tr>
         {% set offset = 0 %}
-        {% for one in articles %}
+        {% for one in artilce_pager.getIterator() %}
         {% set offset = offset + 1 %}
           <tr class="{% if offset % 2 == 0 %}odd{% else %}even{% endif %}" data-aid="{{ one.id }}">
             <td class="number">
@@ -101,7 +101,7 @@
             </td>
             <td>{{ one.view_count }}</td>
             <td>{{ one.author.name }}</td>
-            <td>{{ one.created | date('%Y/%m/%d') }}<br />{{ one.edit_time | date('%Y/%m/%d') }}</td>
+            <td>{{ one.created | date('Y/m/d') }}<br />{{ one.edit_time | date('Y/m/d') }}</td>
             <td>
               {% if one.redirect_url %}
               <a href="{{ one.redirect_url }}" style="color:red" target="_blank">转跳</a>&nbsp;&nbsp;

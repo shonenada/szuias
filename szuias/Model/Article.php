@@ -69,9 +69,10 @@ class Article extends ModelBase {
     public $author;
 
     /**
-     * @Column(name="last_editor", type="integer")
-     **/
-    public $last_editor;
+     * @OneToOne(targetEntity="User")
+     * @JoinColumn(name="last_editor", referencedColumnName="id")
+     */
+    public $editor;
 
     /**
      * @Column(name="created", type="datetime")
@@ -86,17 +87,17 @@ class Article extends ModelBase {
     /**
      * @Column(name="view_count", type="integer")
      **/
-    public $view_count;
+    public $view_count = 0;
 
     /**
      * @Column(name="is_top", type="boolean")
      **/
-    public $is_top;
+    public $is_top = 0;
 
     /**
      * @Column(name="sort", type="integer")
      **/
-    public $sort;
+    public $sort = 0;
 
     /**
      * @Column(name="redirect_url", type="string", length=255)
@@ -106,17 +107,20 @@ class Article extends ModelBase {
     /**
      * @Column(name="open_style", type="integer")
      **/
-    public $open_style;
+    public $open_style = 0;
 
     /**
      * @Column(name="is_hide", type="boolean")
      **/
-    public $is_hide;
+    public $is_hide = 0;
 
     /**
      * @Column(name="is_deleted", type="boolean")
      **/
-    public $is_deleted;
+    public $is_deleted = 0;
+
+    public function __construct() {
+    }
 
     public function setTop() {
         $this->is_top = true;
