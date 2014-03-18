@@ -28,7 +28,7 @@
     <div id="content_right" class="clearfix">
       <div id="content_right_top">
         <span id="location">当前位置：内容管理&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% if focus_sub_menu %}&nbsp;&gt;&gt;&nbsp;{{ focus_sub_menu.title }}{% endif %}</span>
-        <a class="a-btn add-new" href="{{ siteUrl('admin/content/create?menu_id=') }}{{ focus_menu.id }}">新增</a>
+        <a class="a-btn add-new" href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '/create') }}">新增</a>
       </div>
       <div id="search_frame">
         <form action="{{ siteUrl('admin/content/search?menu_id' ~ focus_menu.id) }}" method="post" target="_self">
@@ -138,7 +138,7 @@
         <div class="text_end">
         <span>
         <a data-href="{{ siteUrl('admin/content/save') }}" href="{{ siteUrl('admin/content/save') }}"  id="submit">保存</a>
-        <a href="javascript:" id="cancel">取消</a>
+        <a href="javascript:void(0)" id="cancel">取消</a>
         </span>
         </div>
       </div>

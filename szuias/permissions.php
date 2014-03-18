@@ -2,7 +2,7 @@
 
 /**
  * 权限表
- * @author
+ * @author shonenada
  * 
  * 使用说明：
  *  1、use 角色类
@@ -43,6 +43,7 @@ return array(
         array($administrator, "/admin/category/(save|(\d+?)/delete)", "*"),
 
         array($administrator, "/admin/content", "*"),
+        array($administrator, "/admin/content/menu/\d+/create", "*"),
         array($administrator, "/admin/content/menu/\d+", "*"),
     ),
     "deny" => array(
