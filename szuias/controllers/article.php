@@ -1,6 +1,7 @@
 <?php
 
 use \Captcha;
+use \Model\Menu;
 use \Model\Article;
 
 return array(
@@ -15,7 +16,15 @@ return array(
             $app->render('list.html', get_defined_vars());
         });
 
-        $app->get('/article/:id', function ($id) use($app) {
+        $app->get('/menu/:mid/show', function ($mid) use ($app) {
+            $a = Article::findOneBy(array('menu' => Menu::find($mid)));
+            if ($a)
+                return $app->redirect('/article/' . $a->id);
+            else
+                return $app->redirect('/');
+        });
+
+        $app->get('/article/:id', function ($id) use ($app) {
             $article = Article::find($id);
             if ($article == null) {
                 return $app->redirect('/');

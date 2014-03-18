@@ -28,6 +28,8 @@ return array(
         
         array($everyone, "/article/list", "*"),
         array($everyone, "/article/\d+", "*"),
+        array($everyone, "/menu/\d+/list", "*"),
+        array($everyone, "/menu/\d+/show", "*"),
 
         array($everyone, "/admin/signin", "*"),
 
