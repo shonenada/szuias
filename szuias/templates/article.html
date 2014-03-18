@@ -2,23 +2,36 @@
 
 {% block content %}
 <div class="article-box">
-  <h2>{{ category }}</h2>
+  <h2>{{ top_menu.title }}</h2>
   
   <div class="sidebar-nav">
-    <h2>{{ category }}</h2>
+    <h2>{{ top_menu.title }}</h2>
     <ul>
-    {% for one in sub_categories %}
-      <a href="javascript:void()"><li>{{ one.name }}</li></a>
+    {% for one in top_menu.sub_menus %}
+      {% if one.type == 3 %}
+      {% set url = one.outside_url %}
+      {% elseif one.type == 2 %}
+      {% set url = siteUrl('menu/' ~ one.id ~ '/list') %}
+      {% elseif one.type == 1 %}
+      {% set url = siteUrl('menu/' ~ one.id ~ '/show') %}
+      {% elseif one.type == 0 %}
+      {% set url = 'javascript:void(0);' %}
+      {% endif %}
+      <a href="{{ url }}"><li>{{ one.title }}</li></a>
     {% endfor %}
     </ul>
   </div>
 
   <div class="article">
-    <div class="title">第二届华南计算机学科发展研讨会在深圳大学顺利召开</div>
-    <div class="info">发布日期: 2012-01-05</div>
+    <div class="title">{{ article.title }}</div>
+    <div class="info">
+      {% if article.author.name %}作者: {{ article.author.name }} |{% endif %}
+      {% if article.created %}发布日期: {{ article.created | date('Y-m-d') }} |{% endif %}
+      流量数: {{ article.view_count }}
+    </div>
     <div class="content">
      <p style="text-indent:24.0pt;">
-      2013年12月28日，由陈国良院士召集的“第二届华南计算机学科发展研讨会”在深圳大学召开。本次会议由深圳大学主办，深圳中科院院士活动基地和深圳市电脑学会协办，得到了宝德科技的赞助。与会的主要领导包括广东省科技厅张明副厅长、深圳市科创委陆健主任、南山区人民政府副区长纪震教授、深圳大学副书记刑锋教授和深圳大学副校长徐晨教授等。与会的主要专家有北京大学杨芙清院士、北京航空航天大学前校长李未院士、广州大学张景中院士、沈绪榜院士、北京大学王阳元院士、华东师范大学何积丰院士、上海交通大学副校长梅宏院士、南京大学副校长吕健院士、桂林电子科技大学校长古天龙教授、中科院深圳先进技术研究院院长樊建平研究员、广东工业大学副校长郝志峰教授、深圳大学前校长谢维信教授、香港科技大学倪明选教授、澳门大学唐远炎教授以及华南地区主要高校计算机学科的代表等。
+      {{ article.content | raw }}
     </p>
     </div>
   </div>
