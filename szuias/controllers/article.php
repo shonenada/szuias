@@ -26,7 +26,7 @@ return array(
 
         $app->get('/article/:id', function ($id) use ($app) {
             $article = Article::find($id);
-            if ($article == null) {
+            if ($article == null || $article->is_hide || $article->is_deleted) {
                 return $app->redirect('/');
             }
             if ($article->menu->is_parent()) {

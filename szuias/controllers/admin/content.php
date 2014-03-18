@@ -35,13 +35,13 @@ return array(
                 $focus_menu = $focus_menu->parent;
             }
             $c_mid = $focus_sub_menu->id;
+            $artilce_pager = Article::paginate_with_mid($page, $pagesize, $c_mid, false, 'sort');
+            $total = $artilce_pager->count();
             $now = new \DateTime();
             $admin_menus = Menu::list_admin_menus();
             $categories = Category::all();
             $admin_list = User::all();
-            $artilce_pager = Article::paginate($page, 20);
-            $total = $artilce_pager->count();
-            $pager = array('current' => $page, 'nums' => ceil($total / 20));
+            $pager = array('current' => $page, 'nums' => ceil($total / $pagesize));
             if ($focus_menu->type == 1) {
                 // 单页
                 return $app->render("admin/single_page.html", get_defined_vars());
@@ -100,16 +100,63 @@ return array(
             return $app->redirect('/admin/content/menu/' . $menu_id);
         })->conditions(array('id' => '\d+'));
 
-        $app->post('/admin/content/:aid/hide/toggle', function($aid) use ($app) {
+        $app->post('/admin/content/:aid/hide/create', function($aid) use ($app) {
+            $article = Article::find($aid);
+            if ($article) {
+                if (!$article->is_hide) {
+                    $article->hide();
+                    $article->save();
+                    return json_encode(array('success' => true, 'info' => '设置成功'));
+                }
+            }
+            return json_encode(array('success' => true, 'info' => '文章不存在'));
+        })->conditions(array('aid' => '\d+'));
+
+        $app->post('/admin/content/:aid/hide/delete', function($aid) use ($app) {
             $article = Article::find($aid);
             if ($article) {
                 if ($article->is_hide) {
                     $article->show();
-                } else {
-                    $article->hide();
+                    $article->save();
+                    return json_encode(array('success' => true, 'info' => '设置成功'));
                 }
-                $article->save();
-                return json_encode(array('success' => true, 'info' => '设置成功'));
+            }
+            return json_encode(array('success' => true, 'info' => '文章不存在'));
+        })->conditions(array('aid' => '\d+'));
+
+        $app->post('/admin/content/:aid/top/create', function($aid) use ($app) {
+            $article = Article::find($aid);
+            if ($article) {
+                if (!$article->is_top) {
+                    $article->setTop();
+                    $article->save();
+                    return json_encode(array('success' => true, 'info' => '设置成功'));
+                }
+            }
+            return json_encode(array('success' => true, 'info' => '文章不存在'));
+        })->conditions(array('aid' => '\d+'));
+
+        $app->post('/admin/content/:aid/top/delete', function($aid) use ($app) {
+            $article = Article::find($aid);
+            if ($article) {
+                if ($article->is_top) {
+                    $article->setNotTop();
+                    $article->save();
+                    return json_encode(array('success' => true, 'info' => '设置成功'));
+                }
+            }else {
+                return json_encode(array('success' => true, 'info' => '文章不存在'));
+            }
+        })->conditions(array('aid' => '\d+'));
+
+        $app->post('/admin/content/:aid/delete', function($aid) use ($app) {
+            $article = Article::find($aid);
+            if ($article) {
+                if (!$article->is_deleted) {
+                    $article->delete();
+                    $article->save();
+                    return json_encode(array('success' => true, 'info' => '删除成功'));
+                }
             }else {
                 return json_encode(array('success' => true, 'info' => '文章不存在'));
             }

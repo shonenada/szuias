@@ -85,7 +85,7 @@
             <td class="number">
               <input type="text" name="sort" value="{{ one.sort }}" style="width:30px;"/>
             </td>
-            <td>{{ one.category.title }}</td>
+            <td>{% if one.category %}{{ one.category.title }}{% else %}无类别{% endif %}</td>
             <td style="text-align:left">
               {% if one.is_top == 1 %}
               <img src="{{ siteUrl('static/images/admin/icon_up.gif') }}" />
@@ -114,10 +114,13 @@
               {% if one.is_top %}
               <a class="cancel_maketop" href="{{ siteUrl('admin/content/' ~ one.id ~ '/top/delete') }}">不置顶</a>&nbsp;&nbsp;
               {% else %}
-              <a class="maketop" href="{{ siteUrl('admin/content/' ~ one.id ~ '/top/put') }}">置顶</a>&nbsp;&nbsp;
+              <a class="maketop" href="{{ siteUrl('admin/content/' ~ one.id ~ '/top/create') }}">置顶</a>&nbsp;&nbsp;
               {% endif %}
-
-            <a class="{% if one.is_hide %}display{% else %}hide{% endif %}" href="{{ siteUrl('admin/content/' ~ one.id ~ '/hide/toggle') }}">{% if one.is_hide %}显示{% else %}隐藏{% endif %}</a>
+              {% if one.is_hide %}
+              <a class="display" href="{{ siteUrl('admin/content/' ~ one.id ~ '/hide/delete') }}">显示</a>
+              {% else %}
+              <a class="hide" href="{{ siteUrl('admin/content/' ~ one.id ~ '/hide/create') }}">隐藏</a>
+              {% endif %}
             </td>
           </tr>
         {% endfor %}
@@ -127,11 +130,11 @@
             共 {{ total }} 条信息，当前为第 {{ pager.current }} 页，共 {{ pager.nums }} 页 
           </div>
           <div id="page_change">
-            <a href="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~ '?page=1') }}">首页</a>
-            <a href="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~ '?page=' ~ pager.current - 1) }}">上一页</a>
-            <a href="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~ '?page=' ~ pager.current + 1) }}">下一页</a>
-            <a href="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~ '?page=' ~ pager.nums) }}" >尾页</a>
-            转到&nbsp;<input name="page" type="text" style="width:30px;height:15px;font-size:18px;"/>&nbsp;页
+            <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=1') }}">首页</a>
+            <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=' ~ (pager.current - 1)) }}">上一页</a>
+            <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=' ~ (pager.current + 1)) }}">下一页</a>
+            <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=' ~ pager.nums) }}" >尾页</a>
+            转到&nbsp;<input name="page" type="text" style="width:30px; height:15px;"/>&nbsp;页
             <a href="javascript:void(0);" id="go_page" >转</a>
           </div>
         </div>

@@ -6,8 +6,8 @@ $(function(){
 
 	//转页
 	$("#go_page").click(function(){
-		var hrefTp = "<?php echo makeurl('admin','index',array('mid' => $data['article']['mid'],'page' => '$'))?>";
-		var href = hrefTp.replace("$",$("input[name='page']").val());
+		var base = location.origin + location.pathname;
+		var href = base + '?page=' + $("input[name='page']").val();
 		window.location.href = href;
 	});
 
@@ -17,7 +17,7 @@ $(function(){
 			href = ele.attr("href"),
 			title = $(this).parent().parent().find("td:eq(2)").text().replace(/[\x20\t\f\n\r]*/g, "");
 		if ( confirm("是否确认删除「"+title+"」?")){
-			$.get(href,function(data){
+			$.post(href,function(data){
 			//成功
 			if (data.success){
 				ele.parent().parent().remove();
@@ -25,7 +25,7 @@ $(function(){
 			}
 			//失败
 			else alert(data.info);
-			},"json");
+			}, "json");
 		}
 		//取消默认行为
 		return false;
@@ -43,7 +43,7 @@ $(function(){
 	$(".maketop").live("click",function(){
 		var ele = $(this),
 			href = ele.attr("href");
-			$.get(href,function(data){
+			$.post(href,function(data){
 				//成功
 				if (data.success){
 					alert("置顶成功！");
@@ -60,7 +60,7 @@ $(function(){
 	$(".cancel_maketop").live("click",function(){
 		var ele = $(this),
 			href = ele.attr("href");
-			$.get(href,function(data){
+			$.post(href,function(data){
 				//成功
 				if (data.success){
 					alert("成功取消置顶！");
