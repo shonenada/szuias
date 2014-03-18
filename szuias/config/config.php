@@ -8,6 +8,8 @@
 return array(
     // 网站名
     'name' => 'szuias',
+    // 每页默认记录数
+    'pagesize' => 20,
     // 视图引擎
     'view' => new \Slim\Views\Twig(),
     // 视图模版目录

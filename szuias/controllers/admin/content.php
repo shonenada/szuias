@@ -8,6 +8,7 @@
 
 use \Model\User;
 use \Model\Menu;
+use \Model\Article;
 use \Model\Category;
 
 return array(
@@ -15,6 +16,11 @@ return array(
         
         // 渲染内容管理界面
         $app->get("/admin/content(/menu/:mid)", function($mid=null) use($app) {
+            $pagesize = $app->config('pagesize');
+            $page = $app->request->get('page');
+            if (empty($page)) {
+                $page = 1;
+            }
             if (empty($mid)) {
                 $focus_menu = Menu::get_first_menu();
             }
@@ -33,7 +39,11 @@ return array(
             $categories = Category::all();
             $admin_list = User::all();
 
-            $current_date = time();
+            $now = time();
+
+            $artilce_pager = Article::paginate($page, 20);
+            $total = $artilce_pager->count();
+            $pager = array('current' => $page, 'nums' => ceil($total / 20));
 
             if ($focus_menu->type == 1) {
                 // 单页
