@@ -40,10 +40,7 @@ class Scheme {
         else {
             $tables = array_intersect($ts, self::nameOfTables());
         }
-        $conn = SchemeManager::qb()->getConnection();
-        mysql_connect($conn->getHost(), $conn->getUsername(), $conn->getPassword()) or die("数据库连接出错！");
-        mysql_select_db($conn->getDatabase()) or die("数据库连接出错！");
-        mysql_query("SET NAMES 'UTF8'");
+        self::loginDb();
         $dumpStr = "";
         foreach ($tables as $table){
             $dumpStr .= "DROP TABLE IF EXISTS `" . $table . "`;\n";
@@ -78,6 +75,57 @@ class Scheme {
         return self::writeSqlFile($file_path, $dumpStr);
     }
 
+    static public function importSqlFile($prefix) {
+        if (empty($prefix)){
+            return false;
+        }
+        $backPath = realpath(dirname($_SERVER['SCRIPT_FILENAME'])) . '/../backup/';
+        $rows = scandir($backPath);
+        $temp = array_filter($rows, function($one) use($prefix) {
+            return (strpos($one, $prefix) !== false);
+        });
+        sort($temp);
+        //进行还原操作
+        foreach ($temp as $one){
+            if (!self::executeSqlFile($backPath . $one)) return false;
+        }
+        return true;
+    }
+
+    static public function listBackupFiles($folder="../backup"){
+        $filePath = realpath(dirname($_SERVER['SCRIPT_FILENAME'])) . '/' . $folder . '/';
+        $arr = scandir($filePath);
+        sort($arr);
+        $pattern = "/^((\d{8})_\d{5})_(all|part\d)\\.sql$/";
+        $result = array();
+        foreach ($arr as $row){
+            if (preg_match($pattern, $row, $matches)){
+                $flag = false;
+                foreach ($result as &$each){
+                    if ($matches[1] == $each['flag']){
+                        $temp = array();
+                        $temp['url'] = $row;
+                        $temp['size'] = floor(filesize($filePath.$row) / 1024) . 'KB';
+                        $each['files'][] = $temp;
+                        $flag = true;
+                        break;
+                    }
+                }
+                if (!$flag){
+                    $temp = array();
+                    $one = array();
+                    $temp['url'] = $row;
+                    $temp['size'] = floor(filesize($filePath.$row) / 1024) . 'KB';
+                    $one['files'][] = $temp;
+                    $one['flag'] = $matches[1];
+                    $one['date'] = substr($matches[2], 0, 4) . '/' . substr($matches[2], 4, 2) . '/' . substr($matches[2], 6, 2);
+                    $result[] = $one;
+                }
+            }   
+        }
+        return $result;
+    }
+
     private static function writeSqlFile($path, $sqlStr) {
         $basePath = realpath(dirname($_SERVER['SCRIPT_FILENAME'])) . '/';
         $savePath = $basePath . $path;
@@ -91,6 +139,24 @@ class Scheme {
         if (!fclose($fp))
             return false;
         return true;
+    }
+
+    private static function executeSqlFile($fileName){
+        self::loginDb();
+        $sqls = file($fileName);
+        foreach ($sqls as $sql){
+            if (!mysql_query($sql)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static function loginDb(){
+        $conn = SchemeManager::qb()->getConnection();
+        mysql_connect($conn->getHost(), $conn->getUsername(), $conn->getPassword()) or die("数据库连接出错！");
+        mysql_select_db($conn->getDatabase()) or die("数据库连接出错！");
+        mysql_query("SET NAMES 'UTF8'");
     }
 
 }

@@ -41,7 +41,8 @@ return array(
         array($administrator, "/admin/profile/password", array('GET', 'POST')),
 
         array($administrator, "/admin/data", array('GET')),
-        array($administrator, "/admin/data/backup", array('GET', 'POST')),
+        array($administrator, "/admin/data/(backup|recover)", array('GET', 'POST')),
+        array($administrator, "/admin/data/delete", array('GET', 'POST')),
 
         array($administrator, "/admin/setting", array('GET')),
         array($administrator, "/admin/setting/save", array('POST')),

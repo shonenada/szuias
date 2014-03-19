@@ -29,5 +29,20 @@ return array(
             return json_encode(array('success' => true, 'error' => '备份成功！'));
         });
 
+        $app->get('/admin/data/recover', function() use($app) {
+            $data = Scheme::listBackupFiles();
+            return $app->render('admin/data_recover.html', get_defined_vars());
+        });
+
+        $app->post('/admin/data/recover', function() use($app) {
+            $prefix = $app->request->post('ret');
+            if (Scheme::importSqlFile($prefix)) {
+                return json_encode(array('success' => true, 'error' => '恢复成功' ));
+            }
+            else {
+                return json_encode(array('success' => false, 'error' => '发生未知原因，恢复失败！' ));
+            }
+        });
+
     }
 );

@@ -1,0 +1,100 @@
+{% extends 'admin/base.html' %}
+
+{% block static %}
+<link type="text/css" href="{{ siteUrl('static/styles/admin/admin-no-ul.css') }}" rel="stylesheet"  />
+<script type="text/javascript" src="{{ siteUrl('static/scripts/admin/content_view.js') }}"></script>
+<link type="text/css" href="{{ siteUrl('static/styles/admin/page/data.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+<div id="content" class="clearfix">
+  <div id="content_left">
+    <div id="headtitle">数据管理</div>
+    <div id="left_nav">
+      <ul>
+        <li class="left-first-nav">
+          <a href="{{ siteUrl('admin/data/backup') }}" class="list_title">备份数据</a>
+        </li>
+        <li class="left-first-nav">
+          <a href="{{ siteUrl('admin/data/recover') }}" class="list_title on">还原数据</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="content_right">
+    <div id="content_right_top">
+      <span id="location">当前位置：数据管理&nbsp;&gt;&gt;&nbsp;还原数据</span>
+    </div>
+    <div id="data_content">
+      <table id="select_table">
+        <tbody>
+          <tr class="ret_head">
+            <th class="td_1">ID</th>
+            <th class="td_5">备份文件</th>
+            <th>备份日期</th>
+            <th>操作</th>
+          </tr>
+          {% set i = 0 %}
+          {% for d in data %}
+          {% set i = i + 1 %}
+          <tr>
+            <td class="td_1">{{ i }}</td>
+            <td class="td_5">
+              <ul>
+                {% for f in d.files %}
+                <li>
+                  <span>{{ f.url }}</span>
+                  <span>（{{ f.size }}）</span>
+                  <a href="{{ siteUrl('admin/data/download/' ~ f.url) }}" target="_blank">[下载到本地]</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>{{ d.date }}</td>
+            <td>
+              <input type="hidden" value="{{ d.flag }}" />
+              <input type="button" class="ret" value="还原"/>
+              <input type="button" class="delete" value="删除"/>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+  //还原操作
+  $(".ret").click(function(){
+    if (!confirm("还原数据库可能需要较长的等候时间，是否真的要执行还原！"))
+      return false;
+    var ret = $(this).parent().find("input[type='hidden']").val();
+    //打开弹出层
+    common.alert.loading("正在还原，请勿刷新或关闭本页面...","-130px","-20px");
+    $.post("{{ siteUrl('admin/data/recover') }}", {ret: ret}, function(data){
+      //关闭弹出层
+      common.alert.closeLoading();
+      alert(data.error);
+    }, 'json');   
+  });
+  //删除操作
+  $(".delete").click(function(){
+    var date = $(this).parent().prev().text();
+    if (!confirm("是否确定删除"+date+"备份的数据？"))
+      return false;
+    var ret = $(this).parent().find("input[type='hidden']").val();
+    //打开弹出层
+    common.alert.loading("正在删除...");
+    $.post("{{ siteUrl('admin/data/delete') }}", {ret:ret}, function(data){
+      //关闭弹出层
+      common.alert.closeLoading();
+      alert(data.error);
+      window.location.reload();
+    }, 'json');
+  });
+});
+</script>
+{% endblock %}
