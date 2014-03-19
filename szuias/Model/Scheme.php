@@ -33,7 +33,7 @@ class Scheme {
         return $names;
     }
 
-    static public function dumpDatabase($file_path, $ts=array()) {
+    static public function dumpDatabase($ts=array()) {
         if (empty($ts)){
             $tables = self::nameOfTables();
         }
@@ -72,7 +72,7 @@ class Scheme {
                 $dumpStr  .= ");\n";
             }
         }
-        return self::writeSqlFile($file_path, $dumpStr);
+        return self::writeSqlFile($dumpStr);
     }
 
     static public function importSqlFile($prefix) {
@@ -87,7 +87,7 @@ class Scheme {
         sort($temp);
         //进行还原操作
         foreach ($temp as $one){
-            if (!self::executeSqlFile($backPath . $one)) return false;
+            if (!self::executeSqlFile($one)) return false;
         }
         return true;
     }
@@ -126,9 +126,21 @@ class Scheme {
         return $result;
     }
 
-    private static function writeSqlFile($path, $sqlStr) {
+    public static function deleteSqlFile($prefix) {
         $basePath = realpath(dirname($_SERVER['SCRIPT_FILENAME'])) . '/';
-        $savePath = $basePath . $path;
+        $savePath = $basePath . '../backup/';
+        $arr = scandir($savePath);
+        foreach ($arr as $file){
+            if (strpos($file, $prefix) === 0){
+                if(!unlink($savePath.$file)) return false;
+            }
+        }
+        return true;
+    }
+
+    private static function writeSqlFile($sqlStr) {
+        $basePath = realpath(dirname($_SERVER['SCRIPT_FILENAME'])) . '/';
+        $savePath = $basePath . '../backup/';
         $random = rand(10000, 99999);
         $fileName = date("Ymd", time()) . '_' . $random . '_all.sql';
         $saveTo = $savePath . $fileName;
@@ -142,8 +154,10 @@ class Scheme {
     }
 
     private static function executeSqlFile($fileName){
+        $basePath = realpath(dirname($_SERVER['SCRIPT_FILENAME'])) . '/';
+        $savePath = $basePath . '../backup/';
         self::loginDb();
-        $sqls = file($fileName);
+        $sqls = file($savePath . $fileName);
         foreach ($sqls as $sql){
             if (!mysql_query($sql)) {
                 return false;

@@ -23,7 +23,7 @@ return array(
         $app->post('/admin/data/backup', function() use($app) {
             set_time_limit(0);
             $selected_tables = explode(",", $app->request->post('tabledb'));
-            if (!Scheme::dumpDatabase('../backup/', $selected_tables)) {
+            if (!Scheme::dumpDatabase($selected_tables)) {
                 return json_encode(array('success' => false, 'error' => '发生未知原因，备份失败！'));
             }
             return json_encode(array('success' => true, 'error' => '备份成功！'));
@@ -41,6 +41,15 @@ return array(
             }
             else {
                 return json_encode(array('success' => false, 'error' => '发生未知原因，恢复失败！' ));
+            }
+        });
+
+        $app->post('/admin/data/delete', function () use($app) {
+            $prefix = $app->request->post('ret');
+            if (Scheme::deleteSqlFile($prefix)) {
+                return json_encode(array('success' => true, 'error' => '删除成功'));
+            }else {
+                return json_encode(array('success' => false, 'error' => '删除失败'));
             }
         });
 
