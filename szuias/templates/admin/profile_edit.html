@@ -72,4 +72,12 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+$(function(){
+  $('li.left-first-nav a').click(function(){
+    $(this).parent().find('ul').toggle("fast");
+  });
+});
+</script>
 {% endblock %}

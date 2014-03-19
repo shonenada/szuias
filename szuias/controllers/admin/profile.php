@@ -26,10 +26,15 @@ return array(
             $username = $app->request->post('username');
             $phone = $app->request->post('phone');
             $email = $app->request->post('email');
+            if (isset($phone) && !is_numeric($phone)) {
+                $msg = '联系电话只能填数字';
+                return $app->render('admin/profile_edit.html', get_defined_vars());
+            }
+
             if (isset($username)) {
                 $user->setUsername($username);
             }
-            if (isset($phone) && is_numeric($phone)) {
+            if (isset($phone)) {
                 $user->setPhone($phone);
             }
             if (isset($email)) {
@@ -38,6 +43,29 @@ return array(
             $user->save();
             $msg = '修改成功';
             return $app->render('admin/profile_edit.html', get_defined_vars());
+        });
+
+        $app->get('/admin/profile/password', function() use($app) {
+            return $app->render('admin/profile_password.html', get_defined_vars());
+        });
+
+        $app->post('/admin/profile/password', function() use($app) {
+            $user = $app->environment['user'];
+            $old = $app->request->post('oldpassword');
+            if (!$user->checkPassword($old, $app->config('salt'))) {
+                $msg = '旧密码错误，请重新输入';
+                return $app->render('admin/profile_password.html', get_defined_vars());
+            }
+            $new = $app->request->post('newpassword');
+            $confirm = $app->request->post('confirmpassword');
+            if ($new != $confirm) {
+                $msg = '确认密码不匹配，请重新输入';
+                return $app->render('admin/profile_password.html', get_defined_vars());
+            }
+            $user->setPassword($confirm, $app->config('salt'));
+            $user->save();
+            $msg = '修改成功';
+            return $app->render('admin/profile_password.html', get_defined_vars());
         });
 
     }
