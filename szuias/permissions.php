@@ -32,8 +32,13 @@ return array(
         array($everyone, "/menu/\d+/show", array('GET')),
 
         array($everyone, "/admin/signin", array('GET', 'POST')),
+        array($everyone, "/admin/signout", array('GET', 'POST')),
 
         array($administrator, "/admin", array('GET')),
+        
+        array($administrator, "/admin/profile", array('GET')),
+        array($administrator, "/admin/profile/edit", array('GET', 'POST')),
+        array($administrator, "/admin/profile/password", array('GET', 'POST')),
 
         array($administrator, "/admin/setting", array('GET')),
         array($administrator, "/admin/setting/save", array('POST')),

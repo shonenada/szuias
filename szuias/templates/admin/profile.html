@@ -1,0 +1,64 @@
+{% extends 'admin/base.html' %}
+
+{% block static %}
+<link type="text/css" href="{{ siteUrl('static/styles/admin/page/personal.css') }}" rel="stylesheet" />
+<script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/jquery.KinSlideshow-1.2.1.min.js') }}" charset="utf-8"></script>
+{% endblock %}
+
+{% block content %}
+<div id="content" class="clearfix">
+  <div id="content_left">
+    <div id="headtitle">个人中心</div>
+    <div id="left_nav">
+      <ul >
+        <li class="left-first-nav">
+          <a href="{{ siteUrl('admin/profile') }}" class="list_title on">个人信息</a>
+        </li>
+        <li class="left-first-nav">
+          <a href="{{ siteUrl('admin/profile/edit') }}" class="list_title">修改信息</a>
+        </li>
+        <li class="left-first-nav">
+          <a href="{{ siteUrl('admin/profile/password') }}" class="list_title">修改密码</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id="content_right">
+    <div id="content_right_top">
+      <span id="location">当前位置：个人中心&nbsp;&gt;&gt;&nbsp;个人信息</span>
+    </div>
+    <div id="info">
+      <table>
+        <tr>
+        <td id="info_tips">用户名</td>
+        <td id="info_content" class="td1">{{ loggedUser.username }}</td>
+        </tr>
+        <tr>
+        <td id="info_tips">用户类别</td>
+        <td id="info_content" class="td1">{% if loggedUser.isAdmin() %}管理员{% else %}普通用户{% endif %}</td>
+        </tr>
+        <tr>
+        <td id="info_tips">联系电话</td>
+        <td id="info_content" class="td1">{{ loggedUser.phone }}</td>
+        </tr>
+        <tr>
+        <td id="info_tips">邮箱地址</td>
+        <td id="info_content" class="td1">{{ loggedUser.email }}</td>
+        </tr>
+        <tr>
+        <td id="info_tips">注册时间</td>
+        <td id="info_content" class="td1">{{ loggedUser.created | date('Y/m/d H:i:s') }}</td>
+        </tr>
+        <tr>
+        <td id="info_tips">最后登录时间</td>
+        <td id="info_content" class="td1">{{ loggedUser.last_login | date('Y/m/d H:i:s') }}</td>
+        </tr>
+        <tr>
+        <td id="info_tips">最后登录IP</td>
+        <td id="info_content" class="td1">{{ loggedUser.last_ip }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

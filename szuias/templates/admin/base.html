@@ -22,7 +22,7 @@
         <ul>
           <li>欢迎您回来，{{ loggedUser.name }}</li>
           <li>
-            <a onclick="if(!confirm('是否注销登录？')) return false;" href="{{ siteUrl('/admin/logout') }}">| 注销 |</a>
+            <a onclick="if(!confirm('是否注销登录？')) return false;" href="{{ siteUrl('/admin/signout') }}">| 注销 |</a>
           </li>
         </ul>
       </div>

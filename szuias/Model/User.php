@@ -64,17 +64,17 @@ class User extends ModelBase{
     /**
      * @Column(name="created", type="datetime")
      **/
-    private $created;
+    public $created;
 
     /**
      * @Column(name="last_login", type="datetime")
      **/
-    private $last_login;
+    public $last_login;
 
     /**
      * @Column(name="last_ip", type="string", length=64)
      **/
-    private $last_ip;
+    public $last_ip;
 
     /**
      * @Column(name="token", type="string", length=64)
@@ -99,6 +99,10 @@ class User extends ModelBase{
         return $this->username;
     }
 
+    public function setUsername($username) {
+        $this->username = $username;
+    }
+
     public function setPassword($raw, $salt) {
         $hashPassword = User::hashPassword($raw, $salt);
         $this->password = $hashPassword;
@@ -116,10 +120,6 @@ class User extends ModelBase{
         $this->email = $email;
     }
 
-    public function getCreated() {
-        return $this->created;
-    }
-
     public function getPhone() {
         return $this->phone;
     }
@@ -128,16 +128,8 @@ class User extends ModelBase{
         $this->phone = $phone;
     }
 
-    public function getIp(){
-        return $this->last_ip;
-    }
-
     public function setIp($ip) {
         $this->last_ip = $ip;
-    }
-
-    public function getLastLogin () {
-        return $this->last_login;
     }
 
     public function setLastLogin ($datetime) {

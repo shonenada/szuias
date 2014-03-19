@@ -27,6 +27,7 @@ $controllers = array (
     'admin_menu_app' => 'admin/menu',
     'admin_category_app' => 'admin/category',
     'admin_content_app' => 'admin/content',
+    'admin_profile_app' => 'admin/profile',
 );
 
 // 系统入口工厂函数
