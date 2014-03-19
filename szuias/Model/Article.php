@@ -92,17 +92,17 @@ class Article extends ModelBase {
     /**
      * @Column(name="view_count", type="integer")
      **/
-    public $view_count = 0;
+    public $view_count;
 
     /**
      * @Column(name="is_top", type="boolean")
      **/
-    public $is_top = false;
+    public $is_top;
 
     /**
      * @Column(name="sort", type="integer")
      **/
-    public $sort = 0;
+    public $sort;
 
     /**
      * @Column(name="redirect_url", type="string", length=255)
@@ -112,19 +112,25 @@ class Article extends ModelBase {
     /**
      * @Column(name="open_style", type="integer")
      **/
-    public $open_style = 0;
+    public $open_style;
 
     /**
      * @Column(name="is_hide", type="boolean")
      **/
-    public $is_hide = false;
+    public $is_hide;
 
     /**
      * @Column(name="is_deleted", type="boolean")
      **/
-    public $is_deleted = false;
+    public $is_deleted;
 
     public function __construct() {
+        $this->is_deleted = false;
+        $this->is_hide = false;
+        $this->view_count = 0;
+        $this->is_top = false;
+        $this->open_style = 0;
+        $this->sort = 0;
     }
 
     public function setTop() {

@@ -114,7 +114,7 @@ class ORMManager {
 
         $config->setMetadataDriverImpl($driver);
         $config->setProxyDir(APPROOT. 'cache/');
-        $config->setProxyNamespace("nhpccProxy");
+        $config->setProxyNamespace("DoctrineProxy");
 
         if (extension_loaded('wincache')) {
             $config->setMetadataCacheImpl(new \Doctrine\Common\Cache\WinCache());
