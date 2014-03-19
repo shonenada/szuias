@@ -28,6 +28,8 @@ $controllers = array (
     'admin_category_app' => 'admin/category',
     'admin_content_app' => 'admin/content',
     'admin_profile_app' => 'admin/profile',
+    'admin_account_app' => 'admin/account',
+    'admin_data_app' => 'admin/data',
 );
 
 // 系统入口工厂函数

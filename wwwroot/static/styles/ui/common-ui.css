@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+.common-ui-dialog{
+	
+}
+.common-ui-dialog .ui-widget-header{
+	background: none;
+	border: 0;
+	border-bottom: 1px solid #009AD9;
+	moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-khtml-border-radius: 0px;
+	border-radius: 0px;
+}
+.common-ui-dialog span.ui-dialog-title{
+	color: #009AD9;
+	font-size: 18px;
+	font-family: "微软雅黑","Microsoft Yahei",Tahoma;
+}
+.common-ui-dialog div.ui-dialog-titlebar{
+	padding: .4em 1em 0;
+}
+.common-ui-dialog div.ui-dialog-buttonpane{
+	padding: 0;
+}

@@ -35,13 +35,18 @@ return array(
         array($everyone, "/admin/signout", array('GET', 'POST')),
 
         array($administrator, "/admin", array('GET')),
-        
+
         array($administrator, "/admin/profile", array('GET')),
         array($administrator, "/admin/profile/edit", array('GET', 'POST')),
         array($administrator, "/admin/profile/password", array('GET', 'POST')),
 
+        array($administrator, "/admin/data", array('GET')),
+        array($administrator, "/admin/data/backup", array('GET', 'POST')),
+
         array($administrator, "/admin/setting", array('GET')),
         array($administrator, "/admin/setting/save", array('POST')),
+
+        array($administrator, "/admin/account", array('GET')),
 
         array($administrator, "/admin/menu", array('GET')),
         array($administrator, "/admin/menu/(save|(\d+?)/delete)", array('POST')),

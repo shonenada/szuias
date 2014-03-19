@@ -1,0 +1,125 @@
+{% extends 'admin/base.html' %}
+
+{% block static %}
+<link type="text/css" href="{{ siteUrl('static/styles/ui/jquery-ui-1.8.23.custom.css') }}" rel="stylesheet"  />
+<link type="text/css" href="{{ siteUrl('static/styles/ui/common-ui.css') }}" rel="stylesheet"  />
+<link type="text/css" href="{{ siteUrl('static/styles/admin/page/user.css') }}" rel="stylesheet" />
+<script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/jquery-ui-1.8.23.custom.min.js') }}"></script>
+<script type="text/javascript" src="{{ siteUrl('static/scripts/admin/user_view.js') }}"></script>
+<script type="text/javascript">
+  var RegPostHref = "{{ siteUrl('admin/account/create') }}";
+  var DeleteHref = "{{ siteUrl('admin/account/delete') }}";
+  var ResetHref = "{{ siteUrl('admin/account/reset') }}";
+  var LoadPower = "{{ siteUrl('admin/account/power') }}";
+  var SavePower = "{{ siteUrl('admin/account/power/save') }}";
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="content" class="clearfix">
+  <div>
+    <div class="user-title">
+      <span>操作用户</span>
+      <span class="add-user"><span class="add-user-pic"></span><a class="add-user-text">新增用户</a></span>
+    </div>
+    <table class="user-list">
+      <thead>
+        <tr>
+          <th class="td-1">序号</th>
+          <th class="td-2">用户名</th>
+          <th class="td-3">名称</th>
+          <th class="td-4">联系电话</th>
+          <th class="td-5">最后登录时间</th>
+          <th class="td-6">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% set i = 0 %}
+        {% for a in accounts %}
+        {% set i = i + 1 %}
+        <tr>      
+          <td class="td-1">{{ i }}</td>
+          <td class="td-2">{{ a.username }}</td>
+          <td class="td-3">{{ a.name }}</td>
+          <td class="td-4">{{ a.phone }}</td>
+          <td class="td-5">{{ a.last_login | date('Y/m/d H:i:s') }}</td>
+          <td class="td-6">
+            <input type="hidden" name="uid" value="{{ a.id }}"/>
+            <input type="button" class="change-power" value="修改权限" />
+            <input type="button" class="delete-user" value="删除用户" />
+            <input type="button" class="reset-password" value="重置密码" />
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 新增用户dialog start -->
+<div id="reg" style="display: none;">
+  <ul>
+    <li class="reg-li clearfix">
+      <div class="reg-title"><em>*</em>账号</div>
+      <div class="reg-input-div"><input type="text" name="loginname" class="reg-input" /></div>
+      <div class="reg-tip">账号由a-z0-9及下划线组成，首位不能为数字，长度为5-16</div>
+    </li>
+    <li class="reg-li clearfix">
+      <div class="reg-title"><em>*</em>用户名</div>
+      <div class="reg-input-div"><input type="text" name="username" class="reg-input" /></div>
+      <div class="reg-tip">用户名允许中文</div>
+    </li>
+    <li class="reg-li clearfix">
+      <div class="reg-title"><em>*</em>密码</div>
+      <div class="reg-input-div"><input type="password" name="password" class="reg-input" /></div>
+      <div class="reg-tip">密码由a-zA-Z0-9及下划线组成，区分大小写，且长度为5-16</div>
+    </li>
+    <li class="reg-li clearfix">
+      <div class="reg-title"><em>*</em>重复密码</div>
+      <div class="reg-input-div"><input type="password" name="repassword" class="reg-input" /></div>
+      <div class="reg-tip"></div>
+    </li>
+  </ul>
+</div>
+<!-- 新增用户dialog end -->
+<!-- 修改权限dialog start -->
+<div id="change_power" style="display:none;">
+  <input type="hidden" name="userid" value="" />
+  <div class="model_div">
+    <div class="model_div_title">内容管理权：</div>
+    <div class="model_div_value">
+      <div class="model_label_list clearfix">
+        <?php foreach ($data['all_models'] as $model):?>
+        <label><input type="checkbox" name="model" value="<?php echo $model['model_id'];?>" /><?php echo $model['title'];?></label>
+        <?php endforeach;?>
+      </div>
+      <div class="model-button">    
+        <input type="button" class="check-all" id="model_check" value="全选" />
+        <input type="button" class="check-invert" id="model_check_invert" value="反选" />
+      </div>
+    </div>
+  </div>
+  <div class="menu_div">
+    <div class="menu_div_title">菜单管理权：（*必须拥有内容管理权限）</div>
+    <div class="menu_div_value">
+      <div class="menu_label_list">
+        <table><tbody>
+        <?php foreach ($data['all_menus'] as $first):?>
+        <tr><td class="menu-title"><?php echo $first['mtitle']?>：</td>
+        <td class="menu-content">
+          <?php foreach ($first['second_menu'] as $menu):?>
+          <label><input type="checkbox" name="menu" value="<?php echo $menu['mid'];?>" /><?php echo $menu['mtitle'];?></label>
+          <?php endforeach;?>
+        </td></tr>
+        <?php endforeach;?>
+        </tbody></table>
+      </div>
+      <div class="menu-button">
+        <input type="button" class="check-all" id="menu_check" value="全选" />
+        <input type="button" class="check-invert" id="menu_check_invert" value="反选" />
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 修改权限dialog end -->
+{% endblock %}

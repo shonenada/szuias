@@ -1,0 +1,99 @@
+{% extends 'admin/base.html' %}
+
+{% block static %}
+<link type="text/css" href="{{ siteUrl('static/styles/admin/admin-no-ul.css') }}" rel="stylesheet"  />
+<script type="text/javascript" src="{{ siteUrl('static/scripts/admin/content_view.js') }}"></script>
+<link type="text/css" href="{{ siteUrl('static/styles/admin/page/data.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+<div id="content" class="clearfix">
+  <div id="content_left">
+    <div id="headtitle">数据管理</div>
+    <div id="left_nav">
+      <ul>
+        <li class="left-first-nav">
+          <a href="{{ siteUrl('admin/data/backup') }}" class="list_title on">备份数据</a>
+        </li>
+        <li class="left-first-nav">
+          <a href="{{ siteUrl('admin/data/recover') }}" class="list_title">还原数据</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="content_right">
+    <div id="content_right_top">
+      <span id="location">当前位置：数据管理&nbsp;&gt;&gt;&nbsp;备份数据</span>
+    </div>
+    <div id="data_content">
+      <table id="select_table">
+        <tbody>
+          <tr class="bak_head">
+            <th class="td_1">ID</th>
+            <th class="td_2">数据库表</th>
+            <th class="td_3">记录数</th>
+            <th class="td_4">选择</th>
+          </tr>
+          {% set i = 0 %}
+          {% for table in tables %}
+          {% set i = i + 1 %}
+          <tr>
+            <td class="td_1">{{ i }}</td>
+            <td class="td_2">{{ table.name }}</td>
+            <td class="td_3">{{ table.rowNums }}</td>
+            <td class="td_4"><input type="checkbox" name="tabledb" value="{{ table.name }}" checked="checked" /></td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="4" class="subsection_td">
+              <input type="text" name="subsection" value="2048" style="width:40px;" />
+              <span>分卷大小，单位KB（*默认值为2MB，若不了解分卷，请不要随意修改）</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="b-center">
+        <input type="button" id="select_all" class="b-button" value="全选" />
+        <input type="button" id="submit-bak" class="b-button" value="开始备份" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    //全选按钮
+    $("#select_all").click(function(){
+      var state = false;
+        tabledb = $("input[name='tabledb']");
+      tabledb.each(function(index){
+        if (!$(this).attr("checked")) state = true;
+      });
+      tabledb.each(function(index){
+        $(this).attr("checked",state);
+      });
+    });
+    //备份按钮
+    $("#submit-bak").click(function(){
+      if (!confirm("备份数据库可能需要较长的等候时间，是否真的要执行备份！"))
+        return false;
+      var subsection = $("input[name='subsection']").val(),
+        tabledb = "";
+      $("input[name='tabledb']:checked").each(function(index){
+        if (index == 0) tabledb += $(this).val();
+        else tabledb += "," + $(this).val();
+      });
+      //提交前进行前台判断
+      
+      //打开弹出层
+      common.alert.loading("正在备份，请勿刷新或关闭本页面...","-130px","-20px");
+      $.post("{{ siteUrl('admin/data/backup') }}",{subsection : subsection,tabledb : tabledb},function(data){
+        //关闭弹出层
+        common.alert.closeLoading();
+        alert(data.error);
+      }, 'json');
+    });
+  });
+</script>
+{% endblock %}
