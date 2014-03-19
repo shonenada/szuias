@@ -27,14 +27,17 @@ return array(
             else {
                 $focus_menu = Menu::find($mid);
             }
+            $c_mid = $focus_menu->id;
             if ($focus_menu->is_parent()){
-                $focus_sub_menu = $focus_menu->sub_menus->first();
+                if ($focus_menu->has_sub()) {
+                    $focus_sub_menu = $focus_menu->sub_menus->first();
+                    $c_mid = $focus_sub_menu->id;
+                }
             }
             else {
                 $focus_sub_menu = $focus_menu;
                 $focus_menu = $focus_menu->parent;
             }
-            $c_mid = $focus_sub_menu->id;
             $artilce_pager = Article::paginate_with_mid($page, $pagesize, $c_mid, false, 'sort');
             $total = $artilce_pager->count();
             $now = new \DateTime();
@@ -44,6 +47,7 @@ return array(
             $pager = array('current' => $page, 'nums' => ceil($total / $pagesize));
             if ($focus_menu->type == 1) {
                 // 单页
+                $article = $focus_menu->articles->first();
                 return $app->render("admin/single_page.html", get_defined_vars());
             }
             else {
@@ -94,11 +98,69 @@ return array(
                 'category' => $category,
                 'author' => $user,
                 'editor' => $user,
+                'redicret_url' => $app->request->post('url'),
                 'edit_time' => new \DateTime($app->request->post('moditime')),
             );
+            $open_style = $app->request->post('open_style');
+            if (isset($open_style)) {
+                $data['open_style'] = $open_style;
+            }
             $article->populate_from_array($data)->save();
             return $app->redirect('/admin/content/menu/' . $menu_id);
         })->conditions(array('id' => '\d+'));
+
+        $app->get('/admin/content/:aid/edit', function($aid) use ($app) {
+            $article = Article::find($aid);
+            $focus_menu = $article->menu;
+            if ($focus_menu->is_parent()){
+                $focus_sub_menu = $focus_menu->sub_menus->first();
+            }
+            else {
+                $focus_sub_menu = $focus_menu;
+                $focus_menu = $focus_menu->parent;
+            }
+            $admin_menus = Menu::list_admin_menus();
+            $timestamp = $_SESSION['add_timestamp'] = time() * 10000 + rand(0, 9999);
+            return $app->render('admin/content_edit.html', get_defined_vars());
+        })->conditions(array('aid' => '\d+'));
+
+        $app->post('/admin/content/:aid/edit', function($aid) use ($app) {
+            if ($_SESSION['add_timestamp'] != $app->request->post('timestamp')) {
+                return $app->redirect("/admin/content/{$aid}/edit");
+            }
+
+            $article = Article::find($aid);
+            if ($article == null) {
+                return $app->redirect('/admin/content/{$aid}/edit');
+            }
+            $menu = $article->menu;
+            $category = Category::find($app->request->post('category_id'));
+            $data = array(
+                'title' => $app->request->post('title'),
+                'content' => $app->request->post('content'),
+                'menu' => $menu,
+                'category' => $category,
+                'editor' => $app->environment['user'],
+                'open_style' => $app->request->post('open_style'),
+                'redirect_url' => $app->request->post('url'),
+                'edit_time' => new \DateTime(),
+            );
+            $article->populate_from_array($data)->save();
+            return $app->redirect('/admin/content/menu/' . $menu->id);
+        })->conditions(array('id' => '\d+'));
+
+        $app->post('/admin/content/:aid/delete', function($aid) use ($app) {
+            $article = Article::find($aid);
+            if ($article) {
+                if (!$article->is_deleted) {
+                    $article->delete();
+                    $article->save();
+                    return json_encode(array('success' => true, 'info' => '删除成功'));
+                }
+            }else {
+                return json_encode(array('success' => true, 'info' => '文章不存在'));
+            }
+        })->conditions(array('aid' => '\d+'));
 
         $app->post('/admin/content/:aid/hide/create', function($aid) use ($app) {
             $article = Article::find($aid);
@@ -143,19 +205,6 @@ return array(
                     $article->setNotTop();
                     $article->save();
                     return json_encode(array('success' => true, 'info' => '设置成功'));
-                }
-            }else {
-                return json_encode(array('success' => true, 'info' => '文章不存在'));
-            }
-        })->conditions(array('aid' => '\d+'));
-
-        $app->post('/admin/content/:aid/delete', function($aid) use ($app) {
-            $article = Article::find($aid);
-            if ($article) {
-                if (!$article->is_deleted) {
-                    $article->delete();
-                    $article->save();
-                    return json_encode(array('success' => true, 'info' => '删除成功'));
                 }
             }else {
                 return json_encode(array('success' => true, 'info' => '文章不存在'));

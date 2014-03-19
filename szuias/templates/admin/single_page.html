@@ -1,0 +1,62 @@
+{% extends 'admin/base.html' %}
+
+{% block static %}
+<link type="text/css" href="{{ siteUrl('static/styles/admin/admin-no-ul.css') }}" rel="stylesheet"  />
+<script type="text/javascript" src="{{ siteUrl('static/scripts/admin/content_view.js') }}"></script>
+<link type="text/css" href="{{ siteUrl('static/styles/admin/page/content.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+<div id="content_left">
+  <div id="headtitle">内容管理</div>
+  <div id="left_nav">
+  {% for menu in admin_menus %}
+    <ul>
+      <li class="left-first-nav">
+        <a class="list_title"{% if menu.type in [1,2] %} href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.title }}</a>
+        <ul class="left-second-nav" style="display:{% if menu.id == focus_menu.id %}block{% else %}none{% endif %};">
+          {% for s in menu.sub_menus %}
+          <li><a class="{% if focus_sub_menu.id == s.id %}open{% endif %}" href="{{ siteUrl('admin/content/menu/' ~ s.id ) }}">{{ s.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+    </ul>
+  {% endfor %}
+  </div>
+</div>
+
+<div id="content_right" class="clearfix">
+  <div id="content_right_top">
+      <span id="location">当前位置：内容管理&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% if focus_sub_menu %}&nbsp;&gt;&gt;&nbsp;{{ focus_sub_menu.title }}{% endif %}</span>
+  </div>
+  <div id="content_one">
+    <div id="one_button_div">
+    {% if article %}
+    <a class="a-btn one-pre" target="_blank" href="{{ siteUrl('article/' ~ article.id) }}">预览</a>
+    {% endif %}
+    {% if article %}
+    <a class="a-btn one-edit" href="{{ siteUrl('admin/content/' ~ article.id ~'/edit') }}">编辑</a>
+    {% else %}
+    <a class="a-btn one-add" href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '/create') }}">新增</a>
+    {% endif %}
+    </div>
+    {% if article %}
+    <div class="one-title">{{ article.title }}</div>
+    <div class="one-article">{{ article.content }}</div>
+    <div>
+      <table class="one-table">
+        <tbody>
+          <tr class="even"><td class="one-table-left">创建人：</td><td>{{ article.author.name }}</td></tr>
+          <tr class="odd"><td class="one-table-left">创建时间：</td><td>{{ article.created | date('Y-m-d H:i:s') }}</td></tr>
+          <tr class="even"><td class="one-table-left">最后修改人：</td><td>{{ article.last_editor.name }}</td></tr>
+          <tr class="odd"><td class="one-table-left">最后修改时间：</td><td>{{ article.edit_time | date('Y-m-d H:i:s') }}</td></tr>
+          <tr class="even"><td class="one-table-left">浏览总次数：</td><td>{{ article.view_count }}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="no-data">没有数据！请点击新增按钮添加数据！</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

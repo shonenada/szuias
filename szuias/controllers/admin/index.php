@@ -19,7 +19,7 @@ return array(
                 return $app->redirect('/admin/signin');
             }
             else {
-                return $app->redirect('/admin/setting');
+                return $app->redirect('/admin/content');
             }
         });
 

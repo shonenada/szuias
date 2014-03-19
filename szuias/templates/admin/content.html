@@ -8,143 +8,143 @@
 {% block content %}
 <div id="content" class="clearfix">
   <div id="content_left">
-    <div id="headtitle">内容管理</div>
-      <div id="left_nav">
-      {% for menu in admin_menus %}
-        <ul>
-          <li class="left-first-nav">
-            <a class="list_title"{% if menu.type in [1,2] %} href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.title }}</a>
-            <ul class="left-second-nav" style="display:{% if menu.id == focus_menu.id %}block{% else %}none{% endif %};">
-              {% for s in menu.sub_menus %}
-              <li><a class="{% if focus_sub_menu.id == s.id %}open{% endif %}" href="{{ siteUrl('admin/content/menu/' ~ s.id ) }}">{{ s.title }}</a></li>
-              {% endfor %}
-            </ul>
-          </li>
-        </ul>
-      {% endfor %}
-      </div>
+  <div id="headtitle">内容管理</div>
+    <div id="left_nav">
+    {% for menu in admin_menus %}
+      <ul>
+        <li class="left-first-nav">
+          <a class="list_title"{% if menu.type in [1,2] %} href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.title }}</a>
+          <ul class="left-second-nav" style="display:{% if menu.id == focus_menu.id %}block{% else %}none{% endif %};">
+            {% for s in menu.sub_menus %}
+            <li><a class="{% if focus_sub_menu.id == s.id %}open{% endif %}" href="{{ siteUrl('admin/content/menu/' ~ s.id ) }}">{{ s.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+      </ul>
+    {% endfor %}
+    </div>
+  </div>
+
+  <div id="content_right" class="clearfix">
+    <div id="content_right_top">
+      <span id="location">当前位置：内容管理&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% if focus_sub_menu %}&nbsp;&gt;&gt;&nbsp;{{ focus_sub_menu.title }}{% endif %}</span>
+      <a class="a-btn add-new" href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '/create') }}">新增</a>
+    </div>
+    <div id="search_frame">
+      <form action="{{ siteUrl('admin/content/search?menu_id' ~ focus_menu.id) }}" method="post" target="_self">
+        <span>
+          <input type="text" name="title" value="{% if not search.title %}请输入列表标题{% endif %}{{ search.title }}" class="search_txt" style="width:270px;" onfocus="if (this.value =='请输入列表标题'){value =''}" onblur="if (value ==''){value='请输入列表标题'}" />
+        </span>
+        <span>
+          <select name="cid" class="search-select" style="width:120px;">
+            <option value="">请选择分类</option>
+            {% for c in focus_menu.categories %}
+            <option value="{{ c.id }}"{% if c.id == search.id %}selected="selected"{% endif %}>{{ c.title }}</option>
+            {% endfor %}
+          </select>
+        </span>
+        <span>
+          <select name="creator" class="search-select" style="width:120px;">
+            <option value="0">请选择发表人</option>
+            {% for person in admin_list %}
+            <option value="{{ person.id }}"{% if person.id == search.person_id %} selected="selected"{% endif %}>{{ person.name }}</option>
+            {% endfor %}
+          </select>
+        </span>
+        <span>
+          <select name="time" class="search-select" style="width:100px;">
+            <option value="0" {% if search.time == 0 %} selected="selected" {% endif %}>发表时间</option>
+            <option value="7"  {% if search.time == 7 %} selected="selected" {% endif %}>一周内</option>
+            <option value="30" {% if search.time == 30 %} selected="selected" {% endif %}>一个月内</option>
+            <option value="182" {% if search.time == 182 %} selected="selected" {% endif %}>半年内</option>
+            <option value="365" {% if search.time == 365 %} selected="selected" {% endif %}>一年内</option>
+          </select>
+        </span>
+        <span>
+          <input type="submit" value="搜索" class="button-btn search_btn" />
+          <input type="button" value="重置" class="button-btn reset_btn" />
+        </span>
+      </form>
     </div>
 
-    <div id="content_right" class="clearfix">
-      <div id="content_right_top">
-        <span id="location">当前位置：内容管理&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% if focus_sub_menu %}&nbsp;&gt;&gt;&nbsp;{{ focus_sub_menu.title }}{% endif %}</span>
-        <a class="a-btn add-new" href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '/create') }}">新增</a>
-      </div>
-      <div id="search_frame">
-        <form action="{{ siteUrl('admin/content/search?menu_id' ~ focus_menu.id) }}" method="post" target="_self">
-          <span>
-            <input type="text" name="title" value="{% if not search.title %}请输入列表标题{% endif %}{{ search.title }}" class="search_txt" style="width:270px;" onfocus="if (this.value =='请输入列表标题'){value =''}" onblur="if (value ==''){value='请输入列表标题'}" />
-          </span>
-          <span>
-            <select name="cid" class="search-select" style="width:120px;">
-              <option value="">请选择分类</option>
-              {% for c in focus_menu.categories %}
-              <option value="{{ c.id }}"{% if c.id == search.id %}selected="selected"{% endif %}>{{ c.title }}</option>
-              {% endfor %}
-            </select>
-          </span>
-          <span>
-            <select name="creator" class="search-select" style="width:120px;">
-              <option value="0">请选择发表人</option>
-              {% for person in admin_list %}
-              <option value="{{ person.id }}"{% if person.id == search.person_id %} selected="selected"{% endif %}>{{ person.name }}</option>
-              {% endfor %}
-            </select>
-          </span>
-          <span>
-            <select name="time" class="search-select" style="width:100px;">
-              <option value="0" {% if search.time == 0 %} selected="selected" {% endif %}>发表时间</option>
-              <option value="7"  {% if search.time == 7 %} selected="selected" {% endif %}>一周内</option>
-              <option value="30" {% if search.time == 30 %} selected="selected" {% endif %}>一个月内</option>
-              <option value="182" {% if search.time == 182 %} selected="selected" {% endif %}>半年内</option>
-              <option value="365" {% if search.time == 365 %} selected="selected" {% endif %}>一年内</option>
-            </select>
-          </span>
-          <span>
-            <input type="submit" value="搜索" class="button-btn search_btn" />
-            <input type="button" value="重置" class="button-btn reset_btn" />
-          </span>
-        </form>
-      </div>
-
-      <div id="show_list" class="clearfix">
-        <table>
-          <tr>
-            <th id="number">排序</th>
-            <th id="article_type">类别</th>
-            <th id="list">列表标题</th>
-            <th id="viewcount">浏览量</th>
-            <th id="post_people">发表人</th>
-            <th id="time">发表/修改</th>
-            <th id="list_operate">列表操作</th>
-          </tr>
-        {% set offset = 0 %}
-        {% for one in artilce_pager.getIterator() %}
-        {% set offset = offset + 1 %}
-          <tr class="{% if offset % 2 == 0 %}odd{% else %}even{% endif %}" data-aid="{{ one.id }}">
-            <td class="number">
-              <input type="text" name="sort" value="{{ one.sort }}" style="width:30px;"/>
-            </td>
-            <td>{% if one.category %}{{ one.category.title }}{% else %}无类别{% endif %}</td>
-            <td style="text-align:left">
-              {% if one.is_top == 1 %}
-              <img src="{{ siteUrl('static/images/admin/icon_up.gif') }}" />
-              {% endif %}
-              {% if one.redirect_url %}
-              <a href="{{ one.redirect_url }}" target="_blank">{{ one.title }}</a>
-              {% else %}
-              <a href="{{ siteUrl('article/' ~ one.id) }}" target="_blank">{{ one.title }}</a>
-              {% endif %}
-              {% if date_difference(now, one.created) < 604800 %}
-              <img src="{{ siteUrl('static/images/admin/icon_new.gif' ) }}" />
-              {% endif %}
-            </td>
-            <td>{{ one.view_count }}</td>
-            <td>{{ one.author.name }}</td>
-            <td>{{ one.created | date('Y/m/d') }}<br />{{ one.edit_time | date('Y/m/d') }}</td>
-            <td>
-              {% if one.redirect_url %}
-              <a href="{{ one.redirect_url }}" style="color:red" target="_blank">转跳</a>&nbsp;&nbsp;
-              {% else %}
-              <a href="{{ siteUrl('article/' ~ one.id ) }}" target="_blank">查看</a>&nbsp;&nbsp;
-              {% endif %}
-              <a href="{{ siteUrl('admin/content/' ~ one.id ~ '/edit') }}">修改</a>&nbsp;&nbsp;
-              <a class="delete" href="{{ siteUrl('admin/content/' ~ one.id ~ '/delete') }}">删除</a>
-              <br />
-              {% if one.is_top %}
-              <a class="cancel_maketop" href="{{ siteUrl('admin/content/' ~ one.id ~ '/top/delete') }}">不置顶</a>&nbsp;&nbsp;
-              {% else %}
-              <a class="maketop" href="{{ siteUrl('admin/content/' ~ one.id ~ '/top/create') }}">置顶</a>&nbsp;&nbsp;
-              {% endif %}
-              {% if one.is_hide %}
-              <a class="display" href="{{ siteUrl('admin/content/' ~ one.id ~ '/hide/delete') }}">显示</a>
-              {% else %}
-              <a class="hide" href="{{ siteUrl('admin/content/' ~ one.id ~ '/hide/create') }}">隐藏</a>
-              {% endif %}
-            </td>
-          </tr>
-        {% endfor %}
-        </table>
-        <div id="pagebar" class="clearfix">
-          <div id="page_info">
-            共 {{ total }} 条信息，当前为第 {{ pager.current }} 页，共 {{ pager.nums }} 页 
-          </div>
-          <div id="page_change">
-            <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=1') }}">首页</a>
-            <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=' ~ (pager.current - 1)) }}">上一页</a>
-            <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=' ~ (pager.current + 1)) }}">下一页</a>
-            <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=' ~ pager.nums) }}" >尾页</a>
-            转到&nbsp;<input name="page" type="text" style="width:30px; height:15px;"/>&nbsp;页
-            <a href="javascript:void(0);" id="go_page" >转</a>
-          </div>
+    <div id="show_list" class="clearfix">
+      <table>
+        <tr>
+          <th id="number">排序</th>
+          <th id="article_type">类别</th>
+          <th id="list">列表标题</th>
+          <th id="viewcount">浏览量</th>
+          <th id="post_people">发表人</th>
+          <th id="time">发表/修改</th>
+          <th id="list_operate">列表操作</th>
+        </tr>
+      {% set offset = 0 %}
+      {% for one in artilce_pager.getIterator() %}
+      {% set offset = offset + 1 %}
+        <tr class="{% if offset % 2 == 0 %}odd{% else %}even{% endif %}" data-aid="{{ one.id }}">
+          <td class="number">
+            <input type="text" name="sort" value="{{ one.sort }}" style="width:30px;"/>
+          </td>
+          <td>{% if one.category %}{{ one.category.title }}{% else %}暂无分类{% endif %}</td>
+          <td style="text-align:left">
+            {% if one.is_top == 1 %}
+            <img src="{{ siteUrl('static/images/admin/icon_up.gif') }}" />
+            {% endif %}
+            {% if one.redirect_url %}
+            <a href="{{ one.redirect_url }}" target="_blank">{{ one.title }}</a>
+            {% else %}
+            <a href="{{ siteUrl('article/' ~ one.id) }}" target="_blank">{{ one.title }}</a>
+            {% endif %}
+            {% if date_difference(now, one.created) < 604800 %}
+            <img src="{{ siteUrl('static/images/admin/icon_new.gif' ) }}" />
+            {% endif %}
+          </td>
+          <td>{{ one.view_count }}</td>
+          <td>{{ one.author.name }}</td>
+          <td>{{ one.created | date('Y/m/d') }}<br />{{ one.edit_time | date('Y/m/d') }}</td>
+          <td>
+            {% if one.redirect_url %}
+            <a href="{{ one.redirect_url }}" style="color:red" target="_blank">转跳</a>&nbsp;&nbsp;
+            {% else %}
+            <a href="{{ siteUrl('article/' ~ one.id ) }}" target="_blank">查看</a>&nbsp;&nbsp;
+            {% endif %}
+            <a href="{{ siteUrl('admin/content/' ~ one.id ~ '/edit') }}">修改</a>&nbsp;&nbsp;
+            <a class="delete" href="{{ siteUrl('admin/content/' ~ one.id ~ '/delete') }}">删除</a>
+            <br />
+            {% if one.is_top %}
+            <a class="cancel_maketop" href="{{ siteUrl('admin/content/' ~ one.id ~ '/top/delete') }}">不置顶</a>&nbsp;&nbsp;
+            {% else %}
+            <a class="maketop" href="{{ siteUrl('admin/content/' ~ one.id ~ '/top/create') }}">置顶</a>&nbsp;&nbsp;
+            {% endif %}
+            {% if one.is_hide %}
+            <a class="display" href="{{ siteUrl('admin/content/' ~ one.id ~ '/hide/delete') }}">显示</a>
+            {% else %}
+            <a class="hide" href="{{ siteUrl('admin/content/' ~ one.id ~ '/hide/create') }}">隐藏</a>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+      </table>
+      <div id="pagebar" class="clearfix">
+        <div id="page_info">
+          共 {{ total }} 条信息，当前为第 {{ pager.current }} 页，共 {{ pager.nums }} 页 
         </div>
-        <div class="text_end">
-        <span>
-        <a data-href="{{ siteUrl('admin/content/save') }}" href="{{ siteUrl('admin/content/save') }}"  id="submit">保存</a>
-        <a href="javascript:void(0)" id="cancel">取消</a>
-        </span>
+        <div id="page_change">
+          <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=1') }}">首页</a>
+          <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=' ~ (pager.current - 1)) }}">上一页</a>
+          <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=' ~ (pager.current + 1)) }}">下一页</a>
+          <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=' ~ pager.nums) }}" >尾页</a>
+          转到&nbsp;<input name="page" type="text" style="width:30px; height:15px;"/>&nbsp;页
+          <a href="javascript:void(0);" id="go_page" >转</a>
         </div>
+      </div>
+      <div class="text_end">
+      <span>
+      <a data-href="{{ siteUrl('admin/content/save') }}" href="{{ siteUrl('admin/content/save') }}"  id="submit">保存</a>
+      <a href="javascript:void(0)" id="cancel">取消</a>
+      </span>
       </div>
     </div>
   </div>
+</div>
 {% endblock %}

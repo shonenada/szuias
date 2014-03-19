@@ -23,7 +23,6 @@ function setup_views ($app) {
     );
 
     $twigEnv = $view->getEnvironment();
-    $twigEnv->getExtension('core')->setTimezone('Asia/Shanghai');
 }
 
 

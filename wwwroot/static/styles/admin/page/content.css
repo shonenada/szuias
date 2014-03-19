@@ -85,7 +85,7 @@
 }
 .one-pre{
 	margin-left: 10px;
-	background: url("/static/images/admin/image/pre-article.gif") left top no-repeat;
+	background: url("/static/images/admin/pre-article.gif") left top no-repeat;
 }
 /*文本编辑*/
 .add-form{
