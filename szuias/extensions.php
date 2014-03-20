@@ -28,20 +28,21 @@ function setup_views ($app) {
 
 // 导入视图全局变量
 function setup_view_globals ($app) {
-    $globals = require_once(APPROOT . 'config/viewGlobal.php');
     $viewEnv = $app->view()->getEnvironment();
+    
+    $globals = require_once(APPROOT . 'config/viewGlobal.php');
     foreach ($globals as $key => $value) {
         $viewEnv->addGlobal($key, $value);
     }
-}
 
-
-// 设置自定义视图函数
-function setup_view_functions ($app) {
     $funcs = require_once(APPROOT . 'config/viewFunc.php');
-    $viewEnv = $app->view()->getEnvironment();
     foreach ($funcs as $func) {
         $viewEnv->addFunction($func);
+    }
+
+    $filters = require_once(APPROOT . 'config/viewFilter.php');
+    foreach ($filters as $filter) {
+        $viewEnv->addFilter($filter);
     }
 }
 
