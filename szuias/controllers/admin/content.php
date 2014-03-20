@@ -38,7 +38,7 @@ return array(
                 $focus_sub_menu = $focus_menu;
                 $focus_menu = $focus_menu->parent;
             }
-            $artilce_pager = Article::paginate_with_mid($page, $pagesize, $c_mid, false, 'sort');
+            $artilce_pager = Article::paginate_with_mid($page, $pagesize, $c_mid, 'sort', false);
             $total = $artilce_pager->count();
             $now = new \DateTime();
             $admin_menus = Menu::list_admin_menus();

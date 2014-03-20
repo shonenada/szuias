@@ -13,16 +13,9 @@
    <div class="title">新闻动态</div>
    <div class="articles">
     <ul>
-      <li><a href="{{ siteUrl('article/') }}{{ mid }}">第二届华南计算机学科发展研讨会在深圳大学</a> <span class="datetime">2013-02-05</span></li>
-      <li><a href="{{ siteUrl('article/') }}{{ mid }}">第二届华南计算机学科发展研讨会在深圳大学</a> <span class="datetime">2013-02-05</span></li>
-      <li><a href="{{ siteUrl('article/') }}{{ mid }}">第二届华南计算机学科发展研讨会在深圳大学</a> <span class="datetime">2013-02-05</span></li>
-      <li><a href="{{ siteUrl('article/') }}{{ mid }}">第二届华南计算机学科发展研讨会在深圳大学</a> <span class="datetime">2013-02-05</span></li>
-      <li><a href="{{ siteUrl('article/') }}{{ mid }}">第二届华南计算机学科发展研讨会在深圳大学</a> <span class="datetime">2013-02-05</span></li>
-      <li><a href="{{ siteUrl('article/') }}{{ mid }}">第二届华南计算机学科发展研讨会在深圳大学</a> <span class="datetime">2013-02-05</span></li>
-      <li><a href="{{ siteUrl('article/') }}{{ mid }}">第二届华南计算机学科发展研讨会在深圳大学</a> <span class="datetime">2013-02-05</span></li>
-      <li><a href="{{ siteUrl('article/') }}{{ mid }}">第二届华南计算机学科发展研讨会在深圳大学</a> <span class="datetime">2013-02-05</span></li>
-      <li><a href="{{ siteUrl('article/') }}{{ mid }}">第二届华南计算机学科发展研讨会在深圳大学</a> <span class="datetime">2013-02-05</span></li>
-      <li><a href="{{ siteUrl('article/') }}{{ mid }}">第二届华南计算机学科发展研讨会在深圳大学</a> <span class="datetime">2013-02-05</span></li>
+      {% for n in news %}
+      <li><a href="{{ siteUrl('article/' ~ n.id) }}">{{ n.title }}</a> <span class="datetime">{{ n.created | date('Y-m-d') }}</span></li>
+      {% endfor %}
     </ul>
     <span class="more"><a href="{{ siteUrl('article/list') }}">更多</a></span>
    </div>
