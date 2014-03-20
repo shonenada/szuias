@@ -177,17 +177,6 @@ class User extends ModelBase{
         return $hash;
     }
 
-    static public function getList($page=1, $pagesize=20, $asc=false) {
-        $dql = sprintf(
-            'SELECT n FROM %s n WHERE n.level > 0'.
-            'ORDER BY n.id %s',
-            get_called_class(),
-            $asc ? 'ASC' : 'DESC'
-        );
-        $query = static::em()->createQuery($dql)->setMaxResults($pagesize)->setFirstResult($pagesize*($page-1));
-        return $query->useQueryCache(false)->getResult();
-    }
-
     static public function findByUsername($username) {
         $query = static::query()->findBy(array('username' => $username));
         if ($query != null){

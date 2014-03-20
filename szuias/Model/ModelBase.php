@@ -84,11 +84,12 @@ class ModelBase {
         return $query->useQueryCache(true)->getResult();
     }
 
-    static public function getList($page=1, $pagesize=20, $asc=false) {
+    static public function getList($page=1, $pagesize=20, $order_by='id', $asc=false) {
         $dql = sprintf(
             'SELECT n FROM %s n '.
-            'ORDER BY n.id %s', 
+            'ORDER BY n.%s %s', 
             get_called_class(),
+            $order_by,
             $asc ? 'ASC' : 'DESC'
         );
         $query = static::em()->createQuery($dql)->setMaxResults($pagesize)->setFirstResult($pagesize*($page-1));

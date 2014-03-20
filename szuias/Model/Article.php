@@ -154,14 +154,51 @@ class Article extends ModelBase {
         $this->save();
     }
 
-    static public function paginate_with_mid($page, $pagesize, $mid, $asc=true, $order_by='id') {
+    static public function get_list_by_top_menu($size, $top_menu_id, $order_by='id', $asc=true) {
+        $top_menu = Menu::find($top_menu_id);
+        $records = array();
+        foreach($top_menu->sub_menus as $m) {
+            $list = self::get_list_by_menu_id(1, $size, $m->id, $order_by, $asc);
+            $records = array_merge($records, $list);
+        }
+        uasort($records, function($one, $two) {
+            if ($one == $two)
+                return 0;
+            return ($one->created > $two->created) ? -1 : 1;
+        });
+        if (count($records) > $size) {
+            return array_slice($records, 0, $size);
+        }
+        else {
+            return $records;
+        }
+    }
+
+    static public function get_list_by_menu_id($page, $pagesize, $mid, $order_by='id', $asc=true) {
+        $dql = sprintf(
+            'SELECT n FROM %s n '.
+            'WHERE n.menu_id = %s '.
+            'AND n.is_deleted = false '.
+            'ORDER BY n.%s %s',
+            get_called_class(),
+            $mid,
+            $order_by,
+            $asc ? 'ASC' : 'DESC'
+        );
+        $query = static::em()->createQuery($dql)->setMaxResults($pagesize)->setFirstResult($pagesize*($page-1));
+        return $query->useQueryCache(false)->getResult();
+    }
+
+    static public function paginate_with_mid($page, $pagesize, $mid, $order_by='id', $asc=true) {
         $dql = sprintf(
             'SELECT n FROM %s n '.
             'WHERE n.is_deleted = 0 AND '.
             'n.menu_id = %s '.
             'ORDER BY n.%s %s',
             get_called_class(),
-            $mid, $asc, $order_by
+            $mid,
+            $order_by,
+            $asc ? 'ASC' : 'DESC'
         );
         $query = static::em()->createQuery($dql)->setFirstResult($pagesize*($page-1))->setMaxResults($pagesize);
         $pager = new \Doctrine\ORM\Tools\Pagination\Paginator($query);
