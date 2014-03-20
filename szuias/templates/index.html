@@ -14,7 +14,7 @@
    <div class="articles">
     <ul>
       {% for n in news %}
-      <li><a href="{{ siteUrl('article/' ~ n.id) }}">{{ n.title }}</a> <span class="datetime">{{ n.created | date('Y-m-d') }}</span></li>
+      <li><a href="{{ siteUrl('article/' ~ n.id) }}">{{ n.title | ellipsis(20) }}</a> <span class="datetime">{{ n.created | date('Y-m-d') }}</span></li>
       {% endfor %}
     </ul>
     <span class="more"><a href="{{ siteUrl('article/list') }}">更多</a></span>
@@ -28,12 +28,9 @@
       <h4>本科教学</h4>
       <div>
         <ul>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-05</span></li>
+          {% for a in undergraduate %}
+          <li> &gt; <a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title | ellipsis(10) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
+          {% endfor %}
         </ul>
       </div>
       <a href="{{ siteUrl('article/list') }}"><img class="over" src="{{ siteUrl('static/images/base-layout/link-more.png') }}" /></a>
@@ -43,12 +40,9 @@
       <h4>研究生教育</h4>
       <div>
         <ul>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">2013—2014学年第2学期研究生上课...</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">2013—2014学年第2学期研究生上课...</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">2013—2014学年第2学期研究生上课...</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">2013—2014学年第2学期研究生上课...</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">2013—2014学年第2学期研究生上课...</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">2013—2014学年第2学期研究生上课...</a> <span class="datetime">2012-02-05</span></li>
+          {% for a in graduate %}
+          <li> &gt; <a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title | ellipsis(10) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
+          {% endfor %}
         </ul>
       </div>
       <a href="{{ siteUrl('article/list') }}"><img class="over" src="{{ siteUrl('static/images/base-layout/link-more.png') }}" /></a>
@@ -57,12 +51,9 @@
       <h4>科研信息</h4>
       <div>
         <ul>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">申报2014年国家自然科学基金</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">申报2014年国家自然科学基金</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">申报2014年国家自然科学基金</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">申报2014年国家自然科学基金</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">申报2014年国家自然科学基金</a> <span class="datetime">2012-02-05</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">申报2014年国家自然科学基金</a> <span class="datetime">2012-02-05</span></li>
+          {% for a in research %}
+          <li> &gt; <a href="{{ siteUrl('article/' ~ a.id ) }}">{{ a.title | ellipsis(10) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
+          {% endfor %}
         </ul>
       </div>
       <a href="{{ siteUrl('article/list') }}"><img class="over" src="{{ siteUrl('static/images/base-layout/link-more.png') }}" /></a>
@@ -94,14 +85,12 @@
     </div>
     
     <div class="index-student-work">
-      <h4>学生工作</h4>
+      <h4>求职招聘</h4>
       <div>
         <ul>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">关于2013-2014学年第二学期学生报到、注册的通知</a> <span class="student-datetime datetime">2014-02-17</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">关于2013-2014学年第二学期学生报到、注册的通知</a> <span class="student-datetime datetime">2014-02-17</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">关于2013-2014学年第二学期学生报到、注册的通知</a> <span class="student-datetime datetime">2014-02-17</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">关于2013-2014学年第二学期学生报到、注册的通知</a> <span class="student-datetime datetime">2014-02-17</span></li>
-          <li> &gt; <a href="{{ siteUrl('article/') }}{{ mid }}">关于2013-2014学年第二学期学生报到、注册的通知</a> <span class="student-datetime datetime">2014-02-17</span></li>
+          {% for a in working %}
+          <li> &gt; <a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title | ellipsis(10) }}</a> <span class="student-datetime datetime">{{ a.created | date('Y-m-d') }}</span></li>
+          {% endfor %}
         </ul>
       </div>
         <a class="link-more" href="{{ siteUrl('article/list') }}">更多</a>
