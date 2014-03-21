@@ -37,7 +37,7 @@ return array(
         array($administrator, "/admin", array('GET')),
 
         array($administrator, "/file/fmanager", array('GET')),
-        array($administrator, "/file/upload", array('GET')),
+        array($administrator, "/file/upload", array('POST')),
 
         array($administrator, "/admin/profile", array('GET')),
         array($administrator, "/admin/profile/edit", array('GET', 'POST')),

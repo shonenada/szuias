@@ -86,7 +86,7 @@ $(function(){
   var editor = KindEditor.create('#editor_id',{
     width: '730px',
     resizeType: 1,
-    uploadJson: '{{ siteUrl("file/upload") }}',
+    uploadJson: '{{ siteUrl("file/upload?timestamp=" ~ timestamp ) }}',
     fileManagerJson: '{{ siteUrl("file/fmanager") }}',
     allowFileManager: true
   });
