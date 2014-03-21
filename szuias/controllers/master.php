@@ -1,8 +1,8 @@
 <?php
 
 use \Captcha;
-use \Model\Setting;
 use \Model\Article;
+use \Model\File;
 
 return array(
     "export" => function($app) {
@@ -14,6 +14,7 @@ return array(
             $graduate = Article::get_list_by_top_menu(6, 11, 'sort', false);
             $research = Article::get_list_by_top_menu(6, 12, 'sort', false);
             $working = Article::get_list_by_top_menu(7, 17, 'sort', false);
+            $slider = File::get_top();
             $app->render("index.html", get_defined_vars());
         });
 

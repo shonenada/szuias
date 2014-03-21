@@ -33,9 +33,10 @@ class File extends ModelBase {
     public $id;
 
     /**
-     * @Column(name="article_id", type="integer")
+     * @ManyToOne(targetEntity="Article", inversedBy="files")
+     * @JoinColumn(name="article_id", referencedColumnName="id")
      **/
-    public $article_id;
+    public $article;
 
     /**
      * @Column(name="real_name", type="string", length=255)
@@ -66,5 +67,39 @@ class File extends ModelBase {
      * @Column(name="created", type="datetime")
      **/
     public $created;
+
+    static public function get_top() {
+        $nums = Setting::get('index_slider', 'nums');
+        $source = Setting::get('index_slider', 'source');
+        $fresh = Setting::get('index_slider', 'fresh_time');
+        if ($fresh > 0) {
+            $time_diff = time() - $fresh * 24 * 3600;
+        }
+        else {
+            $time_diff = 0;
+        }
+        if ($source == 0) {
+            $dql = sprintf(
+                'SELECT n FROM %s n '.
+                'WHERE n.created >= %s '.
+                'ORDER BY n.created desc',
+                get_called_class(),
+                $time_diff
+            );
+            $query = static::em()->createQuery($dql)->setMaxResults($nums);
+            return $query->useQueryCache(false)->getResult();
+        }
+        else {
+            $result = array();
+            $menu = Menu::find($source);
+            $articles = $menu->articles;
+            foreach ($articles as $art) {
+                $result = array_merge($result, $art->files->toArray());
+                if (count($result) >= $nums)
+                    break;
+            }
+            return $result;
+        }
+    }
 
 }

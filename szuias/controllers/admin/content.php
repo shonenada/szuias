@@ -114,7 +114,7 @@ return array(
                 $upload_buffer = $_SESSION['upload_buffer'];
             }
             foreach($upload_buffer as $f) {
-                $f->article_id = $article->id;
+                $f->article = $article;
                 $f->save();
             }
             $_SESSION['upload_buffer'] = array();
@@ -165,7 +165,7 @@ return array(
                 $upload_buffer = $_SESSION['upload_buffer'];
             }
             foreach($upload_buffer as $f) {
-                $f->article_id = $aid;
+                $f->article = $article;
                 $f->save();
             }
             $_SESSION['upload_buffer'] = array();

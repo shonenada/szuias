@@ -4,9 +4,9 @@
   <div class="banner">
   <div class="slide">
     <div id="slider">
-      <a href="#"><img src="{{ siteUrl('static/uploads/slider/120145644.gif') }}" alt="陈国良院士获得CCF颁发2013CCF杰出教育奖" /></a>
-      <a href="#"><img src="{{ siteUrl('static/uploads/slider/120145644.gif') }}" alt="陈国良院士获得CCF颁发2013CCF杰出教育奖" /></a>
-      <a href="#"><img src="{{ siteUrl('static/uploads/slider/120145644.gif') }}" alt="陈国良院士获得CCF颁发2013CCF杰出教育奖" /></a>
+      {% for s in slider %}
+      <a href="{{ siteUrl('article/' ~  s.article.id )}}"><img src="{{ siteUrl('uploads/' ~ s.address) }}" alt="{{ s.article.title }}" title="{{ s.article.title }}"/></a>
+      {% endfor %}
     </div>
   </div>
   <div class="news">

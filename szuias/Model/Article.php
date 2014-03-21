@@ -68,6 +68,11 @@ class Article extends ModelBase {
     public $category;
 
     /**
+     * @OneToMany(targetEntity="File", mappedBy="article")
+     **/
+    public $files;
+
+    /**
      * @OneToOne(targetEntity="User")
      * @JoinColumn(name="author_id", referencedColumnName="id")
      */
@@ -131,6 +136,7 @@ class Article extends ModelBase {
         $this->is_top = false;
         $this->open_style = 0;
         $this->sort = 0;
+        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function setTop() {

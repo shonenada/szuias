@@ -156,7 +156,6 @@ class Utils {
             $arr = array_merge($init, $arr);
             $file = new File();
             $file->populate_from_array($arr);
-            $file->save();
 
             if (empty($_SESSION['upload_buffer'])){
                 $upload_buffer = array();
