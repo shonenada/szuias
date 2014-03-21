@@ -27,8 +27,9 @@ return array(
             else {
                 $focus_menu = Menu::find($mid);
             }
+            $current_menu = $focus_menu;
             $c_mid = $focus_menu->id;
-            if ($focus_menu->is_parent()){
+            if ($focus_menu->is_parent()) {
                 if ($focus_menu->has_sub()) {
                     $focus_sub_menu = $focus_menu->sub_menus->first();
                     $c_mid = $focus_sub_menu->id;
@@ -45,9 +46,9 @@ return array(
             $categories = Category::all();
             $admin_list = User::all();
             $pager = array('current' => $page, 'nums' => ceil($total / $pagesize));
-            if ($focus_menu->type == 1) {
+            if ($current_menu->type == 1) {
                 // 单页
-                $article = $focus_menu->articles->first();
+                $article = $current_menu->articles->first();
                 return $app->render("admin/single_page.html", get_defined_vars());
             }
             else {
