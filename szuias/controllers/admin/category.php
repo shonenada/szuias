@@ -22,7 +22,7 @@ return array(
         $app->post('/admin/category/save', function() use ($app) {
             $post = urldecode($app->request->params('menus'));
             $info = json_decode($post, true);
-            $currentUser = $app->environment['user'];
+            $currentUser = \GlobalEnv::get('user');
 
             foreach ($info as $one) {
                 $menu = Menu::find($one['mid']);

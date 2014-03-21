@@ -80,7 +80,7 @@ return array(
                 return $app->render("admin/content_create.html", get_defined_vars());
             }
             $menu = Menu::find($menu_id);
-            $user = $app->environment['user'];
+            $user = \GlobalEnv::get('user');
             if ($menu->type == 1) {
                 // 单页
                 $a = Article::findOneBy(array('menu' => $menu));
@@ -106,6 +106,17 @@ return array(
                 $data['open_style'] = $open_style;
             }
             $article->populate_from_array($data)->save();
+
+            if (empty($_SESSION['upload_buffer'])){
+                $upload_buffer = array();
+            } else {
+                $upload_buffer = $_SESSION['upload_buffer'];
+            }
+            foreach($upload_buffer as $f) {
+                $f->article_id = $article->id;
+                $f->save();
+            }
+            $_SESSION['upload_buffer'] = array();
             return $app->redirect('/admin/content/menu/' . $menu_id);
         })->conditions(array('id' => '\d+'));
 
@@ -140,12 +151,23 @@ return array(
                 'content' => $app->request->post('content'),
                 'menu' => $menu,
                 'category' => $category,
-                'editor' => $app->environment['user'],
+                'editor' => \GlobalEnv::get('user'),
                 'open_style' => $app->request->post('open_style'),
                 'redirect_url' => $app->request->post('url'),
                 'edit_time' => new \DateTime('now', new DateTimezone('Asia/Shanghai')),
             );
             $article->populate_from_array($data)->save();
+
+            if (empty($_SESSION['upload_buffer'])){
+                $upload_buffer = array();
+            } else {
+                $upload_buffer = $_SESSION['upload_buffer'];
+            }
+            foreach($upload_buffer as $f) {
+                $f->article_id = $aid;
+                $f->save();
+            }
+            $_SESSION['upload_buffer'] = array();
             return $app->redirect('/admin/content/menu/' . $menu->id);
         })->conditions(array('id' => '\d+'));
 

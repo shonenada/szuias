@@ -78,12 +78,12 @@ function permission_check_hook ($app) {
                 $user = null;
             }
         }
-        $app->environment['user'] = $user;
+        \GlobalEnv::set('user', $user);
         add_global_view_variable($app, 'loggedUser', $user);
     });
 
     $app->hook("slim.before.dispatch", function () use ($app){
-        $user = $app->environment['user'];
+        $user = \GlobalEnv::get('user');
         $resource = $app->request->getPath();
         $method = $app->request->getMethod();
         $ptable = require(APPROOT . "permissions.php");

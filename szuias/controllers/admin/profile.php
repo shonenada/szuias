@@ -22,7 +22,7 @@ return array(
         });
 
         $app->post('/admin/profile/edit', function() use($app) {
-            $user = $app->environment['user'];
+            $user = \GlobalEnv::get('user');
             $username = $app->request->post('username');
             $phone = $app->request->post('phone');
             $email = $app->request->post('email');
@@ -50,7 +50,7 @@ return array(
         });
 
         $app->post('/admin/profile/password', function() use($app) {
-            $user = $app->environment['user'];
+            $user = \GlobalEnv::get('user');
             $old = $app->request->post('oldpassword');
             if (!$user->checkPassword($old, $app->config('salt'))) {
                 $msg = '旧密码错误，请重新输入';

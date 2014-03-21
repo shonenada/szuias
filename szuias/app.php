@@ -40,6 +40,7 @@ function create_app ($config_files=array()) {
 
     // 初始化 app
     $app = new Slimx();
+    \GlobalEnv::set('app', $app);
 
     // 载入配置
     global $config;

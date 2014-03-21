@@ -7,6 +7,9 @@
  */
 
 
+use \Model\File;
+
+
 class Utils {
 
     // 生成 token 静态方法
@@ -147,22 +150,25 @@ class Utils {
             return json_encode(array('error' => true, 'message' => $msg));
         }
 
-        // function add($arr) {
-        //     $temp = array('aid' => 0, 'realname' => '', 'address' => '',
-        //         'type' => '', 'filesize' => 0, 'uploader' => 0,
-        //         'uploadtime' => time(), 'timestamp' => 0);
-        //     $arr = array_merge($temp, $arr);
-        //     $arr['realname'] = $this->db->escape($arr['realname']);
-        //     $sql = "insert into `article_attachment` ";
-        //     $keyArray = array();
-        //     $valArray = array();
-        //     foreach ($arr as $key => $val){
-        //         $keyArray[] = "`".$key."`";
-        //         $valArray[] = "'".$val."'";
-        //     }
-        //     $sql .= '('.implode(",", $keyArray).') values('.implode(",", $valArray).')';
-        //     return $this->db->query($sql);
-        // }
+        function insert_into_database($arr) {
+            $init = array('article_id' => 0, 'real_name' => '', 'address' => '',
+                'type' => '', 'file_size' => 0, 'uploader_id' => 0);
+            $arr = array_merge($init, $arr);
+            $file = new File();
+            $file->populate_from_array($arr);
+            $file->save();
+
+            if (empty($_SESSION['upload_buffer'])){
+                $upload_buffer = array();
+            } else {
+                $upload_buffer = $_SESSION['upload_buffer'];
+            }
+            if (!isset($upload_buffer)) {
+                $upload_buffer = array();
+            }
+            array_push($upload_buffer, $file);
+            $_SESSION['upload_buffer'] = $upload_buffer;
+        }
 
         $ext_arr = array(
             'image' => array('gif', 'jpg', 'jpeg', 'png', 'bmp'),
@@ -277,11 +283,13 @@ class Utils {
                 return alert("上传文件失败。");
             }
             //上传成功，附件表插入记录
-            // $arr = array('realname' => $file_name, 'address' => $address,
-            //              'type' => $file_ext, 'filesize' => floor($file_size/1024),
-            //              'uploader' => $_SESSION['user']['uid'], 'timestamp' => $timestamp
-            //             );
-            // add($arr);
+            $arr = array(
+                'real_name' => $file_name,
+                'address' => $address,
+                'type' => $file_ext,
+                'file_size' => floor($file_size/1024),
+                'uploader_id' => \GlobalEnv::get('user')->getId());
+            insert_into_database($arr);
             @chmod($file_path, 0644);
             $file_url = $save_url . $new_file_name;
             return array('error' => 0, 'url' => $file_url);

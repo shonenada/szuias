@@ -14,7 +14,7 @@ return array(
 
         // 渲染管理员首页
         $app->get("/admin", function() use($app) {
-            $user = $app->environment['user'];
+            $user = \GlobalEnv::get('user');
             if ($user == NULL) {
                 return $app->redirect('/admin/signin');
             }
