@@ -7,14 +7,13 @@ use \Model\Article;
 return array(
     "export" => function($app) {
 
-        $app->get('/article/list', function () use ($app) {
-            $category = '新闻动态';
-            $sub_categories = array(
-                array('name' => '学院公告', 'current' => true),
-                array('name' => '学生工作'),
-                array('name' => '学术科研'));
+        $app->get('/menu/:mid/list', function ($mid) use ($app) {
+            $menu = Menu::find($mid);
+            if (!$menu->is_parent()) {
+                $menu = $menu->parent;
+            }
             $app->render('list.html', get_defined_vars());
-        });
+        })->conditions(array('mid' => '\d+'));
 
         $app->get('/menu/:mid/show', function ($mid) use ($app) {
             $a = Article::findOneBy(array('menu' => Menu::find($mid)));

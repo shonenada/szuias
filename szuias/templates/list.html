@@ -2,32 +2,29 @@
 
 {% block content %}
 <div class="article-box">
-  <h2>{{ category }}</h2>
+  <h2>{{ menu.title }}</h2>
   
   <div class="sidebar-nav">
-    <h2>{{ category }}</h2>
+    <h2>{{ menu.title }}</h2>
     <ul>
-    {% for one in sub_categories %}
-      <a href="javascript:void()"><li>{{ one.name }}</li></a>
+    {% for one in menu.sub_menus %}
+      <a href="{{ siteUrl('menu/' ~ one.id ~ '/list') }}"><li>{{ one.title }}</li></a>
     {% endfor %}
     </ul>
   </div>
 
   <div class="article-list">
     <div class="top-nav">
-    {% for one in sub_categories %}
-    {%if one.current %}
-    <a class="current">{{ one.name }}</a>
+    {% for one in menu.sub_menus %}
+    {%if one.id == mid %}
+    <a class="current">{{ one.title }}</a>
     {% endif %}
     {% endfor %}
     </div>
     <ul>
-      <li><a href="#">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-15</span></li>
-      <li><a href="#">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-15</span></li>
-      <li><a href="#">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-15</span></li>
-      <li><a href="#">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-15</span></li>
-      <li><a href="#">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-15</span></li>
-      <li><a href="#">2014届毕业生毕业资格结果公布</a> <span class="datetime">2012-02-15</span></li>
+      {% for a in menu.articles %}
+      <li><a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title | ellipsis(30) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
+      {% endfor %}
     </ul>
   </div>
 
