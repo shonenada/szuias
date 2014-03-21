@@ -46,7 +46,7 @@ return array(
                 return $app->render('admin/signin.html', array('errors' => '验证失败'));
             }
 
-            $now = new DateTime();
+            $now = new DateTime('now', new DateTimezone('Asia/Shanghai'));
             $ip = $app->request->getIp();
             $token = Utils::generateToken($ip, $now, $salt);
             $user->setToken($token);

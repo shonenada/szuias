@@ -40,7 +40,7 @@ return array(
             }
             $artilce_pager = Article::paginate_with_mid($page, $pagesize, $c_mid, 'sort', false);
             $total = $artilce_pager->count();
-            $now = new \DateTime();
+            $now = new \DateTime('now', new DateTimezone('Asia/Shanghai'));
             $admin_menus = Menu::list_admin_menus();
             $categories = Category::all();
             $admin_list = User::all();
@@ -143,7 +143,7 @@ return array(
                 'editor' => $app->environment['user'],
                 'open_style' => $app->request->post('open_style'),
                 'redirect_url' => $app->request->post('url'),
-                'edit_time' => new \DateTime(),
+                'edit_time' => new \DateTime('now', new DateTimezone('Asia/Shanghai')),
             );
             $article->populate_from_array($data)->save();
             return $app->redirect('/admin/content/menu/' . $menu->id);

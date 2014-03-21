@@ -55,11 +55,11 @@
         </div>
         <div style="width:451px;margin-top:5px;">
           <label>链接地址：</label>
-          <input type="text" name="url" class="" {% if post_menu.type == 1 %}disabled="disabled" title="单页内容不可使用链接地址！"{% endif %} value="{{ article.redirect_url }}" style="width:371px;color:#666" onfocus="if (this.value =='该链接不为空时，点击该标题后直接跳往该链接'){this.value =''}" onblur="if (value ==''){value='该链接不为空时，点击该标题后直接跳往该链接'}" placeholder="该链接不为空时，点击该标题后直接跳往该链接" />
+          <input type="text" name="url" class="" {% if focus_menu.type == 1 %}disabled="disabled" title="单页内容不可使用链接地址！"{% endif %} value="{{ article.redirect_url }}" style="width:371px;color:#666" onfocus="if (this.value =='该链接不为空时，点击该标题后直接跳往该链接'){this.value =''}" onblur="if (value ==''){value='该链接不为空时，点击该标题后直接跳往该链接'}" placeholder="该链接不为空时，点击该标题后直接跳往该链接" />
         </div>
         <div style="width:200px;margin-top:5px;">
           <label>打开方式：</label>
-          <select name="open_style" style="width:125px;color:#666"  {% if post_menu.type == 1 %}disabled="disabled" title="单页内容不可用！"{% endif %}>
+          <select name="open_style" style="width:125px;color:#666"  {% if focus_menu.type == 1 %}disabled="disabled" title="单页内容不可用！"{% endif %}>
           <option value="0"{% if article.open_style == 0 %} selected="selected"{% endif %}>原窗口打开</option>
           <option value="1"{% if article.open_style == 1 %} selected="selected"{% endif %}>新窗口打开</option>
           </select>

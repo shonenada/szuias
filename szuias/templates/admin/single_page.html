@@ -42,13 +42,13 @@
     </div>
     {% if article %}
     <div class="one-title">{{ article.title }}</div>
-    <div class="one-article">{{ article.content }}</div>
+    <div class="one-article">{{ article.content | raw}}</div>
     <div>
       <table class="one-table">
         <tbody>
           <tr class="even"><td class="one-table-left">创建人：</td><td>{{ article.author.name }}</td></tr>
           <tr class="odd"><td class="one-table-left">创建时间：</td><td>{{ article.created | date('Y-m-d H:i:s') }}</td></tr>
-          <tr class="even"><td class="one-table-left">最后修改人：</td><td>{{ article.last_editor.name }}</td></tr>
+          <tr class="even"><td class="one-table-left">最后修改人：</td><td>{{ article.editor.name }}</td></tr>
           <tr class="odd"><td class="one-table-left">最后修改时间：</td><td>{{ article.edit_time | date('Y-m-d H:i:s') }}</td></tr>
           <tr class="even"><td class="one-table-left">浏览总次数：</td><td>{{ article.view_count }}</td></tr>
         </tbody>
