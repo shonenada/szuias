@@ -25,7 +25,7 @@ return array(
         array($everyone, "/", array('GET')),
 
         array($everyone, "/captcha", array('GET')),
-        
+
         array($everyone, "/article/list", array('GET')),
         array($everyone, "/article/\d+", array('GET')),
         array($everyone, "/menu/\d+/list", array('GET')),
@@ -35,6 +35,9 @@ return array(
         array($everyone, "/admin/signout", array('GET', 'POST')),
 
         array($administrator, "/admin", array('GET')),
+
+        array($administrator, "/file/fmanager", array('GET')),
+        array($administrator, "/file/upload", array('GET')),
 
         array($administrator, "/admin/profile", array('GET')),
         array($administrator, "/admin/profile/edit", array('GET', 'POST')),

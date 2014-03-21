@@ -30,6 +30,7 @@ $controllers = array (
     'admin_profile_app' => 'admin/profile',
     'admin_account_app' => 'admin/account',
     'admin_data_app' => 'admin/data',
+    'admin_file_app' => 'admin/file',
 );
 
 // 系统入口工厂函数
