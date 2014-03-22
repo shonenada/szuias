@@ -10,24 +10,24 @@
 <div id="content_left">
   <div id="headtitle">内容管理</div>
   <div id="left_nav">
-  {% for menu in admin_menus %}
-    <ul>
-      <li class="left-first-nav">
-        <a class="list_title"{% if menu.type in [1,2] %} href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.title }}</a>
-        <ul class="left-second-nav" style="display:{% if menu.id == focus_menu.id %}block{% else %}none{% endif %};">
-          {% for s in menu.sub_menus %}
-          <li><a class="{% if focus_sub_menu.id == s.id %}open{% endif %}" href="{{ siteUrl('admin/content/menu/' ~ s.id ) }}">{{ s.title }}</a></li>
-          {% endfor %}
-        </ul>
-      </li>
-    </ul>
-  {% endfor %}
+    {% for menu in admin_menus %}
+      <ul>
+        <li class="left-first-nav">
+          <a class="list_title" {% if menu.type in [1,2] %}href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.title }}</a>
+          <ul class="left-second-nav" style="display:{{ menu.id == top_menu.id ? 'block' : 'none' }};">
+            {% for s in menu.sub_menus %}
+            <li><a class="{% if focus_menu.id == s.id %}open{% endif %}" href="{{ siteUrl('admin/content/menu/' ~ s.id ) }}">{{ s.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+      </ul>
+    {% endfor %}
   </div>
 </div>
 
 <div id="content_right" class="clearfix">
   <div id="content_right_top">
-      <span id="location">当前位置：内容管理&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% if focus_sub_menu %}&nbsp;&gt;&gt;&nbsp;{{ focus_sub_menu.title }}{% endif %}</span>
+      <span id="location">当前位置：内容管理&nbsp;&gt;&gt;&nbsp;{{ top_menu.title }}{% if not focus_menu.is_parent() %}&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% endif %}</span>
   </div>
   <div id="content_one">
     <div id="one_button_div">

@@ -16,29 +16,26 @@ return array(
         
         // 渲染内容管理界面
         $app->get("/admin/content(/menu/:mid)", function($mid=null) use($app) {
-            $pagesize = $app->config('pagesize');
             $page = $app->request->get('page');
+            $pagesize = $app->config('pagesize');
             if (empty($page)) {
                 $page = 1;
             }
+
             if (empty($mid)) {
                 $focus_menu = Menu::get_first_menu();
             }
             else {
                 $focus_menu = Menu::find($mid);
             }
-            $c_mid = $focus_menu->id;
+
             if ($focus_menu->is_parent()) {
-                if ($focus_menu->has_sub()) {
-                    $focus_sub_menu = $focus_menu->sub_menus->first();
-                    $c_mid = $focus_sub_menu->id;
-                }
+                $top_menu = $focus_menu;
             }
             else {
-                $focus_sub_menu = $focus_menu;
-                $focus_menu = $focus_menu->parent;
+                $top_menu = $focus_menu->parent;
             }
-            $artilce_pager = Article::paginate_with_mid($page, $pagesize, $c_mid, 'sort', false);
+            $artilce_pager = Article::paginate_with_mid($page, $pagesize, $focus_menu->id, 'sort', false);
             $total = $artilce_pager->count();
             $now = new \DateTime('now', new DateTimezone('Asia/Shanghai'));
             $admin_menus = Menu::list_admin_menus();
