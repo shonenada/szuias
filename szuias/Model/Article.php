@@ -160,11 +160,11 @@ class Article extends ModelBase {
         $this->save();
     }
 
-    static public function get_list_by_top_menu($size, $top_menu_id, $order_by='id', $asc=true) {
+    static public function get_list_by_top_menu($size, $top_menu_id, $order_by=array(array('id', 'ASC'))) {
         $top_menu = Menu::find($top_menu_id);
         $records = array();
         foreach($top_menu->sub_menus as $m) {
-            $list = self::get_list_by_menu_id(1, $size, $m->id, $order_by, $asc);
+            $list = self::get_list_by_menu_id(1, $size, $m->id, $order_by);
             $records = array_merge($records, $list);
         }
         uasort($records, function($one, $two) {
@@ -180,16 +180,21 @@ class Article extends ModelBase {
         }
     }
 
-    static public function get_list_by_menu_id($page, $pagesize, $mid, $order_by='id', $asc=true) {
+    static public function get_list_by_menu_id($page, $pagesize, $mid, $order_by=array(array('id', 'ASC'))) {
+        $order_str = "";
+        foreach($order_by as $o) {
+            if (in_array(strtoupper($o[1]), array('ASC', 'DESC'))) {
+                $order_str .= sprintf('n.%s %s%s', $o[0], $o[1], $o == $order_by[count($order_by) - 1] ? '' : ', ');
+            }
+        }
         $dql = sprintf(
             'SELECT n FROM %s n '.
             'WHERE n.menu_id = %s '.
             'AND n.is_deleted = false '.
-            'ORDER BY n.%s %s',
+            'AND n.is_hide = false '.
+            'ORDER BY %s',
             get_called_class(),
-            $mid,
-            $order_by,
-            $asc ? 'ASC' : 'DESC'
+            $mid, $order_str
         );
         $query = static::em()->createQuery($dql)->setMaxResults($pagesize)->setFirstResult($pagesize*($page-1));
         return $query->useQueryCache(false)->getResult();
