@@ -33,6 +33,20 @@ class Utils {
         }
     }
 
+    static public function get_teacher_img ($input) {
+        $teacher_imgs = array();
+        preg_match("/<[img|IMG][^>]+src=[\'\"](?<url>[\S]+)[\'\"][^>]+>/", $input, $teacher_imgs);
+        if (isset($teacher_imgs['url']))
+            return $teacher_imgs['url'];
+        else
+            return null;
+    }
+
+    static public function remove_html($input) {
+        $no_html = preg_replace("|<[^>]+>|", '', $input);
+        return $no_html;
+    }
+
     static public function filemanager($dir_name='', $path='', $order='') {
         $root_path = dirname($_SERVER['SCRIPT_FILENAME']) . '/uploads/';
         $root_path = realpath($root_path) . '/';

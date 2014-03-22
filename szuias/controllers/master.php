@@ -15,6 +15,10 @@ return array(
             $research = Article::get_list_by_top_menu(6, 12, array(array('sort', 'DESC')));
             $working = Article::get_list_by_top_menu(7, 17, array(array('sort', 'DESC')));
             $slider = File::get_top();
+            $teacher = Article::get_random_by_mids(array(14, 15));
+            $teacher_img = Utils::get_teacher_img($teacher->content);
+            $teacher_intro = Utils::remove_html($teacher->content);
+            unset($teacher);
             $app->render("index.html", get_defined_vars());
         });
 

@@ -65,20 +65,21 @@
     <div class="index-teacher">
       <h4>教师风采</h4>
         <div style="margin-top: 10px;">
+          {% if teacher_img %}
           <div class="avatar">
-            <img src="{{ siteUrl('static/uploads/teacher/P020090711553530979364.jpg') }}" />
+            {% if teacher_img starts with 'http' %}
+            {% set img_url = teacher_img %}
+            {% else %}
+            {% set img_url = siteUrl(teacher_img)  %}
+            {% endif %}
+            <img src="{{ img_url }}" />
           </div>
           <div class="intro">
-            韩志超 教授 
-            Charles C. Han  Ph.D.  Professor
-            教育背景：
-            1966，台湾大学，化工，学士
-            1969，休斯顿大学，物理化学，硕士
-            1974，威斯康星大学，物理化学，博士
-            工作经历：
-            1974–2002，美国国家标准与技术局，研究科学家；
-            1983，东京大学，访问教授....
+            {{ teacher_intro | ellipsis(400) | raw }}
           </div>
+          {% else %}
+            {{ teacher_intro | ellipsis(400) | raw }}
+          {% endif %}
         </div>
         <div style="clear: both;"></div>
         <a class="link-more" href="{{ siteUrl('article/list') }}">更多</a>
