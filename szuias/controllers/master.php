@@ -9,11 +9,11 @@ return array(
 
         $app->get("/", function() use($app) {
             $home = true;
-            $news = Article::get_list_by_top_menu(10, 6, 'sort', false);
-            $undergraduate = Article::get_list_by_top_menu(6, 10, 'sort', false);
-            $graduate = Article::get_list_by_top_menu(6, 11, 'sort', false);
-            $research = Article::get_list_by_top_menu(6, 12, 'sort', false);
-            $working = Article::get_list_by_top_menu(7, 17, 'sort', false);
+            $news = Article::get_list_by_top_menu(10, 6, array(array('sort', 'DESC')));
+            $undergraduate = Article::get_list_by_top_menu(6, 10, array(array('sort', 'DESC')));
+            $graduate = Article::get_list_by_top_menu(6, 11, array(array('sort', 'DESC')));
+            $research = Article::get_list_by_top_menu(6, 12, array(array('sort', 'DESC')));
+            $working = Article::get_list_by_top_menu(7, 17, array(array('sort', 'DESC')));
             $slider = File::get_top();
             $app->render("index.html", get_defined_vars());
         });

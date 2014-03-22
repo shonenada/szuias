@@ -2,12 +2,12 @@
 
 {% block content %}
 <div class="article-box">
-  <h2>{{ menu.title }}</h2>
+  <h2>{{ top_menu.title }}</h2>
   
   <div class="sidebar-nav">
-    <h2>{{ menu.title }}</h2>
+    <h2>{{ top_menu.title }}</h2>
     <ul>
-    {% for one in menu.sub_menus %}
+    {% for one in top_menu.sub_menus %}
       <a href="{{ siteUrl('menu/' ~ one.id ~ '/list') }}"><li>{{ one.title }}</li></a>
     {% endfor %}
     </ul>
@@ -15,15 +15,15 @@
 
   <div class="article-list">
     <div class="top-nav">
-    {% for one in menu.sub_menus %}
+    {% for one in top_menu.sub_menus %}
     {%if one.id == mid %}
     <a class="current">{{ one.title }}</a>
     {% endif %}
     {% endfor %}
     </div>
     <ul>
-      {% for a in menu.articles %}
-      <li><a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title | ellipsis(30) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
+      {% for a in articles %}
+      <li>{% if a.is_top %}<img src="{{ siteUrl('static/images/admin/icon_up.gif') }}" alt="置顶" title="置顶"> {% endif %}<a href="{{ a.redirect_url ? a.redirect_url : siteUrl('article/' ~ a.id) }}"{{ a.open_style == 1 ? 'target="_blank"' : '' }}>{{ a.title | ellipsis(30) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
       {% endfor %}
     </ul>
   </div>

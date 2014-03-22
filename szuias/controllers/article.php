@@ -8,10 +8,13 @@ return array(
     "export" => function($app) {
 
         $app->get('/menu/:mid/list', function ($mid) use ($app) {
-            $menu = Menu::find($mid);
-            if (!$menu->is_parent()) {
-                $menu = $menu->parent;
+            $page = $app->request->get('page') ? $app->request->get('page') : 1;
+            $pagesize = $app->config('pagesize');
+            $top_menu = Menu::find($mid);
+            if (!$top_menu->is_parent()) {
+                $top_menu = $top_menu->parent;
             }
+            $articles = Article::get_list_by_menu_id($page, $pagesize, $mid, array(array('is_top', 'DESC'), array('sort', 'ASC'), array('created', 'DESC')));
             $app->render('list.html', get_defined_vars());
         })->conditions(array('mid' => '\d+'));
 
