@@ -14,6 +14,9 @@ return array(
             if (!$top_menu->is_parent()) {
                 $top_menu = $top_menu->parent;
             }
+            else if ($top_menu->has_sub()) {
+                $mid = $top_menu->sub_menus->first()->id;
+            }
             $articles = Article::get_list_by_menu_id($page, $pagesize, $mid, array(array('is_top', 'DESC'), array('sort', 'ASC'), array('created', 'DESC')));
             $app->render('list.html', get_defined_vars());
         })->conditions(array('mid' => '\d+'));

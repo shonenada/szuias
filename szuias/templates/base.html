@@ -1,3 +1,4 @@
+{%- import 'tools.twig' as tools -%}
 <!DOCTYPE html>
 <html>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
@@ -31,12 +32,10 @@
         <li class="nav-main-item{% if m.sub_menus | length > 0 %} parent{% endif %}">
           {% if m.type == 3 %}
           {% set url = m.outside_url %}
-          {% elseif m.type == 2 %}
+          {% elseif m.type in [0,2] %}
           {% set url = siteUrl('menu/' ~ m.id ~ '/list') %}
           {% elseif m.type == 1 %}
           {% set url = siteUrl('menu/' ~ m.id ~ '/show') %}
-          {% elseif m.type == 0 %}
-          {% set url = 'javascript:void(0);' %}
           {% endif %}
           <a href="{{ url }}">{{ m.title }}</a>
           {% if m.sub_menus | length > 0 %}
@@ -44,12 +43,10 @@
             {% for sub in m.sub_menus %}
               {% if sub.type == 3 %}
               {% set sub_url = sub.outside_url %}
-              {% elseif sub.type == 2 %}
+              {% elseif sub.type in [0,2] %}
               {% set sub_url = siteUrl('menu/') ~ sub.id ~ '/list' %}
               {% elseif sub.type == 1 %}
               {% set sub_url = siteUrl('menu/') ~ sub.id ~ '/show' %}
-              {% elseif sub.type == 0 %}
-              {% set url = 'javascript:void(0);' %}
               {% endif %}
             <li class="page_item"><a href="{{ sub_url }}"> {{ sub.title }}</a></li>
             {% endfor %}

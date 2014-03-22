@@ -1,0 +1,16 @@
+{%- macro get_menu_link(menu) -%}
+  {% if menu.type == 3 %}
+  {% set url = menu.outside_url %}
+  {% elseif menu.type == 2 %}
+  {% set url = siteUrl('menu/' ~ menu.id ~ '/list') %}
+  {% elseif menu.type == 1 %}
+  {% set url = siteUrl('menu/' ~ menu.id ~ '/show') %}
+  {% elseif menu.type == 0 %}
+  {% set url = 'javascript:void(0);' %}
+  {% endif %}
+  <a href="{{ url }}"><li>{{ menu.title }}</li></a>
+{%- endmacro -%}
+
+{%- macro script(filename) -%}
+<script type="text/javascript" src="/static/scripts/{{filename}}"></script>
+{%- endmacro -%}

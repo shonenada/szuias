@@ -7,19 +7,27 @@
   <div class="sidebar-nav">
     <h2>{{ top_menu.title }}</h2>
     <ul>
-    {% for one in top_menu.sub_menus %}
-      <a href="{{ siteUrl('menu/' ~ one.id ~ '/list') }}"><li>{{ one.title }}</li></a>
-    {% endfor %}
+    {% if top_menu.has_sub() %}
+      {% for one in top_menu.sub_menus %}
+        {{ tools.get_menu_link(one) }}
+      {% endfor %}
+    {% else %}
+        {{ tools.get_menu_link(top_menu) }}
+    {% endif %}
     </ul>
   </div>
 
   <div class="article-list">
     <div class="top-nav">
-    {% for one in top_menu.sub_menus %}
-    {%if one.id == mid %}
-    <a class="current">{{ one.title }}</a>
+    {% if top_menu.has_sub() %}
+      {% for one in top_menu.sub_menus %}
+        {%if one.id == mid %}
+      <a class="current">{{ one.title }}</a>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <a class="current">{{ top_menu.title }}</a>
     {% endif %}
-    {% endfor %}
     </div>
     <ul>
       {% for a in articles %}

@@ -7,18 +7,13 @@
   <div class="sidebar-nav">
     <h2>{{ top_menu.title }}</h2>
     <ul>
-    {% for one in top_menu.sub_menus %}
-      {% if one.type == 3 %}
-      {% set url = one.outside_url %}
-      {% elseif one.type == 2 %}
-      {% set url = siteUrl('menu/' ~ one.id ~ '/list') %}
-      {% elseif one.type == 1 %}
-      {% set url = siteUrl('menu/' ~ one.id ~ '/show') %}
-      {% elseif one.type == 0 %}
-      {% set url = 'javascript:void(0);' %}
-      {% endif %}
-      <a href="{{ url }}"><li>{{ one.title }}</li></a>
-    {% endfor %}
+    {% if top_menu.has_sub() %}
+      {% for one in top_menu.sub_menus %}
+        {{ tools.get_menu_link(one) }}
+      {% endfor %}
+    {% else %}
+        {{ tools.get_menu_link(top_menu) }}
+    {% endif %}
     </ul>
   </div>
 
