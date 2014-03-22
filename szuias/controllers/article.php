@@ -39,6 +39,8 @@ return array(
             } else {
                 $top_menu = $article->menu->parent;
             }
+            $article->view_count += 1;
+            $article->save();
             return $app->render('article.html', get_defined_vars());
         })->conditions(array('id' => '\d+'));
     }
