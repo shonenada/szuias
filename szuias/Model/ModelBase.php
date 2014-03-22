@@ -95,6 +95,21 @@ class ModelBase {
         $query = static::em()->createQuery($dql)->setMaxResults($pagesize)->setFirstResult($pagesize*($page-1));
         return $query->useQueryCache(false)->getResult();
     }
+
+    static public function count_all() {
+        $dql = sprintf('SELECT count(n) FROM %s n ', get_called_class());
+        $query = static::em()->createQuery($dql);
+        return $query->useQueryCache(false)->getOneOrNullResult();
+    }
+
+    static public function get_random() {
+        $count = self::count_all();
+        $count = array_shift($count);
+        $random_id = mt_rand(0, $count - 1);
+        $dql = sprintf('SELECT n FROM %s n ', get_called_class());
+        $query = static::em()->createQuery($dql)->setMaxResults(1)->setFirstResult($random_id);
+        return $query->useQueryCache(false)->getOneOrNullResult();
+    }
 }
 
 

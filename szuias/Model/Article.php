@@ -163,9 +163,14 @@ class Article extends ModelBase {
     static public function get_list_by_top_menu($size, $top_menu_id, $order_by=array(array('id', 'ASC'))) {
         $top_menu = Menu::find($top_menu_id);
         $records = array();
-        foreach($top_menu->sub_menus as $m) {
-            $list = self::get_list_by_menu_id(1, $size, $m->id, $order_by);
-            $records = array_merge($records, $list);
+        if ($top_menu->has_sub()) {
+            foreach($top_menu->sub_menus as $m) {
+                $list = self::get_list_by_menu_id(1, $size, $m->id, $order_by);
+                $records = array_merge($records, $list);
+            }
+        }
+        else {
+            $records = self::get_list_by_menu_id(1, $size, $top_menu->id, $order_by);
         }
         uasort($records, function($one, $two) {
             if ($one == $two)
@@ -214,6 +219,21 @@ class Article extends ModelBase {
         $query = static::em()->createQuery($dql)->setFirstResult($pagesize*($page-1))->setMaxResults($pagesize);
         $pager = new \Doctrine\ORM\Tools\Pagination\Paginator($query);
         return $pager;
+    }
+
+    static public function count_by_mids ($mids=array()) {
+        $dql = sprintf('SELECT count(n) FROM %s n WHERE n.menu_id in (%s)', get_called_class(), implode(',', $mids));
+        $query = static::em()->createQuery($dql);
+        return $query->useQueryCache(false)->getOneOrNullResult();
+    }
+
+    static public function get_random_by_mids ($mids=array()) {
+        $count = self::count_by_mids($mids);
+        $count = array_shift($count);
+        $random_id = mt_rand(0, $count - 1);
+        $dql = sprintf('SELECT n FROM %s n WHERE n.menu_id in (%s)', get_called_class(), implode(',', $mids));
+        $query = static::em()->createQuery($dql)->setMaxResults(1)->setFirstResult($random_id);
+        return $query->useQueryCache(false)->getOneOrNullResult();
     }
 
 }
