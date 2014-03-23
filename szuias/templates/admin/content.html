@@ -31,15 +31,15 @@
       <a class="a-btn add-new" href="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~ '/create') }}">新增</a>
     </div>
     <div id="search_frame">
-      <form action="{{ siteUrl('admin/content/search?menu_id' ~ focus_menu.id) }}" method="post" target="_self">
+      <form action="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~'/search') }}" method="post" target="_self">
         <span>
-          <input type="text" name="title" value="{% if not search.title %}请输入列表标题{% endif %}{{ search.title }}" class="search_txt" style="width:270px;" onfocus="if (this.value =='请输入列表标题'){value =''}" onblur="if (value ==''){value='请输入列表标题'}" />
+          <input type="text" name="title" value="{{ search.title }}" placeholder="请输入列表标题" class="search_txt" style="width:270px;" onfocus="if (this.value =='请输入列表标题'){value =''}" onblur="if (value ==''){value='请输入列表标题'}" />
         </span>
         <span>
           <select name="cid" class="search-select" style="width:120px;">
             <option value="">请选择分类</option>
             {% for c in focus_menu.categories %}
-            <option value="{{ c.id }}"{% if c.id == search.id %}selected="selected"{% endif %}>{{ c.title }}</option>
+            <option value="{{ c.id }}"{% if c.id == search.cid %}selected="selected"{% endif %}>{{ c.title }}</option>
             {% endfor %}
           </select>
         </span>
@@ -47,7 +47,7 @@
           <select name="creator" class="search-select" style="width:120px;">
             <option value="0">请选择发表人</option>
             {% for person in admin_list %}
-            <option value="{{ person.id }}"{% if person.id == search.person_id %} selected="selected"{% endif %}>{{ person.name }}</option>
+            <option value="{{ person.id }}"{% if person.id == search.author_id %} selected="selected"{% endif %}>{{ person.name }}</option>
             {% endfor %}
           </select>
         </span>

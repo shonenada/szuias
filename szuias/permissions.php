@@ -60,6 +60,7 @@ return array(
 
         array($administrator, "/admin/content", array('GET')),
         array($administrator, "/admin/content/menu/\d+", array('GET')),
+        array($administrator, "/admin/content/menu/\d+/search", array('POST')),
         array($administrator, "/admin/content/menu/\d+/create", array('GET', 'POST')),
         array($administrator, "/admin/content/\d+/edit", array('GET', 'POST')),
         array($administrator, "/admin/content/\d+/delete", array('POST')),

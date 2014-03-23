@@ -62,6 +62,11 @@ class Article extends ModelBase {
     public $menu;
 
     /**
+     * @Column(name="category_id", type="integer")
+     **/
+    private $category_id;
+
+    /**
      * @OneToOne(targetEntity="Category")
      * @JoinColumn(name="category_id", referencedColumnName="id")
      **/
@@ -71,6 +76,11 @@ class Article extends ModelBase {
      * @OneToMany(targetEntity="File", mappedBy="article")
      **/
     public $files;
+
+    /**
+     * @Column(name="author_id", type="integer")
+     */
+    public $author_id;
 
     /**
      * @OneToOne(targetEntity="User")
@@ -234,6 +244,24 @@ class Article extends ModelBase {
         $dql = sprintf('SELECT n FROM %s n WHERE n.menu_id in (%s)', get_called_class(), implode(',', $mids));
         $query = static::em()->createQuery($dql)->setMaxResults(1)->setFirstResult($random_id);
         return $query->useQueryCache(false)->getOneOrNullResult();
+    }
+
+    static public function search($mid, $title='', $cid=null, $author_id=null, $post_form=null) {
+        $builder = static::em()->createQueryBuilder()->select('n')->from(get_called_class(), 'n')->where('n.menu_id = :mid')->setParameter('mid', $mid);
+        if ($title) {
+            $builder = $builder->andWhere('n.title LIKE :search_title')->setParameter('search_title', '%'.$title.'%');
+        }
+        if ($cid) {
+            $builder = $builder->andWhere('n.category_id = :cid')->setParameter('cid', $cid);
+        }
+        if ($author_id) {
+            $builder = $builder->andWhere('n.author_id = :aid')->setParameter('aid', $author_id);
+        }
+        if ($post_form) {
+            $builder = $builder->andWhere('n.created > :post')->setParameter('post', $post_form);
+        }
+        $pager = new \Doctrine\ORM\Tools\Pagination\Paginator($builder->getQuery());
+        return $pager;
     }
 
 }

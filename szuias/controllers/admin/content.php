@@ -230,5 +230,36 @@ return array(
             }
         })->conditions(array('aid' => '\d+'));
 
+        $app->post('/admin/content/menu/:mid/search', function ($mid) use ($app) {
+            $page = $app->request->get('page');
+            $pagesize = $app->config('pagesize');
+            $focus_menu = Menu::find($mid);
+            if ($focus_menu->is_parent()) {
+                $top_menu = $focus_menu;
+            }
+            else {
+                $top_menu = $focus_menu->parent;
+            }
+            $title = $app->request->post('title');
+            $cid = $app->request->post('cid');
+            $author_id = $app->request->post('creator');
+            $rtime = $app->request->post('time');
+            if ($rtime > 0){
+                $post_from = new \DateTime();
+                $post_from->setTimestamp(time() - (int)($rtime) * 24 * 3600);
+            }else {
+                $post_from = null;
+            }
+            $artilce_pager = Article::search($mid, $title, $cid, $author_id, $post_from);
+            $total = $artilce_pager->count();
+            $now = new \DateTime('now', new DateTimezone('Asia/Shanghai'));
+            $admin_menus = Menu::list_admin_menus();
+            $categories = Category::all();
+            $admin_list = User::all();
+            $pager = array('current' => $page, 'nums' => ceil($total / $pagesize));
+            $search = array('title' => $title, 'cid' => $cid, 'author_id' => $author_id, 'time' => $rtime);
+            return $app->render("admin/content.html", get_defined_vars());
+        })->conditions(array('mid' => '\d+'));
+
     }
 );
