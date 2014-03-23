@@ -46,7 +46,7 @@
           <td class="td-6">
             <input type="hidden" name="uid" value="{{ a.id }}"/>
             <input type="button" class="change-power" value="修改权限" />
-            <input type="button" class="delete-user" value="删除用户" />
+            <input type="button" {% if loggedUser.id == a.id %}disabled="disabled"{% else %}class="delete-user"{% endif %} value="删除用户" />
             <input type="button" class="reset-password" value="重置密码" />
           </td>
         </tr>
@@ -60,13 +60,13 @@
 <div id="reg" style="display: none;">
   <ul>
     <li class="reg-li clearfix">
-      <div class="reg-title"><em>*</em>账号</div>
-      <div class="reg-input-div"><input type="text" name="loginname" class="reg-input" /></div>
+      <div class="reg-title"><em>*</em>用户名</div>
+      <div class="reg-input-div"><input type="text" name="username" class="reg-input" /></div>
       <div class="reg-tip">账号由a-z0-9及下划线组成，首位不能为数字，长度为5-16</div>
     </li>
     <li class="reg-li clearfix">
-      <div class="reg-title"><em>*</em>用户名</div>
-      <div class="reg-input-div"><input type="text" name="username" class="reg-input" /></div>
+      <div class="reg-title"><em>*</em>别名</div>
+      <div class="reg-input-div"><input type="text" name="nickname" class="reg-input" /></div>
       <div class="reg-tip">用户名允许中文</div>
     </li>
     <li class="reg-li clearfix">

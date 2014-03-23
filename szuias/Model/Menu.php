@@ -166,15 +166,6 @@ class Menu extends ModelBase {
         return array_shift($menus);
     }
 
-    static public function get_first_sub_menu() {
-        // 只获取节点菜单
-        $top_menu_types = array(0);
-        $menus = self::sort_menu(self::get_by_types($top_menu_types));
-        $first_menu = array_shift($menus);
-        $sub_menus = $first_menu->sub_menus;
-        return $sub_menus->first();
-    }
-
     static public function get_by_types($types=array()) {
         $all_menus = self::all();
         $result = array_filter($all_menus, function ($one) use($types) {

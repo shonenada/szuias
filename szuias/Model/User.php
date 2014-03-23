@@ -27,7 +27,7 @@ use \RBAC\Authentication;
  *
  **/
 
-class User extends ModelBase{
+class User extends ModelBase {
 
     /**
      * @Column(name="id", type="integer", nullable=false)
@@ -108,6 +108,10 @@ class User extends ModelBase{
         $this->password = $hashPassword;
     }
 
+    public function setName($name) {
+        $this->name = $name;
+    }
+
     public function getName() {
         return $this->name;
     }
@@ -148,8 +152,9 @@ class User extends ModelBase{
         return ($this->is_admin == 1);
     }
 
-    public function __construct($username) {
-        $this->username = $username;
+    public function __construct() {
+        $this->is_admin = false;
+        $this->is_deleted = false;
     }
 
     public function checkPassword($rawPassword, $salt) {
@@ -172,19 +177,36 @@ class User extends ModelBase{
         return $this->last_ip == $ip;
     }
 
+    public function delete() {
+        $this->is_deleted = true;
+        $this->save();
+    }
+
     static public function hashPassword($password, $salt) {
         $hash = md5("{$salt}{$password}{$salt}");
         return $hash;
     }
 
     static public function findByUsername($username) {
-        $query = static::query()->findBy(array('username' => $username));
+        $query = static::query()->findOneBy(array('username' => $username, 'is_deleted' => false));
         if ($query != null){
-            return $query[0];
+            return $query;
         }
         else {
             return null;
         }
+    }
+
+    static public function check_exist($username) {
+        return (self::findByUsername($username) != null);
+    }
+
+    static public function list_no_admin() {
+        $users = self::all();
+        $users = array_filter($users, function($one) {
+            return (! $one->isAdmin());
+        });
+        return $users;
     }
 
 }

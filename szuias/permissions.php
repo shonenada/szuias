@@ -51,6 +51,7 @@ return array(
         array($administrator, "/admin/setting/save", array('POST')),
 
         array($administrator, "/admin/account", array('GET')),
+        array($administrator, "/admin/account/(create|delete|reset)", array('POST')),
 
         array($administrator, "/admin/menu", array('GET')),
         array($administrator, "/admin/menu/(save|(\d+?)/delete)", array('POST')),

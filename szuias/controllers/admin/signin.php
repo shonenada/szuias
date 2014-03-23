@@ -42,10 +42,6 @@ return array(
                 return $app->render('admin/signin.html', array('errors' => '用户名或密码错误'));
             }
 
-            if (!$user->isAdmin()) {
-                return $app->render('admin/signin.html', array('errors' => '验证失败'));
-            }
-
             $now = new DateTime('now', new DateTimezone('Asia/Shanghai'));
             $ip = $app->request->getIp();
             $token = Utils::generateToken($ip, $now, $salt);

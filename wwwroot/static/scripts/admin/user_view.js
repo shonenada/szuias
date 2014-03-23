@@ -16,12 +16,12 @@ $(function(){
 		},
 		buttons : {
 			"新增"  : function(){
-				var loginname = $("#reg input[name='loginname']").val(),
-					username = $("#reg input[name='username']").val().replace(" ",""),
+				var username = $("#reg input[name='username']").val(),
+					nickname = $("#reg input[name='nickname']").val().replace(" ",""),
 					password = $("#reg input[name='password']").val(),
 					repassword = $("#reg input[name='repassword']").val();
 				//判断参数
-				if (!/^[a-zA-Z_]\w{4,15}/.test(loginname)){
+				if (!/^[a-zA-Z_]\w{4,15}/.test(username)){
 					alert("账号格式错误！");
 					return;
 				}
@@ -38,7 +38,7 @@ $(function(){
 					return;
 				}
 				//提交请求
-				$.post(RegPostHref,{loginname:loginname,username:username,password:password,repassword:repassword},function(data){
+				$.post(RegPostHref,{username:username,nickname:nickname,password:password,repassword:repassword},function(data){
 					if(data.success){
 						alert(data.info);
 						window.location.reload();
@@ -46,7 +46,7 @@ $(function(){
 					else{
 						alert(data.info);
 					}
-				});
+				}, 'json');
 			},
 			"取消" : function(){
 				$(this).dialog("close");
@@ -87,7 +87,7 @@ $(function(){
 				$.post(SavePower,{uid:uid,models:modelStr,mids:midStr},function(data){
 					$("#change_power").dialog("close");
 					alert(data.error);
-				});
+				}, 'json');
 			},
 			"取消" : function(){
 				$(this).dialog("close");
@@ -120,7 +120,7 @@ $(function(){
 						break;
 					}
 				}
-			});
+			}, 'json');
 			$(".menu_label_list label input[name='menu']").each(function(){
 				for(var i = 0, k = data.mids.length; i < k; i++){
 					if ($(this).val() == data.mids[i]){
@@ -165,13 +165,13 @@ $(function(){
  		if (!confirm("是否确定要删除『"+name+"』用户")) return;
  		$.post(DeleteHref,{uid:uid},function(data){
  			if(data.success){
- 				alert(data.error);
+ 				alert(data.info);
  				window.location.reload();
 			}
 			else{
-				alert(data.error);
+				alert(data.info);
 			}
- 		});
+ 		}, 'json');
  	});
  	
  	//重置用户密码
@@ -181,12 +181,12 @@ $(function(){
  		if (!confirm("是否确定要重置『"+name+"』用户的密码")) return;
  		$.post(ResetHref,{uid:uid},function(data){
  			if(data.success){
- 				alert("该用户密码已经重置为："+data.error);
+ 				alert("该用户密码已经重置为："+data.info);
  				window.location.reload();
 			}
 			else{
-				alert(data.error);
+				alert(data.info);
 			}
- 		});
+ 		}, 'json');
  	});
 });

@@ -31,6 +31,9 @@ return array(
 
             if ($focus_menu->is_parent()) {
                 $top_menu = $focus_menu;
+                if ($top_menu->has_sub()) {
+                    $focus_menu = $top_menu->sub_menus->first();
+                }
             }
             else {
                 $top_menu = $focus_menu->parent;
@@ -42,7 +45,7 @@ return array(
             $categories = Category::all();
             $admin_list = User::all();
             $pager = array('current' => $page, 'nums' => ceil($total / $pagesize));
-            if ($focus_menu->type == 1 || (isset($focus_sub_menu) && ($focus_sub_menu->type == 1))) {
+            if ($focus_menu->type == 1) {
                 // 单页
                 $article = $focus_menu->articles->first();
                 return $app->render("admin/single_page.html", get_defined_vars());
