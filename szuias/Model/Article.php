@@ -56,7 +56,7 @@ class Article extends ModelBase {
     private $menu_id;
 
     /**
-     * @ManyToOne(targetEntity="Menu", inversedBy="menu")
+     * @ManyToOne(targetEntity="Menu", inversedBy="articles")
      * @JoinColumn(name="menu_id", referencedColumnName="id", nullable=true)
      */
     public $menu;

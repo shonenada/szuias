@@ -34,39 +34,40 @@ return array(
         array($everyone, "/admin/signin", array('GET', 'POST')),
         array($everyone, "/admin/signout", array('GET', 'POST')),
 
-        array($administrator, "/admin", array('GET')),
+        array($normal, "/admin", array('GET')),
 
-        array($administrator, "/file/fmanager", array('GET')),
-        array($administrator, "/file/upload", array('POST')),
+        array($normal, "/file/fmanager", array('GET')),
+        array($normal, "/file/upload", array('POST')),
 
-        array($administrator, "/admin/profile", array('GET')),
-        array($administrator, "/admin/profile/edit", array('GET', 'POST')),
-        array($administrator, "/admin/profile/password", array('GET', 'POST')),
+        array($normal, "/admin/profile", array('GET')),
+        array($normal, "/admin/profile/edit", array('GET', 'POST')),
+        array($normal, "/admin/profile/password", array('GET', 'POST')),
+
+        array($normal, "/admin/setting", array('GET')),
+        array($normal, "/admin/setting/save", array('POST')),
+
+        array($normal, "/admin/menu", array('GET')),
+        array($normal, "/admin/menu/(save|(\d+?)/delete)", array('POST')),
+
+        array($normal, "/admin/category", array('GET')),
+        array($normal, "/admin/category/(save|(\d+?)/delete)", array('POST')),
+
+        array($normal, "/admin/content", array('GET')),
+        array($normal, "/admin/content/menu/\d+", array('GET')),
+        array($normal, "/admin/content/menu/\d+/search", array('POST')),
+        array($normal, "/admin/content/menu/\d+/create", array('GET', 'POST')),
+        array($normal, "/admin/content/\d+/edit", array('GET', 'POST')),
+        array($normal, "/admin/content/\d+/delete", array('POST')),
+        array($normal, "/admin/content/\d+/top/(create|delete)", array('POST')),
+        array($normal, "/admin/content/\d+/hide/(create|delete)", array('POST')),
+
+        array($administrator, "/admin/account", array('GET')),
+        array($administrator, "/admin/account/(create|delete|reset|permission|permission/save)", array('POST')),
 
         array($administrator, "/admin/data", array('GET')),
         array($administrator, "/admin/data/(backup|recover)", array('GET', 'POST')),
         array($administrator, "/admin/data/delete", array('POST')),
 
-        array($administrator, "/admin/setting", array('GET')),
-        array($administrator, "/admin/setting/save", array('POST')),
-
-        array($administrator, "/admin/account", array('GET')),
-        array($administrator, "/admin/account/(create|delete|reset)", array('POST')),
-
-        array($administrator, "/admin/menu", array('GET')),
-        array($administrator, "/admin/menu/(save|(\d+?)/delete)", array('POST')),
-
-        array($administrator, "/admin/category", array('GET')),
-        array($administrator, "/admin/category/(save|(\d+?)/delete)", array('POST')),
-
-        array($administrator, "/admin/content", array('GET')),
-        array($administrator, "/admin/content/menu/\d+", array('GET')),
-        array($administrator, "/admin/content/menu/\d+/search", array('POST')),
-        array($administrator, "/admin/content/menu/\d+/create", array('GET', 'POST')),
-        array($administrator, "/admin/content/\d+/edit", array('GET', 'POST')),
-        array($administrator, "/admin/content/\d+/delete", array('POST')),
-        array($administrator, "/admin/content/\d+/top/(create|delete)", array('POST')),
-        array($administrator, "/admin/content/\d+/hide/(create|delete)", array('POST')),
     ),
     "deny" => array(
     )

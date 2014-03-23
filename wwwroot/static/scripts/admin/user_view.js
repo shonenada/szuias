@@ -86,7 +86,7 @@ $(function(){
 				midStr = mids.join(",");
 				$.post(SavePower,{uid:uid,models:modelStr,mids:midStr},function(data){
 					$("#change_power").dialog("close");
-					alert(data.error);
+					alert(data.info);
 				}, 'json');
 			},
 			"取消" : function(){
@@ -114,22 +114,22 @@ $(function(){
 		//加载权限数据
 		$.post(LoadPower,{uid:uid},function(data){
 			$(".model_label_list label input[name='model']").each(function(){
-				for(var i = 0, k = data.models.length; i < k; i++){
-					if ($(this).val() == data.models[i]){
-						$(this).attr("checked", true);
-						break;
-					}
-				}
-			}, 'json');
-			$(".menu_label_list label input[name='menu']").each(function(){
-				for(var i = 0, k = data.mids.length; i < k; i++){
-					if ($(this).val() == data.mids[i]){
+				for(var i = 0, k = data.model.length; i < k; i++){
+					if ($(this).val() == data.model[i]){
 						$(this).attr("checked", true);
 						break;
 					}
 				}
 			});
-		});
+			$(".menu_label_list label input[name='menu']").each(function(){
+				for(var i = 0, k = data.menu.length; i < k; i++){
+					if ($(this).val() == data.menu[i]){
+						$(this).attr("checked", true);
+						break;
+					}
+				}
+			});
+		}, 'json');
 		$("#change_power").dialog("open");
 	});
 	

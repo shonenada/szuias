@@ -87,6 +87,11 @@ class User extends ModelBase {
     private $is_admin;
 
     /**
+     * @OneToMany(targetEntity="Permission", mappedBy="user")
+     **/
+    public $permissions;
+
+    /**
      * @Column(name="is_deleted", type="boolean")
      **/
     private $is_deleted;
@@ -155,6 +160,19 @@ class User extends ModelBase {
     public function __construct() {
         $this->is_admin = false;
         $this->is_deleted = false;
+        $this->permissions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function permission_ids() {
+        $type_name = Permission::$type_name;
+        $ids = array(
+            'menu' => array(),
+            'model' => array(),
+        );
+        foreach ($this->permissions->toArray() as $obj) {
+            $ids[$type_name[$obj->type]][] = $obj->mid;
+        }
+        return $ids;
     }
 
     public function checkPassword($rawPassword, $salt) {
@@ -208,5 +226,6 @@ class User extends ModelBase {
         });
         return $users;
     }
+
 
 }

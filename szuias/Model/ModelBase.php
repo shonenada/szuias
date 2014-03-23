@@ -36,6 +36,10 @@ class ModelBase {
         return $this;
     }
 
+    static public function dump($input) {
+        return \Doctrine\Common\Util\Debug::dump($input);
+    }
+
     static public function flush(){
         static::em()->flush();
     }

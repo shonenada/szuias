@@ -10,8 +10,8 @@
   var RegPostHref = "{{ siteUrl('admin/account/create') }}";
   var DeleteHref = "{{ siteUrl('admin/account/delete') }}";
   var ResetHref = "{{ siteUrl('admin/account/reset') }}";
-  var LoadPower = "{{ siteUrl('admin/account/power') }}";
-  var SavePower = "{{ siteUrl('admin/account/power/save') }}";
+  var LoadPower = "{{ siteUrl('admin/account/permission') }}";
+  var SavePower = "{{ siteUrl('admin/account/permission/save') }}";
 </script>
 {% endblock %}
 
@@ -89,11 +89,11 @@
     <div class="model_div_title">内容管理权：</div>
     <div class="model_div_value">
       <div class="model_label_list clearfix">
-        <?php foreach ($data['all_models'] as $model):?>
-        <label><input type="checkbox" name="model" value="<?php echo $model['model_id'];?>" /><?php echo $model['title'];?></label>
-        <?php endforeach;?>
+        {% for name, value in model_list %}
+        <label><input type="checkbox" name="model" value="{{ value[0] }}" />{{ value[1] }}</label>
+        {% endfor %}
       </div>
-      <div class="model-button">    
+      <div class="model-button">
         <input type="button" class="check-all" id="model_check" value="全选" />
         <input type="button" class="check-invert" id="model_check_invert" value="反选" />
       </div>
@@ -103,16 +103,23 @@
     <div class="menu_div_title">菜单管理权：（*必须拥有内容管理权限）</div>
     <div class="menu_div_value">
       <div class="menu_label_list">
-        <table><tbody>
-        <?php foreach ($data['all_menus'] as $first):?>
-        <tr><td class="menu-title"><?php echo $first['mtitle']?>：</td>
-        <td class="menu-content">
-          <?php foreach ($first['second_menu'] as $menu):?>
-          <label><input type="checkbox" name="menu" value="<?php echo $menu['mid'];?>" /><?php echo $menu['mtitle'];?></label>
-          <?php endforeach;?>
-        </td></tr>
-        <?php endforeach;?>
-        </tbody></table>
+        <table>
+          <tbody>
+          {% for m in menus %}
+          <tr>
+            <td class="menu-title">{{ m.title }}：</td>
+            <td class="menu-content">
+              {% if m.type in [1,2] %}
+              <label><input type="checkbox" name="menu" value="{{ m.id }}" />{{ m.title }}</label>
+              {% endif %}
+              {% for sub in m.sub_menus %}
+              <label><input type="checkbox" name="menu" value="{{ sub.id }}" />{{ sub.title }}</label>
+              {% endfor %}
+            </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
       </div>
       <div class="menu-button">
         <input type="button" class="check-all" id="menu_check" value="全选" />
