@@ -61,12 +61,12 @@ return array(
         array($normal, "/admin/content/\d+/top/(create|delete)", array('POST')),
         array($normal, "/admin/content/\d+/hide/(create|delete)", array('POST')),
 
-        array($administrator, "/admin/account", array('GET')),
-        array($administrator, "/admin/account/(create|delete|reset|permission|permission/save)", array('POST')),
+        array($normal, "/admin/account", array('GET')),
+        array($normal, "/admin/account/(create|delete|reset|permission|permission/save)", array('POST')),
 
-        array($administrator, "/admin/data", array('GET')),
-        array($administrator, "/admin/data/(backup|recover)", array('GET', 'POST')),
-        array($administrator, "/admin/data/delete", array('POST')),
+        array($normal, "/admin/data", array('GET')),
+        array($normal, "/admin/data/(backup|recover)", array('GET', 'POST')),
+        array($normal, "/admin/data/delete", array('POST')),
 
     ),
     "deny" => array(

@@ -6,14 +6,15 @@
  *
  */
 
-use Model\User;
-use Model\Menu;
-use Model\Permission;
+use \Model\User;
+use \Model\Menu;
+use \Model\Permission;
 
 return array(
     "export" => function($app) {
 
         $app->get("/admin/account", function() use($app) {
+            Permission::auth_model(Permission::$models['account'][0]);
             $menus = Menu::get_top_menus();
             $accounts = User::list_no_admin();
             $model_list = Permission::$models;
@@ -21,6 +22,7 @@ return array(
         });
 
         $app->post('/admin/account/create', function() use($app) {
+            Permission::auth_model(Permission::$models['account'][0]);
             $username = $app->request->post('username');
             $nickname = $app->request->post('nickname');
             $passwd = $app->request->post('password');
@@ -40,6 +42,7 @@ return array(
         });
 
         $app->post('/admin/account/delete', function() use ($app) {
+            Permission::auth_model(Permission::$models['account'][0]);
             $uid = $app->request->post('uid');
             $user = User::find($uid);
             if ($user->isAdmin()) {
@@ -50,6 +53,7 @@ return array(
         });
 
         $app->post('/admin/account/reset', function() use ($app) {
+            Permission::auth_model(Permission::$models['account'][0]);
             $uid = $app->request->post('uid');
             $user = User::find($uid);
             if ($user->isAdmin()) {
@@ -61,6 +65,7 @@ return array(
         });
 
         $app->post('/admin/account/permission', function() use($app) {
+            Permission::auth_model(Permission::$models['account'][0]);
             $uid = $app->request->post('uid');
             $user = User::find($uid);
             if (!$user) {
@@ -79,6 +84,7 @@ return array(
         });
 
         $app->post('/admin/account/permission/save', function() use($app) {
+            Permission::auth_model(Permission::$models['account'][0]);
             $uid = $app->request->post('uid');
             $user = User::find($uid);
 

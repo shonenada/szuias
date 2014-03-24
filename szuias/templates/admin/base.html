@@ -30,27 +30,11 @@
     <!-- 导航 -->
     <div id="nav" class="clearfix">
       <ul>
+        {% for p in loggedUser.get_permit_models() %}
         <li class="first-nav">
-          <a href="{{ siteUrl('/admin/content') }}">内容管理</a>
+          <a href="{{ siteUrl('/admin/' ~ p.name) }}">{{ p.title }}</a>
         </li>
-        <li class="first-nav">
-          <a href="{{ siteUrl('/admin/account') }}">用户管理</a>
-        </li>
-        <li class="first-nav">
-          <a href="{{ siteUrl('/admin/menu') }}">菜单设置</a>
-        </li>
-        <li class="first-nav">
-          <a href="{{ siteUrl('/admin/category') }}">分类设置</a>
-        </li>
-        <li class="first-nav">
-          <a href="{{ siteUrl('/admin/setting') }}">首页设置</a>
-        </li>
-        <li class="first-nav">
-          <a href="{{ siteUrl('/admin/profile') }}">个人中心</a>
-        </li>
-        <li class="first-nav">
-          <a href="{{ siteUrl('/admin/data') }}">数据管理</a>
-        </li>
+        {% endfor %}
       </ul>
     </div>
     <!-- *************内容页************* -->

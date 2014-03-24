@@ -6,14 +6,15 @@
  *
  */
 
-use Model\Menu;
-use Model\Setting;
+use \Model\Menu;
+use \Model\Setting;
+use \Model\Permission;
 
 return array(
     "export" => function($app) {
 
         // 渲染管理员首页
-        $app->get("/admin", function() use($app) {
+        $app->get("/admin", function() use ($app) {
             $user = \GlobalEnv::get('user');
             if ($user == NULL) {
                 return $app->redirect('/admin/signin');
@@ -24,6 +25,7 @@ return array(
         });
 
         $app->get('/admin/setting', function () use ($app) {
+            Permission::auth_model(Permission::$models['setting'][0]);
             $slider_nums = Setting::get('index_slider', 'nums');
             $slider_fresh_time = Setting::get('index_slider', 'fresh_time');
             $slider_source = Setting::get('index_slider', 'source');
@@ -32,6 +34,7 @@ return array(
         });
 
         $app->post('/admin/setting/save', function() use ($app) {
+            Permission::auth_model(Permission::$models['setting'][0]);
             $slider_nums = Setting::findByKey('index_slider', 'nums');
             $slider_fresh_time = Setting::findByKey('index_slider', 'fresh_time');
             $slider_source = Setting::findByKey('index_slider', 'source');

@@ -10,12 +10,14 @@ use \Model\User;
 use \Model\Menu;
 use \Model\Article;
 use \Model\Category;
+use \Model\Permission;
 
 return array(
     "export" => function($app) {
         
         // 渲染内容管理界面
         $app->get("/admin/content(/menu/:mid)", function($mid=null) use($app) {
+            Permission::auth_model(Permission::$models['content'][0]);
             $page = $app->request->get('page');
             $pagesize = $app->config('pagesize');
             if (empty($page)) {
@@ -56,6 +58,7 @@ return array(
         })->conditions(array('mid' => '\d+'));
 
         $app->get('/admin/content/menu/:id/create', function($menu_id) use ($app) {
+            Permission::auth_model(Permission::$models['content'][0]);
             if (empty($menu_id)) {
                 $focus_menu = Menu::get_first_menu();
             }
@@ -76,6 +79,7 @@ return array(
         })->conditions(array('id' => '\d+'));
 
         $app->post('/admin/content/menu/:id/create', function($menu_id) use ($app) {
+            Permission::auth_model(Permission::$models['content'][0]);
             if ($_SESSION['add_timestamp'] != $app->request->post('timestamp')) {
                 return $app->render("admin/content_create.html", get_defined_vars());
             }
@@ -121,6 +125,7 @@ return array(
         })->conditions(array('id' => '\d+'));
 
         $app->get('/admin/content/:aid/edit', function($aid) use ($app) {
+            Permission::auth_model(Permission::$models['content'][0]);
             $article = Article::find($aid);
             $focus_menu = $article->menu;
             if ($focus_menu->is_parent()){
@@ -136,6 +141,7 @@ return array(
         })->conditions(array('aid' => '\d+'));
 
         $app->post('/admin/content/:aid/edit', function($aid) use ($app) {
+            Permission::auth_model(Permission::$models['content'][0]);
             if ($_SESSION['add_timestamp'] != $app->request->post('timestamp')) {
                 return $app->redirect("/admin/content/{$aid}/edit");
             }
@@ -172,6 +178,7 @@ return array(
         })->conditions(array('id' => '\d+'));
 
         $app->post('/admin/content/:aid/delete', function($aid) use ($app) {
+            Permission::auth_model(Permission::$models['content'][0]);
             $article = Article::find($aid);
             if ($article) {
                 if (!$article->is_deleted) {
@@ -185,6 +192,7 @@ return array(
         })->conditions(array('aid' => '\d+'));
 
         $app->post('/admin/content/:aid/hide/create', function($aid) use ($app) {
+            Permission::auth_model(Permission::$models['content'][0]);
             $article = Article::find($aid);
             if ($article) {
                 if (!$article->is_hide) {
@@ -197,6 +205,7 @@ return array(
         })->conditions(array('aid' => '\d+'));
 
         $app->post('/admin/content/:aid/hide/delete', function($aid) use ($app) {
+            Permission::auth_model(Permission::$models['content'][0]);
             $article = Article::find($aid);
             if ($article) {
                 if ($article->is_hide) {
@@ -209,6 +218,7 @@ return array(
         })->conditions(array('aid' => '\d+'));
 
         $app->post('/admin/content/:aid/top/create', function($aid) use ($app) {
+            Permission::auth_model(Permission::$models['content'][0]);
             $article = Article::find($aid);
             if ($article) {
                 if (!$article->is_top) {
@@ -221,6 +231,7 @@ return array(
         })->conditions(array('aid' => '\d+'));
 
         $app->post('/admin/content/:aid/top/delete', function($aid) use ($app) {
+            Permission::auth_model(Permission::$models['content'][0]);
             $article = Article::find($aid);
             if ($article) {
                 if ($article->is_top) {
@@ -234,6 +245,7 @@ return array(
         })->conditions(array('aid' => '\d+'));
 
         $app->post('/admin/content/menu/:mid/search', function ($mid) use ($app) {
+            Permission::auth_model(Permission::$models['content'][0]);
             $page = $app->request->get('page');
             $pagesize = $app->config('pagesize');
             $focus_menu = Menu::find($mid);

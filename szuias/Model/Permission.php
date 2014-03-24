@@ -18,12 +18,22 @@ class Permission extends ModelBase {
 
     public static $models = array(
         'content' => array(0, '内容管理'),
-        'user' => array(1, '用户管理'),
+        'account' => array(1, '用户管理'),
         'menu' => array(2, '菜单管理'),
         'category' => array(3, '分类管理'),
-        'index' => array(4, '首页管理'),
+        'setting' => array(4, '首页管理'),
         'profile' => array(5, '个人中心'),
         'data' => array(6, '数据管理')
+    );
+
+    public static $models_name = array(
+        0 => 'content',
+        1 => 'account',
+        2 => 'menu',
+        3 => 'category',
+        4 => 'setting',
+        5 => 'profile',
+        6 => 'data'
     );
 
     public static $types = array('model' => 0, 'menu' => 1);
@@ -83,5 +93,23 @@ class Permission extends ModelBase {
         return array('model' => ($model), 'menu' => ($menu));
     }
 
+    static public function auth_model($mid, $user=null) {
+        if ($user == null) {
+            $user = \GlobalEnv::get('user');
+        }
+        $app = \GlobalEnv::get('app');
+        if ($user == null) 
+            return $app->halt(403, "You have no permission!");
+
+        if ($user->isAdmin())
+            return true;
+
+        $permit_mids = $user->permission_ids();
+        $permit_models = $permit_mids['model'];
+        if (in_array($mid, $permit_models)) {
+            return true;
+        }
+        return $app->halt(403, "You have no permission!");
+    }
 
 }

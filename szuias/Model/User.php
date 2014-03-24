@@ -200,6 +200,21 @@ class User extends ModelBase {
         $this->save();
     }
 
+    public function get_permit_models() {
+        if ($this->isAdmin()) {
+            $model_ids = array (0, 1, 2, 3, 4, 5, 6);
+        }
+        else {
+            $model_ids = $this->permission_ids()['model'];
+        }
+        $models = array();
+        foreach ($model_ids as $id) {
+            $model_name = Permission::$models_name[$id];
+            $models[] = array('name' => $model_name, 'title' => Permission::$models[$model_name][1]);
+        }
+        return $models;
+    }
+
     static public function hashPassword($password, $salt) {
         $hash = md5("{$salt}{$password}{$salt}");
         return $hash;
@@ -227,5 +242,6 @@ class User extends ModelBase {
         return $users;
     }
 
+    
 
 }

@@ -8,12 +8,14 @@
 
 use \Model\User;
 use \Model\Menu;
+use \Model\Permission;
 
 return array(
     "export" => function($app) {
 
         // 渲染菜单管理页面
         $app->get("/admin/menu", function() use($app) {
+            Permission::auth_model(Permission::$models['menu'][0]);
             $menus = Menu::get_top_menus();
             $app->render("admin/menu.html", get_defined_vars());
         });
@@ -21,6 +23,7 @@ return array(
 
         // 删除 menu
         $app->get('/admin/menu/:mid/delete', function ($mid) use($app) {
+            Permission::auth_model(Permission::$models['menu'][0]);
             // TODO: 联动权限表删除
             $menu = Menu::find($mid);
             if ($menu == null) {
@@ -36,6 +39,7 @@ return array(
 
         // 获取来自客户端的提交信息，更新信息。
         $app->post('/admin/menu/save', function() use($app) {
+            Permission::auth_model(Permission::$models['menu'][0]);
             // 从 客户端 获取 post 的信息，并进行解码
             $post = urldecode($app->request->params('menus'));
             $menus = json_decode($post, true);

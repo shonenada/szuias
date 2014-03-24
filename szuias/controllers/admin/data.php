@@ -6,21 +6,25 @@
  *
  */
 
-use Model\Scheme;
+use \Model\Scheme;
+use \Model\Permission;
 
 return array(
     "export" => function($app) {
 
         $app->get("/admin/data", function() use ($app) {
+            Permission::auth_model(Permission::$models['data'][0]);
             return $app->redirect('/admin/data/backup');
         });
 
         $app->get('/admin/data/backup', function() use($app) {
+            Permission::auth_model(Permission::$models['data'][0]);
             $tables = Scheme::listTables();
             return $app->render('admin/data_backup.html', get_defined_vars());
         });
 
         $app->post('/admin/data/backup', function() use($app) {
+            Permission::auth_model(Permission::$models['data'][0]);
             set_time_limit(0);
             $selected_tables = explode(",", $app->request->post('tabledb'));
             if (!Scheme::dumpDatabase($selected_tables)) {
@@ -30,11 +34,13 @@ return array(
         });
 
         $app->get('/admin/data/recover', function() use($app) {
+            Permission::auth_model(Permission::$models['data'][0]);
             $data = Scheme::listBackupFiles();
             return $app->render('admin/data_recover.html', get_defined_vars());
         });
 
         $app->post('/admin/data/recover', function() use($app) {
+            Permission::auth_model(Permission::$models['data'][0]);
             $prefix = $app->request->post('ret');
             if (Scheme::importSqlFile($prefix)) {
                 return json_encode(array('success' => true, 'error' => '恢复成功' ));
@@ -45,6 +51,7 @@ return array(
         });
 
         $app->post('/admin/data/delete', function () use($app) {
+            Permission::auth_model(Permission::$models['data'][0]);
             $prefix = $app->request->post('ret');
             if (Scheme::deleteSqlFile($prefix)) {
                 return json_encode(array('success' => true, 'error' => '删除成功'));

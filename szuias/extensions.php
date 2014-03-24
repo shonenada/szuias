@@ -7,6 +7,7 @@
  */
 
 use Model\User;
+use Model\Permission;
 use RBAC\Authentication;
 
 

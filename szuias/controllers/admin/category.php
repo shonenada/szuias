@@ -7,19 +7,21 @@
  */
 
 
-use Model\Menu;
-use Model\Category;
-
+use \Model\Menu;
+use \Model\Category;
+use \Model\Permission;
 
 return array(
     "export" => function($app) {
 
         $app->get('/admin/category', function () use ($app) {
+            Permission::auth_model(Permission::$models['category'][0]);
             $menus = Menu::get_by_types(array(2));
             return $app->render('admin/category.html', get_defined_vars());
         });
 
         $app->post('/admin/category/save', function() use ($app) {
+            Permission::auth_model(Permission::$models['category'][0]);
             $post = urldecode($app->request->params('menus'));
             $info = json_decode($post, true);
             $currentUser = \GlobalEnv::get('user');
