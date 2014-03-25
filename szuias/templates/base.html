@@ -37,7 +37,7 @@
           {% elseif m.type == 1 %}
           {% set url = siteUrl('menu/' ~ m.id ~ '/show') %}
           {% endif %}
-          <a href="{{ url }}">{{ m.title }}</a>
+          <a href="{{ url }}" {% if m.open_style == 1 %}target="_blank"{% endif %}>{{ m.title }}</a>
           {% if m.sub_menus | length > 0 %}
           <ul>
             {% for sub in m.sub_menus %}
@@ -48,7 +48,7 @@
               {% elseif sub.type == 1 %}
               {% set sub_url = siteUrl('menu/') ~ sub.id ~ '/show' %}
               {% endif %}
-            <li class="page_item"><a href="{{ sub_url }}"> {{ sub.title }}</a></li>
+            <li class="page_item"><a href="{{ sub_url }}" {% if sub.open_style == 1 %}target="_blank"{% endif %}> {{ sub.title }}</a></li>
             {% endfor %}
           </ul>
           {% endif %}
