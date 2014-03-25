@@ -117,7 +117,7 @@ $(function(){
 	                 + '<td class="td4"><input type="text" name="outside_url" class="outlinks" value="" style="display:none;"></td>'
 	                 + '<td class="td5"><select name="open_style"><option value="0">原窗口打开</option><option value="1">新窗口打开</option>'
 	                 + '</select></td>'
-	                 + '<td class="td9"><select name="is_hide"><option value="0">是</option><option value="1">否</option>'
+	                 + '<td class="td9"><select name="is_show"><option value="1">是</option><option value="0">否</option>'
 	                 + '</select></td>'
 	                 + '<td class="td10"><select name="intranet"><option value="0">公网</option><option value="1">仅内网</option>'
 	                 + '</select></td>'
@@ -155,7 +155,7 @@ $(function(){
 		       + '</select></td>'
 		       + '<td class="td4"><input type="text" name="outside_url" class="outlinks" value="" style="display:none;"></td>'
 		       + '<td class="td5"><select name="open_style"><option value="0">原窗口打开</option><option value="1">新窗口打开</option></select></td>'
-		       + '<td class="td9"><select name="is_hide"><option value="0">是</option><option value="1">否</option></select></td>'
+		       + '<td class="td9"><select name="is_show"><option value="1">是</option><option value="0">否</option></select></td>'
 		       + '<td class="td9"><select name="intranet"><option value="0">公网</option><option value="1">仅内网</option></select></td>'
 		       + '<td class="td6"><a class="deletesecond" href="javascript:void(0)">删除</a></td>'
 		       + '</tr>';
@@ -200,7 +200,7 @@ $(function(){
 			FirstMenu.intro = "";
 			FirstMenu.type = thead.find("select[name='type']").val();
 			FirstMenu.open_style = thead.find("select[name='open_style']").val();
-			FirstMenu.is_hide = thead.find("select[name='is_hide']").val();
+			FirstMenu.is_show = thead.find("select[name='is_show']").val();
 			FirstMenu.intranet = thead.find("select[name='intranet']").val();
 			FirstMenu.subMenus = [];
 			
@@ -215,7 +215,7 @@ $(function(){
 				subMenu.intro = "";
 				subMenu.type = $(this).find("select[name='type']").val();
 				subMenu.open_style = $(this).find("select[name='open_style']").val();
-				subMenu.is_hide = $(this).find("select[name='is_hide']").val();
+				subMenu.is_show = $(this).find("select[name='is_show']").val();
 				subMenu.intranet = $(this).find("select[name='intranet']").val();
 				FirstMenu.subMenus.push(subMenu);
 				
@@ -243,17 +243,17 @@ $(function(){
 	
 	
 	//绑定显示选项
-	$("select[name='is_hide']").each(function(){
+	$("select[name='is_show']").each(function(){
 		var preThis = this;
 		$(this).live("change",function(){
 			if($(preThis).val()==1){
 				$(preThis).parent().parent().parent().next().find("tr").each(function(){
-					$(this).find(".td9").children().val(1);
+					$(this).find(".td9").children().val(0);
 				});
 			}
 			else{
 				$(preThis).parent().parent().parent().next().find("tr").each(function(){
-					$(this).find(".td9").children().val(0);
+					$(this).find(".td9").children().val(1);
 			    });
 		    }
 		});
@@ -265,7 +265,7 @@ $(function(){
 		$(this).live("change",function(){
 			if($(preThis).val()==1){
 				$(preThis).parent().parent().parent().parent().next().find("tr").each(function(){
-					$(this).find("select[name='is_hide']").children().val(1);
+					$(this).find("select[name='is_show']").children().val(0);
 				});
 			}
 		});

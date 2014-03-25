@@ -16,7 +16,7 @@ return array(
         // 渲染菜单管理页面
         $app->get("/admin/menu", function() use($app) {
             Permission::auth_model(Permission::$models['menu'][0]);
-            $menus = Menu::get_top_menus();
+            $menus = Menu::get_top_menus($all=true);
             $app->render("admin/menu.html", get_defined_vars());
         });
 

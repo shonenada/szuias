@@ -52,9 +52,9 @@
                                 </select>
                             </td>
                             <td class="td9">
-                                <select name="is_hide">
-                                    <option value="0">是</option>
-                                    <option value="1"{% if menu.isHide() %} selected="selected">{% endif %}>否</option>
+                                <select name="is_show">
+                                    <option value="1">是</option>
+                                    <option value="0"{% if menu.is_show == 0 %} selected="selected"{% endif %}>否</option>
                                 </select>
                             </td>
                             <td class="td10">

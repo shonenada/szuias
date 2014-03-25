@@ -22,7 +22,7 @@ namespace Model;
  * @property string    $outside_url   外部链接
  * @property integer   $open_style    打开方式  0：原窗口打开；1：新窗口打开。
  * @property datetime  $created       创建时间
- * @property boolean   $is_hide       是否可见  0：可见；1：不可见
+ * @property boolean   $is_show       是否可见  1：可见；0：不可见
  * @property boolean   $is_intranet   仅内部访问  0：否；  1：是
  * @property boolean   $is_deleted    是否被删除  0：否；  1：是
  *
@@ -99,9 +99,9 @@ class Menu extends ModelBase {
     public $created;
 
     /**
-     * @Column(name="is_hide", type="boolean")
+     * @Column(name="is_show", type="boolean")
      **/
-    public $is_hide;
+    public $is_show;
 
     /**
      * @Column(name="is_intranet", type="boolean")
@@ -116,7 +116,7 @@ class Menu extends ModelBase {
     public function __construct() {
         $this->is_deleted = false;
         $this->is_intranet = false;
-        $this->is_hide = false;
+        $this->is_show = true;
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->sub_menus = new \Doctrine\Common\Collections\ArrayCollection();
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
@@ -204,10 +204,14 @@ class Menu extends ModelBase {
         return $children;
     }
 
-    static public function get_top_menus() {
+    static public function get_top_menus($all=true) {
         $all_menus = self::all();
-        $top_menus = array_filter($all_menus, function($one) {
-            return $one->parent == null;
+        $top_menus = array_filter($all_menus, function($one) use ($all) {
+            $condition = $one->parent == null;
+            if ($all == false) {
+                $condition = $condition && $one->is_show == true;
+            }
+            return $condition;
         });
         return $top_menus;
     }
