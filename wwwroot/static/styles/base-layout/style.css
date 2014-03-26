@@ -61,6 +61,7 @@ a:focus {
 a:hover,
 a:active {
 	outline: 0;
+	text-decoration: none;
 }
 a img {
 	border: 0;
@@ -403,7 +404,6 @@ a:hover {
 }
 a:active {
 	color: #002955;
-	text-decoration: underline;
 }
 a:focus {
 	outline: 0 none;
@@ -742,6 +742,9 @@ article.hentry + article.hentry:before {
 	font-weight: bold;
 	margin: 10px 0 0 10px;
 }
+.banner .news .title a{
+	color: #444;
+}
 
 .banner .news .articles {
 	padding: 5px 20px 20px 20px;
@@ -797,6 +800,9 @@ article.hentry + article.hentry:before {
 }
 .index-articles {
 	height: 280px;
+}
+.index-articles a {
+	color: #FFF;
 }
 .index-articles > div > div > ul,
 .index-info > div > div > ul {

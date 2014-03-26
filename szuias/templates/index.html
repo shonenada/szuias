@@ -10,14 +10,13 @@
     </div>
   </div>
   <div class="news">
-   <div class="title">新闻动态</div>
+   <div class="title"><a href="{{ siteUrl('menu/6/list') }}">新闻动态</a></div>
    <div class="articles">
     <ul>
       {% for n in news %}
       <li><a href="{{ siteUrl('article/' ~ n.id) }}">{{ n.title | ellipsis(20) }}</a> <span class="datetime">{{ n.created | date('Y-m-d') }}</span></li>
       {% endfor %}
     </ul>
-    <span class="more"><a href="{{ siteUrl('menu/6/list') }}">更多</a></span>
    </div>
   </div>
   </div>
@@ -25,7 +24,7 @@
   <div class="index-articles">
     
     <div class="first-child">
-      <h4>本科教学</h4>
+      <h4><a href="{{ siteUrl('menu/10/list') }}">本科教学</a></h4>
       <div>
         <ul>
           {% for a in undergraduate %}
@@ -33,11 +32,11 @@
           {% endfor %}
         </ul>
       </div>
-      <a href="{{ siteUrl('article/list') }}"><img class="over" src="{{ siteUrl('static/images/base-layout/link-more.png') }}" /></a>
+      <!-- <a href="{{ siteUrl('menu/10/list') }}"><img class="over" src="{{ siteUrl('static/images/base-layout/link-more.png') }}" /></a> -->
     </div>
 
     <div>
-      <h4>研究生教育</h4>
+      <h4><a href="{{ siteUrl('menu/11/list') }}">研究生教育</a></h4>
       <div>
         <ul>
           {% for a in graduate %}
@@ -45,10 +44,10 @@
           {% endfor %}
         </ul>
       </div>
-      <a href="{{ siteUrl('article/list') }}"><img class="over" src="{{ siteUrl('static/images/base-layout/link-more.png') }}" /></a>
+      <!-- <a href="{{ siteUrl('menu/11/list') }}"><img class="over" src="{{ siteUrl('static/images/base-layout/link-more.png') }}" /></a> -->
     </div>
     <div class="last-child">
-      <h4>科研信息</h4>
+      <h4><a href="{{ siteUrl('menu/12/list') }}">科研信息</a></h4>
       <div>
         <ul>
           {% for a in research %}
@@ -56,37 +55,36 @@
           {% endfor %}
         </ul>
       </div>
-      <a href="{{ siteUrl('article/list') }}"><img class="over" src="{{ siteUrl('static/images/base-layout/link-more.png') }}" /></a>
+      <!-- <a href="{{ siteUrl('menu/11/list') }}"><img class="over" src="{{ siteUrl('static/images/base-layout/link-more.png') }}" /></a> -->
     </div>
   </div>
   
   <div class="index-info">
-    
+
     <div class="index-teacher">
-      <h4>教师风采</h4>
-        <div style="margin-top: 10px;">
-          {% if teacher_img %}
-          <div class="avatar">
-            {% if teacher_img starts with 'http' %}
-            {% set img_url = teacher_img %}
-            {% else %}
-            {% set img_url = siteUrl(teacher_img)  %}
-            {% endif %}
-            <img src="{{ img_url }}" />
-          </div>
-          <div class="intro">
-            {{ teacher_intro | ellipsis(400) | raw }}
-          </div>
+      <h4><a href="{{ siteUrl('menu/13/list') }}">教师风采</a></h4>
+      <div style="margin-top: 10px;">
+        {% if teacher_img %}
+        <div class="avatar">
+          {% if teacher_img starts with 'http' %}
+          {% set img_url = teacher_img %}
           {% else %}
-            {{ teacher_intro | ellipsis(400) | raw }}
+          {% set img_url = siteUrl(teacher_img)  %}
           {% endif %}
+          <img src="{{ img_url }}" />
         </div>
-        <div style="clear: both;"></div>
-        <a class="link-more" href="{{ siteUrl('article/list') }}">更多</a>
+        <div class="intro">
+          {{ teacher_intro | ellipsis(400) | raw }}
+        </div>
+        {% else %}
+          {{ teacher_intro | ellipsis(400) | raw }}
+        {% endif %}
+      </div>
+      <div style="clear: both;"></div>
     </div>
-    
+
     <div class="index-student-work">
-      <h4>求职招聘</h4>
+    <h4><a href="{{ siteUrl('menu/17/list') }}">求职招聘</a></h4>
       <div>
         <ul>
           {% for a in working %}
@@ -94,7 +92,6 @@
           {% endfor %}
         </ul>
       </div>
-        <a class="link-more" href="{{ siteUrl('article/list') }}">更多</a>
     </div>
     
   </div>
