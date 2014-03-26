@@ -14,7 +14,7 @@ class MenuShow extends Base {
     static public function get($mid) {
         $a = Article::findOneBy(array('menu' => Menu::find($mid)));
         if ($a)
-            return self::redirect(self::urlFor('article', array('id' => $a->id)));
+            return self::redirect(self::urlFor('article_get', array('id' => $a->id)));
         else
             return self::redirect('/');
     }

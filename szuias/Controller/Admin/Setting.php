@@ -14,7 +14,7 @@ class Setting extends AdminBase {
         $slider_nums = SettingModel::get('index_slider', 'nums');
         $slider_fresh_time = SettingModel::get('index_slider', 'fresh_time');
         $slider_source = SettingModel::get('index_slider', 'source');
-        $menu_list = MenuModel::findBy(array('is_show' => '0', 'type' => '2'));
+        $menu_list = MenuModel::findBy(array('is_show' => '1', 'type' => '2'));
         return self::render('admin/setting.html', get_defined_vars());
     }
 

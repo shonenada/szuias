@@ -7,7 +7,7 @@ use \Model\Permission;
 
 class DataRecover extends AdminBase {
 
-    static public $url = '/admin/data/backup';
+    static public $url = '/admin/data/recover';
 
     static public function get () {
         $data = Scheme::listBackupFiles();

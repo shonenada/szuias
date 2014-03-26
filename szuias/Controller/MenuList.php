@@ -19,7 +19,7 @@ class MenuList extends Base {
         else if ($top_menu->has_sub()) {
             $sub = $top_menu->sub_menus->first();
             if ($sub->type == 1)
-                return self::redirect(self::urlFor('menu_show', array('mid' => $sub->id)));
+                return self::redirect(self::urlFor('menu_show_get', array('mid' => $sub->id)));
             $mid = $sub->id;
         }
         $page = self::$request->get('page') ? self::$request->get('page') : 1;

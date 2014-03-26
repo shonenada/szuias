@@ -9,6 +9,6 @@ class SignOut extends \Controller\Base {
     static public function get () {
         self::$app->deleteCookie('user_id');
         self::$app->deleteCookie('token');
-        return self::redirect(self::urlFor('admin_signin'));
+        return self::redirect(self::urlFor('admin_signin_get'));
     }
 }

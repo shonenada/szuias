@@ -38,9 +38,9 @@
             <td class="td5">
               <select name="index_slider_source" style="width:100%;">
                 <option value="0"{% if slider_source == 0 %} selected="selected"{% endif %}>不限</option>
-              {% for v in menu_list %}
+                {% for v in menu_list %}
                 <option value="{{ v.id }}"{% if slider_source == v.id %} selected="selected"{% endif %}>{{ v.title }}</option>
-              {% endfor %}
+                {% endfor %}
               </select>
             </td>
           </tr>

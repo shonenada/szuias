@@ -9,10 +9,10 @@ class Index extends AdminBase {
     static public function get () {
         $user = \GlobalEnv::get('user');
         if ($user == NULL) {
-            return self::redirect(self::urlFor('admin_signin'));
+            return self::redirect(self::urlFor('admin_signin_get'));
         }
         else {
-            return self::redirect(self::urlFor('admin_content'));
+            return self::redirect(self::urlFor('admin_content_get'));
         }
     }
 

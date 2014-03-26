@@ -44,7 +44,7 @@ class SignIn extends \Controller\Base {
         $user->flush();
         self::$app->setEncryptedCookie('user_id', $user->getId());
         self::$app->setEncryptedCookie('token', $token);
-        return self::redirect(self::urlFor('admin_index'));
+        return self::redirect(self::urlFor('admin_index_get'));
 
     }
 }
