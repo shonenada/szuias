@@ -24,9 +24,38 @@ class Slimx extends \Slim\Slim {
     }
 
     // 注册控制器方法，将 php 控制注册到 app 内部，并安装控制器。
-    public function registerController ($phpModule) {
-        $controllers_installer = $phpModule['export'];
-        $controllers_installer ($this);
+    public function registerController ($controller) {
+        $controller = str_replace('.', '\\', $controller);
+        $cls = "\Controller\\$controller";
+        $vars = get_class_vars($cls);
+
+        if (array_key_exists('url', $vars)) 
+            $url = $vars['url'];
+        else
+            $url = '/' . strtolower(str_replace('\\', '/', $controller));
+
+        if (method_exists($cls, 'get'))
+            $handler = $this->get($url, "$cls::get");
+
+        if (method_exists($cls, 'post'))
+            $handler = $this->post($url, "$cls::post");
+
+        if (method_exists($cls, 'put'))
+            $handler = $this->put($url, "$cls::put");
+
+        if (method_exists($cls, 'delete'))
+            $handler = $this->delete($url, "$cls::delete");
+
+        if (array_key_exists('conditions', $vars))
+            $handler->conditions($vars['conditions']);
+
+        if (array_key_exists('name', $vars))
+            $handler->name($vars['name']);
+        else
+            $handler->name(strtolower($controller));
+
     }
+
+
 
 }

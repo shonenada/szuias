@@ -20,17 +20,45 @@ $config = require_once(APPROOT . 'config/config.php');
 // 请不要使用函数自动读取 controllers/ 目录中
 // 的控制器，Explicit is better than impliccit. (Thanks bcho)
 $controllers = array (
-    'home_app' => 'master',
-    'article_app' => 'article',
-    'admin_index_app' => 'admin/index',
-    'admin_signin_app' => 'admin/signin',
-    'admin_menu_app' => 'admin/menu',
-    'admin_category_app' => 'admin/category',
-    'admin_content_app' => 'admin/content',
-    'admin_profile_app' => 'admin/profile',
-    'admin_account_app' => 'admin/account',
-    'admin_data_app' => 'admin/data',
-    'admin_file_app' => 'admin/file',
+    'master_app' => 'Master',
+    'captcha_app' => 'Captcha',
+    'menu_show_app' => 'MenuShow',
+    'menu_list_app' => 'MenuList',
+    'article_app' => 'Article',
+    'file_upload_app' => 'FileUpload',
+    'file_manager_app' => 'FileManager',
+    'admin_account_app' => 'Admin.Account',
+    'admin_account_create_app' => 'Admin.AccountCreate',
+    'admin_account_delete_app' => 'Admin.AccountDelete',
+    'admin_account_permission_app' => 'Admin.AccountPermission',
+    'admin_account_permission_save_app' => 'Admin.AccountPermissionSave',
+    'admin_account_reset_app' => 'Admin.AccountReset',
+    'admin_category_app' => 'Admin.Category',
+    'admin_category_save_app' => 'Admin.CategorySave',
+    'admin_content_app' => 'Admin.Content',
+    'admin_content_create_app' => 'Admin.ContentCreate',
+    'admin_content_delete_app' => 'Admin.ContentDelete',
+    'admin_content_edit_app' => 'Admin.ContentEdit',
+    'admin_content_hide_create_app' => 'Admin.ContentHideCreate',
+    'admin_content_hide_delete_app' => 'Admin.ContentHideDelete',
+    'admin_content_search_app' => 'Admin.ContentSearch',
+    'admin_content_top_create_app' => 'Admin.ContentTopCreate',
+    'admin_content_top_delete_app' => 'Admin.ContentTopDelete',
+    'admin_data_app' => 'Admin.Data',
+    'admin_data_backup_app' => 'Admin.DataBackup',
+    'admin_data_delete_app' => 'Admin.DataDelete',
+    'admin_data_recover_app' => 'Admin.DataRecover',
+    'admin_index_app' => 'Admin.Index',
+    'admin_menu_app' => 'Admin.Menu',
+    'admin_menu_delete_app' => 'Admin.MenuDelete',
+    'admin_menu_save_app' => 'Admin.MenuSave',
+    'admin_profile_app' => 'Admin.Profile',
+    'admin_profile_edit_app' => 'Admin.ProfileEdit',
+    'admin_profile_password_app' => 'Admin.ProfilePassword',
+    'admin_setting_app' => 'Admin.Setting',
+    'admin_setting_save_app' => 'Admin.SettingSave',
+    'admin_sign_in_app' => 'Admin.SignIn',
+    'admin_sign_out_app' => 'Admin.SignOut',
 );
 
 // 系统入口工厂函数
@@ -41,6 +69,7 @@ function create_app ($config_files=array()) {
     // 初始化 app
     $app = new Slimx();
     \GlobalEnv::set('app', $app);
+    \Controller\Base::setApp($app);
 
     // 载入配置
     global $config;
