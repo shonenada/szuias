@@ -7,7 +7,7 @@ use \Model\User;
 use \Model\Permission;
 
 
-class Account extends \Controller\Base {
+class Account extends AdminBase {
 
     static public $name = 'admin_account';
     static public $url = '/admin/account';

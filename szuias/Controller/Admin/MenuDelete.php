@@ -6,14 +6,13 @@ use \Model\Menu as MenuModel;
 use \Model\Permission;
 
 
-class MenuDelete extends \Controller\Base {
+class MenuDelete extends AdminBase {
 
     static public $name = 'admin_menu_delete';
     static public $url = '/admin/menu/:mid/delete';
     static public $conditions = array('mid' => '\d+');
 
     static public function get () {
-        Permission::auth_model(Permission::$models['menu'][0]);
         // TODO: 联动权限表删除
         $menu = MenuModel::find($mid);
         if ($menu == null) {

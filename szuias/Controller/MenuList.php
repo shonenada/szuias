@@ -23,8 +23,8 @@ class MenuList extends Base {
                 return self::redirect("/menu/{$sub->id}/show");
             $mid = $sub->id;
         }
-        $pagesize = self::$app->config('pagesize');
         $page = self::$request->get('page') ? self::$request->get('page') : 1;
+        $pagesize = self::$app->config('pagesize');
         $articles = Article::get_list_by_menu_id($page, $pagesize, $mid, array(array('is_top', 'DESC'), array('sort', 'ASC'), array('created', 'DESC')));
         return self::render('list.html', get_defined_vars());
     }

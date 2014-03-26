@@ -9,14 +9,13 @@ use \Model\Category as CategoryModel;
 use \Model\Permission;
 
 
-class ContentEdit extends \Controller\Base {
+class ContentEdit extends AdminBase {
 
     static public $name = 'admin_content_edit';
     static public $url = '/admin/content/:aid/edit';
     static public $conditions = array('aid' => '\d+');
 
     static public function get ($aid) {
-        Permission::auth_model(Permission::$models['content'][0]);
         $article = Article::find($aid);
         $focus_menu = $article->menu;
         if ($focus_menu->is_parent()){
@@ -32,8 +31,7 @@ class ContentEdit extends \Controller\Base {
     }
 
     static public function post ($aid) {
-        Permission::auth_model(Permission::$models['content'][0]);
-        if ($_SESSION['add_timestamp'] != $app->request->post('timestamp')) {
+        if ($_SESSION['add_timestamp'] != self::$request->post('timestamp')) {
             return self::redirect("/admin/content/{$aid}/edit");
         }
 
@@ -42,7 +40,7 @@ class ContentEdit extends \Controller\Base {
             return self::redirect('/admin/content/{$aid}/edit');
         }
         $menu = $article->menu;
-        $category = CategoryModel::find($app->request->post('category_id'));
+        $category = CategoryModel::find(self::$request->post('category_id'));
         $data = array(
             'title' => self::$request->post('title'),
             'content' => self::$request->post('content'),

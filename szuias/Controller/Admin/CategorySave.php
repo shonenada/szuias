@@ -6,13 +6,12 @@ use \Model\Menu;
 use \Model\Permission;
 use \Model\Category as CategoryModel;
 
-class CategorySave extends \Controller\Base {
+class CategorySave extends AdminBase {
 
     static public $name = 'admin_category_save';
     static public $url = '/admin/category/save';
 
     static public function post () {
-        Permission::auth_model(Permission::$models['category'][0]);
         $post = urldecode(self::$request->params('menus'));
         $info = json_decode($post, true);
         $currentUser = \GlobalEnv::get('user');

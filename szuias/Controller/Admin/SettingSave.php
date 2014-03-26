@@ -5,13 +5,12 @@ namespace Controller\Admin;
 use \Model\Permission;
 use \Model\Setting as SettingModel;
 
-class SettingSave extends \Controller\Base {
+class SettingSave extends AdminBase {
 
     static public $name = 'admin_setting';
     static public $url = '/admin/setting/save';
 
     static public function get () {
-        Permission::auth_model(Permission::$models['setting'][0]);
         $slider_nums = SettingModel::findByKey('index_slider', 'nums');
         $slider_fresh_time = SettingModel::findByKey('index_slider', 'fresh_time');
         $slider_source = SettingModel::findByKey('index_slider', 'source');

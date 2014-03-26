@@ -5,18 +5,16 @@ namespace Controller\Admin;
 use \Model\User;
 use \Model\Permission;
 
-class ProfileEdit extends \Controller\Base {
+class ProfileEdit extends AdminBase {
 
     static public $name = 'admin_profile_edit';
     static public $url = '/admin/profile/edit';
 
     static public function get () {
-        Permission::auth_model(Permission::$models['profile'][0]);
         return self::render('admin/profile_edit.html', get_defined_vars());
     }
 
     static public function post () {
-        Permission::auth_model(Permission::$models['profile'][0]);
         $user = \GlobalEnv::get('user');
         $username = self::$request->post('username');
         $phone = self::$request->post('phone');

@@ -9,14 +9,13 @@ use \Model\Category as CategoryModel;
 use \Model\Permission;
 
 
-class ContentCreate extends \Controller\Base {
+class ContentCreate extends AdminBase {
 
     static public $name = 'admin_content_create';
     static public $url = '/admin/content/menu/:menu_id/create';
     static public $conditions = array('menu_id' => '\d+');
 
     static public function get ($menu_id) {
-        Permission::auth_model(Permission::$models['content'][0]);
         if (empty($menu_id)) {
             $focus_menu = Menu::get_first_menu();
         }
@@ -37,7 +36,6 @@ class ContentCreate extends \Controller\Base {
     }
 
     static public function post ($menu_id) {
-        Permission::auth_model(Permission::$models['content'][0]);
         if ($_SESSION['add_timestamp'] != self::$request->post('timestamp')) {
             return self::render("admin/content_create.html", get_defined_vars());
         }

@@ -2,7 +2,7 @@
 
 namespace Controller\Admin;
 
-class Index extends \Controller\Base {
+class Index extends AdminBase {
 
     static public $name = 'admin_index';
     static public $url = '/admin';

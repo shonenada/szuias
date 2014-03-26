@@ -6,13 +6,12 @@ use \Model\User;
 use \Model\Permission;
 
 
-class AccountDelete extends \Controller\Base {
+class AccountDelete extends AdminBase {
 
     static public $name = 'admin_account_delete';
     static public $url = '/admin/account/delete';
 
     static public function post () {
-        Permission::auth_model(Permission::$models['account'][0]);
         $uid = self::$request->post('uid');
         $user = User::find($uid);
         if ($user->isAdmin()) {

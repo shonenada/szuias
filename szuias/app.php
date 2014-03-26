@@ -36,6 +36,7 @@ $controllers = array (
     'admin_category_app' => 'Admin.Category',
     'admin_category_save_app' => 'Admin.CategorySave',
     'admin_content_app' => 'Admin.Content',
+    'admin_content_save_app' => 'Admin.ContentSave',
     'admin_content_create_app' => 'Admin.ContentCreate',
     'admin_content_delete_app' => 'Admin.ContentDelete',
     'admin_content_edit_app' => 'Admin.ContentEdit',

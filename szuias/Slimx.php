@@ -35,16 +35,16 @@ class Slimx extends \Slim\Slim {
             $url = '/' . strtolower(str_replace('\\', '/', $controller));
 
         if (method_exists($cls, 'get'))
-            $handler = $this->get($url, "$cls::get");
+            $handler = $this->get($url, "$cls::_get");
 
         if (method_exists($cls, 'post'))
-            $handler = $this->post($url, "$cls::post");
+            $handler = $this->post($url, "$cls::_post");
 
         if (method_exists($cls, 'put'))
-            $handler = $this->put($url, "$cls::put");
+            $handler = $this->put($url, "$cls::_put");
 
         if (method_exists($cls, 'delete'))
-            $handler = $this->delete($url, "$cls::delete");
+            $handler = $this->delete($url, "$cls::_delete");
 
         if (array_key_exists('conditions', $vars))
             $handler->conditions($vars['conditions']);

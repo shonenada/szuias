@@ -6,13 +6,12 @@ use \Model\Menu as MenuModel;
 use \Model\Permission;
 use \Model\Setting as SettingModel;
 
-class Setting extends \Controller\Base {
+class Setting extends AdminBase {
 
     static public $name = 'admin_setting';
     static public $url = '/admin/setting';
 
     static public function get () {
-        Permission::auth_model(Permission::$models['setting'][0]);
         $slider_nums = SettingModel::get('index_slider', 'nums');
         $slider_fresh_time = SettingModel::get('index_slider', 'fresh_time');
         $slider_source = SettingModel::get('index_slider', 'source');

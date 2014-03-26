@@ -6,13 +6,12 @@ use \Model\Menu as MenuModel;
 use \Model\Permission;
 
 
-class MenuSave extends \Controller\Base {
+class MenuSave extends AdminBase {
 
     static public $name = 'admin_menu_save';
     static public $url = '/admin/menu/save';
 
     static public function post () {
-        Permission::auth_model(Permission::$models['menu'][0]);
         // 从 客户端 获取 post 的信息，并进行解码
         $post = urldecode(self::$request->params('menus'));
         $menus = json_decode($post, true);

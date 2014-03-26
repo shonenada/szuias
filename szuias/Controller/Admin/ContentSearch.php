@@ -9,14 +9,13 @@ use \Model\Category as CategoryModel;
 use \Model\Permission;
 
 
-class ContentSearch extends \Controller\Base {
+class ContentSearch extends AdminBase {
 
     static public $name = 'admin_content_search';
     static public $url = '/admin/content/menu/:mid/search';
     static public $conditions = array('mid' => '\d+');
 
     static public function post ($aid) {
-        Permission::auth_model(Permission::$models['content'][0]);
         $page = self::$request->get('page');
         $pagesize = self::$app->config('pagesize');
         $focus_menu = Menu::find($mid);

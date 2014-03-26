@@ -6,14 +6,13 @@ use \Model\Article;
 use \Model\Permission;
 
 
-class ContentHideDelete extends \Controller\Base {
+class ContentHideDelete extends AdminBase {
 
     static public $name = 'admin_content_hide_delete';
     static public $url = '/admin/content/:aid/hide/delete';
     static public $conditions = array('aid' => '\d+');
 
     static public function post ($aid) {
-        Permission::auth_model(Permission::$models['content'][0]);
         $article = Article::find($aid);
         if ($article) {
             if ($article->is_hide) {

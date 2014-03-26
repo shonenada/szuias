@@ -6,13 +6,12 @@ use \Model\User;
 use \Model\Permission;
 
 
-class AccountReset extends \Controller\Base {
+class AccountReset extends AdminBase {
 
     static public $name = 'admin_accoun_reset';
     static public $url = '/admin/account/reset';
 
     static public function post () {
-        Permission::auth_model(Permission::$models['account'][0]);
         $username = self::$request->post('username');
         $nickname = self::$request->post('nickname');
         $passwd = self::$request->post('password');

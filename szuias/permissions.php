@@ -53,6 +53,7 @@ return array(
         array($normal, "/admin/category/(save|(\d+?)/delete)", array('POST')),
 
         array($normal, "/admin/content", array('GET')),
+        array($normal, "/admin/content/save", array('POST')),
         array($normal, "/admin/content/menu/\d+", array('GET')),
         array($normal, "/admin/content/menu/\d+/search", array('POST')),
         array($normal, "/admin/content/menu/\d+/create", array('GET', 'POST')),

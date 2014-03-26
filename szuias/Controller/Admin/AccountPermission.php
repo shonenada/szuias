@@ -6,13 +6,12 @@ use \Model\User;
 use \Model\Permission;
 
 
-class AccountPermission extends \Controller\Base {
+class AccountPermission extends AdminBase {
 
     static public $name = 'admin_account_permission';
     static public $url = '/admin/account/permission';
 
     static public function post () {
-        Permission::auth_model(Permission::$models['account'][0]);
         $uid = self::$request->post('uid');
         $user = User::find($uid);
         if (!$user) {

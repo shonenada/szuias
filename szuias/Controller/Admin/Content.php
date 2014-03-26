@@ -9,14 +9,13 @@ use \Model\Category as CategoryModel;
 use \Model\Permission;
 
 
-class Content extends \Controller\Base {
+class Content extends AdminBase {
 
     static public $name = 'admin_content';
     static public $url = '/admin/content(/menu/:mid)';
     static public $conditions = array('mid' => '\d+');
 
     static public function get ($mid=null) {
-        Permission::auth_model(Permission::$models['content'][0]);
         $page = self::$request->get('page');
         $pagesize = self::$app->config('pagesize');
         if (empty($page)) {
@@ -39,7 +38,7 @@ class Content extends \Controller\Base {
         else {
             $top_menu = $focus_menu->parent;
         }
-        $artilce_pager = Article::paginate_with_mid($page, $pagesize, $focus_menu->id, 'sort', false);
+        $artilce_pager = Article::paginate_with_mid($page, $pagesize, $focus_menu->id, 'sort', true);
         $total = $artilce_pager->count();
         $now = new \DateTime('now', new \DateTimezone('Asia/Shanghai'));
         $admin_menus = Menu::list_admin_menus();
