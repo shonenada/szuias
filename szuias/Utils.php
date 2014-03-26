@@ -301,4 +301,8 @@ class Utils {
         }
     }
 
+    static public function camel2underline($camel) {
+        return strtolower(preg_replace('/((?<=[a-z])(?=[A-Z]))/', '_', $camel));
+    }
+
 }

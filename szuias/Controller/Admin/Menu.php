@@ -8,7 +8,6 @@ use \Model\Permission;
 
 class Menu extends AdminBase {
 
-    static public $name = 'admin_menu';
     static public $url = '/admin/menu';
 
     static public function get () {

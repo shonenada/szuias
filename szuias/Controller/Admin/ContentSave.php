@@ -8,7 +8,6 @@ use \Model\Permission;
 
 class ContentSave extends AdminBase {
 
-    static public $name = 'admin_content_save';
     static public $url = '/admin/content/save';
 
     static public function post ($mid=null) {

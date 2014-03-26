@@ -5,7 +5,6 @@ use \Model\User;
 
 class SignIn extends \Controller\Base {
 
-    static public $name = 'admin_sign_in';
     static public $url = '/admin/signin';
 
     static public function get () {
@@ -45,7 +44,7 @@ class SignIn extends \Controller\Base {
         $user->flush();
         self::$app->setEncryptedCookie('user_id', $user->getId());
         self::$app->setEncryptedCookie('token', $token);
-        return self::redirect('/admin');
+        return self::redirect(self::urlFor('admin_index'));
 
     }
 }

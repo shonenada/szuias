@@ -7,7 +7,6 @@ use \Model\Permission;
 
 class ProfileEdit extends AdminBase {
 
-    static public $name = 'admin_profile_edit';
     static public $url = '/admin/profile/edit';
 
     static public function get () {

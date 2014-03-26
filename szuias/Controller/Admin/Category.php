@@ -7,7 +7,6 @@ use \Model\Permission;
 
 class Category extends AdminBase {
 
-    static public $name = 'admin_category';
     static public $url = '/admin/category';
 
     static public function get () {

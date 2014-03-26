@@ -9,7 +9,6 @@ use \Model\Permission;
 
 class Account extends AdminBase {
 
-    static public $name = 'admin_account';
     static public $url = '/admin/account';
 
     static public function get () {

@@ -8,7 +8,6 @@ use \Model\Permission;
 
 class ContentTopDelete extends AdminBase {
 
-    static public $name = 'admin_content_top_delete';
     static public $url = '/admin/content/:aid/top/delete';
     static public $conditions = array('aid' => '\d+');
 

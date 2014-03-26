@@ -7,7 +7,6 @@ use \Model\Permission;
 
 class DataDelete extends AdminBase {
 
-    static public $name = 'admin_data_delete';
     static public $url = '/admin/data/delete';
 
     static public function post () {

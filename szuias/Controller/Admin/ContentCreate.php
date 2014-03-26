@@ -11,7 +11,6 @@ use \Model\Permission;
 
 class ContentCreate extends AdminBase {
 
-    static public $name = 'admin_content_create';
     static public $url = '/admin/content/menu/:menu_id/create';
     static public $conditions = array('menu_id' => '\d+');
 
@@ -50,7 +49,7 @@ class ContentCreate extends AdminBase {
             }
         }
         $article = new Article();
-        $category = CategoryModel::find($app->request->post('category_id'));
+        $category = CategoryModel::find(self::$request->post('category_id'));
         $data = array(
             'title' => self::$request->post('title'),
             'content' => self::$request->post('content'),
@@ -77,7 +76,7 @@ class ContentCreate extends AdminBase {
             $f->save();
         }
         $_SESSION['upload_buffer'] = array();
-        return self::$redirect('/admin/content/menu/' . $menu_id);
+        return self::redirect(self::urlFor('admin_content_get', array('mid' => $menu_id)));
     }
 
 }

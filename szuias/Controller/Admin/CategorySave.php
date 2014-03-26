@@ -8,7 +8,6 @@ use \Model\Category as CategoryModel;
 
 class CategorySave extends AdminBase {
 
-    static public $name = 'admin_category_save';
     static public $url = '/admin/category/save';
 
     static public function post () {

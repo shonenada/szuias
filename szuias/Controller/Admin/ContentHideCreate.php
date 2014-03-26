@@ -8,7 +8,6 @@ use \Model\Permission;
 
 class ContentHideCreate extends AdminBase {
 
-    static public $name = 'admin_content';
     static public $url = '/admin/content/:aid/hide/create';
     static public $conditions = array('aid' => '\d+');
 

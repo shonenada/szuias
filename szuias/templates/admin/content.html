@@ -130,10 +130,10 @@
           共 {{ total }} 条信息，当前为第 {{ pager.current }} 页，共 {{ pager.nums }} 页 
         </div>
         <div id="page_change">
-          <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=1') }}">首页</a>
-          <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=' ~ (pager.current - 1)) }}">上一页</a>
-          <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=' ~ (pager.current + 1)) }}">下一页</a>
-          <a href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '?page=' ~ pager.nums) }}" >尾页</a>
+          <a href="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~ '?page=1') }}">首页</a>
+          <a href="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~ '?page=' ~ (pager.current - 1)) }}">上一页</a>
+          <a href="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~ '?page=' ~ (pager.current + 1)) }}">下一页</a>
+          <a href="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~ '?page=' ~ pager.nums) }}" >尾页</a>
           转到&nbsp;<input name="page" type="text" style="width:30px; height:15px;"/>&nbsp;页
           <a href="javascript:void(0);" id="go_page" >转</a>
         </div>

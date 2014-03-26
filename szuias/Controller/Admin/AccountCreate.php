@@ -8,7 +8,6 @@ use \Model\Permission;
 
 class AccountCreate extends AdminBase {
 
-    static public $name = 'admin_account_create';
     static public $url = '/admin/account/create';
 
     static public function post () {

@@ -6,7 +6,6 @@ use \Model\Permission;
 
 class ProfilePassword extends AdminBase {
 
-    static public $name = 'admin_profile_password';
     static public $url = '/admin/profile/password';
 
     static public function get () {

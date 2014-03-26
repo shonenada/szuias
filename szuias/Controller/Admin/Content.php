@@ -11,7 +11,6 @@ use \Model\Permission;
 
 class Content extends AdminBase {
 
-    static public $name = 'admin_content';
     static public $url = '/admin/content(/menu/:mid)';
     static public $conditions = array('mid' => '\d+');
 

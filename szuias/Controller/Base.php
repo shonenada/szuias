@@ -52,4 +52,8 @@ class Base {
         return self::$app->redirect($url);
     }
 
+    static public function urlFor($name, $params = array()) {
+        return self::$app->urlFor($name, $params);
+    }
+
 }

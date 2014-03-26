@@ -8,7 +8,6 @@ use \Model\Permission;
 
 class MenuDelete extends AdminBase {
 
-    static public $name = 'admin_menu_delete';
     static public $url = '/admin/menu/:mid/delete';
     static public $conditions = array('mid' => '\d+');
 

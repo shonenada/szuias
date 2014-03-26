@@ -8,7 +8,6 @@ use \Model\Permission;
 
 class AccountDelete extends AdminBase {
 
-    static public $name = 'admin_account_delete';
     static public $url = '/admin/account/delete';
 
     static public function post () {

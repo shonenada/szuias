@@ -4,7 +4,6 @@ namespace Controller;
 
 class FileManager extends \Controller\Base {
 
-    static public $name = 'file';
     static public $url = '/file/manager';
 
     static public function get () {

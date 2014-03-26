@@ -11,7 +11,6 @@ use \Model\Permission;
 
 class ContentEdit extends AdminBase {
 
-    static public $name = 'admin_content_edit';
     static public $url = '/admin/content/:aid/edit';
     static public $conditions = array('aid' => '\d+');
 
@@ -32,12 +31,12 @@ class ContentEdit extends AdminBase {
 
     static public function post ($aid) {
         if ($_SESSION['add_timestamp'] != self::$request->post('timestamp')) {
-            return self::redirect("/admin/content/{$aid}/edit");
+            return self::redirect(self::urlFor('admin_content_edit_get', array('aid' => $aid)));
         }
 
         $article = Article::find($aid);
         if ($article == null) {
-            return self::redirect('/admin/content/{$aid}/edit');
+            return self::redirect(self::urlFor('admin_content_edit_get', array('aid' => $aid)));
         }
         $menu = $article->menu;
         $category = CategoryModel::find(self::$request->post('category_id'));
@@ -63,7 +62,7 @@ class ContentEdit extends AdminBase {
             $f->save();
         }
         $_SESSION['upload_buffer'] = array();
-        return self::redirect('/admin/content/menu/' . $menu->id);
+        return self::redirect(self::urlFor('admin_content_get', array('mid' => $menu->id)));
     }
 
 }

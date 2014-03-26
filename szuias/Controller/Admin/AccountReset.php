@@ -8,7 +8,6 @@ use \Model\Permission;
 
 class AccountReset extends AdminBase {
 
-    static public $name = 'admin_accoun_reset';
     static public $url = '/admin/account/reset';
 
     static public function post () {

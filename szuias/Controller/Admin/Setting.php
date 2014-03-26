@@ -8,7 +8,6 @@ use \Model\Setting as SettingModel;
 
 class Setting extends AdminBase {
 
-    static public $name = 'admin_setting';
     static public $url = '/admin/setting';
 
     static public function get () {

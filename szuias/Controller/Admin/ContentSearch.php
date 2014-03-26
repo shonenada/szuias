@@ -11,7 +11,6 @@ use \Model\Permission;
 
 class ContentSearch extends AdminBase {
 
-    static public $name = 'admin_content_search';
     static public $url = '/admin/content/menu/:mid/search';
     static public $conditions = array('mid' => '\d+');
 

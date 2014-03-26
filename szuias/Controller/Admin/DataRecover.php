@@ -7,7 +7,6 @@ use \Model\Permission;
 
 class DataRecover extends AdminBase {
 
-    static public $name = 'admin_data_backup';
     static public $url = '/admin/data/backup';
 
     static public function get () {

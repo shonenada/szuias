@@ -8,7 +8,6 @@ use \Model\Article;
 
 class MenuList extends Base {
 
-    static public $name = 'menu_list';
     static public $url = '/menu/:mid/list';
     static public $conditions = array('mid' => '\d+');
 
@@ -20,7 +19,7 @@ class MenuList extends Base {
         else if ($top_menu->has_sub()) {
             $sub = $top_menu->sub_menus->first();
             if ($sub->type == 1)
-                return self::redirect("/menu/{$sub->id}/show");
+                return self::redirect(self::urlFor('menu_show', array('mid' => $sub->id)));
             $mid = $sub->id;
         }
         $page = self::$request->get('page') ? self::$request->get('page') : 1;

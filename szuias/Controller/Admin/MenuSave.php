@@ -8,7 +8,6 @@ use \Model\Permission;
 
 class MenuSave extends AdminBase {
 
-    static public $name = 'admin_menu_save';
     static public $url = '/admin/menu/save';
 
     static public function post () {

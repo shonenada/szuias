@@ -4,7 +4,6 @@ namespace Controller;
 
 class Article extends Base {
 
-    static public $name = 'article';
     static public $url = '/article/:id';
     static public $conditions = array('id' => '\d+');
 

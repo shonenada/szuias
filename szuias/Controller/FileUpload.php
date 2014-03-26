@@ -4,7 +4,6 @@ namespace Controller;
 
 class FileUpload extends \Controller\Base {
 
-    static public $name = 'file_upload';
     static public $url = '/file/upload';
 
     static public function post () {

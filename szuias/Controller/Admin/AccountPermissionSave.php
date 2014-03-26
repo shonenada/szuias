@@ -8,7 +8,6 @@ use \Model\Permission;
 
 class AccountPermissionSave extends AdminBase {
 
-    static public $name = 'admin_account_permission_save';
     static public $url = '/admin/account/permission/save';
 
     static public function post () {

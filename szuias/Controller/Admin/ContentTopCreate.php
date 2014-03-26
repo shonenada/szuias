@@ -8,7 +8,6 @@ use \Model\Permission;
 
 class ContentTopCreate extends AdminBase {
 
-    static public $name = 'admin_content_top_create';
     static public $url = '/admin/content/:aid/top/create';
     static public $conditions = array('aid' => '\d+');
 

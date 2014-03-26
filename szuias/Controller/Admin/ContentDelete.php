@@ -10,7 +10,6 @@ use \Model\Permission;
 
 class ContentDelete extends AdminBase {
 
-    static public $name = 'admin_content_delete';
     static public $url = '/admin/content/:aid/delete';
     static public $conditions = array('aid' => '\d+');
 
