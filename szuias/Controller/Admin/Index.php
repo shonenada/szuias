@@ -12,7 +12,7 @@ class Index extends AdminBase {
             return self::redirect(self::urlFor('admin_signin_get'));
         }
         else {
-            return self::redirect(self::urlFor('admin_content_get'));
+            return self::redirect('/admin/content');
         }
     }
 
