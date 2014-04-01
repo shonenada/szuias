@@ -16,7 +16,7 @@
                 <td class="td4">外部URL地址</td>
                 <td class="td5">打开方式</td>
                 <td class="td9" style="text-align:left;">显示</td>
-                <td class="td10" style="text-align:left;">访问权限</td>
+                <!-- <td class="td10" style="text-align:left;">访问权限</td> -->
                 <td class="td6"></td>
             </tr>
         </table>
@@ -57,12 +57,12 @@
                                     <option value="0"{% if menu.is_show == 0 %} selected="selected"{% endif %}>否</option>
                                 </select>
                             </td>
-                            <td class="td10">
+                            <!-- <td class="td10">
                                 <select name="intranet"> 
                                     <option value="0">公网</option>
                                     <option value="1"{% if menu.isIntranet() %} selected="selected"{% endif %}>仅内网</option>
                                 </select>
-                            </td>
+                            </td> -->
                             <td class="td6">
                                 {% set menu_delete_url = siteUrl('admin/menu/') ~ menu.id ~ '/delete' %}
                                 <a class="deletefirst" href="{{ menu_delete_url }}" data-count="{{ menu.article.count }}">删除</a>
@@ -96,12 +96,12 @@
                                 <option value="1"{% if sub.isHide() %} selected="selected"{% endif %}>否</option>
                             </select>
                         </td>
-                        <td class="td10">
+<!--                         <td class="td10">
                             <select name="intranet"> 
                                 <option value="0">公网</option>
                                 <option value="1"{% if sub.isIntranet() %} selected="selected"{% endif %}>仅内网</option>
                             </select>
-                        </td>
+                        </td> -->
                         <td class="td6">
                             {% set sub_menu_delete_url = siteUrl('admin/menu/') ~ menu.id ~ '/delete' %}
                             <a class="deletesecond" href="{{ sub_menu_delete_url }}" data-count="{{ sub.article.count }}">删除</a>

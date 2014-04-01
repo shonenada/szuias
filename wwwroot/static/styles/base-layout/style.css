@@ -73,7 +73,7 @@ input,
 select,
 textarea {
 	color: #404040;
-	font-family: sans-serif;
+	font-family: verdana, "宋体";
 	font-size: 16px;
 	font-size: 1.6rem;
 	line-height: 1.5;
@@ -136,7 +136,7 @@ pre {
 	padding: 1.6em;
 }
 code, kbd, tt, var {
-	font: 15px Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+	font: 15px verdana, "宋体", Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
 }
 abbr, acronym {
 	border-bottom: 1px dotted #666;
@@ -382,7 +382,7 @@ body {
 	color: #47515b;
 	font-size: 17px;
 	line-height: 1.53em;
-	font-family: 'Open Sans', sans-serif;
+	font-family: verdana, "宋体", 'Open Sans', sans-serif;
 }
 .body-overlay {
 	background: url('/static/images/base-layout/bg-body.jpg') center top no-repeat;
@@ -428,7 +428,7 @@ a:focus {
 .logo a {
 	display: block;
 	background: url('/static/images/base-layout/logo.png');
-	width: 330px;
+	width: 345px;
 	height: 52px;
 	text-indent: -9999px;
 }
@@ -454,7 +454,7 @@ a:focus {
 	height: 38px;
 	color: #576681;
 	font-size: 16px;
-	font-family: sans-serif;
+	font-family: verdana, "宋体", sans-serif;
 	background: none left bottom no-repeat;
 }
 
