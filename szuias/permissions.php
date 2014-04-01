@@ -36,7 +36,7 @@ return array(
 
         array($normal, "/admin", array('GET')),
 
-        array($normal, "/file/fmanager", array('GET')),
+        array($normal, "/file/manager", array('GET')),
         array($normal, "/file/upload", array('POST')),
 
         array($normal, "/admin/profile", array('GET')),
