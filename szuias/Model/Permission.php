@@ -21,7 +21,7 @@ class Permission extends ModelBase {
         'account' => array(1, '用户管理'),
         'menu' => array(2, '菜单管理'),
         'category' => array(3, '分类管理'),
-        'setting' => array(4, '首页管理'),
+        'setting' => array(4, '网站设置'),
         'profile' => array(5, '个人中心'),
         'data' => array(6, '数据管理')
     );

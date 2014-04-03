@@ -37,7 +37,7 @@
     {% if article %}
     <a class="a-btn one-edit" href="{{ siteUrl('admin/content/' ~ article.id ~'/edit') }}">编辑</a>
     {% else %}
-    <a class="a-btn one-add" href="{{ siteUrl('admin/content/menu/' ~ c_mid ~ '/create') }}">新增</a>
+    <a class="a-btn one-add" href="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~ '/create') }}">新增</a>
     {% endif %}
     </div>
     {% if article %}

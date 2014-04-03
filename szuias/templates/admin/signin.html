@@ -25,6 +25,7 @@
             <td id="cp_tips">用户密码:</td>
             <td id="cp_content"><input type="password" name="password" /></td>
          </tr>
+         {% if is_captcha == 1 %}
          <tr>
             <td id="cp_tips">验&nbsp;证&nbsp;码:</td>
             <td id="cp_content"><input type="text" name="captchaCode" /></td>
@@ -36,23 +37,23 @@
                 <span><a id="other_code">看不清</a></span>
             </td>
          </tr>
-         <tr>
-            <td></td>
-            <td id="keeplogin cp_tips"><input type="checkbox" name="remember_me"/>一周内自动登录</td>
-         </tr>
+         {% endif %}
      </table>
       <div id="cp_save">
         <input type="submit" value="登录"/>
-        <input type="reset" value="重置"/>               
+        <input type="reset" value="重置"/>
       </div>
    </form>
  </div>
+ {% if is_captcha == 1 %}
  <script type="text/javascript">
     $("#code_img, #other_code").click(function(){
-        var srcTp = "{{ siteUrl('captcha') }}";
+        var srcTp = "{{ siteUrl('captcha' ~ '?r=$') }}";
         var src = srcTp.replace("$",(new Date()).getTime());
         $("#code_img").attr("src",src);
     });
+    $('#code_img').click().click();
  </script>
+ {% endif %}
 </body>
 </html>

@@ -28,7 +28,7 @@
       <div>
         <ul>
           {% for a in undergraduate %}
-          <li> &gt; <a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title | ellipsis(10) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
+          <li> ● <a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title | ellipsis(10) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
           {% endfor %}
         </ul>
       </div>
@@ -40,7 +40,7 @@
       <div>
         <ul>
           {% for a in graduate %}
-          <li> &gt; <a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title | ellipsis(10) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
+          <li> ● <a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title | ellipsis(10) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
           {% endfor %}
         </ul>
       </div>
@@ -51,7 +51,7 @@
       <div>
         <ul>
           {% for a in research %}
-          <li> &gt; <a href="{{ siteUrl('article/' ~ a.id ) }}">{{ a.title | ellipsis(10) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
+          <li> ● <a href="{{ siteUrl('article/' ~ a.id ) }}">{{ a.title | ellipsis(10) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
           {% endfor %}
         </ul>
       </div>
@@ -88,7 +88,7 @@
       <div>
         <ul>
           {% for a in working %}
-          <li> &gt; <a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title | ellipsis(10) }}</a> <span class="student-datetime datetime">{{ a.created | date('Y-m-d') }}</span></li>
+          <li> ● <a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title | ellipsis(10) }}</a> <span class="student-datetime datetime">{{ a.created | date('Y-m-d') }}</span></li>
           {% endfor %}
         </ul>
       </div>

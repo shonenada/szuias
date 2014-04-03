@@ -9,24 +9,35 @@ class SettingSave extends AdminBase {
 
     static public $url = '/admin/setting/save';
 
-    static public function get () {
+    static public function post () {
         $slider_nums = SettingModel::findByKey('index_slider', 'nums');
         $slider_fresh_time = SettingModel::findByKey('index_slider', 'fresh_time');
         $slider_source = SettingModel::findByKey('index_slider', 'source');
+        $is_captcha = SettingModel::findByKey('admin_signin', 'captcha');
 
-        if ($nums = self::$request->params('index_slider_nums')) {
+        $nums = self::$request->params('index_slider_nums');
+        $freshtime = self::$request->params('index_slider_fresh_time');
+        $source = self::$request->params('index_slider_source');
+        $captcha = self::$request->params('is_captcha');
+
+        if (isset($nums)) {
             $slider_nums->value = $nums;
             $slider_nums->save();
         }
-        
-        if ($freshtime = self::$request->params('index_slider_fresh_time')) {
+
+        if (isset($freshtime)) {
             $slider_fresh_time->value = $freshtime;
             $slider_fresh_time->save();
         }
-        
-        if ($source = self::$request->params('index_slider_source')) {
+
+        if (isset($source)) {
             $slider_source->value = $source;
             $slider_source->save();
+        }
+
+        if (isset($captcha)) {
+            $is_captcha->value = $captcha;
+            $is_captcha->save();
         }
 
         return json_encode(array("success" => true, "info" => "保存成功！"));

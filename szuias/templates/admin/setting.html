@@ -1,7 +1,7 @@
 {% extends 'admin/base.html' %}
 
 {% block static %}
-  <link type="text/css" href="{{ siteUrl('static/styles/admin/page/index.css') }}" rel="stylesheet" />
+<link type="text/css" href="{{ siteUrl('static/styles/admin/page/index.css') }}" rel="stylesheet" />
 <script type="text/javascript" src="{{ siteUrl('static/scripts/admin/index_view.js') }}"></script>
 {% endblock %}
 
@@ -9,7 +9,7 @@
 <div id="content" class="clearfix">
   <!-- *****************************图片设置**************************************** -->
   <div class="settings">
-    <div class="index-title">飘动图片</div>
+    <div class="index-title">首页幻灯片图片设置</div>
     <div class="clearfix">
       <div class="settings-left">
         <table class="admin-table">
@@ -21,9 +21,9 @@
           <tr>
             <td class="td3">
               <select name="index_slider_nums" style="width:100%;">
-              {% for i in 1..5 %}
+                {% for i in 1..5 %}
                 <option value="{{ i }}"{% if slider_nums == i %} selected="selected"{% endif %}>{{ i }}</option>
-              {% endfor %}
+                {% endfor %}
               </select>
             </td>
             <td class="td4">
@@ -52,12 +52,36 @@
         <p>3.图片来源：编辑者可选择飘动图片的出处，由数据库自动调用</p>
       </div>
     </div>
-</div>
+  </div>
+
+  <div class="settings">
+    <div class="index-title">后台登录设置</div>
+    <div class="clearfix">
+      <div class="settings-left">
+        <table class="admin-table">
+          <tr>
+            <th class="td3">是否需要验证码登录</th>
+          </tr>
+          <tr>
+            <td class="td3">
+              <select name="is_captcha" style="width:100%;">
+                <option value="0"{% if is_captcha == 0 %} selected="selected"{% endif %}>否</option>
+                <option value="1"{% if is_captcha == 1 %} selected="selected"{% endif %}>是</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="settings-right index_pic">
+        <p>1. 若需要验证码登录，则在登录后台时需要输入验证码。</p>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="text_end">
-<span>
-  <a data-href="{{ siteUrl('admin/setting/save') }}" href="javascript:void(0);" id="submit">保存</a>
-  <a href="javascript:void(0);" id="cancel">取消</a>
-</span>
+  <span>
+    <a data-href="{{ siteUrl('admin/setting/save') }}" href="javascript:void(0);" id="submit">保存</a>
+    <a href="javascript:void(0);" id="cancel">取消</a>
+  </span>
 </div>
 {% endblock %}
