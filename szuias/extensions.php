@@ -91,7 +91,7 @@ function permission_check_hook ($app) {
         $auth = new Authentication();
         $auth->load($ptable);
         if (!$auth->accessiable($user, $resource, $method)) {
-            $app->halt(403, "You have no permission!");
+            $app->halt(403, "Cookies is expired, please sign in again.");
         }
     });
 }

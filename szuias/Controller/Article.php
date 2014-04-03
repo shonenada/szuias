@@ -12,6 +12,9 @@ class Article extends Base {
         if ($article == null || $article->is_hide || $article->is_deleted) {
             return self::redirect('/');
         }
+        if ($article->redirect_url != null) {
+            return self::redirect($article->redirect_url);
+        }
         if ($article->menu->is_parent()) {
             $top_menu = $article->menu;
         } else {
