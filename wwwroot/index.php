@@ -13,6 +13,9 @@ define ("APPROOT", realpath(DOCROOT . "szuias/") . DIRECTORY_SEPARATOR);
 // web 根目录
 define ("WEBROOT", realpath(DOCROOT . "wwwroot/") . DIRECTORY_SEPARATOR);
 
+if (!defined('START_TIME'))
+    define('START_TIME', microtime(TRUE));
+
 // 引入依赖库
 require(PKGROOT . "autoload.php");
 
