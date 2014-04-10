@@ -13,6 +13,7 @@ class ProfilePassword extends AdminBase {
     }
 
     static public function post () {
+        $app = \GlobalEnv::get('app');
         $user = \GlobalEnv::get('user');
         $old = self::$request->post('oldpassword');
         if (!$user->checkPassword($old, $app->config('salt'))) {

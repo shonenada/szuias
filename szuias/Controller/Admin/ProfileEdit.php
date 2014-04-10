@@ -17,7 +17,7 @@ class ProfileEdit extends AdminBase {
         $user = \GlobalEnv::get('user');
         $username = self::$request->post('username');
         $phone = self::$request->post('phone');
-        $email = self::$request->post('email');
+        $email = self::$request->post('mail');
         if ($username != $user->getUsername() && User::check_exist($username)) {
             $msg = '用户已存在，请重新输入';
             return self::render('admin/profile_edit.html', get_defined_vars());
