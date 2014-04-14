@@ -88,7 +88,7 @@
       <div>
         <ul>
           {% for a in working %}
-          <li> ● <a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title | ellipsis(10) }}</a> <span class="student-datetime datetime">{{ a.created | date('Y-m-d') }}</span></li>
+          <li> ● <a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title | ellipsis(22) }}</a> <span class="student-datetime datetime">{{ a.created | date('Y-m-d') }}</span></li>
           {% endfor %}
         </ul>
       </div>

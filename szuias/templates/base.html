@@ -75,6 +75,9 @@
         <li><a href="{{ siteUrl('article/494') }}">学院介绍</a></li>
         <li><a href="{{ siteUrl('article/495') }}">组织机构</a></li>
         <li><a href="{{ siteUrl('article/501') }}">联系我们</a></li>
+        {% if loggedUser.hasPermission('/admin', 'GET') %}
+        <li><a href="{{ siteUrl('admin') }}">进入后台</a></li>
+        {% endif %}
       </ul>
     </div>
 
