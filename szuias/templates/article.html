@@ -21,8 +21,11 @@
     <div class="title">{{ article.title }}</div>
     <div class="info">
       {% if article.author.name %}作者: {{ article.author.name }} |{% endif %}
-      {% if article.created %}发布日期: {{ article.created | date('Y-m-d') }} |{% endif %}
-      浏览数: {{ article.view_count }}
+      {% if article.created %}发布日期: {{ article.created | date('Y-m-d') }} | {% endif %}
+      浏览数: {{ article.view_count }}<br />
+      {% if loggedUser.hasPermission('/admin/content/' ~ article.id ~ '/edit', 'GET') %}
+       <a href="{{ siteUrl('/admin/content/' ~ article.id ~ '/edit') }}">[编辑]</a>
+      {% endif %}
     </div>
     <div class="content">
      <p style="text-indent:24.0pt;">
