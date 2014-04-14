@@ -232,7 +232,7 @@ class Article extends ModelBase {
     }
 
     static public function count_by_mids ($mids=array()) {
-        $dql = sprintf('SELECT count(n) FROM %s n WHERE n.menu_id in (%s)', get_called_class(), implode(',', $mids));
+        $dql = sprintf('SELECT count(n) FROM %s n WHERE n.menu_id in (%s) AND n.is_deleted = 0', get_called_class(), implode(',', $mids));
         $query = static::em()->createQuery($dql);
         return $query->useQueryCache(false)->getOneOrNullResult();
     }
@@ -241,7 +241,7 @@ class Article extends ModelBase {
         $count = self::count_by_mids($mids);
         $count = array_shift($count);
         $random_id = mt_rand(0, $count - 1);
-        $dql = sprintf('SELECT n FROM %s n WHERE n.menu_id in (%s)', get_called_class(), implode(',', $mids));
+        $dql = sprintf('SELECT n FROM %s n WHERE n.menu_id in (%s) AND n.is_deleted = 0', get_called_class(), implode(',', $mids));
         $query = static::em()->createQuery($dql)->setMaxResults(1)->setFirstResult($random_id);
         return $query->useQueryCache(false)->getOneOrNullResult();
     }
