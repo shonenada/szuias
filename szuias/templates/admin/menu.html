@@ -103,7 +103,7 @@
                             </select>
                         </td> -->
                         <td class="td6">
-                            {% set sub_menu_delete_url = siteUrl('admin/menu/') ~ menu.id ~ '/delete' %}
+                            {% set sub_menu_delete_url = siteUrl('admin/menu/') ~ sub.id ~ '/delete' %}
                             <a class="deletesecond" href="{{ sub_menu_delete_url }}" data-count="{{ sub.article.count }}">删除</a>
                         </td>
                         {% endfor %}
