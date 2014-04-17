@@ -55,7 +55,7 @@ $(function(){
 				if(!confirm("该菜单拥有"+count+"篇文章，删除后所有文章都将被删除！"))
 					return false;
 			}
-			$.get(href,function(data){
+			$.post(href,function(data){
 				//成功
 				if (data.success){
 					/*if(confirm("确定要删除吗？"))*/
@@ -64,7 +64,7 @@ $(function(){
 				}
 				//失败
 				else alert(data.info);
-			},"json"); 
+			}, "json"); 
 			//取消默认行为
 			return false;
 	});
@@ -83,7 +83,7 @@ $(function(){
 			if(!confirm("该菜单拥有"+count+"篇文章，删除后所有文章都将被删除！"))
 				return false;
 		}
-		$.get(href,function(data){
+		$.post(href,function(data){
 			//成功
 			if (data.success){
 /*				if(confirm("确定要删除吗？"))
@@ -93,7 +93,7 @@ $(function(){
 			}
 			//失败
 			else alert(data.info);
-		},"json");
+		}, "json");
 		//取消默认行为
 		return false;
 	});

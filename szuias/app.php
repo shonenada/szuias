@@ -35,6 +35,7 @@ $controllers = array (
     'admin_account_reset_app' => 'Admin.AccountReset',
     'admin_category_app' => 'Admin.Category',
     'admin_category_save_app' => 'Admin.CategorySave',
+    'admin_category_delete_app' => 'Admin.CategoryDelete',
     'admin_content_app' => 'Admin.Content',
     'admin_content_save_app' => 'Admin.ContentSave',
     'admin_content_create_app' => 'Admin.ContentCreate',

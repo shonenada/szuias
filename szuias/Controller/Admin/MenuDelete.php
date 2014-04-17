@@ -11,7 +11,7 @@ class MenuDelete extends AdminBase {
     static public $url = '/admin/menu/:mid/delete';
     static public $conditions = array('mid' => '\d+');
 
-    static public function get () {
+    static public function post ($mid) {
         // TODO: 联动权限表删除
         $menu = MenuModel::find($mid);
         if ($menu == null) {

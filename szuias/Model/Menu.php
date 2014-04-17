@@ -71,7 +71,7 @@ class Menu extends ModelBase {
     /**
      * @OneToMany(targetEntity="Category", mappedBy="menu")
      **/
-    public $categories;
+    public $_categories;
 
     /**
      * @Column(name="sort", type="integer")
@@ -119,7 +119,7 @@ class Menu extends ModelBase {
         $this->is_show = true;
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->sub_menus = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->_categories = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function hide() {
@@ -136,8 +136,16 @@ class Menu extends ModelBase {
     }
 
     public function getArticleNums() {
-        // Twig 需要使用驼峰命令获取 articleNums 的值
-        return 0;
+        $temp = $this->articles->filter(function ($one) {
+            return $one->is_deleted == 0;
+        });
+        return $temp->count();
+    }
+
+    public function getCategories() {
+        return $this->_categories->filter(function ($one) {
+            return $one->is_deleted == 0;
+        });
     }
 
     public function is_parent() {

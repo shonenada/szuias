@@ -47,10 +47,12 @@ return array(
         array($normal, "/admin/setting/save", array('POST')),
 
         array($normal, "/admin/menu", array('GET')),
-        array($normal, "/admin/menu/(save|(\d+?)/delete)", array('POST')),
+        array($normal, "/admin/menu/save", array('POST')),
+        array($normal, "/admin/menu/\d+/delete", array('POST')),
 
         array($normal, "/admin/category", array('GET')),
-        array($normal, "/admin/category/(save|(\d+?)/delete)", array('POST')),
+        array($normal, "/admin/category/save", array('POST')),
+        array($normal, "/admin/category/delete", array('POST')),
 
         array($normal, "/admin/content", array('GET')),
         array($normal, "/admin/content/save", array('POST')),

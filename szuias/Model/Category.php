@@ -14,7 +14,7 @@ namespace Model;
  *
  * @property integer    $id
  * @property integer    $menu_id    所属菜单的 ID
- * @property string     $title       分类名
+ * @property string     $title      分类名
  * @property integer    $sort       排序
  * @property integer    $creator    创建者
  * @property datetime   $created    创建日期
@@ -59,16 +59,30 @@ class Category extends ModelBase {
     public $created;
 
     /**
+     * @OneToMany(targetEntity="Article", mappedBy="category")
+     **/
+    public $articles;
+
+    /**
      * @Column(name="is_deleted", type="boolean")
      **/
     public $is_deleted;
 
     public function __construct() {
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->is_deleted = 0;
     }
 
     public function getCount() {
-        return 0;
+        $temp = $this->articles->filter(function ($one) {
+            return $one->is_deleted == 0;
+        });
+        return $temp->count();
+    }
+
+    public function delete() {
+        $this->is_deleted = 1;
+        $this->save();
     }
 
 }
