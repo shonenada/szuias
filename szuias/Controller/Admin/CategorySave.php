@@ -19,7 +19,7 @@ class CategorySave extends AdminBase {
             $menu = Menu::find($one['mid']);
             $menu->classify = $one['classify'];
             $menu->save();
-            foreach($one['_categories'] as $ca) {
+            foreach($one['categories'] as $ca) {
                 if (empty($ca['cid'])) {
                     $category = new CategoryModel();
                     $category->menu = $menu;
