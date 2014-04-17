@@ -18,7 +18,7 @@ class ContentEdit extends AdminBase {
         $article = Article::find($aid);
         $focus_menu = $article->menu;
         if ($focus_menu->is_parent()){
-            $focus_sub_menu = $focus_menu->sub_menus->first();
+            $focus_sub_menu = $focus_menu->getFirstSubMenu();
         }
         else {
             $focus_sub_menu = $focus_menu;

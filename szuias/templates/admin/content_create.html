@@ -17,7 +17,7 @@
         <li class="left-first-nav">
         <a class="list_title"{% if menu.type in [1,2] %} href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.title }}</a>
           <ul class="left-second-nav" style="display:{% if menu.id == focus_menu.id %}block{% else %}none{% endif %};">
-            {% for s in menu.sub_menus %}
+            {% for s in menu.subMenus %}
             <li><a class="{% if focus_sub_menu.id == s.id %}open{% endif %}" href="{{ siteUrl('admin/content/menu/' ~ s.id ) }}">{{ s.title }}</a></li>
             {% endfor %}
           </ul>

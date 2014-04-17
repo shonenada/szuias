@@ -8,7 +8,7 @@
     <h2>{{ top_menu.title }}</h2>
     <ul>
     {% if top_menu.has_sub() %}
-      {% for one in top_menu.sub_menus %}
+      {% for one in top_menu.subMenus %}
         {{ tools.get_menu_link(one) }}
       {% endfor %}
     {% else %}

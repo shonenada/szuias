@@ -31,7 +31,7 @@
     <nav class="nav-main" role="navigation">
       <ul>
         {% for m in global_top_menus %}
-        <li class="nav-main-item{% if m.sub_menus | length > 0 %} parent{% endif %}">
+        <li class="nav-main-item{% if m.subMenus | length > 0 %} parent{% endif %}">
           {% if m.type == 3 %}
           {% set url = m.outside_url %}
           {% elseif m.type in [0,2] %}
@@ -40,9 +40,9 @@
           {% set url = siteUrl('menu/' ~ m.id ~ '/show') %}
           {% endif %}
           <a href="{{ url }}" {% if m.open_style == 1 %}target="_blank"{% endif %}>{{ m.title }}</a>
-          {% if m.sub_menus | length > 0 %}
+          {% if m.subMenus | length > 0 %}
           <ul>
-            {% for sub in m.sub_menus %}
+            {% for sub in m.subMenus %}
               {% if sub.type == 3 %}
               {% set sub_url = sub.outside_url %}
               {% elseif sub.type in [0,2] %}

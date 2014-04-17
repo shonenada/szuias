@@ -22,7 +22,7 @@ class ContentCreate extends AdminBase {
             $focus_menu = Menu::find($menu_id);
         }
         if ($focus_menu->is_parent()){
-            $focus_sub_menu = $focus_menu->sub_menus->first();
+            $focus_sub_menu = $focus_menu->getFirstSubMenu();
         }
         else {
             $focus_sub_menu = $focus_menu;

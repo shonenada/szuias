@@ -112,7 +112,7 @@
               {% if m.type in [1,2] %}
               <label><input type="checkbox" name="menu" value="{{ m.id }}" />{{ m.title }}</label>
               {% endif %}
-              {% for sub in m.sub_menus %}
+              {% for sub in m.subMenus %}
               <label><input type="checkbox" name="menu" value="{{ sub.id }}" />{{ sub.title }}</label>
               {% endfor %}
             </td>

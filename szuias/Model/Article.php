@@ -174,7 +174,7 @@ class Article extends ModelBase {
         $top_menu = Menu::find($top_menu_id);
         $records = array();
         if ($top_menu->has_sub()) {
-            foreach($top_menu->sub_menus as $m) {
+            foreach($top_menu->_sub_menus as $m) {
                 $list = self::get_list_by_menu_id(1, $size, $m->id, $order_by);
                 $records = array_merge($records, $list);
             }

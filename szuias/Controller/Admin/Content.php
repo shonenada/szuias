@@ -31,7 +31,7 @@ class Content extends AdminBase {
         if ($focus_menu->is_parent()) {
             $top_menu = $focus_menu;
             if ($top_menu->has_sub()) {
-                $focus_menu = $top_menu->sub_menus->first();
+                $focus_menu = $top_menu->getFirstSubMenu();
             }
         }
         else {

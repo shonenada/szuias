@@ -8,7 +8,7 @@
     <h2>{{ top_menu.title }}</h2>
     <ul>
     {% if top_menu.has_sub() %}
-      {% for one in top_menu.sub_menus %}
+      {% for one in top_menu.subMenus %}
         {{ tools.get_menu_link(one) }}
       {% endfor %}
     {% else %}
@@ -20,7 +20,7 @@
   <div class="article-list">
     <div class="top-nav">
     {% if top_menu.has_sub() %}
-      {% for one in top_menu.sub_menus %}
+      {% for one in top_menu.subMenus %}
         {%if one.id == mid %}
       <a class="current">{{ one.title }}</a>
         {% endif %}

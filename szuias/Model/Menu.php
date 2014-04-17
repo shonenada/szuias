@@ -53,7 +53,7 @@ class Menu extends ModelBase {
     public $type;
 
     /**
-     * @ManyToOne(targetEntity="Menu", inversedBy="sub_menus")
+     * @ManyToOne(targetEntity="Menu", inversedBy="_sub_menus")
      * @JoinColumn(name="parent_id", referencedColumnName="id")
      **/
     public $parent;
@@ -61,7 +61,7 @@ class Menu extends ModelBase {
     /**
      * @OneToMany(targetEntity="Menu", mappedBy="parent")
      **/
-    public $sub_menus;
+    public $_sub_menus;
 
     /**
      * @OneToMany(targetEntity="Article", mappedBy="menu")
@@ -118,20 +118,20 @@ class Menu extends ModelBase {
         $this->is_intranet = false;
         $this->is_show = true;
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->sub_menus = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->_sub_menus = new \Doctrine\Common\Collections\ArrayCollection();
         $this->_categories = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function hide() {
-        $this->is_hide = true;
+        $this->is_hide = 1;
     }
 
     public function show() {
-        $this->is_hide = false;
+        $this->is_hide = 0;
     }
 
     public function delete() {
-        $this->is_deleted = true;
+        $this->is_deleted = 1;
         $this->save();
     }
 
@@ -153,11 +153,25 @@ class Menu extends ModelBase {
     }
 
     public function has_sub() {
-        return $this->sub_menus->count();
+        $sub_menus = $this->_sub_menus->filter(function ($one) {
+            return $one->is_deleted == 0;
+        });
+        return $sub_menus->count();
     }
 
     public function remove_element(Menu $sub) {
-        $this->sub_menus->remvoeElement($sub);
+        $this->_sub_menus->remvoeElement($sub);
+    }
+
+    public function getFirstSubMenu () {
+        return $this->getSubMenus()->first();
+    }
+
+    public function getSubMenus () {
+        $sub_menus = $this->_sub_menus->filter(function ($one) {
+            return $one->is_deleted == 0;
+        });
+        return $sub_menus;
     }
 
     static public function sort_menu($menus) {
@@ -189,7 +203,7 @@ class Menu extends ModelBase {
             if (in_array($one->type, $types)) {
                 return true;
             }
-            foreach($one->sub_menus as $s) {
+            foreach($one->getSubMenus() as $s) {
                 if (in_array($s->type, $types)){
                     return true;
                 }
