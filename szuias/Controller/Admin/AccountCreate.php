@@ -23,7 +23,7 @@ class AccountCreate extends AdminBase {
         }
         $user = new User();
         $user->setUsername($username);
-        $user->setPassword($passwd, $app->config('salt'));
+        $user->setPassword($passwd, self::$app->config('salt'));
         $user->setName($nickname);
         $user->save();
         return json_encode(array('success' => true, 'info' => '添加成功'));
