@@ -1058,3 +1058,11 @@ article.hentry + article.hentry:before {
 	color: #fff;
 	background: #d7e0e5;
 }
+
+.ellipsis {
+	width: 350px;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
