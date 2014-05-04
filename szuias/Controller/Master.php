@@ -5,6 +5,8 @@ namespace Controller;
 use \Utils;
 use \Model\File;
 use \Model\Article;
+use \Model\Setting;
+
 
 class Master extends Base {
 
@@ -12,7 +14,8 @@ class Master extends Base {
 
     static public function get() {
         $home = true;
-        $news = Article::get_list_by_top_menu(10, 7, array(array('is_top', 'DESC'), array('sort', 'ASC'), array('created', 'DESC')));
+        // $news = Article::get_list_by_top_menu(10, 7, array(array('is_top', 'DESC'), array('sort', 'ASC'), array('created', 'DESC')));
+        $news = Article::get_in(Setting::get('activity', 'articles'));
         $undergraduate = Article::get_list_by_top_menu(6, 10, array(array('sort', 'ASC')));
         $graduate = Article::get_list_by_top_menu(6, 11, array(array('sort', 'ASC')));
         $research = Article::get_list_by_top_menu(6, 12, array(array('sort', 'ASC')));

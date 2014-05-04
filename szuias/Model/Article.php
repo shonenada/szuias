@@ -237,6 +237,12 @@ class Article extends ModelBase {
         return $query->useQueryCache(false)->getOneOrNullResult();
     }
 
+    static public function get_in ($article_ids) {
+        $dql = sprintf('SELECT n FROM %s n WHERE n.id in (%s) ORDER BY n.id DESC', get_called_class(), $article_ids);
+        $query = static::em()->createQuery($dql)->setMaxResults(10)->setFirstResult(0);
+        return $query->useQueryCache(false)->getResult();
+    }
+
     static public function get_random_by_mids ($mids=array()) {
         $count = self::count_by_mids($mids);
         $count = array_shift($count);

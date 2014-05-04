@@ -17,6 +17,7 @@ $(function(){
 		post.index_slider_nums = $("select[name='index_slider_nums']").val();
 		post.index_slider_fresh_time = $("select[name='index_slider_fresh_time']").val();
 		post.index_slider_source = $("select[name='index_slider_source']").val();
+		post.activity_articles = $("input[name='activity_articles']").val();
 		post.is_captcha = $("select[name='is_captcha']").val();
 		$.post(href, post, function(data){
 			common.alert.closeLoading();

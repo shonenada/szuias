@@ -13,11 +13,13 @@ class SettingSave extends AdminBase {
         $slider_nums = SettingModel::findByKey('index_slider', 'nums');
         $slider_fresh_time = SettingModel::findByKey('index_slider', 'fresh_time');
         $slider_source = SettingModel::findByKey('index_slider', 'source');
+        $activites = SettingModel::findByKey('activity', 'articles');
         $is_captcha = SettingModel::findByKey('admin_signin', 'captcha');
 
         $nums = self::$request->params('index_slider_nums');
         $freshtime = self::$request->params('index_slider_fresh_time');
         $source = self::$request->params('index_slider_source');
+        $articles = self::$request->params('activity_articles');
         $captcha = self::$request->params('is_captcha');
 
         if (isset($nums)) {
@@ -33,6 +35,15 @@ class SettingSave extends AdminBase {
         if (isset($source)) {
             $slider_source->value = $source;
             $slider_source->save();
+        }
+
+        if (isset($articles)) {
+            $aids = explode(',', $articles);
+            $aids = array_filter($aids, function($one) {
+                return is_numeric($one);
+            });
+            $activites->value = implode(',', $aids);
+            $activites->save();
         }
 
         if (isset($captcha)) {
