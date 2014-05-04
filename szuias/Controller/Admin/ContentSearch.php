@@ -14,7 +14,7 @@ class ContentSearch extends AdminBase {
     static public $url = '/admin/content/menu/:mid/search';
     static public $conditions = array('mid' => '\d+');
 
-    static public function post ($aid) {
+    static public function post ($mid) {
         $page = self::$request->get('page');
         $pagesize = self::$app->config('pagesize');
         $focus_menu = Menu::find($mid);
