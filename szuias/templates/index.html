@@ -14,7 +14,7 @@
    <div class="articles">
     <ul>
       {% for n in news %}
-      <li><a href="{{ siteUrl('article/' ~ n.id) }}">{{ n.title | ellipsis(20) }}</a> <span class="datetime">{{ n.created | date('Y-m-d') }}</span></li>
+      <li><a href="{{ siteUrl('article/' ~ n.id) }}">{{ n.title | ellipsis(40) }}</a> <span class="datetime">{{ n.created | date('Y-m-d') }}</span></li>
       {% endfor %}
     </ul>
    </div>
