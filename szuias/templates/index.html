@@ -10,7 +10,9 @@
     </div>
   </div>
   <div class="news">
-   <div class="title"><a href="{{ siteUrl('menu/6/list') }}">新闻动态</a></div>
+    <div class="title">
+      <a href="{{ siteUrl('menu/6/list') }}">{{ trans('News') }}</a>
+    </div>
    <div class="articles">
     <ul>
       {% for n in news %}
@@ -24,7 +26,7 @@
   <div class="index-articles">
     
     <div class="first-child">
-      <h4><a href="{{ siteUrl('menu/10/list') }}">本科教学</a></h4>
+      <h4><a href="{{ siteUrl('menu/10/list') }}">{{ trans('EDU for Undergraduate') }}</a></h4>
       <div>
         <ul>
           {% for a in undergraduate %}
@@ -36,7 +38,7 @@
     </div>
 
     <div>
-      <h4><a href="{{ siteUrl('menu/11/list') }}">研究生教育</a></h4>
+      <h4><a href="{{ siteUrl('menu/11/list') }}">{{ trans('EDU for Graduate') }}</a></h4>
       <div>
         <ul>
           {% for a in graduate %}
@@ -47,7 +49,7 @@
       <!-- <a href="{{ siteUrl('menu/11/list') }}"><img class="over" src="{{ siteUrl('static/images/base-layout/link-more.png') }}" /></a> -->
     </div>
     <div class="last-child">
-      <h4><a href="{{ siteUrl('menu/12/list') }}">科研信息</a></h4>
+      <h4><a href="{{ siteUrl('menu/12/list') }}">{{ trans('Scientific Research') }}</a></h4>
       <div>
         <ul>
           {% for a in research %}
@@ -62,7 +64,7 @@
   <div class="index-info">
 
     <div class="index-teacher">
-      <h4><a href="{{ siteUrl('menu/13/list') }}">教师风采</a></h4>
+      <h4><a href="{{ siteUrl('menu/13/list') }}">{{ trans('Teachers') }}</a></h4>
       <div style="margin-top: 10px;">
         {% if teacher_img %}
         <div class="avatar">
@@ -84,7 +86,7 @@
     </div>
 
     <div class="index-student-work">
-    <h4><a href="{{ siteUrl('menu/17/list') }}">求职招聘</a></h4>
+    <h4><a href="{{ siteUrl('menu/17/list') }}">{{ trans('Hiring') }}</a></h4>
       <div>
         <ul>
           {% for a in working %}
