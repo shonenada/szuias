@@ -270,4 +270,14 @@ class Article extends ModelBase {
         return $pager;
     }
 
+    static public function search_all_articles($keyword) {
+        $builder = static::em()->createQueryBuilder()->select('n')->from(get_called_class(), 'n');
+        $builder = $builder->where('n.title LIKE :keyword');
+        // $builder = $builder->orWhere('n.content LIKE :keyword');
+        $builder = $builder->orderBy('n.is_top DESC, n.created', 'DESC');  # what the hell ??
+        $builder = $builder->setParameter('keyword', '%'.$keyword.'%');
+        $query = $builder->getQuery()->setMaxResults(10)->setFirstResult(0);
+        return $query->useQueryCache(false)->getResult();
+    }
+
 }

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="article-box">
+  <h2>搜索</h2>
+  
+  <div class="sidebar-nav">
+    <h2>搜索：{{ keyword }}</h2>
+  </div>
+
+  <div class="article-list">
+    <ul>
+      {% for a in articles %}
+      <li>{% if a.is_top %}<img src="{{ siteUrl('static/images/admin/icon_up.gif') }}" alt="置顶" title="置顶"> {% endif %}<a href="{{ a.redirect_url ? a.redirect_url : siteUrl('article/' ~ a.id) }}"{{ a.open_style == 1 ? 'target="_blank"' : '' }}>{{ a.title | ellipsis(50) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+</div>
+{% endblock %}

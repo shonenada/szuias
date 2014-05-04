@@ -22,8 +22,15 @@
 <div id="page" class="hfeed site">
     <header id="masthead" class="site-header" role="banner">
    
-      <span style="float: right; font-size: 14px; margin-right:20px;line-height:100px;"><a href="/menu/19/list">English</a></span>
-    
+      <span style="float: right; font-size: 14px; margin-right:20px;line-height:100px;">
+        <a href="/menu/19/list">English</a>
+      </span>
+      <span style="float: right; font-size: 14px; margin-right:20px;line-height:100px;">
+        <form action="{{ siteUrl('/search') }}" method="post"/>
+          <input type="text" value="" name="keyword" placeholder="搜索" />
+        </form>
+      </span>
+
     <div class="logo">
       <a href="{{ siteUrl('/') }}">深圳大学 高等研究院</a>
     </div>  

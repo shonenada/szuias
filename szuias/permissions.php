@@ -25,6 +25,7 @@ return array(
         array($everyone, "/", array('GET')),
 
         array($everyone, "/captcha", array('GET')),
+        array($everyone, "/search", array('POST')),
 
         array($everyone, "/article/list", array('GET')),
         array($everyone, "/article/\d+", array('GET')),
