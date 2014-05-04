@@ -21,6 +21,7 @@ $config = require_once(APPROOT . 'config/config.php');
 // 的控制器，Explicit is better than impliccit. (Thanks bcho)
 $controllers = array (
     'master_app' => 'Master',
+    'lang_app' => 'Lang',
     'search_app' => 'Search',
     'captcha_app' => 'Captcha',
     'menu_show_app' => 'MenuShow',

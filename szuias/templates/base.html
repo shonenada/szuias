@@ -23,16 +23,13 @@
     <header id="masthead" class="site-header" role="banner">
    
       <span style="float: right; font-size: 14px; margin-right:20px;line-height:100px;">
-        <a href="/menu/19/list">English</a>
-      </span>
-      <span style="float: right; font-size: 14px; margin-right:20px;line-height:100px;">
         <form action="{{ siteUrl('/search') }}" method="post"/>
-          <input type="text" value="" name="keyword" placeholder="搜索" />
+          <input type="text" value="" name="keyword" placeholder="{{ trans('Search') }}" />
         </form>
       </span>
 
     <div class="logo">
-      <a href="{{ siteUrl('/') }}">深圳大学 高等研究院</a>
+      <a href="{{ siteUrl('/') }}">{{ trans('Institute for Advanced Study in Shenzhen Univeristy') }}</a>
     </div>  
 
     <nav class="nav-main" role="navigation">
@@ -79,20 +76,31 @@
 
     <div class="nav-footer">  
       <ul>
-        <li><a href="{{ siteUrl('article/494') }}">学院介绍</a></li>
-        <li><a href="{{ siteUrl('article/495') }}">组织机构</a></li>
-        <li><a href="{{ siteUrl('article/501') }}">联系我们</a></li>
+        <li><a href="{{ siteUrl('article/494') }}">{{ trans('Introduce to Institute') }}</a></li>
+        <li><a href="{{ siteUrl('article/495') }}">{{ trans('Institution') }}</a></li>
+        <li><a href="{{ siteUrl('article/501') }}">{{ trans('Contact') }}</a></li>
         {% if loggedUser.hasPermission('/admin', 'GET') %}
-        <li><a href="{{ siteUrl('admin') }}">进入后台</a></li>
+        <li><a href="{{ siteUrl('admin') }}">{{ trans('Backend') }}</a></li>
         {% endif %}
       </ul>
     </div>
 
     <div class="link">
-      友情链接：<br />
-      <a href="http://www.szu.edu.cn/">深圳大学</a>
-      <a href="http://job.szu.edu.cn/">深圳大学就业指导中心</a>
-      <a href="http://csse.szu.edu.cn/">深圳大学计算机与软件学院</a>
+      <div>
+        友情链接：<br />
+        <a href="http://www.szu.edu.cn/">深圳大学</a>
+        <a href="http://job.szu.edu.cn/">深圳大学就业指导中心</a>
+        <a href="http://csse.szu.edu.cn/">深圳大学计算机与软件学院</a>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <form action="/lang" method="post">
+          语言：<select name="lang" onchange="this.form.submit()">
+            <option value="zh">中文</option>
+            <option value="en" {% if lang == 'en' %}selected="selected"{% endif %}>English</option>
+          </select>
+        </form>
+      </div>
     </div>
     
     <div class="copyright">
