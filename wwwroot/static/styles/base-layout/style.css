@@ -1060,9 +1060,16 @@ article.hentry + article.hentry:before {
 }
 
 .ellipsis {
-	width: 350px;
 	display: inline-block;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.width350 {
+	width: 350px;
+}
+
+.width200 {
+	width: 200px;
 }
