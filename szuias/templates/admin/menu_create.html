@@ -1,32 +1,19 @@
-{% extends 'admin/base.html' %}
+{% extends 'admin/menu.html' %}
 
-{% block static %}
-<script type="text/javascript" src="{{ siteUrl('static/scripts/admin/menu_view.js') }}"></script>
-<link type="text/css" href="{{ siteUrl('static/styles/admin/page/menu.css') }}" rel="stylesheet"/>
-{% endblock %}
-
-{% block content %}
-<div id="content" class="clearfix">
-  <div id="content_left">
-    <div id="headtitle">菜单管理</div>
-    <div id="left_nav">
-      <ul>
-        {% for menu in menus %}
-        <li class="left-first-nav">
-          <a class="list_title" href="{{ siteUrl('admin/menu/' ~ menu.id) }}">{{ menu.title }}</a>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-
+{% block menu_list %}
   <div id="content_right" class="clearfix">
     <div id="content_right_top">
+      {% if mid %}
+      {% set submit_url = siteUrl('admin/menu/' ~ menu.id ~ '/create') %}
+      <span id="location">当前位置：<a href="{{ siteUrl('admin/menu/') }}">菜单管理</a>&nbsp;&gt;&nbsp;{{ menu.title }}&nbsp;&gt;&nbsp;新增子菜单</span>
+      {% else %}
+      {% set submit_url = siteUrl('admin/menu/create') %}
       <span id="location">当前位置：菜单管理&nbsp;&gt;&nbsp;新增一级菜单</span>
+      {% endif %}
     </div>
 
     <div id="show_list" class="clearfix">
-      <form action="{{ siteUrl('admin/menu/create') }}" method="post" id="submit-form">
+      <form action="{{ submit_url }}" method="post" id="submit-form">
         <table id="create_table">
           <tr class="even">
             <td>排序</td>
@@ -73,12 +60,11 @@
 
         <div class="text_end">
             <span>
-                <a data-href="{{ siteUrl('admin/menu/create') }}" href="{{ siteUrl('admin/menu/create') }}" id="submit">保存</a>
+                <a data-href="{{ submit_url }}" href="{{ submit_url }}" id="submit">保存</a>
                 <a href="javascript:history.back();" id="cancel">取消</a>
             </span>
         </div>
       </form>
     </div>
   </div>
-</div>
 {% endblock %}

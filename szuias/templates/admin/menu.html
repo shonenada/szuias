@@ -11,7 +11,7 @@
     <div id="headtitle">子菜单管理</div>
     <div id="left_nav">
       <ul>
-        {% for menu in menus %}
+        {% for menu in node_menus %}
         <li class="left-first-nav">
           <a class="list_title" href="{{ siteUrl('admin/menu/' ~ menu.id) }}">{{ menu.title }}</a>
         </li>
@@ -19,11 +19,16 @@
       </ul>
     </div>
   </div>
-
+{% block menu_list %}
   <div id="content_right" class="clearfix">
     <div id="content_right_top">
-      <span id="location">当前位置：菜单管理</span>
-      <a class="a-btn add-new" href="{{ siteUrl('admin/menu/create') }}">新增</a>
+    <span id="location">当前位置：<a href="{{ siteUrl('admin/menu') }}">菜单管理</a>{% if mid %} &gt; {{ menu.title }}{% endif %}</span>
+      {% if mid %}
+      {% set create_url =  siteUrl('admin/menu/' ~ mid ~ '/create') %}
+      {% else %}
+      {% set create_url = siteUrl('admin/menu/create') %}
+      {% endif %}
+      <a class="a-btn add-new" href="{{ create_url }}">新增</a>
     </div>
     <form action="{{ siteUrl('admin/menu/save') }}" method="post" id="submit-form">
       <div id="show_list" class="clearfix">
@@ -71,21 +76,22 @@
               </select>
             </td>
             <td>
-              {% set menu_delete_url = siteUrl('admin/menu/') ~ menu.id ~ '/delete' %}
-              <a href="{{ siteUrl('admin/menu/' ~ menu.id) }}">子菜单</a>
-              <a class="deletefirst" href="{{ menu_delete_url }}" data-count="{{ menu.article.count }}">删除</a>
+              {% if menu.type == 0 %}<a href="{{ siteUrl('admin/menu/' ~ menu.id) }}">子菜单</a>{% endif %}
+              <a class="deletefirst" href="{{ siteUrl('admin/menu/' ~ menu.id ~ '/delete') }}" data-count="{{ menu.article.count }}">删除</a>
             </td>
           </tr>
           {% endfor %}
         </table>
       </div>
+      <br />
       <div class="text_end">
-          <span>
-              <a data-href="{{ siteUrl('admin/menu/save') }}" href="{{ siteUrl('admin/menu/save') }}" id="save">保存</a>
-              <a href="javascript:" id="cancel">取消</a>
-          </span>
+        <span>
+            <a data-href="{{ siteUrl('admin/menu/save') }}" href="{{ siteUrl('admin/menu/save') }}" id="save">保存</a>
+            <a href="javascript:" id="cancel">取消</a>
+        </span>
       </div>
     </form>
   </div>
+{% endblock %}
 </div>
 {% endblock %}

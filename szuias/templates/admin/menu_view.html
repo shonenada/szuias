@@ -1,25 +1,6 @@
-{% extends 'admin/base.html' %}
+{% extends 'admin/menu.html' %}
 
-{% block static %}
-<script type="text/javascript" src="{{ siteUrl('static/scripts/admin/menu_view.js') }}"></script>
-<link type="text/css" href="{{ siteUrl('static/styles/admin/page/menu.css') }}" rel="stylesheet"/>
-{% endblock %}
-
-{% block content %}
-<div id="content" class="clearfix">
-  <div id="content_left">
-    <div id="headtitle">子菜单管理</div>
-    <div id="left_nav">
-      <ul>
-        {% for menu in menus %}
-        <li class="left-first-nav">
-          <a class="list_title" href="{{ siteUrl('admin/menu/' ~ menu.id) }}">{{ menu.title }}</a>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-
+{% block menu_list %}
   <div id="content_right" class="clearfix">
     <div id="content_right_top">
       <span id="location">当前位置：<a href="{{ siteUrl('admin/menu') }}">菜单管理</a> &gt; {{ menu.title }}</span>
@@ -87,5 +68,4 @@
       </div>
     </form>
   </div>
-</div>
 {% endblock %}

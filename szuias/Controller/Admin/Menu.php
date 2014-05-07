@@ -10,6 +10,9 @@ class Menu extends AdminBase {
 
     static public function get () {
         $menus = MenuModel::get_top_menus($all=true);
+        $node_menus = array_filter($menus, function ($one) {
+            return $one->type == 0;
+        });
         return self::render("admin/menu.html", get_defined_vars());
     }
 

@@ -57,6 +57,7 @@ $controllers = array (
     'admin_menu_view_app' => 'Admin.MenuView',
     'admin_menu_edit_app' => 'Admin.MenuEdit',
     'admin_menu_create_app' => 'Admin.MenuCreate',
+    'admin_menu_create_sub_app' => 'Admin.MenuCreateSub',
     'admin_menu_delete_app' => 'Admin.MenuDelete',
     'admin_menu_save_app' => 'Admin.MenuSave',
     'admin_profile_app' => 'Admin.Profile',

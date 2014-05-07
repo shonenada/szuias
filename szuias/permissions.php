@@ -51,6 +51,7 @@ return array(
         array($normal, "/admin/menu", array('GET')),
         array($normal, "/admin/menu/\d+", array('GET')),
         array($normal, "/admin/menu/create", array('GET', 'POST')),
+        array($normal, "/admin/menu/\d+/create", array('GET', 'POST')),
         array($normal, "/admin/menu/save", array('POST')),
         array($normal, "/admin/menu/\d+/edit", array('GET', 'POST')),
         array($normal, "/admin/menu/\d+/delete", array('POST')),
