@@ -11,14 +11,16 @@
     <div id="headtitle">内容管理</div>
     <div id="left_nav">
       <ul>
-      {% for menu in admin_menus %}
+      {% for menu in menus %}
         <li class="left-first-nav">
-          <a class="list_title" {% if menu.type in [1,2] %}href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.title }}</a>
+          <a class="list_title" {% if menu.type in [0,1,2] %}href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.title }}</a>
+          {% if mid %}
           <ul class="left-second-nav" style="display:{{ menu.id == top_menu.id ? 'block' : 'none' }};">
             {% for s in menu.subMenus %}
             <li><a class="{% if focus_menu.id == s.id %}open{% endif %}" href="{{ siteUrl('admin/content/menu/' ~ s.id ) }}">{{ s.title }}</a></li>
             {% endfor %}
           </ul>
+          {% endif %}
         </li>
       {% endfor %}
       </ul>
@@ -27,9 +29,10 @@
 
   <div id="content_right" class="clearfix">
     <div id="content_right_top">
-      <span id="location">当前位置：内容管理&nbsp;&gt;&gt;&nbsp;{{ top_menu.title }}{% if not focus_menu.is_parent() %}&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% endif %}</span>
+      <span id="location">当前位置：<a href="{{ siteUrl('admin/content') }}">内容管理</a>&nbsp;&gt;&gt;&nbsp;{{ top_menu.title }}{% if not focus_menu.is_parent() %}&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% endif %}</span>
       <a class="a-btn add-new" href="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~ '/create') }}">新增</a>
     </div>
+    {% if focus_menu.type in [1,2] %}
     <div id="search_frame">
       <form action="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~'/search') }}" method="post" target="_self">
         <span>
@@ -145,6 +148,9 @@
       </span>
       </div>
     </div>
+    {% else %}
+    <div class="tips">当前菜单类型不允许添加文章.</div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}

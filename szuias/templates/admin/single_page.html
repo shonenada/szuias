@@ -10,7 +10,7 @@
 <div id="content_left">
   <div id="headtitle">内容管理</div>
   <div id="left_nav">
-    {% for menu in admin_menus %}
+    {% for menu in menus %}
       <ul>
         <li class="left-first-nav">
           <a class="list_title" {% if menu.type in [1,2] %}href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.title }}</a>
@@ -27,7 +27,7 @@
 
 <div id="content_right" class="clearfix">
   <div id="content_right_top">
-      <span id="location">当前位置：内容管理&nbsp;&gt;&gt;&nbsp;{{ top_menu.title }}{% if not focus_menu.is_parent() %}&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% endif %}</span>
+      <span id="location">当前位置：<a href="{{ siteUrl('admin/content') }}">内容管理</a>&nbsp;&gt;&gt;&nbsp;{{ top_menu.title }}{% if not focus_menu.is_parent() %}&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% endif %}</span>
   </div>
   <div id="content_one">
     <div id="one_button_div">

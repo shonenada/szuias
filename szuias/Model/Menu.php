@@ -176,14 +176,14 @@ class Menu extends ModelBase {
 
     static public function sort_menu($menus) {
         usort($menus, function($one, $two){
-            if ($one->sort == $two->type) return 0;
-            return ($one->type > $two->type) ? -1 : 1;
+            if ($one->sort == $two->sort) return 0;
+            return ($one->sort > $two->sort) ? 1 : -1;
         });
         return $menus;
     }
 
     static public function get_first_menu() {
-        $top_menu_types = array(0);
+        $top_menu_types = array(0, 1, 2);
         $menus = self::sort_menu(self::get_by_types($top_menu_types));
         return array_shift($menus);
     }
@@ -197,7 +197,7 @@ class Menu extends ModelBase {
     }
 
     static public function list_admin_menus() {
-        $types = array(1, 2);
+        $types = array(0, 1, 2);
         $top_menus = self::get_top_menus();
         $menus = array_filter($top_menus, function($one) use($types){
             if (in_array($one->type, $types)) {
@@ -235,10 +235,7 @@ class Menu extends ModelBase {
             }
             return $condition;
         });
-        usort($top_menus, function($one, $two) {
-            if ($one->sort == $two->sort) return 0;
-            return ($one->sort > $two->sort) ? 1 : -1;
-        });
+        $top_menus = self::sort_menu($top_menus);
         return $top_menus;
     }
 }

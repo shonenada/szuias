@@ -9,32 +9,38 @@ use \Model\Category as CategoryModel;
 use \Model\Permission;
 
 
-class Content extends AdminBase {
+class ContentView extends AdminBase {
 
-    static public $url = '/admin/content';
+    static public $url = '/admin/content/menu/:mid';
+    static public $conditions = array('mid' => '\d+');
 
-    static public function get () {
+    static public function get ($mid) {
         $page = self::$request->get('page');
         $pagesize = self::$app->config('pagesize');
         if (empty($page)) {
             $page = 1;
         }
 
-        $focus_menu = Menu::get_first_menu();
+        $menu = Menu::find($mid);
+        if ($menu == null) {
+            return self::redirect('/admin/content');
+        }
 
-        if ($focus_menu->is_parent()) {
-            $top_menu = $focus_menu;
-            if ($top_menu->has_sub()) {
-                $focus_menu = $top_menu->getFirstSubMenu();
+        if (in_array($menu->type, array(1, 2))) {
+            $focus_menu = $menu;
+            if (!$menu->is_parent()) {
+                $top_menu = $menu->parent;
+            }else {
+                $top_menu = $menu;
             }
+        }else {
+            $focus_menu = $top_menu = Menu::find($mid);
         }
-        else {
-            $top_menu = $focus_menu->parent;
-        }
+
         $artilce_pager = Article::paginate_with_mid($page, $pagesize, $focus_menu->id, 'sort', true);
         $total = $artilce_pager->count();
         $now = new \DateTime('now', new \DateTimezone('Asia/Shanghai'));
-        $menus = Menu::list_admin_menus();
+        $menus = array($top_menu);
         $categories = CategoryModel::all();
         $admin_list = User::all();
         $pager = array('current' => $page, 'nums' => ceil($total / $pagesize));
