@@ -11,6 +11,17 @@
   <a href="{{ url }}"><li>{{ menu.title }}</li></a>
 {%- endmacro -%}
 
+{%- macro render_menu(menu) -%}
+  {% if menu.type == 3 %}
+  {% set url = menu.outside_url %}
+  {% elseif menu.type in [0,2] %}
+  {% set url = siteUrl('menu/' ~ menu.id ~ '/list') %}
+  {% elseif menu.type == 1 %}
+  {% set url = siteUrl('menu/' ~ menu.id ~ '/show') %}
+  {% endif %}
+  <a href="{{ url }}" {% if menu.open_style == 1 %}target="_blank"{% endif %}>{{ menu.title }}</a>
+{%- endmacro -%}
+
 {%- macro script(filename) -%}
 <script type="text/javascript" src="/static/scripts/{{filename}}"></script>
 {%- endmacro -%}

@@ -171,6 +171,9 @@ class Menu extends ModelBase {
         $sub_menus = $this->_sub_menus->filter(function ($one) {
             return $one->is_deleted == 0;
         });
+        if ($sub_menus){
+            $sub_menus = self::sort_menu($sub_menus->toArray());
+        }
         return $sub_menus;
     }
 

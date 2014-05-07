@@ -36,25 +36,22 @@
       <ul>
         {% for m in global_top_menus %}
         <li class="nav-main-item{% if m.subMenus | length > 0 %} parent{% endif %}">
-          {% if m.type == 3 %}
-          {% set url = m.outside_url %}
-          {% elseif m.type in [0,2] %}
-          {% set url = siteUrl('menu/' ~ m.id ~ '/list') %}
-          {% elseif m.type == 1 %}
-          {% set url = siteUrl('menu/' ~ m.id ~ '/show') %}
-          {% endif %}
-          <a href="{{ url }}" {% if m.open_style == 1 %}target="_blank"{% endif %}>{{ m.title }}</a>
+          {{ tools.render_menu(m) }}
           {% if m.subMenus | length > 0 %}
-          <ul>
+          <ul class="second_ul">
             {% for sub in m.subMenus %}
-              {% if sub.type == 3 %}
-              {% set sub_url = sub.outside_url %}
-              {% elseif sub.type in [0,2] %}
-              {% set sub_url = siteUrl('menu/') ~ sub.id ~ '/list' %}
-              {% elseif sub.type == 1 %}
-              {% set sub_url = siteUrl('menu/') ~ sub.id ~ '/show' %}
+            <li class="page_item{% if sub.type == 0 %} list-items{% endif %}">
+              {{ tools.render_menu(sub) }}
+              {% if sub.subMenus | length > 0 %}
+              <ul class="third_ul">
+               {% for third_sub in sub.subMenus %}
+                <li class="third_subitem">
+                  {{ tools.render_menu(third_sub) }}
+                </li>
+               {% endfor %}
+              </ul>
               {% endif %}
-            <li class="page_item"><a href="{{ sub_url }}" {% if sub.open_style == 1 %}target="_blank"{% endif %}> {{ sub.title }}</a></li>
+            </li>
             {% endfor %}
           </ul>
           {% endif %}
@@ -135,6 +132,27 @@ $("#slider").KinSlideshow({
       btn_borderHoverColor: "#1188c0",
       btn_borderWidth: 1
     }
+});
+$(function () {
+  var mouseover_tid = [];
+  var mouseout_tid = [];
+  $(".third_ul").hide();
+  $('.second_ul > .list-items').each(function(index){
+    $(this).hover(function() {
+      var element = $(this).find('ul.third_ul');
+      clearTimeout(mouseout_tid[index]);
+      mouseover_tid[index] = setTimeout(function() {
+        element.fadeIn(200);
+      }, 10);
+    },
+    function () {
+      clearTimeout(mouseover_tid[index]);
+      var element = $(this).find('ul.third_ul');
+      mouseout_tid[index] = setTimeout(function() {
+        element.fadeOut(200);
+      }, 200);
+    });
+  });
 });
 
 </script>

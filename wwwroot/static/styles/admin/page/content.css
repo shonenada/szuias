@@ -262,3 +262,8 @@
 #page_change input{
 	vertical-align:middle;
 }
+.tips{ 
+	padding: 20px;
+	font-size: 16px;
+	color: #ff0000;
+}
