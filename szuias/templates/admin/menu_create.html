@@ -1,0 +1,84 @@
+{% extends 'admin/base.html' %}
+
+{% block static %}
+<script type="text/javascript" src="{{ siteUrl('static/scripts/admin/menu_view.js') }}"></script>
+<link type="text/css" href="{{ siteUrl('static/styles/admin/page/menu.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+<div id="content" class="clearfix">
+  <div id="content_left">
+    <div id="headtitle">菜单管理</div>
+    <div id="left_nav">
+      <ul>
+        {% for menu in menus %}
+        <li class="left-first-nav">
+          <a class="list_title" href="{{ siteUrl('admin/menu/' ~ menu.id) }}">{{ menu.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div id="content_right" class="clearfix">
+    <div id="content_right_top">
+      <span id="location">当前位置：菜单管理&nbsp;&gt;&nbsp;新增一级菜单</span>
+    </div>
+
+    <div id="show_list" class="clearfix">
+      <form action="{{ siteUrl('admin/menu/create') }}" method="post" id="submit-form">
+        <table id="create_table">
+          <tr class="even">
+            <td>排序</td>
+            <td><input type="text" name="sort" class="order" /></td>
+          </tr>
+          <tr class="odd">
+            <td>标题</td>
+            <td><input type="text" name="title" value=""/></td>
+          </tr>
+          <tr class="even">
+            <td>类型</td>
+            <td>
+              <select name="type" class="select-type first-menu-select">
+                <option value="0">节点菜单</option>
+                <option value="1">单页内容</option>
+                <option value="2">多记录列表</option>
+                <option value="3">外部URL</option>
+              </select>
+            </td>
+          </tr>
+          <tr class="odd">
+            <td>外部 URL</td>
+            <td><input disabled="true" type="text" id="outside_url" name="outside_url" class="outlinks" value="" /></td>
+          </tr>
+          <tr class="even">
+            <td>打开方式</td>
+            <td>
+              <select name="open_style">
+                <option value="0">原窗口打开</option>
+                <option value="1">新窗口打开</option>
+              </select>
+            </td>
+          </tr>
+          <tr class="odd">
+            <td>显示</td>
+            <td>
+              <select name="is_show">
+                <option value="1">是</option>
+                <option value="0">否</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+
+        <div class="text_end">
+            <span>
+                <a data-href="{{ siteUrl('admin/menu/create') }}" href="{{ siteUrl('admin/menu/create') }}" id="submit">保存</a>
+                <a href="javascript:history.back();" id="cancel">取消</a>
+            </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

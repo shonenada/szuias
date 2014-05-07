@@ -3,8 +3,6 @@
 namespace Controller\Admin;
 
 use \Model\Menu as MenuModel;
-use \Model\Permission;
-
 
 class Menu extends AdminBase {
 

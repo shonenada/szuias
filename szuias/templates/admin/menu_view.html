@@ -22,8 +22,8 @@
 
   <div id="content_right" class="clearfix">
     <div id="content_right_top">
-      <span id="location">当前位置：菜单管理</span>
-      <a class="a-btn add-new" href="{{ siteUrl('admin/menu/create') }}">新增</a>
+      <span id="location">当前位置：<a href="{{ siteUrl('admin/menu') }}">菜单管理</a> &gt; {{ menu.title }}</span>
+      <a class="a-btn add-new" href="{{ siteUrl('admin/menu/' ~ menu.id ~ '/create') }}">新增</a>
     </div>
     <form action="{{ siteUrl('admin/menu/save') }}" method="post" id="submit-form">
       <div id="show_list" class="clearfix">
@@ -38,7 +38,7 @@
             <th id="edit">编辑</th>
           </tr>
           {% set i = 0 %}
-          {% for menu in menus %}
+          {% for menu in menu.subMenus %}
           {% set i = i + 1 %}
           <tr class="{% if i % 2 == 0 %}odd{% else %}even{% endif %} one_menu" data-id="{{ menu.id }}" data-type="{{ menu.type }}">
             <td class="order">

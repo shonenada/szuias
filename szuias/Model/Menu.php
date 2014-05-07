@@ -235,6 +235,10 @@ class Menu extends ModelBase {
             }
             return $condition;
         });
+        usort($top_menus, function($one, $two) {
+            if ($one->sort == $two->sort) return 0;
+            return ($one->sort > $two->sort) ? 1 : -1;
+        });
         return $top_menus;
     }
 }
