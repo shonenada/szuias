@@ -1,4 +1,4 @@
-{%- macro get_menu_link(menu) -%}
+{%- macro get_menu_link(menu, class) -%}
   {% if menu.type == 3 %}
   {% set url = menu.outside_url %}
   {% elseif menu.type == 2 %}
@@ -8,7 +8,7 @@
   {% elseif menu.type == 0 %}
   {% set url = 'javascript:void(0);' %}
   {% endif %}
-  <a href="{{ url }}"><li>{{ menu.title }}</li></a>
+  <a href="{{ url }}" class="{{ class }}"><li>{{ menu.title }}</li></a>
 {%- endmacro -%}
 
 {%- macro render_menu(menu) -%}

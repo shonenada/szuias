@@ -164,7 +164,11 @@ class Menu extends ModelBase {
     }
 
     public function getFirstSubMenu () {
-        return $this->getSubMenus()->first();
+        $subs = $this->getSubMenus();
+        $subs = array_filter($subs, function ($one) {
+             return in_array($one->type, array(1, 2));
+        });
+        return array_shift($subs);
     }
 
     public function getSubMenus () {

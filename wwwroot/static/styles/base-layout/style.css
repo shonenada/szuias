@@ -1078,3 +1078,13 @@ article.hentry + article.hentry:before {
 	left: 200px!important;
 	top: -5px!important;
 }
+
+.sub li:before {
+	content: '·';
+	margin: 0 5px 0 10px;
+}
+.sub a, .sub li{
+	font-style: 12px!important;
+	font-weight: 300!important;
+
+}

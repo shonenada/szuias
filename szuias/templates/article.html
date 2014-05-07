@@ -10,6 +10,9 @@
     {% if top_menu.has_sub() %}
       {% for one in top_menu.subMenus %}
         {{ tools.get_menu_link(one) }}
+        {% for each in one.subMenus %}
+        {{ tools.get_menu_link(each, 'sub') }}
+        {% endfor %}
       {% endfor %}
     {% else %}
         {{ tools.get_menu_link(top_menu) }}

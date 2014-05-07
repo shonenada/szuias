@@ -10,6 +10,9 @@
     {% if top_menu.has_sub() %}
       {% for one in top_menu.subMenus %}
         {{ tools.get_menu_link(one) }}
+        {% for each in one.subMenus %}
+        {{ tools.get_menu_link(each, 'sub') }}
+        {% endfor %}
       {% endfor %}
     {% else %}
         {{ tools.get_menu_link(top_menu) }}
@@ -19,15 +22,7 @@
 
   <div class="article-list">
     <div class="top-nav">
-    {% if top_menu.has_sub() %}
-      {% for one in top_menu.subMenus %}
-        {%if one.id == mid %}
-      <a class="current">{{ one.title }}</a>
-        {% endif %}
-      {% endfor %}
-    {% else %}
-      <a class="current">{{ top_menu.title }}</a>
-    {% endif %}
+      <a class="current">{{ menu.title }}</a>
     </div>
     <ul>
       {% for a in articles %}

@@ -18,7 +18,9 @@ class Article extends Base {
         if ($article->menu->is_parent()) {
             $top_menu = $article->menu;
         } else {
-            $top_menu = $article->menu->parent;
+            $top_menu = $article->menu;
+            while(!$top_menu->is_parent())
+                $top_menu = $top_menu->parent;
         }
         $article->view_count += 1;
         $article->save();
