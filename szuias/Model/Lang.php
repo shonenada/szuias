@@ -18,7 +18,7 @@ namespace Model;
  *
  **/
 
-class Language extends ModelBase {
+class Lang extends ModelBase {
 
     /**
      * @Column(name="id", type="integer", nullable=false)
@@ -36,5 +36,9 @@ class Language extends ModelBase {
      * @Column(name="desc", type="string", length=20)
      **/
     public $desc;
+
+    static public function get_by_code($code) {
+        return self::findOneBy(array('code' => $code));
+    }
 
 }
