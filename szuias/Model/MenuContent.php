@@ -13,7 +13,6 @@ namespace Model;
  * @Table(name="menu_content")
  *
  * @property integer   $id
- * @property integer   $lang_id          语言
  * @property inteegr   $target_id     目标 id
  * @property string    $title         标题
  *
@@ -27,11 +26,6 @@ class MenuContent extends ModelBase {
      * @GeneratedValue
      **/
     public $id;
-
-    /**
-     * @Column(name="lang_id", type="integer")
-     **/
-    public $lang_id;
 
     /**
      * @OneToOne(targetEntity="Lang")
@@ -49,5 +43,9 @@ class MenuContent extends ModelBase {
      * @Column(name="title", type="string", length=50)
      **/
     public $title;
+
+    public function is_code($code) {
+        return $this->lang->code == $code;
+    }
 
 }

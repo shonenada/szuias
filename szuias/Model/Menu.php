@@ -136,9 +136,9 @@ class Menu extends ModelBase {
     }
 
     public function getDefaultTitle() {
-        $default_id = \GlobalEnv::get('translation.default.id');
+        $default = \GlobalEnv::get('translation.default');
         foreach ($this->translations as $tra) {
-            if ($tra->lang_id == $default_id) {
+            if ($tra->lang == $default) {
                return $tra->title;
             }
         }
@@ -147,14 +147,14 @@ class Menu extends ModelBase {
 
     public function getTitle() {
         $default_translation = null;
-        $default_id = \GlobalEnv::get('translation.default.id');
+        $default = \GlobalEnv::get('translation.default');
         $lang_code = \GlobalEnv::get('app')->getCookie('lang');
         $lang = Lang::get_by_code($lang_code);
         foreach ($this->translations as $tra) {
-            if ($tra->lang_id == $default_id) {
+            if ($tra->lang == $default) {
                 $default_translation = $tra;
             }
-            if ($tra->lang_id == $lang->id) {
+            if ($tra->lang == $lang->id) {
                 return $tra->title;
             }
         }
@@ -172,6 +172,21 @@ class Menu extends ModelBase {
         return $this->_categories->filter(function ($one) {
             return $one->is_deleted == 0;
         });
+    }
+
+    public function translate($code) {
+        foreach($this->translations as $tras) {
+            if ($tras->is_code($code)) {
+                return $tras;
+            }
+        }
+        $lang = Lang::get_by_code($code);
+        $tras = new MenuContent();
+        $tras->lang = $lang;
+        $tras->target = $this;
+        $tras->title = '';
+        $tras->save();
+        return $tras;
     }
 
     public function is_parent() {

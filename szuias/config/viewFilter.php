@@ -9,6 +9,17 @@ $ellipsis = new Twig_SimpleFilter('ellipsis', function($string, $maxLength, $ell
     return $string;
 });
 
+$lang = new Twig_SimpleFilter('lang', function($obj, $field, $code) {
+    $lang = \Model\Lang::get_by_code($code);
+    foreach ($obj->translations as $tran) {
+        if ($tran->lang == $lang) {
+            return $tran->$field;
+        }
+    }
+    return '';
+});
+
 return array(
     $ellipsis,
+    $lang,
 );

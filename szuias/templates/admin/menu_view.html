@@ -3,7 +3,7 @@
 {% block menu_list %}
   <div id="content_right" class="clearfix">
     <div id="content_right_top">
-      <span id="location">当前位置：<a href="{{ siteUrl('admin/menu') }}">菜单管理</a> &gt; {{ menu.title }}</span>
+      <span id="location">当前位置：<a href="{{ siteUrl('admin/menu') }}">菜单管理</a> &gt; {{ menu.defaultTitle }}</span>
       <a class="a-btn add-new" href="{{ siteUrl('admin/menu/' ~ menu.id ~ '/create') }}">新增</a>
     </div>
     <form action="{{ siteUrl('admin/menu/save') }}" method="post" id="submit-form">
@@ -26,7 +26,7 @@
               <input type="text" name="sort" class="order" value="{{ menu.sort }}" />
             </td>
             <td>
-              <input type="text" name="title" class="links" value="{{ menu.title }}"/>
+              <input type="text" name="title" class="links" value="{{ menu.defaultTitle }}"/>
             </td>
             <td>
               <select name="type" class="select-type first-menu-select" title="无法直接修改菜单类型">

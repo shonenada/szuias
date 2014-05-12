@@ -3,6 +3,7 @@
 namespace Controller\Admin;
 
 use \Model\Menu as MenuModel;
+use \Model\MenuContent;
 
 class MenuEdit extends AdminBase {
 
