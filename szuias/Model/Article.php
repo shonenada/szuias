@@ -51,6 +51,11 @@ class Article extends ModelBase {
     public $content;
 
     /**
+     * @OneToMany(targetEntity="ArticleContent", mappedBy="article_info")
+     **/
+    public $article;
+
+    /**
      * @Column(name="menu_id", type="integer")
      **/
     private $menu_id;

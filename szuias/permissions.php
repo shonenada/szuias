@@ -24,7 +24,7 @@ return array(
     "allow" => array(
         array($everyone, "/", array('GET')),
 
-        array($everyone, "/lang", array('POST')),
+        array($everyone, "/lang", array('GET')),
         array($everyone, "/search", array('POST')),
         array($everyone, "/captcha", array('GET')),
 

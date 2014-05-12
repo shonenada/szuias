@@ -20,13 +20,14 @@
 <!--[if IE 7]> <div class="ie7"> <![endif]-->
 <div class="body-overlay">
 <div id="page" class="hfeed site">
-    <header id="masthead" class="site-header" role="banner">
-   
-      <span style="float: right; font-size: 14px; margin-right:20px;line-height:100px;">
-        <form action="{{ siteUrl('/search') }}" method="post"/>
-          <input type="text" value="" name="keyword" placeholder="{{ trans('Search') }}" />
-        </form>
-      </span>
+  <header id="masthead" class="site-header" role="banner">
+ 
+    <span style="float: right; font-size: 14px; margin-right:20px;line-height:30px;margin-top:20px;text-align:right;">
+      <form action="{{ siteUrl('/search') }}" method="post"/>
+        {% if lang == 'en' %}<a href="{{ siteUrl('/lang?lang=zh') }}">中文</a>{% else %}<a href="{{ siteUrl('/lang?lang=en') }}">English</a>{% endif %}<br />
+        <input type="text" value="" name="keyword" placeholder="{{ trans('Search') }}" />
+      </form>
+    </span>
 
     <div class="logo">
       <a href="{{ siteUrl('/') }}">{{ trans('Institute for Advanced Study in Shenzhen Univeristy') }}</a>
@@ -90,14 +91,6 @@
         <a href="http://csse.szu.edu.cn/">深圳大学计算机与软件学院</a>
       </div>
 
-      <div style="margin-top: 20px;">
-        <form action="/lang" method="post">
-          语言：<select name="lang" onchange="this.form.submit()">
-            <option value="zh">中文</option>
-            <option value="en" {% if lang == 'en' %}selected="selected"{% endif %}>English</option>
-          </select>
-        </form>
-      </div>
     </div>
     
     <div class="copyright">
@@ -112,27 +105,7 @@
 </div> <!-- .body-overlay -->
 
 <script type="text/javascript">
-$("#slider").KinSlideshow({
-    titleBar: {
-      titleBar_height: 28,
-      titleBar_bgColor: "#000",
-      titleBar_alpha: 0.5
-    },
-    titleFont: {
-      TitleFont_size: 14,
-      TitleFont_color: "#FFFFFF",
-      TitleFont_weight: "normal"
-    },
-    btn: {
-      btn_bgColor: "#FFFFFF",
-      btn_bgHoverColor: "#1072aa",
-      btn_fontColor: "#000000",
-      btn_fontHoverColor: "#FFFFFF",
-      btn_borderColor: "#cccccc",
-      btn_borderHoverColor: "#1188c0",
-      btn_borderWidth: 1
-    }
-});
+
 $(function () {
   var mouseover_tid = [];
   var mouseout_tid = [];
