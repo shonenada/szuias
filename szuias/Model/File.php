@@ -81,7 +81,7 @@ class File extends ModelBase {
         if ($source == 0) {
             $dql = sprintf(
                 'SELECT n FROM %s n '.
-                'WHERE n.created >= %s '.
+                'WHERE n.created >= %s AND n.is_deleted = 0'.
                 'ORDER BY n.created desc',
                 get_called_class(),
                 $time_diff
@@ -94,6 +94,8 @@ class File extends ModelBase {
             $menu = Menu::find($source);
             $articles = $menu->articles;
             foreach ($articles as $art) {
+                if ($art->is_deleted == 1)
+                    continue;
                 $result = array_merge($result, $art->files->toArray());
                 if (count($result) >= $nums)
                     break;
