@@ -13,8 +13,6 @@ namespace Model;
  * @Table(name="article")
  *
  * @property integer   $id
- * @property string    $title         标题
- * @property text      $content       内容
  * @property integer   $menu_id       菜单 ID
  * @property integer   $category_id   分类 ID
  * @property integer   $author_id     作者
@@ -41,19 +39,9 @@ class Article extends ModelBase {
     public $id;
 
     /**
-     * @Column(name="title", type="string", length=40)
+     * @OneToMany(targetEntity="ArticleContent", mappedBy="target")
      **/
-    public $title;
-
-    /**
-     * @Column(name="content", type="text")
-     **/
-    public $content;
-
-    /**
-     * @OneToMany(targetEntity="ArticleContent", mappedBy="article_info")
-     **/
-    public $article;
+    public $translations;
 
     /**
      * @Column(name="menu_id", type="integer")
@@ -152,6 +140,7 @@ class Article extends ModelBase {
         $this->open_style = 0;
         $this->sort = 0;
         $this->files = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function setTop() {
@@ -173,6 +162,58 @@ class Article extends ModelBase {
     public function delete() {
         $this->is_deleted = true;
         $this->save();
+    }
+
+    public function getDefaultTitle() {
+        $default_id = \GlobalEnv::get('translation.default.id');
+        foreach ($this->translations as $tra) {
+            if ($tra->lang_id == $default_id) {
+               return $tra->title;
+            }
+        }
+        return null;
+    }
+
+    public function getTitle(){
+        $default_translation = null;
+        $default_id = \GlobalEnv::get('translation.default.id');
+        $lang_code = \GlobalEnv::get('app')->getCookie('lang');
+        $lang = Lang::get_by_code($lang_code);
+        foreach ($this->translations as $tra) {
+            if ($tra->lang_id == $default_id) {
+                $default_translation = $tra;
+            }
+            if ($tra->lang_id == $lang->id) {
+                return $tra->title;
+            }
+        }
+        return $default_translation->title;
+    }
+
+    public function getDefaultContent() {
+        $default_id = \GlobalEnv::get('translation.default.id');
+        foreach ($this->translations as $tra) {
+            if ($tra->lang_id == $default_id) {
+               return $tra->content;
+            }
+        }
+        return null;
+    }
+
+    public function getContent(){
+        $default_translation = null;
+        $default_id = \GlobalEnv::get('translation.default.id');
+        $lang_code = \GlobalEnv::get('app')->getCookie('lang');
+        $lang = Lang::get_by_code($lang_code);
+        foreach ($this->translations as $tra) {
+            if ($tra->lang_id == $default_id) {
+                $default_translation = $tra;
+            }
+            if ($tra->lang_id == $lang->id) {
+                return $tra->content;
+            }
+        }
+        return $default_translation->content;
     }
 
     static public function get_list_by_top_menu($size, $top_menu_id, $order_by=array(array('id', 'ASC'))) {

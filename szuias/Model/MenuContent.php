@@ -13,7 +13,7 @@ namespace Model;
  * @Table(name="menu_content")
  *
  * @property integer   $id
- * @property integer   $lang          语言
+ * @property integer   $lang_id          语言
  * @property inteegr   $target_id     目标 id
  * @property string    $title         标题
  *
@@ -29,23 +29,24 @@ class MenuContent extends ModelBase {
     public $id;
 
     /**
-     * @Column(name="lang", type="integer")
+     * @Column(name="lang_id", type="integer")
      **/
-    public $lang;
+    public $lang_id;
 
     /**
-     * @Column(name="target_id", type="integer")
-     **/
-    public $target_id;
+     * @OneToOne(targetEntity="Lang")
+     * @JoinColumn(name="lang_id", referencedColumnName="id")
+     */
+    public $lang;
 
     /**
      * @ManyToOne(targetEntity="Menu", inversedBy="translation")
      * @JoinColumn(name="target_id", referencedColumnName="id")
      **/
-    public $category_info;
+    public $target;
 
     /**
-     * @Column(name="title", type="string", length="50")
+     * @Column(name="title", type="string", length=50)
      **/
     public $title;
 
