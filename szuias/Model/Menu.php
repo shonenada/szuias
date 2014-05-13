@@ -154,7 +154,7 @@ class Menu extends ModelBase {
             if ($tra->lang == $default) {
                 $default_translation = $tra;
             }
-            if ($tra->lang == $lang->id) {
+            if ($tra->lang == $lang && !empty($tra->title)){
                 return $tra->title;
             }
         }
