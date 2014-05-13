@@ -13,11 +13,11 @@
       <ul>
       {% for menu in menus %}
         <li class="left-first-nav">
-          <a class="list_title" {% if menu.type in [0,1,2] %}href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.title }}</a>
+          <a class="list_title" {% if menu.type in [0,1,2] %}href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.defaultTitle }}</a>
           {% if mid %}
           <ul class="left-second-nav" style="display:{{ menu.id == top_menu.id ? 'block' : 'none' }};">
             {% for s in menu.subMenus %}
-            <li><a class="{% if focus_menu.id == s.id %}open{% endif %}" href="{{ siteUrl('admin/content/menu/' ~ s.id ) }}">{{ s.title }}</a></li>
+            <li><a class="{% if focus_menu.id == s.id %}open{% endif %}" href="{{ siteUrl('admin/content/menu/' ~ s.id ) }}">{{ s.defaultTitle }}</a></li>
             {% endfor %}
           </ul>
           {% endif %}
@@ -29,7 +29,7 @@
 
   <div id="content_right" class="clearfix">
     <div id="content_right_top">
-      <span id="location">当前位置：<a href="{{ siteUrl('admin/content') }}">内容管理</a>&nbsp;&gt;&gt;&nbsp;{{ top_menu.title }}{% if not focus_menu.is_parent() %}&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% endif %}</span>
+      <span id="location">当前位置：<a href="{{ siteUrl('admin/content') }}">内容管理</a>&nbsp;&gt;&gt;&nbsp;{{ top_menu.defaultTitle }}{% if not focus_menu.is_parent() %}&nbsp;&gt;&gt;&nbsp;{{ focus_menu.defaultTitle }}{% endif %}</span>
       <a class="a-btn add-new" href="{{ siteUrl('admin/content/menu/' ~ focus_menu.id ~ '/create') }}">新增</a>
     </div>
     {% if focus_menu.type in [1,2] %}
@@ -42,7 +42,7 @@
           <select name="cid" class="search-select" style="width:120px;">
             <option value="">请选择分类</option>
             {% for c in focus_menu.categories %}
-            <option value="{{ c.id }}"{% if c.id == search.cid %}selected="selected"{% endif %}>{{ c.title }}</option>
+            <option value="{{ c.id }}"{% if c.id == search.cid %}selected="selected"{% endif %}>{{ c.defaultTitle }}</option>
             {% endfor %}
           </select>
         </span>
@@ -88,15 +88,15 @@
           <td class="number">
             <input type="text" name="sort" value="{{ one.sort }}" style="width:30px;"/>
           </td>
-          <td>{% if one.category %}{{ one.category.title }}{% else %}暂无分类{% endif %}</td>
+          <td>{% if one.category %}{{ one.category.defaultTitle }}{% else %}暂无分类{% endif %}</td>
           <td style="text-align:left">
             {% if one.is_top == 1 %}
             <img src="{{ siteUrl('static/images/admin/icon_up.gif') }}" />
             {% endif %}
             {% if one.redirect_url %}
-            <a href="{{ one.redirect_url }}" target="_blank">{{ one.title }}</a>
+            <a href="{{ one.redirect_url }}" target="_blank">{{ one.defaultTitle }}</a>
             {% else %}
-            <a href="{{ siteUrl('article/' ~ one.id) }}" target="_blank">{{ one.title }}</a>
+            <a href="{{ siteUrl('article/' ~ one.id) }}" target="_blank">{{ one.defaultTitle }}</a>
             {% endif %}
             {% if date_difference(now, one.created) < 604800 %}
             <img src="{{ siteUrl('static/images/admin/icon_new.gif' ) }}" />
@@ -120,9 +120,9 @@
             <a class="maketop" href="{{ siteUrl('admin/content/' ~ one.id ~ '/top/create') }}">置顶</a>&nbsp;&nbsp;
             {% endif %}
             {% if one.is_hide %}
-            <a class="display" href="{{ siteUrl('admin/content/' ~ one.id ~ '/hide/delete') }}">显示</a>
+            <a class="display" href="{{ siteUrl('admin/content/' ~ one.id ~ '/hide/delete') }}">显示</a>&nbsp;&nbsp;
             {% else %}
-            <a class="hide" href="{{ siteUrl('admin/content/' ~ one.id ~ '/hide/create') }}">隐藏</a>
+            <a class="hide" href="{{ siteUrl('admin/content/' ~ one.id ~ '/hide/create') }}">隐藏</a>&nbsp;&nbsp;
             {% endif %}
           </td>
         </tr>
