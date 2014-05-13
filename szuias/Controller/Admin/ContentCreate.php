@@ -51,8 +51,6 @@ class ContentCreate extends AdminBase {
         $article = new Article();
         $category = CategoryModel::find(self::$request->post('category_id'));
         $data = array(
-            'title' => self::$request->post('title'),
-            'content' => self::$request->post('content'),
             'menu' => $menu,
             'category' => $category,
             'author' => $user,
@@ -65,6 +63,14 @@ class ContentCreate extends AdminBase {
             $data['open_style'] = $open_style;
         }
         $article->populate_from_array($data)->save();
+        $zh = $article->translate('zh');
+        $en = $article->translate('en');
+        $zh->title = self::$request->post('title');
+        $zh->content = self::$request->post('content');
+        $en->title = self::$request->post('title_eng');
+        $en->content = self::$request->post('content_eng');
+        $zh->save();
+        $en->save();
 
         if (empty($_SESSION['upload_buffer'])){
             $upload_buffer = array();

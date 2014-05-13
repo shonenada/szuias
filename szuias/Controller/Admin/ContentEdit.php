@@ -42,7 +42,6 @@ class ContentEdit extends AdminBase {
         $menu = $article->menu;
         $category = CategoryModel::find(self::$request->post('category_id'));
         $data = array(
-            'content' => self::$request->post('content'),
             'menu' => $menu,
             'category' => $category,
             'editor' => \GlobalEnv::get('user'),
