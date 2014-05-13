@@ -13,7 +13,6 @@ namespace Model;
  * @Table(name="article_content")
  *
  * @property integer   $id
- * @property integer   $lang_id          语言
  * @property integer   $target_id     目标 id
  * @property string    $title         标题
  * @property text      $content       内容
@@ -28,11 +27,6 @@ class ArticleContent extends ModelBase {
      * @GeneratedValue
      **/
     public $id;
-
-    /**
-     * @Column(name="lang_id", type="integer")
-     **/
-    public $lang_id;
 
     /**
      * @OneToOne(targetEntity="Lang")
@@ -55,5 +49,9 @@ class ArticleContent extends ModelBase {
      * @Column(name="content", type="text")
      **/
     public $content;
+
+    public function is_code($code) {
+        return $this->lang->code == $code;
+    }
 
 }

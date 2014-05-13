@@ -165,9 +165,9 @@ class Article extends ModelBase {
     }
 
     public function getDefaultTitle() {
-        $default_id = \GlobalEnv::get('translation.default.id');
+        $default = \GlobalEnv::get('translation.default');
         foreach ($this->translations as $tra) {
-            if ($tra->lang_id == $default_id) {
+            if ($tra->lang == $default) {
                return $tra->title;
             }
         }
@@ -176,14 +176,14 @@ class Article extends ModelBase {
 
     public function getTitle(){
         $default_translation = null;
-        $default_id = \GlobalEnv::get('translation.default.id');
+        $default = \GlobalEnv::get('translation.default');
         $lang_code = \GlobalEnv::get('app')->getCookie('lang');
         $lang = Lang::get_by_code($lang_code);
         foreach ($this->translations as $tra) {
-            if ($tra->lang_id == $default_id) {
+            if ($tra->lang == $default) {
                 $default_translation = $tra;
             }
-            if ($tra->lang_id == $lang->id) {
+            if ($tra->lang == $lang && !empty($tra->title)) {
                 return $tra->title;
             }
         }
@@ -191,9 +191,9 @@ class Article extends ModelBase {
     }
 
     public function getDefaultContent() {
-        $default_id = \GlobalEnv::get('translation.default.id');
+        $default = \GlobalEnv::get('translation.default');
         foreach ($this->translations as $tra) {
-            if ($tra->lang_id == $default_id) {
+            if ($tra->lang == $default) {
                return $tra->content;
             }
         }
@@ -202,18 +202,34 @@ class Article extends ModelBase {
 
     public function getContent(){
         $default_translation = null;
-        $default_id = \GlobalEnv::get('translation.default.id');
+        $default = \GlobalEnv::get('translation.default');
         $lang_code = \GlobalEnv::get('app')->getCookie('lang');
         $lang = Lang::get_by_code($lang_code);
         foreach ($this->translations as $tra) {
-            if ($tra->lang_id == $default_id) {
+            if ($tra->lang == $default) {
                 $default_translation = $tra;
             }
-            if ($tra->lang_id == $lang->id) {
+            if ($tra->lang == $lang && !empty($tra->content)) {
                 return $tra->content;
             }
         }
         return $default_translation->content;
+    }
+
+    public function translate($code) {
+        foreach($this->translations as $tras) {
+            if ($tras->is_code($code)) {
+                return $tras;
+            }
+        }
+        $lang = Lang::get_by_code($code);
+        $tras = new ArticleContent();
+        $tras->lang = $lang;
+        $tras->target = $this;
+        $tras->title = '';
+        $tras->content = '';
+        $tras->save();
+        return $tras;
     }
 
     static public function get_list_by_top_menu($size, $top_menu_id, $order_by=array(array('id', 'ASC'))) {
