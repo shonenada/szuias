@@ -454,6 +454,11 @@ a:focus {
 	font-family: verdana, "宋体", sans-serif;
 	background: none left bottom no-repeat;
 }
+.lang-en li a {
+	font-size: 14px;
+	padding: 0 5px;
+	margin: 0 2px;
+}
 
 .nav-main li.parent > a:after {
 	content: '\00a0\f107';
