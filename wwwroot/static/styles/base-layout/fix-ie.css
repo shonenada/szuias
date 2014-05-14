@@ -1,0 +1,7 @@
+.ie .lang-en li a {
+	font-size: 13px;
+}
+
+.ie .lang-zh li a {
+	font-size: 15px;
+}

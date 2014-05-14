@@ -9,6 +9,9 @@
 <link rel="stylesheet" id="basis-style-css" href="{{ siteUrl('static/styles/base-layout/style.css') }}" type="text/css" media="all" />
 <script type="text/javascript" src="{{ siteUrl('static/components/jquery/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/jquery.KinSlideshow-1.2.1.min.js') }}"></script>
+<!--[if IE]> 
+<link rel="stylesheet" href="{{ siteUrl('static/styles/base-layout/fix-ie.css') }}" type="text/css" media="all" />
+<![endif]-->
 <script>
 function translation(code, next) {
   base_url = '{{ siteUrl("/lang") }}';
@@ -20,12 +23,7 @@ function translation(code, next) {
 </head>
 
 <body class="{% if home %}home {%endif %}page page-id-17 page-template-default">
-<!--[if lte IE 9]> <div class="ie9-"> <![endif]-->
-<!--[if IE 9]> <div class="ie9"> <![endif]-->
-<!--[if lte IE 8]> <div class="ie8-"> <![endif]-->
-<!--[if IE 8]> <div class="ie8"> <![endif]-->
-<!--[if lte IE 7]> <div class="ie7-"> <![endif]-->
-<!--[if IE 7]> <div class="ie7"> <![endif]-->
+<!--[if IE]> <div class="ie"> <![endif]-->
 <div class="body-overlay">
 <div id="page" class="hfeed site">
   <div id="masthead" class="site-header" role="banner">
@@ -135,12 +133,7 @@ $(function () {
 });
 
 </script>
-<!--[if lte IE 9]> </div> <![endif]-->
-<!--[if IE 9]> </div> <![endif]-->
-<!--[if lte IE 8]> </div> <![endif]-->
-<!--[if IE 8]> </div> <![endif]-->
-<!--[if lte IE 7]> </div> <![endif]-->
-<!--[if IE 7]> </div> <![endif]-->
+<!--[if IE]> </div> <![endif]-->
 </body>
 </html>
 <!-- execute time: {{ exec_time(2) }} (ms) -->
