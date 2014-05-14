@@ -90,17 +90,26 @@ function translation(code, next) {
 
     <div class="link">
       <div>
-        {{ trans('Useful links') }}：<br />
-        <a href="http://www.szu.edu.cn/">{{ trans('Shenzhen University') }}</a>
-        <a href="http://job.szu.edu.cn/">深圳大学就业指导中心</a>
+        <h3>{{ trans('Useful links') }}：</h3><br />
+        <p>
+          <a href="http://www.szu.edu.cn/">{{ trans('Shenzhen University') }}</a>
+          <br />
+          <a href="http://job.szu.edu.cn/">{{ trans('SZU Career Development Center') }}</a>
+        </p>
       </div>
 
     </div>
     
     <div class="copyright">
-      {{ trans('CopyRight') }} &copy; {{ trans('Institute for Advanced Study, Shenzhen University.') }}<br />
-      {{ trans('Address') }}：{{ trans('Dean’s Office of the Institute for Advanced Study, Rm. 313, Administration Building，Shenzhen University, Nanshan District，Shenzhen, Guangdong, China 518060') }}<br />
+    <p>
+      {{ trans('CopyRight') }} &copy; {{ trans('Institute for Advanced Study, Shenzhen University.') }}
+    </p>
+    <p>
+      {{ trans('Address') }}：{{ trans('Institute for Advanced Study, Shenzhen University,Nanshan DistrictShenzhen,Guangdong,China 518060') }}
+    </p>
+    <p>
       {{ trans('Tel') }}：0755-26001352
+    </p>
     </div>
     
   </div> <!-- .site-footer -->
