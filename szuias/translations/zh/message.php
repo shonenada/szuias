@@ -18,5 +18,9 @@ return array(
     'Tel' => '联系电话',
     'Post Code' => '邮编',
     'Shenzhen University' => '深圳大学',
-    'Dean’s Office of the Institute for Advanced Study, Rm. 313, Administration Building，Shenzhen University, Nanshan District，Shenzhen, Guangdong, China 518060' => '深圳市南山区南海大道 3688 号办公楼 313 深圳大学高等研究院院长办公室',
+    'Author' => '作者',
+    'Post Date' => '发布日期',
+    'Counts' => '浏览数',
+    'Edit' => '编辑',
+    'Dean’s Office of the Institute for Advanced Study, Rm. 313, Administration Building，Shenzhen University, Nanshan District，Shenzhen, Guangdong, China 518060' => '深圳市南山区南海大道 3688 号办公楼 313 深圳大学高等研究院院长办公室 518060',
 );
