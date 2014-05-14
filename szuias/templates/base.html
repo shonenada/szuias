@@ -28,7 +28,7 @@ function translation(code, next) {
 <!--[if IE 7]> <div class="ie7"> <![endif]-->
 <div class="body-overlay">
 <div id="page" class="hfeed site">
-  <header id="masthead" class="site-header" role="banner">
+  <div id="masthead" class="site-header" role="banner">
  
     <span style="float: right; font-size: 14px; margin-right:20px;line-height:30px;margin-top:20px;text-align:right;">
       <form action="{{ siteUrl('/search') }}" method="post"/>
@@ -69,7 +69,7 @@ function translation(code, next) {
       </ul>
 
     </nav><!-- #site-navigation -->
-  </header><!-- #masthead -->
+  </div><!-- #masthead -->
 
   <div id="content" class="site-content">
   {% block content %}
@@ -78,7 +78,7 @@ function translation(code, next) {
 </div> <!-- .site -->
 
 <div class="container-site-footer">
-  <footer class="site-footer">
+  <div class="site-footer">
 
     <div class="nav-footer">  
       <ul>
@@ -105,7 +105,7 @@ function translation(code, next) {
       {{ trans('Tel') }}：0755-26001352
     </div>
     
-  </footer> <!-- .site-footer -->
+  </div> <!-- .site-footer -->
 </div> <!-- .container-site-footer -->
 
 </div> <!-- .body-overlay -->
