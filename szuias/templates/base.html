@@ -93,7 +93,7 @@ function translation(code, next) {
 
     <div class="link">
       <div>
-        友情链接：<br />
+        {{ trans('Links') }}：<br />
         <a href="http://www.szu.edu.cn/">深圳大学</a>
         <a href="http://job.szu.edu.cn/">深圳大学就业指导中心</a>
         <a href="http://csse.szu.edu.cn/">深圳大学计算机与软件学院</a>
@@ -102,9 +102,9 @@ function translation(code, next) {
     </div>
     
     <div class="copyright">
-      版权所有 &copy; 深圳大学高等研究院<br />
-      地址：深圳市南山区南海大道 3688 号办公楼 313 深圳大学高等研究院院长办公室<br />
-      联系电话：0755-26001352 <span style="margin-left: 30px">邮编：518060</span>
+      {{ trans('CopyRight') }} &copy; {{ trans('Institute for Advanced Study, Shenzhen University.') }}<br />
+      {{ trans('Location') }}：深圳市南山区南海大道 3688 号办公楼 313 深圳大学高等研究院院长办公室<br />
+      {{ trans('Contact') }}：0755-26001352 <span style="margin-left: 30px">{{ trans('Post Code') }}：518060</span>
     </div>
     
   </footer> <!-- .site-footer -->

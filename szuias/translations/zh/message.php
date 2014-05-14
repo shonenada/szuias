@@ -12,4 +12,10 @@ return array(
     'Hiring' => '求职招聘',
     'Contact' => '联系我们',
     'Backend' => '进入后台',
+    'Links' => '友情链接',
+    'CopyRight' => '版权所有',
+    'Institute for Advanced Study, Shenzhen University.' => '深圳大学高等研究院',
+    'Location' => '地址',
+    'Contact' => '联系电话',
+    'Post Code' => '邮编',
 );
