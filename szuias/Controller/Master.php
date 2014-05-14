@@ -22,8 +22,8 @@ class Master extends Base {
         $working = Article::get_list_by_top_menu(7, 17, array(array('sort', 'ASC')));
         $slider = File::get_top();
         $teacher = Article::get_random_by_mids(array(14, 15));
-        $teacher_img = Utils::get_teacher_img($teacher->content);
-        $teacher_intro = Utils::remove_html($teacher->content);
+        $teacher_img = Utils::get_teacher_img($teacher->getContent());
+        $teacher_intro = Utils::remove_html($teacher->getContent());
         unset($teacher);
         return self::render("index.html", get_defined_vars());
     }
