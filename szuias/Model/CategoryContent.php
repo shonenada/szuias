@@ -13,7 +13,6 @@ namespace Model;
  * @Table(name="category_content")
  *
  * @property integer   $id
- * @property integer   $lang_id          语言
  * @property inteegr   $target_id     目标 id
  * @property string    $title         标题
  *
@@ -27,11 +26,6 @@ class CategoryContent extends ModelBase {
      * @GeneratedValue
      **/
     public $id;
-
-    /**
-     * @Column(name="lang_id", type="integer")
-     **/
-    public $lang_id;
 
     /**
      * @OneToOne(targetEntity="Lang")

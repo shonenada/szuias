@@ -80,9 +80,9 @@ class Category extends ModelBase {
     }
 
     public function getDefaultTitle() {
-        $default_id = \GlobalEnv::get('translation.default.id');
+        $default = \GlobalEnv::get('translation.default');
         foreach ($this->translations as $tra) {
-            if ($tra->lang_id == $default_id) {
+            if ($tra->lang == $default) {
                return $tra->title;
             }
         }
@@ -91,14 +91,14 @@ class Category extends ModelBase {
 
     public function getTitle(){
         $default_translation = null;
-        $default_id = \GlobalEnv::get('translation.default.id');
-        $lang_code = \GlobalEnv::get('app')->getCookie('lang');
+        $default = \GlobalEnv::get('translation.default');
+        $lang_code = \GlobalEnv::get('app')->getCookie('lang.code');
         $lang = Lang::get_by_code($lang_code);
         foreach ($this->translations as $tra) {
-            if ($tra->lang_id == $default_id) {
+            if ($tra->lang == $default && !empty($tra->title)) {
                 $default_translation = $tra;
             }
-            if ($tra->lang_id == $lang->id) {
+            if ($tra->lang == $lang) {
                 return $tra->title;
             }
         }

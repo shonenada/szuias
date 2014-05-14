@@ -7,6 +7,7 @@
  */
 
 use \Utils;
+use \Model\Lang;
 
 // 加载扩展函数
 require_once(APPROOT . "extensions.php");
@@ -97,6 +98,11 @@ function create_app ($config_files=array()) {
 
     // 安装中间件
     setup_middleware($app);
+
+    $tran = Lang::get_by_code($app->config('translation.default.code'));
+    \GlobalEnv::set('translation.default', $tran);
+    \GlobalEnv::set('translation.default.id', $tran->id);
+    \GlobalEnv::set('translation.default.code', $tran->code);
 
     // 注册控制
     global $controllers;
