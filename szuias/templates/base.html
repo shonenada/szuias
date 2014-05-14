@@ -82,29 +82,27 @@ function translation(code, next) {
 
     <div class="nav-footer">  
       <ul>
-        <li><a href="{{ siteUrl('article/494') }}">{{ trans('Introduce to Institute') }}</a></li>
-        <li><a href="{{ siteUrl('article/495') }}">{{ trans('Institution') }}</a></li>
-        <li><a href="{{ siteUrl('article/501') }}">{{ trans('Contact') }}</a></li>
+        <li><a href="{{ siteUrl('article/494') }}">{{ trans('About us') }}</a></li>
+        <li><a href="{{ siteUrl('article/501') }}">{{ trans('Contact us') }}</a></li>
         {% if loggedUser.hasPermission('/admin', 'GET') %}
-        <li><a href="{{ siteUrl('admin') }}">{{ trans('Backend') }}</a></li>
+        <li><a href="{{ siteUrl('admin') }}">{{ trans('Admin Login') }}</a></li>
         {% endif %}
       </ul>
     </div>
 
     <div class="link">
       <div>
-        {{ trans('Links') }}：<br />
-        <a href="http://www.szu.edu.cn/">深圳大学</a>
+        {{ trans('Useful links') }}：<br />
+        <a href="http://www.szu.edu.cn/">{{ trans('Shenzhen University') }}</a>
         <a href="http://job.szu.edu.cn/">深圳大学就业指导中心</a>
-        <a href="http://csse.szu.edu.cn/">深圳大学计算机与软件学院</a>
       </div>
 
     </div>
     
     <div class="copyright">
       {{ trans('CopyRight') }} &copy; {{ trans('Institute for Advanced Study, Shenzhen University.') }}<br />
-      {{ trans('Location') }}：深圳市南山区南海大道 3688 号办公楼 313 深圳大学高等研究院院长办公室<br />
-      {{ trans('Contact') }}：0755-26001352 <span style="margin-left: 30px">{{ trans('Post Code') }}：518060</span>
+      {{ trans('Address') }}：{{ trans('Dean’s Office of the Institute for Advanced Study, Rm. 313, Administration Building，Shenzhen University, Nanshan District，Shenzhen, Guangdong, China 518060') }}<br />
+      {{ trans('Tel') }}：0755-26001352 <span style="margin-left: 30px">{{ trans('Post Code') }}：518060</span>
     </div>
     
   </footer> <!-- .site-footer -->
