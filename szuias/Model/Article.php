@@ -177,7 +177,7 @@ class Article extends ModelBase {
     public function getTitle(){
         $default_translation = null;
         $default = \GlobalEnv::get('translation.default');
-        $lang_code = \GlobalEnv::get('app')->getCookie('lang');
+        $lang_code = \GlobalEnv::get('app')->getCookie('lang.code');
         $lang = Lang::get_by_code($lang_code);
         foreach ($this->translations as $tra) {
             if ($tra->lang == $default) {
@@ -203,7 +203,7 @@ class Article extends ModelBase {
     public function getContent(){
         $default_translation = null;
         $default = \GlobalEnv::get('translation.default');
-        $lang_code = \GlobalEnv::get('app')->getCookie('lang');
+        $lang_code = \GlobalEnv::get('app')->getCookie('lang.code');
         $lang = Lang::get_by_code($lang_code);
         foreach ($this->translations as $tra) {
             if ($tra->lang == $default) {
@@ -333,13 +333,24 @@ class Article extends ModelBase {
     }
 
     static public function search_all_articles($keyword) {
-        $builder = static::em()->createQueryBuilder()->select('n')->from(get_called_class(), 'n');
-        $builder = $builder->where('n.title LIKE :keyword');
-        // $builder = $builder->orWhere('n.content LIKE :keyword');
-        $builder = $builder->orderBy('n.is_top DESC, n.created', 'DESC');  # what the hell ??
-        $builder = $builder->setParameter('keyword', '%'.$keyword.'%');
-        $query = $builder->getQuery()->setMaxResults(10)->setFirstResult(0);
-        return $query->useQueryCache(false)->getResult();
+        $contents = ArticleContent::search_all_articles($keyword);
+        $contents = array_filter($contents, function ($one) {
+            return ($one->target->is_deleted == 0) && ($one->lang->code == \GlobalEnv::get('app')->getCookie('lang.code'));
+        });
+        $return = array();
+        foreach ($contents as $content) {
+            $return[] = $content->target;
+        }
+        uasort($return, function($one, $two) {
+            if ($one == $two)
+                return 0;
+            if ($one->is_top > $two->is_top)
+                return -1;
+            else if ($one->is_top < $two->is_top)
+                return 1;
+            return ($one->created > $two->created) ? -1 : 1;
+        });
+        return $return;
     }
 
 }

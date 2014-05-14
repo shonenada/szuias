@@ -54,4 +54,14 @@ class ArticleContent extends ModelBase {
         return $this->lang->code == $code;
     }
 
+    static public function search_all_articles ($keyword) {
+        $builder = static::em()->createQueryBuilder();
+        $builder = $builder->select('n')->from(get_called_class(), 'n');
+        $builder = $builder->where('n.title LIKE :keyword');
+        $builder = $builder->setParameter('keyword', '%' . $keyword . '%');
+        $query = $builder->getQuery();
+        $query = $query->setFirstResult(0);
+        return $query->useQueryCache(false)->getResult();
+    }
+
 }
