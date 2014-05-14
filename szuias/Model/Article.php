@@ -315,9 +315,11 @@ class Article extends ModelBase {
     }
 
     static public function search($mid, $title='', $cid=null, $author_id=null, $post_form=null) {
-        $builder = static::em()->createQueryBuilder()->select('n')->from(get_called_class(), 'n')->where('n.menu_id = :mid')->setParameter('mid', $mid);
+        $builder = static::em()->createQueryBuilder();
+        $builder = $builder->select('n')->from(get_called_class(), 'n')->where('n.menu_id = :mid')->setParameter('mid', $mid);
+        $builder = $builder->leftJoin('n.translations', 'c');
         if ($title) {
-            $builder = $builder->andWhere('n.title LIKE :search_title')->setParameter('search_title', '%'.$title.'%');
+            $builder = $builder->andWhere('c.title LIKE :search_title')->setParameter('search_title', '%'.$title.'%');
         }
         if ($cid) {
             $builder = $builder->andWhere('n.category_id = :cid')->setParameter('cid', $cid);
@@ -328,7 +330,9 @@ class Article extends ModelBase {
         if ($post_form) {
             $builder = $builder->andWhere('n.created > :post')->setParameter('post', $post_form);
         }
-        $pager = new \Doctrine\ORM\Tools\Pagination\Paginator($builder->getQuery());
+        $query = $builder->getQuery();
+        echo $query->getDql();
+        $pager = new \Doctrine\ORM\Tools\Pagination\Paginator($query);
         return $pager;
     }
 
