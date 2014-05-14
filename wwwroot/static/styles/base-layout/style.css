@@ -425,7 +425,7 @@ a:focus {
 .logo a {
 	display: block;
 	background: url('/static/images/base-layout/logo.png');
-	width: 345px;
+	width: 330px;
 	height: 52px;
 	text-indent: -9999px;
 }
@@ -442,24 +442,21 @@ a:focus {
 .nav-main li {
 	position: relative;
 	float: left;
-	margin: 0;
+	margin: 0 5px;
 }
 .nav-main li a {
 	display: block;
 	padding: 0 10px;
-	margin: 0 5px;
 	height: 38px;
 	color: #576681;
-	font-size: 16px;
+	font-size: 15px;
 	font-family: verdana, "宋体", sans-serif;
 	background: none left bottom no-repeat;
 }
 .lang-en li a {
-	font-size: 14px;
-	padding: 0 5px;
-	margin: 0 2px;
+	font-size: 13px;
+	padding: 0 4px;
 }
-
 .nav-main li.parent > a:after {
 	content: '\00a0\f107';
 	color: #576681;
@@ -691,6 +688,7 @@ article.hentry + article.hentry:before {
 }
 
 .site-footer .link {
+    line-height: 1.2em;
 	padding: 25px 0 0;
 	margin-right: 14px;
 	float: right;
@@ -713,6 +711,8 @@ article.hentry + article.hentry:before {
 	clear: left;
 	color: #848d92;
 	font-size: .71em;
+    width: 500px;
+    line-height: 1.6em;
 }
 .banner {
 	position: relative;
@@ -1060,8 +1060,8 @@ article.hentry + article.hentry:before {
 }
 
 .sidebar-nav li:hover{
-	color: #fff;
-	background: #d7e0e5;
+	color: #000;
+	background: #F7F7F7;
 }
 
 .ellipsis {
