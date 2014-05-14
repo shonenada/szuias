@@ -9,6 +9,14 @@
 <link rel="stylesheet" id="basis-style-css" href="{{ siteUrl('static/styles/base-layout/style.css') }}" type="text/css" media="all" />
 <script type="text/javascript" src="{{ siteUrl('static/components/jquery/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/jquery.KinSlideshow-1.2.1.min.js') }}"></script>
+<script>
+function translation(code, next) {
+  base_url = '{{ siteUrl("/lang") }}';
+  if (typeof next == 'undefined')
+    next = '/';
+  location.href = base_url + '?lang=' + code + '&next=' + next;
+}
+</script>
 </head>
 
 <body class="{% if home %}home {%endif %}page page-id-17 page-template-default">
@@ -24,7 +32,7 @@
  
     <span style="float: right; font-size: 14px; margin-right:20px;line-height:30px;margin-top:20px;text-align:right;">
       <form action="{{ siteUrl('/search') }}" method="post"/>
-        {% if lang == 'en' %}<a href="{{ siteUrl('/lang?lang=zh') }}">中文</a>{% else %}<a href="{{ siteUrl('/lang?lang=en') }}">English</a>{% endif %}<br />
+        {% if lang == 'en' %}<a href="javascript:void()" onclick="translation('zh', location.pathname);">中文</a>{% else %}<a href="javascript:void()" onclick="translation('en', location.pathname);">English</a>{% endif %}<br />
         <input type="text" value="" name="keyword" placeholder="{{ trans('Search') }}" />
       </form>
     </span>
