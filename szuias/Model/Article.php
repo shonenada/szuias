@@ -331,30 +331,21 @@ class Article extends ModelBase {
             $builder = $builder->andWhere('n.created > :post')->setParameter('post', $post_form);
         }
         $query = $builder->getQuery();
-        echo $query->getDql();
         $pager = new \Doctrine\ORM\Tools\Pagination\Paginator($query);
         return $pager;
     }
 
     static public function search_all_articles($keyword) {
-        $contents = ArticleContent::search_all_articles($keyword);
-        $contents = array_filter($contents, function ($one) {
-            return ($one->target->is_deleted == 0) && ($one->lang->code == \GlobalEnv::get('app')->getCookie('lang.code'));
-        });
-        $return = array();
-        foreach ($contents as $content) {
-            $return[] = $content->target;
-        }
-        uasort($return, function($one, $two) {
-            if ($one == $two)
-                return 0;
-            if ($one->is_top > $two->is_top)
-                return -1;
-            else if ($one->is_top < $two->is_top)
-                return 1;
-            return ($one->created > $two->created) ? -1 : 1;
-        });
-        return $return;
+        $builder = static::em()->createQueryBuilder()->select('n')->from(get_called_class(), 'n');
+        $builder = $builder->leftJoin('n.translations', 'c');
+        $builder = $builder->leftJoin('c.lang', 'l');
+        $builder = $builder->where('c.title LIKE :keyword');
+        $builder = $builder->andWhere('l.code = :lang_code');
+        $builder = $builder->orderBy('n.is_top DESC, n.created', 'DESC');  # what the hell ??
+        $builder = $builder->setParameter('keyword', '%'.$keyword.'%');
+        $builder = $builder->setParameter('lang_code', \GlobalEnv::get('app')->getCookie('lang.code'));
+        $query = $builder->getQuery()->setFirstResult(0);
+        return $query->useQueryCache(false)->getResult();
     }
 
 }
