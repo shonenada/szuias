@@ -507,7 +507,7 @@ a:focus {
 	font-size: .71em;
 	line-height: 1.2em;
 	font-family: 'Montserrat', sans-serif;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 }
 .nav-main li li:first-child a {
 	border-top: 0;
@@ -557,7 +557,7 @@ a:focus {
 	line-height: 1em;
 	font-family: 'Montserrat', sans-serif;
 	letter-spacing: .5px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 }
 .ie8- .nav-siblings li a {
 	padding-left: 10px;
@@ -614,7 +614,7 @@ article.hentry + article.hentry:before {
 	color: #576681;
 	font-size: .76em;
 	font-family: 'Montserrat', sans-serif;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	letter-spacing: .25px;
 }
 .nav-audience li a:after {
@@ -661,7 +661,7 @@ article.hentry + article.hentry:before {
 	font-size: 14px;
 	font-family: 'Montserrat', sans-serif;
 	letter-spacing: .5px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 }
 .nav-footer li a:hover {
 	color: #576681;
@@ -693,7 +693,7 @@ article.hentry + article.hentry:before {
 	color: #78909c;
 	font-size: .82em;
 	font-family: 'Montserrat', sans-serif;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	letter-spacing: .5px;
 }
 
@@ -845,7 +845,7 @@ article.hentry + article.hentry:before {
 	font-size: 1.18em;
 	font-weight: 700;
 	font-family: 'Roboto Condensed', sans-serif;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	letter-spacing: 1px;
 	text-shadow: 1px 1px 3px rgba( 43, 72, 85, .5);
 }
@@ -897,7 +897,7 @@ article.hentry + article.hentry:before {
 	font-size: 1.18em;
 	font-weight: 700;
 	font-family: 'Roboto Condensed', sans-serif;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	letter-spacing: 1px;
 }
 .index-info h4:before {
@@ -913,7 +913,7 @@ article.hentry + article.hentry:before {
 	font-size: .71em;
 	line-height: 1em;
 	font-family: 'Montserrat', sans-serif;
-	text-transform: uppercase;	
+	/*text-transform: uppercase;	*/
 }
 .index-info .link-more:before {
 	content: '+ ';
@@ -947,7 +947,7 @@ article.hentry + article.hentry:before {
 	font-weight: 700;
 	font-family: 'Montserrat', sans-serif;
 	letter-spacing: .5px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 }
 
 .index-student-work > div {
