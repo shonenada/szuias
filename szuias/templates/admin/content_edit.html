@@ -15,10 +15,10 @@
       {% for menu in admin_menus %}
       <ul>
         <li class="left-first-nav">
-        <a class="list_title"{% if menu.type in [1,2] %} href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.title }}</a>
+        <a class="list_title"{% if menu.type in [1,2] %} href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.defaultTitle }}</a>
           <ul class="left-second-nav" style="display:{% if menu.id == focus_menu.id %}block{% else %}none{% endif %};">
             {% for s in menu.subMenus %}
-            <li><a class="{% if focus_sub_menu.id == s.id %}open{% endif %}" href="{{ siteUrl('admin/content/menu/' ~ s.id ) }}">{{ s.title }}</a></li>
+            <li><a class="{% if focus_sub_menu.id == s.id %}open{% endif %}" href="{{ siteUrl('admin/content/menu/' ~ s.id ) }}">{{ s.defaultTitle }}</a></li>
             {% endfor %}
           </ul>
         </li>
@@ -29,11 +29,13 @@
 
   <div id="content_right" class="clearfix">
     <div id="content_right_top">
-      <span id="location">当前位置：内容管理&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% if focus_sub_menu %}&nbsp;&gt;&gt;&nbsp;{{ focus_sub_menu.title }}{% endif %}&nbsp;&gt;&gt;&nbsp;编辑</span>
+      <span id="location">当前位置：内容管理&nbsp;&gt;&gt;&nbsp;{{ focus_menu.defaultTitle }}{% if focus_sub_menu %}&nbsp;&gt;&gt;&nbsp;{{ focus_sub_menu.defaultTitle }}{% endif %}&nbsp;&gt;&gt;&nbsp;编辑</span>
     </div>
     <form class="add-form" method="post" action="{{ siteUrl('admin/content/' ~ article.id ~ '/edit') }}" class="">
       <div class="editor-title-div">
-        <input type="text" name="title" value="{{ article.title }}" maxlength="50" class="editor-title" onfocus="if(this.value == '请在这里输入标题') this.value='';" onblur="if(this.value == '') this.value='请在这里输入标题';" placeholder="请在这里输入标题" style="width:730px;" />
+        <input type="text" name="title" value="{{ article.defaultTitle }}" maxlength="50" class="editor-title" onfocus="if(this.value == '请在这里输入标题') this.value='';" onblur="if(this.value == '') this.value='请在这里输入标题';" placeholder="请在这里输入标题" style="width:730px;" />
+
+        <input type="text" name="title_eng" value="{{ article | lang('title', 'en') }}" maxlength="50" class="editor-title" onfocus="if(this.value == 'Title in English') this.value='';" onblur="if(this.value == '') this.value='Title in English';" placeholder="Title in English" style="width:730px;" />
       </div>
       <div class="editor-other-div clearfix">
         <div>
@@ -41,7 +43,7 @@
           <select class="search-select mt2r2" name="category_id" data-classify="{{ menu.classify }}" style="width:150px;">
             <option value="0">暂无分类</option>
             {% for ca in article.menu.categories %}
-            <option value="{{ ca.id }}"{% if ca.id == article.category.id %} selected="selected"{% endif %}>{{ ca.title }}</option>
+            <option value="{{ ca.id }}"{% if ca.id == article.category.id %} selected="selected"{% endif %}>{{ ca.defaultTitle }}</option>
             {% endfor %}
           </select>
         </div>
@@ -64,13 +66,21 @@
           <option value="1"{% if article.open_style == 1 %} selected="selected"{% endif %}>新窗口打开</option>
           </select>
         </div>
+        <div style="width:60px;margin-top:5px;text-align:center;font-size:14px;">
+          <a href="javascript:void()" id="tran-en-btn">English</a>
+          <a href="javascript:void()" id="tran-zh-btn">中文</a>
+        </div>
       </div>
-    <div>
-      <textarea id="editor_id" name="content" style="width:730px;height:500px;">{{ article.content }}</textarea>
+    <div id="editor_container">
+      <textarea id="editor_id" name="content" style="width:730px;height:500px;">{{ article | lang('content', 'zh') }}</textarea>
+    </div>
+    <div id="editor_eng_container">
+      <textarea id="editor_eng" name="content_eng" style="width:730px;height:500px;">{{ article | lang('content', 'en') }}</textarea>
     </div>
     <div class="submit-div">
       <input type="hidden" name="timestamp" value="{{ timestamp }}" />
       <input type="submit" value="提交" class="add-submit" />
+      <input type="button" value="取消" class="add-submit" onclick="javascript:history.back()" />
     </div>
     </form>
   </div>
@@ -78,12 +88,37 @@
 
 <script type="text/javascript">
 $(function(){
-  //导航栏
+
+  $("#editor_eng_container").hide();
+  $("#tran-zh-btn").hide();
+
+  $("#tran-en-btn").click(function() {
+    $(this).hide();
+    $("#tran-zh-btn").show();
+    $("#editor_container").hide()
+    $("#editor_eng_container").show()
+  });
+    $("#tran-zh-btn").click(function() {
+    $(this).hide();
+    $("#tran-en-btn").show();
+    $("#editor_eng_container").hide()
+    $("#editor_container").show()
+  });
+
+
   $('li.left-first-nav a').click(function(){
+  //导航栏
     $(this).parent().find('ul').toggle("fast");
   });
   //文本输入框
   var editor = KindEditor.create('#editor_id',{
+    width: '730px',
+    resizeType: 1,
+    uploadJson: '{{ siteUrl("file/upload?timestamp=" ~ timestamp ) }}',
+    fileManagerJson: '{{ siteUrl("file/manager") }}',
+    allowFileManager: true
+  });
+  var editor_eng = KindEditor.create('#editor_eng',{
     width: '730px',
     resizeType: 1,
     uploadJson: '{{ siteUrl("file/upload?timestamp=" ~ timestamp ) }}',

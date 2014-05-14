@@ -13,7 +13,6 @@ namespace Model;
  * @Table(name="menu")
  *
  * @property integer   $id          
- * @property string    $title         菜单标题
  * @property string    $intro         菜单介绍
  * @property integer   $type          菜单的类型  0：为节点菜单；1：为单页内容； 2：为多记录列表；3：为外部URL；
  * @property integer   $parent_id     父级菜单ID
@@ -38,9 +37,9 @@ class Menu extends ModelBase {
     public $id;
 
     /**
-     * @Column(name="title", type="string", length=40)
+     * @OneToMany(targetEntity="MenuContent", mappedBy="target")
      **/
-    public $title;
+    public $translations;
 
     /**
      * @Column(name="intro", type="string", length=255)
@@ -120,6 +119,7 @@ class Menu extends ModelBase {
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->_sub_menus = new \Doctrine\Common\Collections\ArrayCollection();
         $this->_categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function hide() {
@@ -135,6 +135,32 @@ class Menu extends ModelBase {
         $this->save();
     }
 
+    public function getDefaultTitle() {
+        $default = \GlobalEnv::get('translation.default');
+        foreach ($this->translations as $tra) {
+            if ($tra->lang == $default) {
+               return $tra->title;
+            }
+        }
+        return null;
+    }
+
+    public function getTitle() {
+        $default_translation = null;
+        $default = \GlobalEnv::get('translation.default');
+        $lang_code = \GlobalEnv::get('app')->getCookie('lang.code');
+        $lang = Lang::get_by_code($lang_code);
+        foreach ($this->translations as $tra) {
+            if ($tra->lang == $default) {
+                $default_translation = $tra;
+            }
+            if ($tra->lang == $lang && !empty($tra->title)){
+                return $tra->title;
+            }
+        }
+        return $default_translation->title;
+    }
+
     public function getArticleNums() {
         $temp = $this->articles->filter(function ($one) {
             return $one->is_deleted == 0;
@@ -146,6 +172,21 @@ class Menu extends ModelBase {
         return $this->_categories->filter(function ($one) {
             return $one->is_deleted == 0;
         });
+    }
+
+    public function translate($code) {
+        foreach($this->translations as $tras) {
+            if ($tras->is_code($code)) {
+                return $tras;
+            }
+        }
+        $lang = Lang::get_by_code($code);
+        $tras = new MenuContent();
+        $tras->lang = $lang;
+        $tras->target = $this;
+        $tras->title = '';
+        $tras->save();
+        return $tras;
     }
 
     public function is_parent() {

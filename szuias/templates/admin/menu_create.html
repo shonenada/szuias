@@ -5,7 +5,7 @@
     <div id="content_right_top">
       {% if mid %}
       {% set submit_url = siteUrl('admin/menu/' ~ menu.id ~ '/create') %}
-      <span id="location">当前位置：<a href="{{ siteUrl('admin/menu/') }}">菜单管理</a>&nbsp;&gt;&nbsp;{{ menu.title }}&nbsp;&gt;&nbsp;新增子菜单</span>
+      <span id="location">当前位置：<a href="{{ siteUrl('admin/menu/') }}">菜单管理</a>&nbsp;&gt;&nbsp;{{ menu.defaultTitle }}&nbsp;&gt;&nbsp;新增子菜单</span>
       {% else %}
       {% set submit_url = siteUrl('admin/menu/create') %}
       <span id="location">当前位置：菜单管理&nbsp;&gt;&nbsp;新增一级菜单</span>
@@ -15,13 +15,17 @@
     <div id="show_list" class="clearfix">
       <form action="{{ submit_url }}" method="post" id="submit-form">
         <table id="create_table">
-          <tr class="even">
+          <tr class="odd">
             <td>排序</td>
             <td><input type="text" name="sort" class="order" /></td>
           </tr>
-          <tr class="odd">
+          <tr class="even">
             <td>标题</td>
             <td><input type="text" name="title" value=""/></td>
+          </tr>
+          <tr class="odd">
+            <td>英文标题</td>
+            <td><input type="text" name="title_eng" value=""/></td>
           </tr>
           <tr class="even">
             <td>类型</td>

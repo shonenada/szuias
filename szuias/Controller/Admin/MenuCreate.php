@@ -3,6 +3,7 @@
 namespace Controller\Admin;
 
 use \Model\Menu as MenuModel;
+use \Model\MenuContent;
 
 class MenuCreate extends AdminBase {
 
@@ -56,6 +57,20 @@ class MenuCreate extends AdminBase {
         if ($success) {
             $new_menu = new MenuModel();
             $new_menu->populate_from_array($menu)->save();
+
+            $content = new MenuContent();
+            $content->target = $new_menu;
+            $content->lang = \GlobalEnv::get('translation.default');
+            $content->title = $menu['title'];
+            $content->save();
+
+            if (isset($menu['title_eng'])) {
+                $content_eng = new MenuContent();
+                $content_eng->target = $new_menu;
+                $content_eng->lang = \Model\Lang::get_by_code('en');
+                $content_eng->title = $menu['title_eng'];
+                $content_eng->save();
+            }
         }
 
         return json_encode(array(

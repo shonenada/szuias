@@ -13,8 +13,6 @@ namespace Model;
  * @Table(name="article")
  *
  * @property integer   $id
- * @property string    $title         标题
- * @property text      $content       内容
  * @property integer   $menu_id       菜单 ID
  * @property integer   $category_id   分类 ID
  * @property integer   $author_id     作者
@@ -41,14 +39,9 @@ class Article extends ModelBase {
     public $id;
 
     /**
-     * @Column(name="title", type="string", length=40)
+     * @OneToMany(targetEntity="ArticleContent", mappedBy="target")
      **/
-    public $title;
-
-    /**
-     * @Column(name="content", type="text")
-     **/
-    public $content;
+    public $translations;
 
     /**
      * @Column(name="menu_id", type="integer")
@@ -147,6 +140,7 @@ class Article extends ModelBase {
         $this->open_style = 0;
         $this->sort = 0;
         $this->files = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function setTop() {
@@ -168,6 +162,74 @@ class Article extends ModelBase {
     public function delete() {
         $this->is_deleted = true;
         $this->save();
+    }
+
+    public function getDefaultTitle() {
+        $default = \GlobalEnv::get('translation.default');
+        foreach ($this->translations as $tra) {
+            if ($tra->lang == $default) {
+               return $tra->title;
+            }
+        }
+        return null;
+    }
+
+    public function getTitle(){
+        $default_translation = null;
+        $default = \GlobalEnv::get('translation.default');
+        $lang_code = \GlobalEnv::get('app')->getCookie('lang.code');
+        $lang = Lang::get_by_code($lang_code);
+        foreach ($this->translations as $tra) {
+            if ($tra->lang == $default) {
+                $default_translation = $tra;
+            }
+            if ($tra->lang == $lang && !empty($tra->title)) {
+                return $tra->title;
+            }
+        }
+        return $default_translation->title;
+    }
+
+    public function getDefaultContent() {
+        $default = \GlobalEnv::get('translation.default');
+        foreach ($this->translations as $tra) {
+            if ($tra->lang == $default) {
+               return $tra->content;
+            }
+        }
+        return null;
+    }
+
+    public function getContent(){
+        $default_translation = null;
+        $default = \GlobalEnv::get('translation.default');
+        $lang_code = \GlobalEnv::get('app')->getCookie('lang.code');
+        $lang = Lang::get_by_code($lang_code);
+        foreach ($this->translations as $tra) {
+            if ($tra->lang == $default) {
+                $default_translation = $tra;
+            }
+            if ($tra->lang == $lang && !empty($tra->content)) {
+                return $tra->content;
+            }
+        }
+        return $default_translation->content;
+    }
+
+    public function translate($code) {
+        foreach($this->translations as $tras) {
+            if ($tras->is_code($code)) {
+                return $tras;
+            }
+        }
+        $lang = Lang::get_by_code($code);
+        $tras = new ArticleContent();
+        $tras->lang = $lang;
+        $tras->target = $this;
+        $tras->title = '';
+        $tras->content = '';
+        $tras->save();
+        return $tras;
     }
 
     static public function get_list_by_top_menu($size, $top_menu_id, $order_by=array(array('id', 'ASC'))) {
@@ -253,9 +315,11 @@ class Article extends ModelBase {
     }
 
     static public function search($mid, $title='', $cid=null, $author_id=null, $post_form=null) {
-        $builder = static::em()->createQueryBuilder()->select('n')->from(get_called_class(), 'n')->where('n.menu_id = :mid')->setParameter('mid', $mid);
+        $builder = static::em()->createQueryBuilder();
+        $builder = $builder->select('n')->from(get_called_class(), 'n')->where('n.menu_id = :mid')->setParameter('mid', $mid);
+        $builder = $builder->leftJoin('n.translations', 'c');
         if ($title) {
-            $builder = $builder->andWhere('n.title LIKE :search_title')->setParameter('search_title', '%'.$title.'%');
+            $builder = $builder->andWhere('c.title LIKE :search_title')->setParameter('search_title', '%'.$title.'%');
         }
         if ($cid) {
             $builder = $builder->andWhere('n.category_id = :cid')->setParameter('cid', $cid);
@@ -266,17 +330,21 @@ class Article extends ModelBase {
         if ($post_form) {
             $builder = $builder->andWhere('n.created > :post')->setParameter('post', $post_form);
         }
-        $pager = new \Doctrine\ORM\Tools\Pagination\Paginator($builder->getQuery());
+        $query = $builder->getQuery();
+        $pager = new \Doctrine\ORM\Tools\Pagination\Paginator($query);
         return $pager;
     }
 
     static public function search_all_articles($keyword) {
         $builder = static::em()->createQueryBuilder()->select('n')->from(get_called_class(), 'n');
-        $builder = $builder->where('n.title LIKE :keyword');
-        // $builder = $builder->orWhere('n.content LIKE :keyword');
+        $builder = $builder->leftJoin('n.translations', 'c');
+        $builder = $builder->leftJoin('c.lang', 'l');
+        $builder = $builder->where('c.title LIKE :keyword');
+        $builder = $builder->andWhere('l.code = :lang_code');
         $builder = $builder->orderBy('n.is_top DESC, n.created', 'DESC');  # what the hell ??
         $builder = $builder->setParameter('keyword', '%'.$keyword.'%');
-        $query = $builder->getQuery()->setMaxResults(10)->setFirstResult(0);
+        $builder = $builder->setParameter('lang_code', \GlobalEnv::get('app')->getCookie('lang.code'));
+        $query = $builder->getQuery()->setFirstResult(0);
         return $query->useQueryCache(false)->getResult();
     }
 

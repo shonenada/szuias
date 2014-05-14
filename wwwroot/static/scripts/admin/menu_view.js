@@ -76,6 +76,7 @@ $(function(){
 		form = $('#submit-form');
 		post.sort = form.find("input[name='sort']").val();
 		post.title = form.find("input[name='title']").val();
+		post.title_eng = form.find("input[name='title_eng']").val();
 		post.outside_url = form.find("input[name='outside_url']").val();
 		post.type = form.find("select[name='type']").val();
 		post.open_style = form.find("select[name='open_style']").val();
@@ -92,7 +93,6 @@ $(function(){
 		}, 'json');
 		return false;
 	});
-
 
 	//保存按钮
 	$("#save").click(function(){
@@ -125,6 +125,7 @@ $(function(){
 			menu.id = current.attr("data-id") === undefined ? null : current.attr("data-id");
 			menu.sort = current.find("input[name='sort']").val();
 			menu.title = current.find("input[name='title']").val();
+			menu.title_eng = current.find("input[name='title_eng']").val();
 			menu.outside_url = current.find("input[name='outside_url']").val();
 			menu.type = current.find("select[name='type']").val();
 			menu.open_style = current.find("select[name='open_style']").val();

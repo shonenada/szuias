@@ -114,6 +114,15 @@ class ModelBase {
         $query = static::em()->createQuery($dql)->setMaxResults(1)->setFirstResult($random_id);
         return $query->useQueryCache(false)->getOneOrNullResult();
     }
+
+    static public function all_with_deleted() {
+        $dql = sprintf(
+            'SELECT n FROM %s n',
+            get_called_class()
+        );
+        $query = static::em()->createQuery($dql);
+        return $query->useQueryCache(true)->getResult();
+    }
 }
 
 

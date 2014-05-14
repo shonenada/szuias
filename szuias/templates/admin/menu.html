@@ -13,7 +13,7 @@
       <ul>
         {% for menu in node_menus %}
         <li class="left-first-nav">
-          <a class="list_title" href="{{ siteUrl('admin/menu/' ~ menu.id) }}">{{ menu.title }}</a>
+          <a class="list_title" href="{{ siteUrl('admin/menu/' ~ menu.id) }}">{{ menu.defaultTitle }}</a>
         </li>
         {% endfor %}
       </ul>
@@ -22,7 +22,7 @@
 {% block menu_list %}
   <div id="content_right" class="clearfix">
     <div id="content_right_top">
-    <span id="location">当前位置：<a href="{{ siteUrl('admin/menu') }}">菜单管理</a>{% if mid %} &gt; {{ menu.title }}{% endif %}</span>
+    <span id="location">当前位置：<a href="{{ siteUrl('admin/menu') }}">菜单管理</a>{% if mid %} &gt; {{ menu.defaultTitle }}{% endif %}</span>
       {% if mid %}
       {% set create_url =  siteUrl('admin/menu/' ~ mid ~ '/create') %}
       {% else %}
@@ -50,7 +50,8 @@
               <input type="text" name="sort" class="order" value="{{ menu.sort }}" />
             </td>
             <td>
-              <input type="text" name="title" class="links" value="{{ menu.title }}"/>
+              <input type="text" name="title" class="links" value="{{ menu | lang('title', 'zh') }}"/>
+              <input type="text" name="title_eng" class="links" value="{{ menu | lang('title', 'en') }}" placeholder="English"/>
             </td>
             <td>
               <select name="type" class="select-type first-menu-select" title="无法直接修改菜单类型">

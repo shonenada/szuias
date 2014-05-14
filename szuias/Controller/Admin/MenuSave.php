@@ -26,6 +26,12 @@ class MenuSave extends AdminBase {
                     ));
                 }
                 $menu->populate_from_array($m)->save();
+                $zh = $menu->translate('zh');
+                $en = $menu->translate('en');
+                $zh->title = $m['title'];
+                $en->title = $m['title_eng'];
+                $zh->save();
+                $en->save();
             }
         }
         return json_encode(array('success' => true, 'info' => '保存成功!'));

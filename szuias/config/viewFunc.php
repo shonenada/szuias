@@ -15,7 +15,7 @@ $exec_time = new Twig_SimpleFunction('exec_time', function ($precision, $untilTi
 
 $trans = new Twig_SimpleFunction('trans', function ($trans_id) {
     $app = GlobalEnv::get('app');
-    $lang = $app->getCookie('lang');
+    $lang = $app->getCookie('lang.code');
     if ($lang == null) {
         $lang = 'zh';
     }

@@ -37,6 +37,11 @@ class Category extends ModelBase {
     public $title;
 
     /**
+     * @OneToMany(targetEntity="CategoryContent", mappedBy="target")
+     **/
+    public $translations;
+
+    /**
      * @ManyToOne(targetEntity="Menu", inversedBy="categories")
      * @JoinColumn(name="menu_id", referencedColumnName="id")
      **/
@@ -69,8 +74,35 @@ class Category extends ModelBase {
     public $is_deleted;
 
     public function __construct() {
-        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->is_deleted = 0;
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getDefaultTitle() {
+        $default = \GlobalEnv::get('translation.default');
+        foreach ($this->translations as $tra) {
+            if ($tra->lang == $default) {
+               return $tra->title;
+            }
+        }
+        return null;
+    }
+
+    public function getTitle(){
+        $default_translation = null;
+        $default = \GlobalEnv::get('translation.default');
+        $lang_code = \GlobalEnv::get('app')->getCookie('lang.code');
+        $lang = Lang::get_by_code($lang_code);
+        foreach ($this->translations as $tra) {
+            if ($tra->lang == $default && !empty($tra->title)) {
+                $default_translation = $tra;
+            }
+            if ($tra->lang == $lang) {
+                return $tra->title;
+            }
+        }
+        return $default_translation->title;
     }
 
     public function getCount() {

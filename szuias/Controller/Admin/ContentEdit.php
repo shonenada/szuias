@@ -5,6 +5,7 @@ namespace Controller\Admin;
 use \Model\Menu;
 use \Model\User;
 use \Model\Article;
+use \Model\ArticleContent;
 use \Model\Category as CategoryModel;
 use \Model\Permission;
 
@@ -41,8 +42,6 @@ class ContentEdit extends AdminBase {
         $menu = $article->menu;
         $category = CategoryModel::find(self::$request->post('category_id'));
         $data = array(
-            'title' => self::$request->post('title'),
-            'content' => self::$request->post('content'),
             'menu' => $menu,
             'category' => $category,
             'editor' => \GlobalEnv::get('user'),
@@ -51,6 +50,14 @@ class ContentEdit extends AdminBase {
             'edit_time' => new \DateTime('now', new \DateTimezone('Asia/Shanghai')),
         );
         $article->populate_from_array($data)->save();
+        $zh = $article->translate('zh');
+        $en = $article->translate('en');
+        $zh->title = self::$request->post('title');
+        $zh->content = self::$request->post('content');
+        $en->title = self::$request->post('title_eng');
+        $en->content = self::$request->post('content_eng');
+        $zh->save();
+        $en->save();
 
         if (empty($_SESSION['upload_buffer'])){
             $upload_buffer = array();

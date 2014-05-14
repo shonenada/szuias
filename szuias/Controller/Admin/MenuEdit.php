@@ -3,6 +3,7 @@
 namespace Controller\Admin;
 
 use \Model\Menu as MenuModel;
+use \Model\MenuContent;
 
 class MenuEdit extends AdminBase {
 
@@ -62,6 +63,12 @@ class MenuEdit extends AdminBase {
 
         if ($success) {
             $menu->populate_from_array($data)->save();
+            $zh = $menu->translate('zh');
+            $en = $menu->translate('en');
+            $zh->title = $data['title'];
+            $en->title = $data['title_eng'];
+            $zh->save();
+            $en->save();
         }
 
         return json_encode(array(
