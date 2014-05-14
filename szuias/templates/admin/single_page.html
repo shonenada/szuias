@@ -13,10 +13,10 @@
     {% for menu in menus %}
       <ul>
         <li class="left-first-nav">
-          <a class="list_title" {% if menu.type in [1,2] %}href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.title }}</a>
+          <a class="list_title" {% if menu.type in [1,2] %}href="{{ siteUrl('admin/content/menu/' ~ menu.id) }}"{% endif %}>{{ menu.defaultTitle }}</a>
           <ul class="left-second-nav" style="display:{{ menu.id == top_menu.id ? 'block' : 'none' }};">
             {% for s in menu.subMenus %}
-            <li><a class="{% if focus_menu.id == s.id %}open{% endif %}" href="{{ siteUrl('admin/content/menu/' ~ s.id ) }}">{{ s.title }}</a></li>
+            <li><a class="{% if focus_menu.id == s.id %}open{% endif %}" href="{{ siteUrl('admin/content/menu/' ~ s.id ) }}">{{ s.defaultTitle }}</a></li>
             {% endfor %}
           </ul>
         </li>
@@ -27,7 +27,7 @@
 
 <div id="content_right" class="clearfix">
   <div id="content_right_top">
-      <span id="location">当前位置：<a href="{{ siteUrl('admin/content') }}">内容管理</a>&nbsp;&gt;&gt;&nbsp;{{ top_menu.title }}{% if not focus_menu.is_parent() %}&nbsp;&gt;&gt;&nbsp;{{ focus_menu.title }}{% endif %}</span>
+      <span id="location">当前位置：<a href="{{ siteUrl('admin/content') }}">内容管理</a>&nbsp;&gt;&gt;&nbsp;{{ top_menu.defaultTitle }}{% if not focus_menu.is_parent() %}&nbsp;&gt;&gt;&nbsp;{{ focus_menu.defaultTitle }}{% endif %}</span>
   </div>
   <div id="content_one">
     <div id="one_button_div">
@@ -41,8 +41,8 @@
     {% endif %}
     </div>
     {% if article %}
-    <div class="one-title">{{ article.title }}</div>
-    <div class="one-article">{{ article.content | raw}}</div>
+    <div class="one-title">{{ article.defaultTitle }}</div>
+    <div class="one-article">{{ article.defaultContent | raw}}</div>
     <div>
       <table class="one-table">
         <tbody>
