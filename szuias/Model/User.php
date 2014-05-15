@@ -242,6 +242,4 @@ class User extends ModelBase {
         return $users;
     }
 
-    
-
 }

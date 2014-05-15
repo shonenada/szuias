@@ -10,7 +10,7 @@ class FileManager extends \Controller\Base {
         $dir_name = trim(self::$request->get('dir'));
         $path = trim(self::$request->get('path'));
         $order = trim(self::$request->get('order'));
-        $result = \Utils::fileManager($dir_name ,$path , $order);
+        $result = \Utils\FileManager::manager($dir_name ,$path , $order);
         return json_encode($result);
     }
 

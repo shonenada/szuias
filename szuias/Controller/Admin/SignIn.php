@@ -40,7 +40,7 @@ class SignIn extends \Controller\Base {
 
         $now = new \DateTime('now', new \DateTimezone('Asia/Shanghai'));
         $ip = self::$request->getIp();
-        $token = \Utils::generateToken($ip, $now, $salt);
+        $token = \Utils\Encryption::generateToken($ip, $now, $salt);
         $user->setToken($token);
         $user->setIp($ip);
         $user->setLastLogin($now);

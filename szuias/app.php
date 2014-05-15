@@ -93,8 +93,6 @@ function createApp ($config_files=array()) {
     setupHooks($app);
     // 安装 Twig 视图引擎
     setupViews($app);
-    // 导入视图全局变量
-    setupViewGlobals($app);
 
     // 安装中间件
     setupMiddleware($app);
@@ -106,7 +104,15 @@ function createApp ($config_files=array()) {
 
     // 注册控制
     global $controllers;
-    Utils::registerControllers($app, $controllers);
+    registerControllers($app, $controllers);
 
     return $app;
+}
+
+
+// 注册控制器协助函数
+function registerControllers ($app, $controllers){
+    foreach ($controllers as $name => $path) {
+        $app->registerController($path);
+    }
 }

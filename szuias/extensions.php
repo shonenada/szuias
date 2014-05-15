@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 定义系统入口工厂函数
+ * 系统扩展
  * @author shonenada
  *
  */
@@ -22,10 +22,8 @@ function setupViews ($app) {
     $view->parserExtensions = array(
         new \Slim\Views\TwigExtension(),
     );
-
-    $twigEnv = $view->getEnvironment();
+    setupViewGlobals($app);
 }
-
 
 // 导入视图全局变量
 function setupViewGlobals ($app) {
@@ -47,12 +45,10 @@ function setupViewGlobals ($app) {
     }
 }
 
-
 // 安装中间件
 function setupMiddleware ($app) {
     $app->add(new \Slim\Middleware\SessionCookie());
 }
-
 
 // 添加视图全局变量。例如：
 // <?php addGlobalViewVariable ($app, 'webTitle', 'SzuIAS');
@@ -62,7 +58,6 @@ function addGlobalViewVariable ($app, $key, $value) {
     $twigEnv = $view->getEnvironment();
     $twigEnv->addGlobal($key, $value);
 }
-
 
 // 将 权限验证 (RBAC) 添加到 app 的钩子数字中。
 function permissionCheckHook ($app) {
@@ -95,7 +90,6 @@ function permissionCheckHook ($app) {
         }
     });
 }
-
 
 // 安装钩子。
 function setupHooks ($app) {
