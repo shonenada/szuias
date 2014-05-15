@@ -308,6 +308,8 @@ class Article extends ModelBase {
     static public function getRandombyMids($mids=array()) {
         $count = self::countByMids($mids);
         $count = array_shift($count);
+        if ($count <= 0)
+            return null;
         $random_id = mt_rand(0, $count - 1);
         $dql = sprintf('SELECT n FROM %s n WHERE n.menu_id in (%s) AND n.is_deleted = 0', get_called_class(), implode(',', $mids));
         $query = static::em()->createQuery($dql)->setMaxResults(1)->setFirstResult($random_id);
