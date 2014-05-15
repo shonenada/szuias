@@ -2,6 +2,8 @@
 
 namespace Extension;
 
+use \Util\Helper;
+
 class ViewFunction {
 
     static public $functions = null;
@@ -26,9 +28,7 @@ class ViewFunction {
         });
 
         static::$execTime = new \Twig_SimpleFunction('execTime', function ($precision, $untilTimestamp=null) {
-            $untilTimestamp = $untilTimestamp ? $untilTimestamp : time();
-            $wastage = microtime(true) - START_TIME;
-            return round($wastage*1000, 2);
+            return Helper::execTime($precision, $untilTimestamp);
         });
 
         static::$dateDifference = new \Twig_SimpleFunction('dateDifference', function ($start, $end) {
