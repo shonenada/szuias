@@ -10,41 +10,6 @@ use Model\User;
 use Model\Permission;
 use RBAC\Authentication;
 
-
-// 安装 Twig 视图引擎
-function setupViews ($app) {
-    $view = $app->view();
-    $view->setTemplatesDirectory($app->config('templates.path'));
-
-    $view_options = require_once(APPROOT. 'config/view.php');
-    $view->parserOptions = $view_options;
-
-    $view->parserExtensions = array(
-        new \Slim\Views\TwigExtension(),
-    );
-    setupViewGlobals($app);
-}
-
-// 导入视图全局变量
-function setupViewGlobals ($app) {
-    $viewEnv = $app->view()->getEnvironment();
-    
-    $globals = require_once(APPROOT . 'config/viewGlobal.php');
-    foreach ($globals as $key => $value) {
-        $viewEnv->addGlobal($key, $value);
-    }
-
-    $funcs = require_once(APPROOT . 'config/viewFunc.php');
-    foreach ($funcs as $func) {
-        $viewEnv->addFunction($func);
-    }
-
-    $filters = require_once(APPROOT . 'config/viewFilter.php');
-    foreach ($filters as $filter) {
-        $viewEnv->addFilter($filter);
-    }
-}
-
 // 安装中间件
 function setupMiddleware ($app) {
     $app->add(new \Slim\Middleware\SessionCookie());
