@@ -30,7 +30,7 @@
     <!-- 导航 -->
     <div id="nav" class="clearfix">
       <ul>
-        {% for p in loggedUser.get_permit_models() %}
+        {% for p in loggedUser.getPermitModels() %}
         <li class="first-nav">
           <a href="{{ siteUrl('/admin/' ~ p.name) }}">{{ p.title }}</a>
         </li>

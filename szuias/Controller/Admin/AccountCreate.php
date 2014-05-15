@@ -18,7 +18,7 @@ class AccountCreate extends AdminBase {
         if ($passwd != $repasswd) {
             return json_encode(array('success' => false, 'info' => '密码与重复密码不匹配，请重新输入'));
         }
-        if (User::check_exist($username)) {
+        if (User::checkExist($username)) {
             return json_encode(array('success' => false, 'info' => '用户名已存在，请重新输入'));
         }
         $user = new User();

@@ -16,12 +16,12 @@ class ContentCreate extends AdminBase {
 
     static public function get ($menu_id) {
         if (empty($menu_id)) {
-            $focus_menu = Menu::get_first_menu();
+            $focus_menu = Menu::getFirstMenu();
         }
         else {
             $focus_menu = Menu::find($menu_id);
         }
-        if ($focus_menu->is_parent()){
+        if ($focus_menu->isParent()){
             $focus_sub_menu = $focus_menu->getFirstSubMenu();
         }
         else {
@@ -29,7 +29,7 @@ class ContentCreate extends AdminBase {
             $focus_menu = $focus_menu->parent;
         }
         $post_menu = Menu::find($menu_id);
-        $admin_menus = Menu::list_admin_menus();
+        $admin_menus = Menu::listAdminMenus();
         $timestamp = $_SESSION['add_timestamp'] = time() * 10000 + rand(0, 9999);
         return self::render('admin/content_create.html', get_defined_vars());
     }
@@ -62,7 +62,7 @@ class ContentCreate extends AdminBase {
         if (isset($open_style)) {
             $data['open_style'] = $open_style;
         }
-        $article->populate_from_array($data)->save();
+        $article->populateFromArray($data)->save();
         $zh = $article->translate('zh');
         $en = $article->translate('en');
         $zh->title = self::$request->post('title');

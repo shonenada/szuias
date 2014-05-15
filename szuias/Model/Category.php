@@ -93,7 +93,7 @@ class Category extends ModelBase {
         $default_translation = null;
         $default = \GlobalEnv::get('translation.default');
         $lang_code = \GlobalEnv::get('app')->getCookie('lang.code');
-        $lang = Lang::get_by_code($lang_code);
+        $lang = Lang::getByCode($lang_code);
         foreach ($this->translations as $tra) {
             if ($tra->lang == $default && !empty($tra->title)) {
                 $default_translation = $tra;

@@ -68,7 +68,7 @@ class File extends ModelBase {
      **/
     public $created;
 
-    static public function get_top() {
+    static public function getTop() {
         $nums = Setting::get('index_slider', 'nums');
         $source = Setting::get('index_slider', 'source');
         $fresh = Setting::get('index_slider', 'fresh_time');

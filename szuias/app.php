@@ -72,7 +72,7 @@ $controllers = array (
 );
 
 // 系统入口工厂函数
-function create_app ($config_files=array()) {
+function createApp ($config_files=array()) {
     if(!is_array($config_files))
         exit('Config ciles are not array.');
 
@@ -90,16 +90,16 @@ function create_app ($config_files=array()) {
         $app->config(require_once($cfil));
 
     // 安装钩子
-    setup_hooks($app);
+    setupHooks($app);
     // 安装 Twig 视图引擎
-    setup_views($app);
+    setupViews($app);
     // 导入视图全局变量
-    setup_view_globals($app);
+    setupViewGlobals($app);
 
     // 安装中间件
-    setup_middleware($app);
+    setupMiddleware($app);
 
-    $tran = Lang::get_by_code($app->config('translation.default.code'));
+    $tran = Lang::getByCode($app->config('translation.default.code'));
     \GlobalEnv::set('translation.default', $tran);
     \GlobalEnv::set('translation.default.id', $tran->id);
     \GlobalEnv::set('translation.default.code', $tran->code);

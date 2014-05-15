@@ -44,7 +44,7 @@ class MenuContent extends ModelBase {
      **/
     public $title;
 
-    public function is_code($code) {
+    public function isCode($code) {
         return $this->lang->code == $code;
     }
 

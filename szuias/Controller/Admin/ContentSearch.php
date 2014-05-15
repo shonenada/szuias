@@ -18,7 +18,7 @@ class ContentSearch extends AdminBase {
         $page = self::$request->get('page');
         $pagesize = self::$app->config('pagesize');
         $focus_menu = Menu::find($mid);
-        if ($focus_menu->is_parent()) {
+        if ($focus_menu->isParent()) {
             $top_menu = $focus_menu;
         }
         else {
@@ -37,7 +37,7 @@ class ContentSearch extends AdminBase {
         $artilce_pager = Article::search($mid, $title, $cid, $author_id, $post_from);
         $total = $artilce_pager->count();
         $now = new \DateTime('now', new \DateTimezone('Asia/Shanghai'));
-        $admin_menus = Menu::list_admin_menus();
+        $admin_menus = Menu::listAdminMenus();
         $categories = CategoryModel::all();
         $admin_list = User::all();
         $pager = array('current' => $page, 'nums' => ceil($total / $pagesize));

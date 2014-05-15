@@ -27,7 +27,7 @@ class ModelBase {
     }
 
     // 从 array 中赋值 property
-    public function populate_from_array($array=array()) {
+    public function populateFromArray($array=array()) {
         foreach($array as $key => $value){
             if ($key != 'id' && property_exists($this, $key)) {
                 $this->$key = $value;
@@ -100,14 +100,14 @@ class ModelBase {
         return $query->useQueryCache(false)->getResult();
     }
 
-    static public function count_all() {
+    static public function countAll() {
         $dql = sprintf('SELECT count(n) FROM %s n ', get_called_class());
         $query = static::em()->createQuery($dql);
         return $query->useQueryCache(false)->getOneOrNullResult();
     }
 
-    static public function get_random() {
-        $count = self::count_all();
+    static public function getRandom() {
+        $count = self::countAll();
         $count = array_shift($count);
         $random_id = mt_rand(0, $count - 1);
         $dql = sprintf('SELECT n FROM %s n ', get_called_class());
@@ -115,7 +115,7 @@ class ModelBase {
         return $query->useQueryCache(false)->getOneOrNullResult();
     }
 
-    static public function all_with_deleted() {
+    static public function allWithDeleted() {
         $dql = sprintf(
             'SELECT n FROM %s n',
             get_called_class()

@@ -25,7 +25,7 @@ class Utils {
         }
     }
 
-    static public function get_teacher_img ($input) {
+    static public function getTeacherImg ($input) {
         $teacher_imgs = array();
         preg_match("/<[img|IMG][^>]+src=[\'\"](?<url>[\S]+)[\'\"][^>]+>/", $input, $teacher_imgs);
         if (isset($teacher_imgs['url']))
@@ -34,12 +34,12 @@ class Utils {
             return null;
     }
 
-    static public function remove_html($input) {
+    static public function removeHTML($input) {
         $no_html = preg_replace("|<[^>]+>|", '', $input);
         return $no_html;
     }
 
-    static public function filemanager($dir_name='', $path='', $order='') {
+    static public function fileManager($dir_name='', $path='', $order='') {
         $root_path = dirname($_SERVER['SCRIPT_FILENAME']) . '/uploads/';
         $root_path = realpath($root_path) . '/';
         $root_url = substr($_SERVER['SCRIPT_NAME'], 0, -9) . 'uploads/';
@@ -111,7 +111,7 @@ class Utils {
         }
         
         //排序
-        function cmp_func($a, $b) {
+        function cmpFunc($a, $b) {
             global $order;
             if ($a['is_dir'] && !$b['is_dir']) {
                 return -1;
@@ -133,7 +133,7 @@ class Utils {
                 }
             }
         }
-        usort($file_list, 'cmp_func');
+        usort($file_list, 'cmpFunc');
 
         $result = array();
         //相对于根目录的上一级目录
@@ -156,12 +156,12 @@ class Utils {
             return json_encode(array('error' => true, 'message' => $msg));
         }
 
-        function insert_into_database($arr) {
+        function insertIntoDatabase($arr) {
             $init = array('article_id' => 0, 'real_name' => '', 'address' => '',
                 'type' => '', 'file_size' => 0, 'uploader_id' => 0);
             $arr = array_merge($init, $arr);
             $file = new File();
-            $file->populate_from_array($arr);
+            $file->populateFromArray($arr);
 
             if (empty($_SESSION['upload_buffer'])){
                 $upload_buffer = array();
@@ -294,7 +294,7 @@ class Utils {
                 'type' => $file_ext,
                 'file_size' => floor($file_size/1024),
                 'uploader_id' => \GlobalEnv::get('user')->getId());
-            insert_into_database($arr);
+            insertIntoDatabase($arr);
             @chmod($file_path, 0644);
             $file_url = $save_url . $new_file_name;
             return array('error' => 0, 'url' => $file_url);

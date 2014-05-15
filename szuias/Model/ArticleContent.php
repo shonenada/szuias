@@ -50,11 +50,11 @@ class ArticleContent extends ModelBase {
      **/
     public $content;
 
-    public function is_code($code) {
+    public function isCode($code) {
         return $this->lang->code == $code;
     }
 
-    static public function search_all_articles ($keyword) {
+    static public function searchArticles ($keyword) {
         $builder = static::em()->createQueryBuilder();
         $builder = $builder->select('n')->from(get_called_class(), 'n');
         $builder = $builder->where('n.title LIKE :keyword');

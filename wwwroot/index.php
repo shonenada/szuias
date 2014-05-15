@@ -28,7 +28,7 @@ $configs = array(
 );
 
 // 创建 app
-$app = create_app($configs);
+$app = createApp($configs);
 
 // 运行网站
 $app->run();

@@ -12,7 +12,7 @@ use RBAC\Authentication;
 
 
 // 安装 Twig 视图引擎
-function setup_views ($app) {
+function setupViews ($app) {
     $view = $app->view();
     $view->setTemplatesDirectory($app->config('templates.path'));
 
@@ -28,7 +28,7 @@ function setup_views ($app) {
 
 
 // 导入视图全局变量
-function setup_view_globals ($app) {
+function setupViewGlobals ($app) {
     $viewEnv = $app->view()->getEnvironment();
     
     $globals = require_once(APPROOT . 'config/viewGlobal.php');
@@ -49,15 +49,15 @@ function setup_view_globals ($app) {
 
 
 // 安装中间件
-function setup_middleware ($app) {
+function setupMiddleware ($app) {
     $app->add(new \Slim\Middleware\SessionCookie());
 }
 
 
 // 添加视图全局变量。例如：
-// <?php add_global_view_variable ($app, 'webTitle', 'SzuIAS');
+// <?php addGlobalViewVariable ($app, 'webTitle', 'SzuIAS');
 // html: {{ webTitle }}
-function add_global_view_variable ($app, $key, $value) {
+function addGlobalViewVariable ($app, $key, $value) {
     $view = $app->view();
     $twigEnv = $view->getEnvironment();
     $twigEnv->addGlobal($key, $value);
@@ -65,7 +65,7 @@ function add_global_view_variable ($app, $key, $value) {
 
 
 // 将 权限验证 (RBAC) 添加到 app 的钩子数字中。
-function permission_check_hook ($app) {
+function permissionCheckHook ($app) {
     $app->hook("slim.before.router", function () use ($app){
 
         $uid = $app->getCookie("user_id");
@@ -80,7 +80,7 @@ function permission_check_hook ($app) {
             }
         }
         \GlobalEnv::set('user', $user);
-        add_global_view_variable($app, 'loggedUser', $user);
+        addGlobalViewVariable($app, 'loggedUser', $user);
     });
 
     $app->hook("slim.before.dispatch", function () use ($app){
@@ -98,6 +98,6 @@ function permission_check_hook ($app) {
 
 
 // 安装钩子。
-function setup_hooks ($app) {
-    permission_check_hook($app);
+function setupHooks ($app) {
+    permissionCheckHook($app);
 }

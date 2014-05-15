@@ -20,21 +20,21 @@ class Content extends AdminBase {
             $page = 1;
         }
 
-        $focus_menu = Menu::get_first_menu();
+        $focus_menu = Menu::getFirstMenu();
 
-        if ($focus_menu->is_parent()) {
+        if ($focus_menu->isParent()) {
             $top_menu = $focus_menu;
-            if ($top_menu->has_sub()) {
+            if ($top_menu->hasSub()) {
                 $focus_menu = $top_menu->getFirstSubMenu();
             }
         }
         else {
             $top_menu = $focus_menu->parent;
         }
-        $artilce_pager = Article::paginate_with_mid($page, $pagesize, $focus_menu->id, 'sort', true);
+        $artilce_pager = Article::paginateWithMid($page, $pagesize, $focus_menu->id, 'sort', true);
         $total = $artilce_pager->count();
         $now = new \DateTime('now', new \DateTimezone('Asia/Shanghai'));
-        $menus = Menu::list_admin_menus();
+        $menus = Menu::listAdminMenus();
         $categories = CategoryModel::all();
         $admin_list = User::all();
         $pager = array('current' => $page, 'nums' => ceil($total / $pagesize));

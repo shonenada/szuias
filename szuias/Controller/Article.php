@@ -15,11 +15,11 @@ class Article extends Base {
         if ($article->redirect_url != null) {
             return self::redirect($article->redirect_url);
         }
-        if ($article->menu->is_parent()) {
+        if ($article->menu->isParent()) {
             $top_menu = $article->menu;
         } else {
             $top_menu = $article->menu;
-            while(!$top_menu->is_parent())
+            while(!$top_menu->isParent())
                 $top_menu = $top_menu->parent;
         }
         $article->view_count += 1;
