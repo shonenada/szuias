@@ -98,7 +98,7 @@
             {% else %}
             <a href="{{ siteUrl('article/' ~ one.id) }}" target="_blank">{{ one.defaultTitle }}</a>
             {% endif %}
-            {% if date_difference(now, one.created) < 604800 %}
+            {% if dateDifference(now, one.created) < 604800 %}
             <img src="{{ siteUrl('static/images/admin/icon_new.gif' ) }}" />
             {% endif %}
           </td>

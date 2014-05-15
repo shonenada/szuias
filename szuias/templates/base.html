@@ -30,7 +30,7 @@ function translation(code, next) {
  
     <span style="float: right; font-size: 14px; margin-right:20px;line-height:30px;margin-top:20px;text-align:right;">
       <form action="{{ siteUrl('/search') }}" method="post"/>
-        {% if lang == 'en' %}<a href="javascript:void()" onclick="translation('zh', location.pathname);">中文</a>{% else %}<a href="javascript:void()" onclick="translation('en', location.pathname);">English</a>{% endif %}<br />
+        {% if langCode == 'en' %}<a href="javascript:void()" onclick="translation('zh', location.pathname);">中文</a>{% else %}<a href="javascript:void()" onclick="translation('en', location.pathname);">English</a>{% endif %}<br />
         <input type="text" value="" name="keyword" placeholder="{{ trans('Search') }}" />
       </form>
     </span>
@@ -41,7 +41,7 @@ function translation(code, next) {
 
     <nav class="nav-main lang-{{ lang }}" role="navigation">
       <ul>
-        {% for m in global_top_menus %}
+        {% for m in globalTopMenus %}
         <li class="nav-main-item{% if m.subMenus | length > 0 %} parent{% endif %}">
           {{ tools.render_menu(m) }}
           {% if m.subMenus | length > 0 %}
@@ -145,4 +145,4 @@ $(function () {
 <!--[if IE]> </div> <![endif]-->
 </body>
 </html>
-<!-- execute time: {{ exec_time(2) }} (ms) -->
+<!-- execute time: {{ execTime(2) }} (ms) -->

@@ -22,6 +22,12 @@ class View {
         static::setGlobalFilter($env);
     }
 
+    static public function addGlobalVariable ($app, $key, $value) {
+        $view = $app->view();
+        $twigEnv = $view->getEnvironment();
+        $twigEnv->addGlobal($key, $value);
+    }
+
     static private function setGlobalVariable ($env) {
         foreach (ViewVariable::$vars as $key => $value) {
             $env->addGlobal($key, $value);

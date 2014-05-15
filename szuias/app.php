@@ -9,9 +9,6 @@
 use \Utils;
 use \Model\Lang;
 
-// 加载扩展函数
-require_once(APPROOT . "extensions.php");
-
 // 导入网站配置文件
 $config = require_once(APPROOT . 'config/config.php');
 
@@ -89,13 +86,9 @@ function createApp ($config_files=array()) {
     foreach($config_files as $cfil)
         $app->config(require_once($cfil));
 
-    // 安装钩子
-    setupHooks($app);
-    // 安装 Twig 视图引擎
-    setupViews($app);
-
-    // 安装中间件
-    setupMiddleware($app);
+    \Extension\Auth::setup($app);
+    \Extension\View::setup($app);
+    \Extension\Middleware::setup($app);
 
     $tran = Lang::getByCode($app->config('translation.default.code'));
     \GlobalEnv::set('translation.default', $tran);
@@ -108,7 +101,6 @@ function createApp ($config_files=array()) {
 
     return $app;
 }
-
 
 // 注册控制器协助函数
 function registerControllers ($app, $controllers){
