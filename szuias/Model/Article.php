@@ -300,7 +300,7 @@ class Article extends ModelBase {
     }
 
     static public function get_in ($article_ids) {
-        $dql = sprintf('SELECT n FROM %s n WHERE n.id in (%s) ORDER BY n.id DESC', get_called_class(), $article_ids);
+        $dql = sprintf('SELECT n FROM %s n WHERE n.id in (%s) AND n.is_deleted = 0 ORDER BY n.id DESC', get_called_class(), $article_ids);
         $query = static::em()->createQuery($dql)->setMaxResults(10)->setFirstResult(0);
         return $query->useQueryCache(false)->getResult();
     }
