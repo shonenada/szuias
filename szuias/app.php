@@ -6,12 +6,6 @@
  *
  */
 
-use \Utils;
-use \Model\Lang;
-
-// 导入网站配置文件
-$config = require_once(APPROOT . 'config/config.php');
-
 // 加载所有控制器
 // key: 控制器名称
 // value: 控制器路径，所有控制防放置于 controllers/ 目录中。
@@ -69,9 +63,10 @@ $controllers = array (
 );
 
 // 系统入口工厂函数
-function createApp ($config_files=array()) {
-    if(!is_array($config_files))
-        exit('Config ciles are not array.');
+function createApp ($configFiles=array()) {
+
+    if(!is_array($configFiles))
+        exit('Config files are not array.');
 
     // 初始化 app
     $app = new Slimx();
@@ -79,27 +74,28 @@ function createApp ($config_files=array()) {
     \Controller\Base::setApp($app);
 
     // 载入配置
-    global $config;
+    $config = require_once(APPROOT . 'config/common.php');
     $app->config($config);
 
     // 读取用户自定义的配置
-    foreach($config_files as $cfil)
-        $app->config(require_once($cfil));
+    foreach($configFiles as $path)
+        $app->config(require_once($path));
 
     \Extension\Auth::setup($app);
     \Extension\View::setup($app);
     \Extension\Middleware::setup($app);
 
-    $tran = Lang::getByCode($app->config('translation.default.code'));
-    \GlobalEnv::set('translation.default', $tran);
-    \GlobalEnv::set('translation.default.id', $tran->id);
-    \GlobalEnv::set('translation.default.code', $tran->code);
+    $translation_code = \Model\Lang::getByCode($app->config('translation.default.code'));
+    \GlobalEnv::set('translation.default', $translation_code);
+    \GlobalEnv::set('translation.default.id', $translation_code->id);
+    \GlobalEnv::set('translation.default.code', $translation_code->code);
 
     // 注册控制
     global $controllers;
     registerControllers($app, $controllers);
 
     return $app;
+
 }
 
 // 注册控制器协助函数
