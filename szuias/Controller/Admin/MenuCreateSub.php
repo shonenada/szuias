@@ -15,7 +15,7 @@ class MenuCreateSub extends AdminBase {
         if ($menu == null) {
             return self::redirect('/admin/menu');
         }
-        $menus = MenuModel::get_top_menus($all=true);
+        $menus = MenuModel::getTopMenus($all=true);
         $node_menus = array_filter($menus, function ($one) {
             return $one->type == 0;
         });
@@ -67,7 +67,7 @@ class MenuCreateSub extends AdminBase {
 
         if ($success) {
             $new_menu = new MenuModel();
-            $new_menu->populate_from_array($data);
+            $new_menu->populateFromArray($data);
             $new_menu->parent = $menu;
             $new_menu->save();
 
@@ -80,7 +80,7 @@ class MenuCreateSub extends AdminBase {
             if (isset($data['title_eng'])) {
                 $content_eng = new MenuContent();
                 $content_eng->target = $new_menu;
-                $content_eng->lang = \Model\Lang::get_by_code('en');
+                $content_eng->lang = \Model\Lang::getByCode('en');
                 $content_eng->title = $data['title_eng'];
                 $content_eng->save();
             }

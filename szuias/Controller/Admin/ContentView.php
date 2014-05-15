@@ -28,7 +28,7 @@ class ContentView extends AdminBase {
 
         if (in_array($menu->type, array(1, 2))) {
             $focus_menu = $menu;
-            if (!$menu->is_parent()) {
+            if (!$menu->isParent()) {
                 $top_menu = $menu->parent;
             }else {
                 $top_menu = $menu;
@@ -37,7 +37,7 @@ class ContentView extends AdminBase {
             $focus_menu = $top_menu = Menu::find($mid);
         }
 
-        $artilce_pager = Article::paginate_with_mid($page, $pagesize, $focus_menu->id, 'sort', true);
+        $artilce_pager = Article::paginateWithMid($page, $pagesize, $focus_menu->id, 'sort', true);
         $total = $artilce_pager->count();
         $now = new \DateTime('now', new \DateTimezone('Asia/Shanghai'));
         $menus = array($top_menu);

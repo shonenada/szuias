@@ -149,7 +149,7 @@ class Menu extends ModelBase {
         $default_translation = null;
         $default = \GlobalEnv::get('translation.default');
         $lang_code = \GlobalEnv::get('app')->getCookie('lang.code');
-        $lang = Lang::get_by_code($lang_code);
+        $lang = Lang::getByCode($lang_code);
         foreach ($this->translations as $tra) {
             if ($tra->lang == $default) {
                 $default_translation = $tra;
@@ -176,11 +176,11 @@ class Menu extends ModelBase {
 
     public function translate($code) {
         foreach($this->translations as $tras) {
-            if ($tras->is_code($code)) {
+            if ($tras->isCode($code)) {
                 return $tras;
             }
         }
-        $lang = Lang::get_by_code($code);
+        $lang = Lang::getByCode($code);
         $tras = new MenuContent();
         $tras->lang = $lang;
         $tras->target = $this;
@@ -189,18 +189,18 @@ class Menu extends ModelBase {
         return $tras;
     }
 
-    public function is_parent() {
+    public function isParent() {
         return $this->parent == null;
     }
 
-    public function has_sub() {
+    public function hasSub() {
         $sub_menus = $this->_sub_menus->filter(function ($one) {
             return $one->is_deleted == 0;
         });
         return $sub_menus->count();
     }
 
-    public function remove_element(Menu $sub) {
+    public function removeElement(Menu $sub) {
         $this->_sub_menus->remvoeElement($sub);
     }
 
@@ -217,12 +217,12 @@ class Menu extends ModelBase {
             return $one->is_deleted == 0;
         });
         if ($sub_menus){
-            $sub_menus = self::sort_menu($sub_menus->toArray());
+            $sub_menus = self::sortMenu($sub_menus->toArray());
         }
         return $sub_menus;
     }
 
-    static public function sort_menu($menus) {
+    static public function sortMenu($menus) {
         usort($menus, function($one, $two){
             if ($one->sort == $two->sort) return 0;
             return ($one->sort > $two->sort) ? 1 : -1;
@@ -230,13 +230,13 @@ class Menu extends ModelBase {
         return $menus;
     }
 
-    static public function get_first_menu() {
+    static public function getFirstMenu() {
         $top_menu_types = array(0, 1, 2);
-        $menus = self::sort_menu(self::get_by_types($top_menu_types));
+        $menus = self::sortMenu(self::getByTypes($top_menu_types));
         return array_shift($menus);
     }
 
-    static public function get_by_types($types=array()) {
+    static public function getByTypes($types=array()) {
         $all_menus = self::all();
         $result = array_filter($all_menus, function ($one) use($types) {
             return in_array($one->type, $types);
@@ -244,9 +244,9 @@ class Menu extends ModelBase {
         return $result;
     }
 
-    static public function list_admin_menus() {
+    static public function listAdminMenus() {
         $types = array(0, 1, 2);
-        $top_menus = self::get_top_menus();
+        $top_menus = self::getTopMenus();
         $menus = array_filter($top_menus, function($one) use($types){
             if (in_array($one->type, $types)) {
                 return true;
@@ -261,12 +261,12 @@ class Menu extends ModelBase {
         return $menus;
     }
 
-    static public function get_listable_menus() {
+    static public function getListableMenus() {
         $listable_array = array(0, 2);
-        return self::get_by_types($listable_array);
+        return self::getByTypes($listable_array);
     }
 
-    static public function get_children() {
+    static public function getChildren() {
         $all_menus = self::all();
         $children = array_filter($all_menus, function($one) {
             return $one->parent != null;
@@ -274,7 +274,7 @@ class Menu extends ModelBase {
         return $children;
     }
 
-    static public function get_top_menus($all=true) {
+    static public function getTopMenus($all=true) {
         $all_menus = self::all();
         $top_menus = array_filter($all_menus, function($one) use ($all) {
             $condition = $one->parent == null;
@@ -283,7 +283,7 @@ class Menu extends ModelBase {
             }
             return $condition;
         });
-        $top_menus = self::sort_menu($top_menus);
+        $top_menus = self::sortMenu($top_menus);
         return $top_menus;
     }
 }

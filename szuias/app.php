@@ -6,15 +6,6 @@
  *
  */
 
-use \Utils;
-use \Model\Lang;
-
-// 加载扩展函数
-require_once(APPROOT . "extensions.php");
-
-// 导入网站配置文件
-$config = require_once(APPROOT . 'config/config.php');
-
 // 加载所有控制器
 // key: 控制器名称
 // value: 控制器路径，所有控制防放置于 controllers/ 目录中。
@@ -72,9 +63,10 @@ $controllers = array (
 );
 
 // 系统入口工厂函数
-function create_app ($config_files=array()) {
-    if(!is_array($config_files))
-        exit('Config ciles are not array.');
+function createApp ($configFiles=array()) {
+
+    if(!is_array($configFiles))
+        exit('Config files are not array.');
 
     // 初始化 app
     $app = new Slimx();
@@ -82,31 +74,33 @@ function create_app ($config_files=array()) {
     \Controller\Base::setApp($app);
 
     // 载入配置
-    global $config;
+    $config = require_once(APPROOT . 'config/common.php');
     $app->config($config);
 
     // 读取用户自定义的配置
-    foreach($config_files as $cfil)
-        $app->config(require_once($cfil));
+    foreach($configFiles as $path)
+        $app->config(require_once($path));
 
-    // 安装钩子
-    setup_hooks($app);
-    // 安装 Twig 视图引擎
-    setup_views($app);
-    // 导入视图全局变量
-    setup_view_globals($app);
+    \Extension\Auth::setup($app);
+    \Extension\View::setup($app);
+    \Extension\Middleware::setup($app);
 
-    // 安装中间件
-    setup_middleware($app);
-
-    $tran = Lang::get_by_code($app->config('translation.default.code'));
-    \GlobalEnv::set('translation.default', $tran);
-    \GlobalEnv::set('translation.default.id', $tran->id);
-    \GlobalEnv::set('translation.default.code', $tran->code);
+    $translation_code = \Model\Lang::getByCode($app->config('translation.default.code'));
+    \GlobalEnv::set('translation.default', $translation_code);
+    \GlobalEnv::set('translation.default.id', $translation_code->id);
+    \GlobalEnv::set('translation.default.code', $translation_code->code);
 
     // 注册控制
     global $controllers;
-    Utils::registerControllers($app, $controllers);
+    registerControllers($app, $controllers);
 
     return $app;
+
+}
+
+// 注册控制器协助函数
+function registerControllers ($app, $controllers){
+    foreach ($controllers as $name => $path) {
+        $app->registerController($path);
+    }
 }

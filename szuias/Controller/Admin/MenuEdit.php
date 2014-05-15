@@ -15,7 +15,7 @@ class MenuEdit extends AdminBase {
         if ($menu == null) {
             return self::redirect('/admin/menu');
         }
-        $menus = MenuModel::get_top_menus($all=true);
+        $menus = MenuModel::getTopMenus($all=true);
         return self::render("admin/menu_edit.html", get_defined_vars());
     }
 
@@ -62,7 +62,7 @@ class MenuEdit extends AdminBase {
         }
 
         if ($success) {
-            $menu->populate_from_array($data)->save();
+            $menu->populateFromArray($data)->save();
             $zh = $menu->translate('zh');
             $en = $menu->translate('en');
             $zh->title = $data['title'];

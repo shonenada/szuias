@@ -37,7 +37,7 @@ class Lang extends ModelBase {
      **/
     public $desc;
 
-    static public function get_by_code($code) {
+    static public function getByCode($code) {
         return self::findOneBy(array('code' => $code));
     }
 

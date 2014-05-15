@@ -25,7 +25,7 @@ class MenuSave extends AdminBase {
                         'info' => '对象不存在'
                     ));
                 }
-                $menu->populate_from_array($m)->save();
+                $menu->populateFromArray($m)->save();
                 $zh = $menu->translate('zh');
                 $en = $menu->translate('en');
                 $zh->title = $m['title'];

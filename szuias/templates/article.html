@@ -7,7 +7,7 @@
   <div class="sidebar-nav">
     <h2>{{ top_menu.title }}</h2>
     <ul>
-    {% if top_menu.has_sub() %}
+    {% if top_menu.hasSub() %}
       {% for one in top_menu.subMenus %}
         {{ tools.get_menu_link(one) }}
         {% for each in one.subMenus %}

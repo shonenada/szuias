@@ -21,7 +21,7 @@ class AccountPermissionSave extends AdminBase {
         $models = explode(",", self::$request->post('models'));
         $types = Permission::$types;
 
-        $pids = $user->permission_ids();
+        $pids = $user->getPermissionIds();
 
         $mids_to_remove = array_diff($pids['menu'], $mids);
         $models_to_remove = array_diff($pids['model'], $models);

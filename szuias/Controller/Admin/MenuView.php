@@ -14,7 +14,7 @@ class MenuView extends AdminBase {
         if ($menu == null || $menu->type != 0) {
             return self::redirect('/admin/menu');
         }
-        $all_menus = MenuModel::get_top_menus($all=true);
+        $all_menus = MenuModel::getTopMenus($all=true);
         $node_menus = array_filter($all_menus, function ($one) {
             return $one->type == 0;
         });

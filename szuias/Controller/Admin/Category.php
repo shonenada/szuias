@@ -10,7 +10,7 @@ class Category extends AdminBase {
     static public $url = '/admin/category';
 
     static public function get () {
-        $menus = Menu::get_by_types(array(2));
+        $menus = Menu::getByTypes(array(2));
         return self::render('admin/category.html', get_defined_vars());
     }
 

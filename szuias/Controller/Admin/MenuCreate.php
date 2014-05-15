@@ -10,7 +10,7 @@ class MenuCreate extends AdminBase {
     static public $url = '/admin/menu/create';
 
     static public function get () {
-        $menus = MenuModel::get_top_menus($all=true);
+        $menus = MenuModel::getTopMenus($all=true);
         $node_menus = array_filter($menus, function ($one) {
             return $one->type == 0;
         });
@@ -56,7 +56,7 @@ class MenuCreate extends AdminBase {
 
         if ($success) {
             $new_menu = new MenuModel();
-            $new_menu->populate_from_array($menu)->save();
+            $new_menu->populateFromArray($menu)->save();
 
             $content = new MenuContent();
             $content->target = $new_menu;
@@ -67,7 +67,7 @@ class MenuCreate extends AdminBase {
             if (isset($menu['title_eng'])) {
                 $content_eng = new MenuContent();
                 $content_eng->target = $new_menu;
-                $content_eng->lang = \Model\Lang::get_by_code('en');
+                $content_eng->lang = \Model\Lang::getByCode('en');
                 $content_eng->title = $menu['title_eng'];
                 $content_eng->save();
             }

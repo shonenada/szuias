@@ -178,7 +178,7 @@ class Article extends ModelBase {
         $default_translation = null;
         $default = \GlobalEnv::get('translation.default');
         $lang_code = \GlobalEnv::get('app')->getCookie('lang.code');
-        $lang = Lang::get_by_code($lang_code);
+        $lang = Lang::getByCode($lang_code);
         foreach ($this->translations as $tra) {
             if ($tra->lang == $default) {
                 $default_translation = $tra;
@@ -204,7 +204,7 @@ class Article extends ModelBase {
         $default_translation = null;
         $default = \GlobalEnv::get('translation.default');
         $lang_code = \GlobalEnv::get('app')->getCookie('lang.code');
-        $lang = Lang::get_by_code($lang_code);
+        $lang = Lang::getByCode($lang_code);
         foreach ($this->translations as $tra) {
             if ($tra->lang == $default) {
                 $default_translation = $tra;
@@ -218,11 +218,11 @@ class Article extends ModelBase {
 
     public function translate($code) {
         foreach($this->translations as $tras) {
-            if ($tras->is_code($code)) {
+            if ($tras->isCode($code)) {
                 return $tras;
             }
         }
-        $lang = Lang::get_by_code($code);
+        $lang = Lang::getByCode($code);
         $tras = new ArticleContent();
         $tras->lang = $lang;
         $tras->target = $this;
@@ -232,17 +232,17 @@ class Article extends ModelBase {
         return $tras;
     }
 
-    static public function get_list_by_top_menu($size, $top_menu_id, $order_by=array(array('id', 'ASC'))) {
+    static public function getListByTopMenu($size, $top_menu_id, $order_by=array(array('id', 'ASC'))) {
         $top_menu = Menu::find($top_menu_id);
         $records = array();
-        if ($top_menu->has_sub()) {
+        if ($top_menu->hasSub()) {
             foreach($top_menu->_sub_menus as $m) {
-                $list = self::get_list_by_menu_id(1, $size, $m->id, $order_by);
+                $list = self::getListByMenuId(1, $size, $m->id, $order_by);
                 $records = array_merge($records, $list);
             }
         }
         else {
-            $records = self::get_list_by_menu_id(1, $size, $top_menu->id, $order_by);
+            $records = self::getListByMenuId(1, $size, $top_menu->id, $order_by);
         }
         uasort($records, function($one, $two) {
             if ($one == $two)
@@ -257,7 +257,7 @@ class Article extends ModelBase {
         }
     }
 
-    static public function get_list_by_menu_id($page, $pagesize, $mid, $order_by=array(array('id', 'ASC'))) {
+    static public function getListByMenuId($page, $pagesize, $mid, $order_by=array(array('id', 'ASC'))) {
         $order_str = "";
         foreach($order_by as $o) {
             if (in_array(strtoupper($o[1]), array('ASC', 'DESC'))) {
@@ -277,7 +277,7 @@ class Article extends ModelBase {
         return $query->useQueryCache(false)->getResult();
     }
 
-    static public function paginate_with_mid($page, $pagesize, $mid, $order_by='id', $asc=true) {
+    static public function paginateWithMid($page, $pagesize, $mid, $order_by='id', $asc=true) {
         $dql = sprintf(
             'SELECT n FROM %s n '.
             'WHERE n.is_deleted = 0 AND '.
@@ -293,7 +293,7 @@ class Article extends ModelBase {
         return $pager;
     }
 
-    static public function count_by_mids ($mids=array()) {
+    static public function countByMids ($mids=array()) {
         $dql = sprintf('SELECT count(n) FROM %s n WHERE n.menu_id in (%s) AND n.is_deleted = 0', get_called_class(), implode(',', $mids));
         $query = static::em()->createQuery($dql);
         return $query->useQueryCache(false)->getOneOrNullResult();
@@ -305,8 +305,8 @@ class Article extends ModelBase {
         return $query->useQueryCache(false)->getResult();
     }
 
-    static public function get_random_by_mids ($mids=array()) {
-        $count = self::count_by_mids($mids);
+    static public function getRandombyMids($mids=array()) {
+        $count = self::countByMids($mids);
         $count = array_shift($count);
         $random_id = mt_rand(0, $count - 1);
         $dql = sprintf('SELECT n FROM %s n WHERE n.menu_id in (%s) AND n.is_deleted = 0', get_called_class(), implode(',', $mids));
@@ -335,7 +335,7 @@ class Article extends ModelBase {
         return $pager;
     }
 
-    static public function search_all_articles($keyword) {
+    static public function searchArticles($keyword) {
         $builder = static::em()->createQueryBuilder()->select('n')->from(get_called_class(), 'n');
         $builder = $builder->leftJoin('n.translations', 'c');
         $builder = $builder->leftJoin('c.lang', 'l');

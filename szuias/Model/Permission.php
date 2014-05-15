@@ -67,7 +67,7 @@ class Permission extends ModelBase {
      **/
     public $type;
 
-    static public function get_mid_by_type ($type) {
+    static public function getMidByType ($type) {
         $dql = sprintf(
             'SELECT n.mid FROM %s n '.
             'WHERE n.type = :type',
@@ -76,9 +76,9 @@ class Permission extends ModelBase {
         return $query->getResult();
     }
 
-    static public function get_by_uid($uid) {
-        $menu_permissions = self::get_mid_by_type(self::$types['menu']);
-        $model_permissions = self::get_mid_by_type(self::$types['model']);
+    static public function getByUid ($uid) {
+        $menu_permissions = self::getMidByType(self::$types['menu']);
+        $model_permissions = self::getMidByType(self::$types['model']);
 
         $menu = array();
         $model = array();
@@ -93,7 +93,7 @@ class Permission extends ModelBase {
         return array('model' => ($model), 'menu' => ($menu));
     }
 
-    static public function auth_model($mid, $user=null) {
+    static public function authModel ($mid, $user=null) {
         if ($user == null) {
             $user = \GlobalEnv::get('user');
         }
@@ -104,7 +104,7 @@ class Permission extends ModelBase {
         if ($user->isAdmin())
             return true;
 
-        $permit_mids = $user->permission_ids();
+        $permit_mids = $user->getPermissionIds();
         $permit_models = $permit_mids['model'];
         if (in_array($mid, $permit_models)) {
             return true;

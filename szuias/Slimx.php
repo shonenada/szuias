@@ -9,6 +9,10 @@
 
 class Slimx extends \Slim\Slim {
 
+    private function camel2underline($camel) {
+        return strtolower(preg_replace('/((?<=[a-z])(?=[A-Z]))/', '_', $camel));
+    }
+
     // 重写 mapRoute，适应 Routex 类。
     protected function mapRoute($args)
     {
@@ -33,7 +37,7 @@ class Slimx extends \Slim\Slim {
         else
             $url = '/' . strtolower(str_replace('.', '/', $controller));
 
-        $name = \Utils::camel2underline(str_replace('.', '_', $controller));
+        $name = $this->camel2underline(str_replace('.', '_', $controller));
 
         if (method_exists($cls, 'get'))
             $handler = $this->get($url, "$cls::_get")->name("{$name}_get");

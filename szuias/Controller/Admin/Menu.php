@@ -9,7 +9,7 @@ class Menu extends AdminBase {
     static public $url = '/admin/menu';
 
     static public function get () {
-        $menus = MenuModel::get_top_menus($all=true);
+        $menus = MenuModel::getTopMenus($all=true);
         $node_menus = array_filter($menus, function ($one) {
             return $one->type == 0;
         });

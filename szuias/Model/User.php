@@ -163,7 +163,7 @@ class User extends ModelBase {
         $this->permissions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function permission_ids() {
+    public function getPermissionIds() {
         $type_name = Permission::$type_name;
         $ids = array(
             'menu' => array(),
@@ -200,12 +200,12 @@ class User extends ModelBase {
         $this->save();
     }
 
-    public function get_permit_models() {
+    public function getPermitModels() {
         if ($this->isAdmin()) {
             $model_ids = array (0, 1, 2, 3, 4, 5, 6);
         }
         else {
-            $model_ids = $this->permission_ids()['model'];
+            $model_ids = $this->getPermissionIds()['model'];
         }
         $models = array();
         foreach ($model_ids as $id) {
@@ -230,18 +230,16 @@ class User extends ModelBase {
         }
     }
 
-    static public function check_exist($username) {
+    static public function checkExist($username) {
         return (self::findByUsername($username) != null);
     }
 
-    static public function list_no_admin() {
+    static public function listNotAdmin() {
         $users = self::all();
         $users = array_filter($users, function($one) {
             return (! $one->isAdmin());
         });
         return $users;
     }
-
-    
 
 }
