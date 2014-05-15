@@ -23,5 +23,5 @@ return array(
     'Counts' => '浏览数',
     'Edit' => '编辑',
     'SZU Career Development Center' => '深圳大学就业指导中心',
-    'Institute for Advanced Study，Shenzhen University, Nanshan District，Shenzhen, Guangdong, China 518060' => '深圳市南山区南海大道 3688 号办公楼 313 深圳大学高等研究院院长办公室 518060',
+    'Institute for Advanced Study, Shenzhen University, Nanshan District Shenzhen, Guangdong, China 518060' => '深圳市南山区南海大道 3688 号办公楼 313 深圳大学高等研究院院长办公室 518060',
 );
