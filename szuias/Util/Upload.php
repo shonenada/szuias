@@ -6,7 +6,7 @@
  *
  */
 
-namespace Utils;
+namespace Util;
 
 class Upload {
 

@@ -5,6 +5,7 @@ namespace Controller;
 use \Model\File;
 use \Model\Article;
 use \Model\Setting;
+use \Util\HTMLHelper;
 
 
 class Master extends Base {
@@ -21,10 +22,11 @@ class Master extends Base {
         $working = Article::getListByTopMenu(7, 17, array(array('sort', 'ASC')));
         $slider = File::getTop();
         $teacher = Article::getRandombyMids(array(14, 15));
-        $teacher_img = \Utils\HTMLHelper::getTeacherImg($teacher->getContent());
-        $teacher_intro = \Utils\HTMLHelper::removeHTML($teacher->getContent());
+        $teacher_img = HTMLHelper::getTeacherImg($teacher->getContent());
+        $teacher_intro = HTMLHelper::removeHTML($teacher->getContent());
         unset($teacher);
-        return self::render("index.html", get_defined_vars());
+        echo 'test';
+        // return self::render("index.html", get_defined_vars());
     }
 
 }

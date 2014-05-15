@@ -2,7 +2,6 @@
 
 namespace Controller;
 
-use \Utils;
 use \Model\Article;
 
 class Search extends Base {
