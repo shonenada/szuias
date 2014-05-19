@@ -39,7 +39,7 @@ function translation(code, next) {
       <a href="{{ siteUrl('/') }}">{{ trans('Institute for Advanced Study in Shenzhen Univeristy') }}</a>
     </div>  
 
-    <nav class="nav-main lang-{{ lang }}" role="navigation">
+    <nav class="nav-main lang-{{ langCode }}" role="navigation">
       <ul>
         {% for m in globalTopMenus %}
         <li class="nav-main-item{% if m.subMenus | length > 0 %} parent{% endif %}">
