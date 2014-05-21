@@ -5,7 +5,7 @@ namespace Extension;
 class Auth {
 
     static public function setup($app) {
-        $app->hook("slim.before.router", function () use ($app){
+        $app->hook("slim.before.dispatch", function () use ($app){
             $uid = $app->getCookie("user_id");
             $ip = $app->request->getIp();
             $token = $app->getCookie("token");
