@@ -25,7 +25,16 @@
     <div class="info">
       {% if article.author.name %}{{ trans('Author') }}: {{ article.author.name }} |{% endif %}
       {% if article.created %}{{ trans('Post Date') }}: {{ article.created | date('Y-m-d') }} | {% endif %}
-      {{ trans('Counts') }}: {{ article.view_count }}<br />
+      {{ trans('Counts') }}: {{ article.view_count }}
+      <br />
+      {% if article.prev %}
+      上一篇文章：<a href="{{ siteUrl('article/' ~ article.prev.id) }}">{{ article.prev.title }}</a>
+      {% endif %}
+      {% if article.prev and article.next %} | {% endif %}
+      {% if article.next %}
+      下一篇文章：<a href="{{ siteUrl('article/' ~ article.next.id) }}">{{ article.next.title }}</a>
+      <br />
+      {% endif %}
       {% if loggedUser.hasPermission('/admin/content/' ~ article.id ~ '/edit', 'GET') %}
        <a href="{{ siteUrl('/admin/content/' ~ article.id ~ '/edit') }}">[{{ trans('Edit') }}]</a>
       {% endif %}

@@ -24,11 +24,26 @@
     <div class="top-nav">
       <a class="current">{{ menu.title }}</a>
     </div>
-    <ul>
+    <ul class="list">
       {% for a in articles %}
       <li>{% if a.is_top %}<img src="{{ siteUrl('static/images/admin/icon_up.gif') }}" alt="置顶" title="置顶"> {% endif %}<a href="{{ a.redirect_url ? a.redirect_url : siteUrl('article/' ~ a.id) }}"{{ a.open_style == 1 ? 'target="_blank"' : '' }}>{{ a.title | ellipsis(50) }}</a> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
       {% endfor %}
     </ul>
+    <div id="pager" style="margin-top:20px; float: right; font-size: 12px; overflow: hidden;">
+      <ul class="pager-list">
+        {% if page > 1 %}
+        <li><a href="?page={{ page - 1 }}">Prev</a></li>
+        {% endif %}
+        {% for p in range(low=pageFrom, high=pageTo, step=1) %}
+        <li {% if p == page %} class="active"{% endif %}>
+          <a href="?page={{ p }}">{{ p }}</a>
+        </li>
+        {% endfor %}
+        {% if page < totalPage %}
+        <li><a href="?page={{ page + 1 }}">Next</a></li>
+        {% endif %}
+      </ul>
+    </div>
   </div>
 
 </div>

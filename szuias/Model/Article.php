@@ -232,6 +232,68 @@ class Article extends ModelBase {
         return $tras;
     }
 
+    public function getNext() {
+        $order_by = array(array('is_top', 'DESC'), array('sort', 'ASC'), array('created', 'DESC'));
+        $order_str = "";
+        foreach($order_by as $o) {
+            if (in_array(strtoupper($o[1]), array('ASC', 'DESC'))) {
+                $order_str .= sprintf('n.%s %s%s', $o[0], $o[1], $o == $order_by[count($order_by) - 1] ? '' : ', ');
+            }
+        }
+        $dql = sprintf(
+            'SELECT n FROM %s n '.
+            'WHERE n.menu_id = %s '.
+            'AND n.is_deleted = false '.
+            'AND n.is_hide = false '.
+            'ORDER BY %s',
+            get_called_class(),
+            $this->menu_id, $order_str
+        );
+        $query = static::em()->createQuery($dql);
+        $result = $query->getResult();
+        $idx = 0;
+        while ($result[$idx]->id != $this->id) {
+            $idx++;
+        }
+        if (isset($result[$idx + 1])) {
+            return $result[$idx + 1];
+        }
+        else {
+            return null;
+        }
+    }
+
+    public function getPrev() {
+        $order_by = array(array('is_top', 'DESC'), array('sort', 'ASC'), array('created', 'DESC'));
+        $order_str = "";
+        foreach($order_by as $o) {
+            if (in_array(strtoupper($o[1]), array('ASC', 'DESC'))) {
+                $order_str .= sprintf('n.%s %s%s', $o[0], $o[1], $o == $order_by[count($order_by) - 1] ? '' : ', ');
+            }
+        }
+        $dql = sprintf(
+            'SELECT n FROM %s n '.
+            'WHERE n.menu_id = %s '.
+            'AND n.is_deleted = false '.
+            'AND n.is_hide = false '.
+            'ORDER BY %s',
+            get_called_class(),
+            $this->menu_id, $order_str
+        );
+        $query = static::em()->createQuery($dql);
+        $result = $query->getResult();
+        $idx = 0;
+        while ($result[$idx]->id != $this->id) {
+            $idx++;
+        }
+        if (isset($result[$idx - 1])) {
+            return $result[$idx - 1];
+        }
+        else {
+            return null;
+        }
+    }
+
     static public function getListByTopMenu($size, $top_menu_id, $order_by=array(array('id', 'ASC'))) {
         $top_menu = Menu::find($top_menu_id);
         $records = array();

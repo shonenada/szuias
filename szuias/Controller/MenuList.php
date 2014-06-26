@@ -26,6 +26,10 @@ class MenuList extends Base {
         $page = self::$request->get('page') ? self::$request->get('page') : 1;
         $pagesize = self::$app->config('pagesize');
         $articles = Article::getListByMenuId($page, $pagesize, $mid, array(array('is_top', 'DESC'), array('sort', 'ASC'), array('created', 'DESC')));
+        $countOfArticles = Article::countByMids(array($mid));
+        $totalPage = ceil($countOfArticles[1] / $pagesize);
+        $pageFrom = $page > 3 ? $page - 2 : 1;
+        $pageTo = $totalPage < $page + 2 ? $totalPage : $page + 2;
         return self::render('list.html', get_defined_vars());
     }
 
