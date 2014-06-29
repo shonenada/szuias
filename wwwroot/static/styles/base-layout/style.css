@@ -1022,12 +1022,15 @@ article.hentry + article.hentry:before {
 	font-size: 14px;
 	text-indent: 1em;
 }
-.article-list ul li {
+.article-list ul.list li {
 	border-bottom: 1px dashed #aaa;
 }
 .article-list ul .datetime {
 	float: right;
 	margin-right: 1em;
+}
+.article-list #pager ul.pager-list li {
+	float: left;
 }
 
 .sidebar-nav {
