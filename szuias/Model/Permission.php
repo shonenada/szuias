@@ -23,7 +23,8 @@ class Permission extends ModelBase {
         'category' => array(3, '分类管理'),
         'setting' => array(4, '网站设置'),
         'profile' => array(5, '个人中心'),
-        'data' => array(6, '数据管理')
+        'data' => array(6, '数据管理'),
+        'apply' => array(7, '申请表管理'),
     );
 
     public static $models_name = array(
@@ -33,7 +34,8 @@ class Permission extends ModelBase {
         3 => 'category',
         4 => 'setting',
         5 => 'profile',
-        6 => 'data'
+        6 => 'data',
+        7 => 'apply',
     );
 
     public static $types = array('model' => 0, 'menu' => 1);

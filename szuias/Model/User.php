@@ -202,7 +202,7 @@ class User extends ModelBase {
 
     public function getPermitModels() {
         if ($this->isAdmin()) {
-            $model_ids = array (0, 1, 2, 3, 4, 5, 6);
+            $model_ids = array (0, 1, 2, 3, 4, 5, 6, 7);
         }
         else {
             $model_ids = $this->getPermissionIds()['model'];

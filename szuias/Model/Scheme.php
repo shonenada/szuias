@@ -24,7 +24,7 @@ class Scheme {
         return $output;
     }
 
-    static public function nameOfTables() {
+    static public function listTablesName() {
         $tables = SchemeManager::sm()->listTables();
         $names = array();
         foreach ($tables as $t) {
@@ -35,10 +35,10 @@ class Scheme {
 
     static public function dumpDatabase($ts=array()) {
         if (empty($ts)){
-            $tables = self::nameOfTables();
+            $tables = self::listTablesName();
         }
         else {
-            $tables = array_intersect($ts, self::nameOfTables());
+            $tables = array_intersect($ts, self::listTablesName());
         }
         self::loginDb();
         $dumpStr = "";
@@ -168,9 +168,16 @@ class Scheme {
 
     private static function loginDb(){
         $conn = SchemeManager::qb()->getConnection();
-        mysql_connect($conn->getHost(), $conn->getUsername(), $conn->getPassword()) or die("数据库连接出错！");
-        mysql_select_db($conn->getDatabase()) or die("数据库连接出错！");
-        mysql_query("SET NAMES 'UTF8'");
+        $params = $conn->getParams();
+        switch ($params['driver']) {
+            case 'pdo_mysql':
+                mysql_connect($conn->getHost(), $conn->getUsername(), $conn->getPassword()) or die("数据库连接出错！");
+                mysql_select_db($conn->getDatabase()) or die("数据库连接出错！");
+                mysql_query("SET NAMES 'UTF8'");
+                break;
+            default:
+                break;
+        }
     }
 
 }
@@ -205,6 +212,8 @@ class SchemeManager {
 
     static public $queryBuilder = null;
 
+    static public $conn = null;
+
     static public function init() {
         if (!file_exists(APPROOT . 'config/database.conf.php'))
             exit('Database config file not found!');
@@ -212,10 +221,10 @@ class SchemeManager {
         $db_params = require(APPROOT . 'config/database.conf.php');
         $config = new \Doctrine\DBAL\Configuration();
 
-        $conn = \Doctrine\DBAL\DriverManager::getConnection($db_params, $config);
+        self::$conn = \Doctrine\DBAL\DriverManager::getConnection($db_params, $config);
 
-        self::$schemeManager = $conn->getSchemaManager();
-        self::$queryBuilder = $conn->createQueryBuilder();
+        self::$schemeManager = self::$conn->getSchemaManager();
+        self::$queryBuilder = self::$conn->createQueryBuilder();
     }
 
     static public function sm() {

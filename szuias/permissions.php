@@ -24,6 +24,8 @@ return array(
     "allow" => array(
         array($everyone, "/", array('GET')),
 
+        array($everyone, "/apply", array('GET', 'POST')),
+
         array($everyone, "/lang", array('GET')),
         array($everyone, "/search", array('POST')),
         array($everyone, "/captcha", array('GET')),
@@ -76,6 +78,10 @@ return array(
         array($normal, "/admin/data", array('GET')),
         array($normal, "/admin/data/(backup|recover)", array('GET', 'POST')),
         array($normal, "/admin/data/delete", array('POST')),
+
+        array($normal, "/admin/apply", array('GET')),
+        array($normal, "/admin/apply/\d+", array('GET')),
+        array($normal, "/admin/apply/\d+/delete", array('POST')),
 
     ),
     "deny" => array(

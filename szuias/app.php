@@ -19,6 +19,7 @@ $controllers = array (
     'menu_show_app' => 'MenuShow',
     'menu_list_app' => 'MenuList',
     'article_app' => 'Article',
+    'class_apply' => 'ClassApply',
     'file_upload_app' => 'FileUpload',
     'file_manager_app' => 'FileManager',
     'admin_account_app' => 'Admin.Account',
@@ -58,6 +59,9 @@ $controllers = array (
     'admin_profile_password_app' => 'Admin.ProfilePassword',
     'admin_setting_app' => 'Admin.Setting',
     'admin_setting_save_app' => 'Admin.SettingSave',
+    'admin_application_app' => 'Admin.Application',
+    'admin_application_show_app' => 'Admin.ApplicationShow',
+    'admin_application_delete_app' => 'Admin.ApplicationDelete',
     'admin_sign_in_app' => 'Admin.SignIn',
     'admin_sign_out_app' => 'Admin.SignOut',
 );

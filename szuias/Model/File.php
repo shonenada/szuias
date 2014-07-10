@@ -92,11 +92,23 @@ class File extends ModelBase {
         else {
             $result = array();
             $menu = Menu::find($source);
-            $articles = $menu->articles;
+            $articles = $menu->articles->toArray();
+            uasort($articles, function($one, $two) {
+                if ($one->created == $two->created)
+                    return 0;
+                return ($one->created > $two->created) ? -1 : 1;
+            });
             foreach ($articles as $art) {
                 if ($art->is_deleted == 1)
                     continue;
-                $result = array_merge($result, $art->files->toArray());
+                $each = $art->files->first();
+                while ($each && !in_array($each->type, array('jpg', 'png', 'gif'))) {
+                    $each = $art->files->next();
+                }
+                if ($each == NULL) {
+                    continue;
+                }
+                array_push($result, $each);
                 if (count($result) >= $nums)
                     break;
             }

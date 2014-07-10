@@ -10,7 +10,110 @@ namespace Util;
 
 class Upload {
 
-    static public function upload($dir_name = 'image', $timestamp = 0, $size = 1000000){
+    static public function uploadApplicationPhoto($size=1024000) {
+
+        function alert($msg) {
+            return array('error' => true, 'message' => $msg);
+        }
+
+        $ext_arr = array(
+            'image' => array('gif', 'jpg', 'jpeg', 'png', 'bmp'),
+        );
+
+        $max_size = $size;
+        $save_path = dirname($_SERVER['SCRIPT_FILENAME']) . '/photos/';
+        $save_url = substr($_SERVER['SCRIPT_NAME'], 0, -9) . 'photos/';
+
+        $save_path = realpath($save_path) . '/';
+
+        if (!empty($_FILES['photo']['error'])) {
+            switch($_FILES['photo']['error']) {
+                case '1':
+                    $error = '超过php.ini允许的大小。';
+                    break;
+                case '2':
+                    $error = '超过表单允许的大小。';
+                    break;
+                case '3':
+                    $error = '图片只有部分被上传。';
+                    break;
+                case '4':
+                    $error = '请选择图片。';
+                    break;
+                case '6':
+                    $error = '找不到临时目录。';
+                    break;
+                case '7':
+                    $error = '写文件到硬盘出错。';
+                    break;
+                case '8':
+                    $error = 'File upload stopped by extension。';
+                    break;
+                case '999':
+                default:
+                    $error = '未知错误。';
+            }
+            return array('error' => 1, 'message' => $error);
+        }
+
+        if (empty($_FILES) === false) {
+            $file_name = $_FILES['photo']['name'];
+            $tmp_name = $_FILES['photo']['tmp_name'];
+            $file_size = $_FILES['photo']['size'];
+            if (!$file_name) {
+                return alert("请选择照片。");
+            }
+            if (is_dir($save_path) === false) {
+                return alert("上传目录不存在。");
+            }
+            if (is_writable($save_path) === false) {
+                return alert("上传目录没有写权限。");
+            }
+            if (is_uploaded_file($tmp_name) === false) {
+                return alert("上传失败。");
+            }
+            if ($file_size > $max_size) {
+                return alert("上传文件大小超过限制。");
+            }
+            $dir_name = 'image';
+            if (empty($ext_arr[$dir_name])) {
+                return alert("目录名不正确。");
+            }
+            $temp_arr = explode(".", $file_name);
+            $file_ext = array_pop($temp_arr);
+            $file_ext = trim($file_ext);
+            $file_ext = strtolower($file_ext);
+            if (in_array($file_ext, $ext_arr[$dir_name]) === false) {
+                return alert("只允许上传" . implode("，", $ext_arr[$dir_name]) . "格式的图片。");
+            }
+            $address = $dir_name . "/";
+            if ($dir_name !== '') {
+                $save_path .= $dir_name . "/";
+                $save_url .= $dir_name . "/";
+                if (!file_exists($save_path)) {
+                    mkdir($save_path);
+                }
+            }
+            $ym = date("Ym");
+            $address .= $ym . "/";
+            $save_path .= $ym . "/";
+            $save_url .= $ym . "/";
+            if (!file_exists($save_path)) {
+                mkdir($save_path);
+            }
+            $new_file_name = date("YmdHis") . '_' . rand(10000, 99999) . '.' . $file_ext;
+            $address .= $new_file_name;
+            $file_path = $save_path . $new_file_name;
+            if (move_uploaded_file($tmp_name, $file_path) === false) {
+                return alert("上传文件失败。");
+            }
+            @chmod($file_path, 0644);
+            $file_url = $save_url . $new_file_name;
+            return array('error' => 0, 'url' => $file_url);
+        }
+    }
+
+    static public function uploadFile($dir_name = 'image', $timestamp = 0, $size = 1000000){
 
         function alert($msg) {
             return json_encode(array('error' => true, 'message' => $msg));

@@ -1,0 +1,156 @@
+﻿﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>深圳大学高等研究院2014级“理工创新实验班”申请表</title>
+  <style>
+    body {
+      background: #ddd;
+      padding-top: 20px;
+    }
+    .container {
+      width: 800px;
+      margin: 0 auto;
+      background: #FFF;
+      padding: 10px;
+      -webkit-box-shadow: 0 0 10px rgba(0,0,0,.2);
+      -moz-box-shadow: 0 0 10px rgba(0,0,0,.2);
+      box-shadow: 0 0 10px rgba(0,0,0,.2);
+    }
+    .sign-form h2, .sign-form h4 {
+      text-align: center;
+    }
+    .sign-form form {
+    }
+    .sign-form form label {
+      display: inline-block;
+      width: 200px;
+      text-align: right;
+    }
+    .sign-form .right {
+      text-align: right;
+    }
+    input[type=text], textarea {
+      width: 350px;
+    }
+    textarea {
+      height: 100px;
+    }
+    .large {
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="sign-form">
+      <h2>深圳大学高等研究院2014级“理工创新实验班”申请表</h2>
+      <hr>
+        <h4> 基本信息 </h4>
+        <label>姓名：</label>
+        {{ one.name }}
+        <br />
+        <br />
+        <label>性别：</label>
+        {{ one.gender }}
+        <br />
+        <br />
+        <label>照片：</label>
+        <a href="{{ one.photo }}" target="_blank">照片</a>
+        <br />
+        <br />
+        <label>出生日期：</label>
+        {{ one.birthday | date('Y-m-d') }}
+        <br />
+        <br />
+        <label>身份证号：</label>
+        {{ one.identity }}
+        <br />
+        <br />
+        <label>毕业中学：</label>
+        {{ one.middle_school }}
+        <br />
+        <br />
+        <label>准考证号：</label>
+        {{ one.exam_id }}
+        <br />
+        <br />
+        <label>录取专业：</label>
+        {{ one.major }}
+        <br />
+        <br />
+        <label>学号：</label>
+        {{ one.stu_id }}
+        <br />
+        <br />
+        <label>手机号码：</label>
+        {{ one.phone }}
+        <br />
+        <br />
+        <label>Email：</label>
+        {{ one.email }}
+        <br />
+        <br />
+        <label>宿舍地址：</label>
+        {{ one.addr }}
+        <br />
+        <br />
+        <label>个人简介：</label>
+        {{ one.intro }}
+        <br />
+        <br />
+        <label>报考理由：</label>
+        {{ one.reason }}
+        <br />
+        <br />
+        <h4> 高考成绩 </h4>
+        <label>总分：</label>
+        {{ one.total }}
+        <br />
+        <br />
+        <label>语文：</label>
+        {{ one.chinese }}
+        <br />
+        <br />
+        <label>数学：</label>
+        {{ one.math }}
+        <br />
+        <br />
+        <label>英语：</label>
+        {{ one.english }}
+        <br />
+        <br />
+        <label>理综成绩：</label>
+        {{ one.science }}
+        <br />
+        <br />
+        <label>生源地：</label>
+        {{ one.student_source }}
+        <br />
+        <br />
+        <label>一本分数线：</label>
+        {{ one.score_line }}
+        <br />
+        <br />
+        <h4> 家长联系方式 </h4>
+        <label>家长姓名：</label>
+        {{ one.parent_name }}
+        <br />
+        <br />
+        <label>关系：</label>
+        {{ one.relation }}
+        <br />
+        <br />
+        <label>联系电话：</label>
+        {{ one.parent_phone }}
+        <br />
+        <br />
+        <label>通信地址：</label>
+        {{ one.parent_addr }}
+        <br />
+        <br />
+    </div>
+  </div>
+</body>
+</html>

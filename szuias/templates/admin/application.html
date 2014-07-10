@@ -1,0 +1,66 @@
+{% extends 'admin/base.html' %}
+
+{% block static %}
+<link type="text/css" href="{{ siteUrl('static/styles/admin/page/apply.css') }}" rel="stylesheet" />
+<script>
+  //删除一级菜单    
+  $(".deletefirst").live("click", function(){
+    var ele = $(this);
+    var href = ele.attr("href");
+    $.post(href, function(data){
+      //成功
+      if (data.success){
+        location.reload();
+        alert("删除成功！");
+      }
+      //失败
+      else alert(data.info);
+    }, "json"); 
+    //取消默认行为
+    return false;
+  });
+  </script>
+{% endblock %}
+
+{% block content %}
+<div id="content" class="clearfix">
+  <div id="content_right" class="clearfix">
+    <div id="content_right_top">
+      <span id="location">当前位置：<a href="{{ siteUrl('admin/apply') }}">申请表管理</a>&nbsp;&gt;&gt;&nbsp;<a href="{{ siteUrl('admin/apply') }}"> 申请列表</a></span>
+    </div>
+    <div id="show_list" class="clearfix">
+      <br />
+      <table>
+        <tr>
+          <th id="num">序号</th>
+          <th id="name">姓名</th>
+          <th id="gender">性别</th>
+          <th id="phone">联系电话</th>
+          <th id="date">申请日期</th>
+          <th id="email">Email</th>
+          <th id="qq">高考成绩</th>
+          <th id="willing">个人简介</th>
+          <th id="remark">报考原因</th>
+          <th id="edit">编辑</th>
+        </tr>
+        {% set i = 0 %}
+        {% for each in applications %}
+        {% set i = i + 1 %}
+        <tr class="{% if i % 2 == 0 %}odd{% else %}even{% endif %} one_menu" data-id="{{ each.id }}">
+          <td> {{ i }} </td>
+          <td> {{ each.name }} </td>
+          <td> {{ each.gender }} </td>
+          <td> {{ each.phone }} </td>
+          <td> {{ each.created | date('Y-m-d') }} </td>
+          <td> {{ each.email }} </td>
+          <td> <a href="javascript:void(0);" title="总分：{{ each.total }}&#10;语文：{{ each.chinese }}&#10;数学：{{ each.math }}&#10;英语：{{ each.english }}&#10;理综：{{ each.science }} ">高考成绩</a></td>
+          <td> <a href="javascript:void(0);" title="{{ each.intro }}">个人介绍</a> </td>
+          <td> <a href="javascript:void(0);" title="{{ each.reason }}">报考原因</a> </td>
+          <td> <a href="{{ siteUrl('admin/apply/' ~ each.id) }}" >显示详细</a> <a class="deletefirst" href="{{ siteUrl('admin/apply/' ~ each.id ~ '/delete') }}">删除</a> </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

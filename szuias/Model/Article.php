@@ -342,6 +342,7 @@ class Article extends ModelBase {
         $builder = $builder->leftJoin('n.translations', 'c');
         $builder = $builder->leftJoin('c.lang', 'l');
         $builder = $builder->where('c.title LIKE :keyword');
+        $builder = $builder->andWhere('n.is_deleted = 0');
         $builder = $builder->andWhere('l.code = :lang_code');
         $builder = $builder->orderBy('n.is_top DESC, n.created', 'DESC');  # what the hell ??
         $builder = $builder->setParameter('keyword', '%'.$keyword.'%');

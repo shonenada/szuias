@@ -1,0 +1,192 @@
+﻿﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>深圳大学高等研究院2014级“理工创新实验班”申请表</title>
+  <script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/jquery-1.7.2.min.js') }}" charset="utf-8"></script>
+  <script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/jquery.form.js') }}" charset="utf-8"></script>
+  <script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/DatePicker/WdatePicker.js') }}" charset="utf-8"></script>
+  <script>
+    $('#sign_form').ajaxForm({
+      dataType: 'json',
+      success: function(response) {
+        if (response.success) {
+          alert('您已经成功提交申请.');
+          document.getElementById('sign_form').reset();
+          location.href = '/';
+        }
+        else {
+          alert(response.info);
+        }
+      },
+    });
+  </script>
+  <style>
+    body {
+      background: #ddd;
+      padding-top: 20px;
+    }
+    .container {
+      width: 800px;
+      margin: 0 auto;
+      background: #FFF;
+      padding: 10px;
+      -webkit-box-shadow: 0 0 10px rgba(0,0,0,.2);
+      -moz-box-shadow: 0 0 10px rgba(0,0,0,.2);
+      box-shadow: 0 0 10px rgba(0,0,0,.2);
+    }
+    .sign-form h2, .sign-form h4 {
+      text-align: center;
+    }
+    .sign-form form {
+    }
+    .sign-form form label {
+      display: inline-block;
+      width: 200px;
+      text-align: right;
+    }
+    .sign-form .right {
+      text-align: right;
+    }
+    input[type=text], textarea {
+      width: 350px;
+    }
+    textarea {
+      height: 100px;
+    }
+    .large {
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="sign-form">
+      <h2>深圳大学高等研究院2014级“理工创新实验班”申请表</h2>
+      <hr>
+        {% if show_identity %}
+      <form method="get">
+        <label>请输入身份证号:</label>
+        <input type="text" name="identity"  /> *
+        {% else %}
+      <form method="post" id="sign_form" action="{{ siteUrl('apply') }}">
+        <h4> 基本信息 </h4>
+        <label>姓名：</label>
+        <input type="text" name="name" value="{{ application.name }}" /> *
+        <br />
+        <br />
+        <label>性别：</label> *
+        <select name="gender">
+          <option value="男">男</option>
+          <option value="女">女</option>
+        </select>
+        <br />
+        <br />
+        <label>照片：</label>
+        <input type="file" name="photo" /> *
+        <br />
+        <br />
+        <label>出生日期：</label>
+        <input type="text" name="birthday" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="{{ application.birthday | date('Y-m-d') }}" /> *
+        <br />
+        <br />
+        <label>身份证号：</label>
+        <input type="text" name="identity" value="{{ identity }}" readonly="readonly" /> *
+        <br />
+        <br />
+        <label>毕业中学：</label>
+        <input type="text" name="middle_school" value="{{ application.middle_school }}" /> *
+        <br />
+        <br />
+        <label>准考证号：</label>
+        <input type="text" name="exam_id" value="{{ application.exam_id }}" /> *
+        <br />
+        <br />
+        <label>录取专业：</label>
+        <input type="text" name="major" value="{{ application.major }}" />
+        <br />
+        <br />
+        <label>学号：</label>
+        <input type="text" name="stu_id" value="{{ application.stu_id }}" />
+        <br />
+        <br />
+        <label>手机号码：</label>
+        <input type="text" name="phone" value="{{ application.phone }}" /> *
+        <br />
+        <br />
+        <label>Email：</label>
+        <input type="text" name="email" value="{{ application.email }}"/> *
+        <br />
+        <br />
+        <label>宿舍地址：</label>
+        <input type="text" name="addr" value="{{ application.addr }}" />
+        <br />
+        <br />
+        <label>个人简介：</label>
+        <textarea name="intro">{{ application.intro }}</textarea> *
+        <br />
+        <br />
+        <label>报考理由：</label>
+        <textarea name="reason">{{ application.reason }}</textarea> *
+        <br />
+        <br />
+        <h4> 高考成绩 </h4>
+        <label>总分：</label>
+        <input type="text" name="total" value="{{ application.total }}" /> *
+        <br />
+        <br />
+        <label>语文：</label>
+        <input type="text" name="chinese" value="{{ application.chinese }}" /> *
+        <br />
+        <br />
+        <label>数学：</label>
+        <input type="text" name="math" value="{{ application.math }}" /> *
+        <br />
+        <br />
+        <label>英语：</label>
+        <input type="text" name="english" value="{{ application.english }}" /> *
+        <br />
+        <br />
+        <label>理综：</label>
+        <input type="text" name="science" value="{{ application.science }}" /> *
+        <br />
+        <br />
+        <label>生源地：</label>
+        <input type="text" name="source" value="{{ application.student_source }}" /> *
+        <br />
+        <br />
+        <label>生源地一本分数线：</label>
+        <input type="text" name="score_line" value="{{ application.score_line }}" /> *
+        <br />
+        <br />
+        <h4> 家长联系方式 </h4>
+        <label>家长姓名：</label>
+        <input type="text" name="parent" value="{{ application.parent_name }}" /> *
+        <br />
+        <br />
+        <label>关系：</label>
+        <input type="text" name="relationship" value="{{ application.relation }}" /> *
+        <br />
+        <br />
+        <label>联系电话：</label>
+        <input type="text" name="parent_phone" value="{{ application.parent_phone }}" /> *
+        <br />
+        <br />
+        <label>通信地址：</label>
+        <input type="text" name="parent_addr" value="{{ application.parent_addr }}" /> *
+        <br />
+        <br />
+        {% endif %}
+        <div align="center">
+        {% if show_identity %}
+          <input type="submit" value="下一步" class="large" />
+        {% else %}
+          <input type="submit" value="提交" class="large" />
+        {% endif %}
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
