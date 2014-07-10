@@ -2,8 +2,8 @@
 
 {% block static %}
 <link type="text/css" href="{{ siteUrl('static/styles/admin/page/content.css') }}" rel="stylesheet"/>
-<script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/kindeditor/kindeditor-min.js') }}" charset="utf-8"></script>
-<script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/kindeditor/lang/zh_CN.js') }}" charset="utf-8"></script>
+<script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/ueditor/ueditor.config.js') }}" charset="utf-8"></script>
+<script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/ueditor/ueditor.all.js') }}" charset="utf-8"></script>
 <script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/DatePicker/WdatePicker.js') }}" charset="utf-8"></script>
 {% endblock %}
 
@@ -72,10 +72,10 @@
         </div>
       </div>
     <div id="editor_container">
-      <textarea id="editor_id" name="content" style="width:730px;height:500px;">{{ article | lang('content', 'zh') }}</textarea>
+      <script id="editor_id" name="content" type="text/plain" style="width:730px;height:400px;">{{ article | lang('content', 'zh') | raw }}</script>
     </div>
     <div id="editor_eng_container">
-      <textarea id="editor_eng" name="content_eng" style="width:730px;height:500px;">{{ article | lang('content', 'en') }}</textarea>
+      <script id="editor_eng" name="content" type="text/plain" style="width:730px;height:400px;">{{ article | lang('content', 'en')  | raw }}</script>
     </div>
     <div class="submit-div">
       <input type="hidden" name="timestamp" value="{{ timestamp }}" />
@@ -110,21 +110,10 @@ $(function(){
   //导航栏
     $(this).parent().find('ul').toggle("fast");
   });
-  //文本输入框
-  var editor = KindEditor.create('#editor_id',{
-    width: '730px',
-    resizeType: 1,
-    uploadJson: '{{ siteUrl("file/upload?timestamp=" ~ timestamp ) }}',
-    fileManagerJson: '{{ siteUrl("file/manager") }}',
-    allowFileManager: true
-  });
-  var editor_eng = KindEditor.create('#editor_eng',{
-    width: '730px',
-    resizeType: 1,
-    uploadJson: '{{ siteUrl("file/upload?timestamp=" ~ timestamp ) }}',
-    fileManagerJson: '{{ siteUrl("file/manager") }}',
-    allowFileManager: true
-  });
+
+  var editor = UE.getEditor('editor_id');
+  var editor_eng = UE.getEditor('editor_eng');
+
   //提交前判断
   $(".add-submit").click(function(){
     if ($("input[name='title']").val() == "请在这里输入标题" || $("input[name='title']").val() == ""){
