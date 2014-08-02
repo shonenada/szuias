@@ -233,7 +233,7 @@ class Article extends ModelBase {
     }
 
     public function getNext() {
-        $order_by = array(array('is_top', 'DESC'), array('sort', 'ASC'), array('created', 'DESC'));
+        $order_by = array(array('is_top', 'DESC'), array('sort', 'DESC'), array('created', 'DESC'));
         $order_str = "";
         foreach($order_by as $o) {
             if (in_array(strtoupper($o[1]), array('ASC', 'DESC'))) {
@@ -264,7 +264,7 @@ class Article extends ModelBase {
     }
 
     public function getPrev() {
-        $order_by = array(array('is_top', 'DESC'), array('sort', 'ASC'), array('created', 'DESC'));
+        $order_by = array(array('is_top', 'DESC'), array('sort', 'DESC'), array('created', 'DESC'));
         $order_str = "";
         foreach($order_by as $o) {
             if (in_array(strtoupper($o[1]), array('ASC', 'DESC'))) {
