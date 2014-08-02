@@ -57,7 +57,11 @@
         <br />
         <br />
         <label>照片：</label>
+        {% if one.photo %}
         <a href="{{ one.photo }}" target="_blank">照片</a>
+        {% else %}
+        无
+        {% endif %}
         <br />
         <br />
         <label>出生日期：</label>
