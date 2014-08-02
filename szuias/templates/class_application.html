@@ -3,24 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>深圳大学高等研究院2014级“理工创新实验班”申请表</title>
-  <script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/jquery-1.7.2.min.js') }}" charset="utf-8"></script>
-  <script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/jquery.form.js') }}" charset="utf-8"></script>
   <script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/DatePicker/WdatePicker.js') }}" charset="utf-8"></script>
-  <script>
-    $('#sign_form').ajaxForm({
-      dataType: 'json',
-      success: function(response) {
-        if (response.success) {
-          alert('您已经成功提交申请.');
-          document.getElementById('sign_form').reset();
-          location.href = '/';
-        }
-        else {
-          alert(response.info);
-        }
-      },
-    });
-  </script>
   <style>
     body {
       background: #ddd;
@@ -57,6 +40,10 @@
     .large {
       padding: 10px 20px;
     }
+    .error {
+      color: #FF0000;
+      font-size: 14px;
+    }
   </style>
 </head>
 
@@ -65,16 +52,21 @@
     <div class="sign-form">
       <h2>深圳大学高等研究院2014级“理工创新实验班”申请表</h2>
       <hr>
-        <noscript>对不起，你的浏览器不支持或禁用了JavaScript,请启用javascript或使用 Chrome 浏览器。</noscript>
         {% if show_identity %}
       <form method="get">
         <label>请输入身份证号:</label>
-        <input type="text" name="identity"  /> *
+        <input type="text" name="identity" /> *
+        {% if identity_error %}
+        <span class="error">身份证号码不能为空</span>
+        {% endif %}
         {% else %}
       <form method="post" id="sign_form" action="{{ siteUrl('apply') }}">
         <h4> 基本信息 </h4>
         <label>姓名：</label>
-        <input type="text" name="name" value="{{ application.name }}" /> *
+        <input type="text" name="name" value="{{ post.name | default(application.name) }}" /> *
+        {% if 'name' in not_empty_errors %}
+        <span class="error">姓名不能为空</span>
+        {% endif %}
         <br />
         <br />
         <label>性别：</label> *
@@ -82,6 +74,9 @@
           <option value="男">男</option>
           <option value="女">女</option>
         </select>
+        {% if 'gender' in not_empty_errors %}
+        <span class="error">性别不能为空</span>
+        {% endif %}
         <br />
         <br />
         <label>照片：</label>
@@ -89,93 +84,171 @@
         <br />
         <br />
         <label>出生日期：</label>
-        <input type="text" name="birthday" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="{{ application.birthday | date('Y-m-d') }}" /> *
+        <input type="text" name="birthday" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="{{ post.birthday | default(application.birthday) | date('Y-m-d') }}" /> *
+        {% if 'birthday' in not_empty_errors %}
+        <span class="error">出生日期不能为空</span>
+        {% endif %}
         <br />
         <br />
         <label>身份证号：</label>
-        <input type="text" name="identity" value="{{ identity }}" readonly="readonly" /> *
+        <input type="text" name="identity" value="{{ post.identity | default(identity) }}" readonly="readonly" /> *
+        {% if 'identity' in not_empty_errors %}
+        <span class="error">身份证号不能为空</span>
+        {% endif %}
         <br />
         <br />
         <label>毕业中学：</label>
-        <input type="text" name="middle_school" value="{{ application.middle_school }}" /> *
+        <input type="text" name="middle_school" value="{{ post.middle_school | default(application.middle_school) }}" /> *
+        {% if 'middle_school' in not_empty_errors %}
+        <span class="error">毕业中学不能为空</span>
+        {% endif %}
         <br />
         <br />
         <label>准考证号：</label>
-        <input type="text" name="exam_id" value="{{ application.exam_id }}" /> *
+        <input type="text" name="exam_id" value="{{ post.exam_id | default(application.exam_id) }}" /> *
+        {% if 'exam_id' in not_empty_errors %}
+        <span class="error">准考证号不能为空</span>
+        {% endif %}
         <br />
         <br />
         <label>录取专业：</label>
-        <input type="text" name="major" value="{{ application.major }}" />
+        <input type="text" name="major" value="{{ post.major | default(application.major) }}" />
         <br />
         <br />
         <label>学号：</label>
-        <input type="text" name="stu_id" value="{{ application.stu_id }}" />
+        <input type="text" name="stu_id" value="{{ post.stu_id | default(application.stu_id) }}" />
         <br />
         <br />
         <label>手机号码：</label>
-        <input type="text" name="phone" value="{{ application.phone }}" /> *
+        <input type="text" name="phone" value="{{ post.phone | default(application.phone) }}" /> *
+        {% if 'phone' in not_empty_errors %}
+        <span class="error">手机号码不能为空</span>
+        {% endif %}
+        {% if 'phone' in numeric_errors %}
+        <span class="error">手机号码必须为数字</span>
+        {% endif %}
         <br />
         <br />
         <label>Email：</label>
-        <input type="text" name="email" value="{{ application.email }}"/> *
+        <input type="text" name="email" value="{{ post.email | default(application.email) }}"/> *
+        {% if 'email' in not_empty_errors %}
+        <span class="error">Email不能为空</span>
+        {% endif %}
         <br />
         <br />
         <label>宿舍地址：</label>
-        <input type="text" name="addr" value="{{ application.addr }}" />
+        <input type="text" name="addr" value="{{ post.addr | default(application.addr) }}" />
         <br />
         <br />
         <label>个人简介：</label>
-        <textarea name="intro">{{ application.intro }}</textarea> *
+        <textarea name="intro">{{ post.intro | default(application.intro) }}</textarea> *
+        {% if 'intro' in not_empty_errors %}
+        <span class="error">个人简介不能为空</span>
+        {% endif %}
         <br />
         <br />
         <label>报考理由：</label>
-        <textarea name="reason">{{ application.reason }}</textarea> *
+        <textarea name="reason">{{ post.reason | default(application.reason) }}</textarea> *
+        {% if 'reason' in not_empty_errors %}
+        <span class="error">报考理由不能为空</span>
+        {% endif %}
         <br />
         <br />
         <h4> 高考成绩 </h4>
         <label>总分：</label>
-        <input type="text" name="total" value="{{ application.total }}" /> *
+        <input type="text" name="total" value="{{ post.total | default(application.total) }}" /> *
+        {% if 'total' in not_empty_errors %}
+        <span class="error">总分不能为空</span>
+        {% endif %}
+        {% if 'total' in numeric_errors %}
+        <span class="error">总分必须为数字</span>
+        {% endif %}
         <br />
         <br />
         <label>语文：</label>
-        <input type="text" name="chinese" value="{{ application.chinese }}" /> *
+        <input type="text" name="chinese" value="{{ post.chinese | default(application.chinese) }}" /> *
+        {% if 'chinese' in not_empty_errors %}
+        <span class="error">语文不能为空</span>
+        {% endif %}
+        {% if 'chinese' in numeric_errors %}
+        <span class="error">语文必须为数字</span>
+        {% endif %}
         <br />
         <br />
         <label>数学：</label>
-        <input type="text" name="math" value="{{ application.math }}" /> *
+        <input type="text" name="math" value="{{ post.math | default(application.math) }}" /> *
+        {% if 'math' in not_empty_errors %}
+        <span class="error">数学不能为空</span>
+        {% endif %}
+        {% if 'math' in numeric_errors %}
+        <span class="error">数学必须为数字</span>
+        {% endif %}
         <br />
         <br />
         <label>英语：</label>
-        <input type="text" name="english" value="{{ application.english }}" /> *
+        <input type="text" name="english" value="{{ post.english | default(application.english) }}" /> *
+        {% if 'english' in not_empty_errors %}
+        <span class="error">英语不能为空</span>
+        {% endif %}
+        {% if 'english' in numeric_errors %}
+        <span class="error">英语必须为数字</span>
+        {% endif %}
         <br />
         <br />
         <label>理综：</label>
-        <input type="text" name="science" value="{{ application.science }}" /> *
+        <input type="text" name="science" value="{{ post.science | default(application.science) }}" /> *
+        {% if 'science' in not_empty_errors %}
+        <span class="error">理综不能为空</span>
+        {% endif %}
+        {% if 'science' in numeric_errors %}
+        <span class="error">理综必须为数字</span>
+        {% endif %}
         <br />
         <br />
         <label>生源地：</label>
-        <input type="text" name="source" value="{{ application.student_source }}" /> *
+        <input type="text" name="source" value="{{ post.source | default(application.student_source) }}" /> *
+        {% if 'source' in not_empty_errors %}
+        <span class="error">生源地不能为空</span>
+        {% endif %} 
         <br />
         <br />
         <label>生源地一本分数线：</label>
-        <input type="text" name="score_line" value="{{ application.score_line }}" /> *
+        <input type="text" name="score_line" value="{{ post.score_line | default(application.score_line) }}" /> *
+        {% if 'score_line' in not_empty_errors %}
+        <span class="error">生源地一本分数线不能为空</span>
+        {% endif %} 
         <br />
         <br />
         <h4> 家长联系方式 </h4>
         <label>家长姓名：</label>
-        <input type="text" name="parent" value="{{ application.parent_name }}" /> *
+        <input type="text" name="parent" value="{{ post.parent | default(application.parent_name) }}" /> *
+        {% if 'parent' in not_empty_errors %}
+        <span class="error">家长不能为空</span>
+        {% endif %} 
         <br />
         <br />
         <label>关系：</label>
-        <input type="text" name="relationship" value="{{ application.relation }}" /> *
+        <input type="text" name="relationship" value="{{ post.relationship | default(application.relation) }}" /> *
+        {% if 'relationship' in not_empty_errors %}
+        <span class="error">关系不能为空</span>
+        {% endif %} 
         <br />
         <br />
         <label>联系电话：</label>
-        <input type="text" name="parent_phone" value="{{ application.parent_phone }}" /> *
+        <input type="text" name="parent_phone" value="{{ post.parent_phone | default(application.parent_phone) }}" /> *
+        {% if 'parent_phone' in not_empty_errors %}
+        <span class="error">联系电话不能为空</span>
+        {% endif %}
+        {% if 'parent_phone' in numeric_errors %}
+        <span class="error">联系电话必须为数字</span>
+        {% endif %}
         <br />
         <br />
         <label>通信地址：</label>
-        <input type="text" name="parent_addr" value="{{ application.parent_addr }}" /> *
+        <input type="text" name="parent_addr" value="{{ post.parent_addr | default(application.parent_addr) }}" /> *
+        {% if 'parent_addr' in not_empty_errors %}
+        <span class="error">通信地址不能为空</span>
+        {% endif %} 
         <br />
         <br />
         {% endif %}
