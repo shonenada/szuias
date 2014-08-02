@@ -31,7 +31,7 @@ class Content extends AdminBase {
         else {
             $top_menu = $focus_menu->parent;
         }
-        $artilce_pager = Article::paginateWithMid($page, $pagesize, $focus_menu->id, 'sort', true);
+        $artilce_pager = Article::paginateWithMid($page, $pagesize, $focus_menu->id, 'sort', false);
         $total = $artilce_pager->count();
         $now = new \DateTime('now', new \DateTimezone('Asia/Shanghai'));
         $menus = Menu::listAdminMenus();
