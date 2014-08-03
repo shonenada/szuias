@@ -2,12 +2,9 @@
 
 namespace Controller;
 
-use \Model\File;
 use \Model\Article;
 use \Model\Setting;
-use \Util\Helper;
-use \Util\HTMLHelper;
-
+use \Model\Slider;
 
 class Master extends Base {
 
@@ -21,7 +18,7 @@ class Master extends Base {
         $graduate = Article::getListByTopMenu(6, 11, array(array('sort', 'DESC')));
         $research = Article::getListByTopMenu(6, 12, array(array('sort', 'DESC')));
         $working = Article::getListByTopMenu(7, 17, array(array('sort', 'DESC')));
-        $slider = File::getTop();
+        $sliders = Slider::getSliders();
         return self::render("index.html", get_defined_vars());
     }
 

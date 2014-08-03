@@ -4,8 +4,8 @@
   <div class="banner">
   <div class="slide">
     <div id="slider">
-      {% for s in slider %}
-      <a href="{{ siteUrl('article/' ~  s.article.id )}}"><img src="{{ siteUrl('uploads/' ~ s.address) }}" alt="{{ s.article.title }}" title="{{ s.article.title }}"/></a>
+      {% for s in sliders %}
+      <a href="{{ s.target_url }}" title="{{ s.title }}"><img src="{{ s.img_url }}" alt="{{ s.title }}" title="{{ s.title }}"/></a>
       {% endfor %}
     </div>
   </div>

@@ -8,6 +8,7 @@
 {% block content %}
 <div id="content" class="clearfix">
   <!-- *****************************图片设置**************************************** -->
+  <!--
   <div class="settings">
     <div class="index-title">首页幻灯片图片设置</div>
     <div class="clearfix">
@@ -50,6 +51,50 @@
         <p>1.显示条数：编辑者可选择飘动图片的张数(如此时右侧的飘动图片张数为3张)</p>
         <p>2.图片更新时间：编辑者可选择飘动图片的更新的速度，以便让首页信息适当更新</p>
         <p>3.图片来源：编辑者可选择飘动图片的出处，由数据库自动调用</p>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <div class="settings">
+    <div class="index-title">首页幻灯片图片设置</div>
+    <div class="clearfix">
+      <div class="">
+        <a href="{{ siteUrl('admin/setting/slider/create') }}" id="add-slider-btn">添加首页图片</a>
+        <div style="height: 10px;"></div>
+        <table class="admin-table">
+          <tr>
+            <th>排序</th>
+            <th>标题</th>
+            <th>图片 URL</th>
+            <th>链接 URL</th>
+            <th></th>
+          </tr>
+          {% for s in sliders %}
+          <tr class="one_slider">
+            <input name="id" value="{{ s.id }}" type="hidden" />
+            <td>
+              <input name="sort" type="text" style="width: 20px;" value="{{ s.sort }}" />
+            </td>
+            <td>
+              <input name="title" type="text" style="width: 200px;" value="{{ s.title }}" />
+            </td>
+            <td>
+              <input name="img_url" type="text" value="{{ s.img_url }}" style="width: 300px;" />
+            </td>
+            <td>
+              <input name="target_url" type="text" value="{{ s.target_url }}" style="width: 250px;" />
+            </tsd>
+            <td><a href="{{ siteUrl('admin/setting/slider/' ~ s.id ~'/delete?token=' ~ key) }}">删除</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div style="height: 10px;"></div>
+      <div class="text_end">
+        <span>
+          <a data-href="{{ siteUrl('admin/setting/slider/save') }}" href="javascript:void(0);" id="slider_save">保存</a>
+        </span>
       </div>
     </div>
   </div>

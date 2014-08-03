@@ -49,6 +49,9 @@ return array(
 
         array($normal, "/admin/setting", array('GET')),
         array($normal, "/admin/setting/save", array('POST')),
+        array($normal, "/admin/setting/slider/save", array('POST')),
+        array($normal, "/admin/setting/slider/create", array('GET', 'POST')),
+        array($normal, "/admin/setting/slider/\d+/delete", array('GET')),
 
         array($normal, "/admin/menu", array('GET')),
         array($normal, "/admin/menu/\d+", array('GET')),

@@ -12,7 +12,7 @@
 }
 .settings-left{
 	float: left;
-	width: 400px;
+	width: 600px;
 	margin-left: 10px;
 }
 .settings-right{
@@ -102,7 +102,7 @@
 	background:#009AD9;
 }
 .index_pic{
-	width: 500px;
+	width: 300px;
 }
 .index_pic p{
 	margin: 7px 0;

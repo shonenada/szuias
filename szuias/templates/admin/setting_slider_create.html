@@ -1,0 +1,103 @@
+{% extends 'admin/base.html' %}
+
+{% block static %}
+<link type="text/css" href="{{ siteUrl('static/styles/admin/page/index.css') }}" rel="stylesheet" />
+<script>
+//保存按钮
+$(function(){
+  $("#submit").click(function(){
+    common.alert.loading("正在保存...");
+    //保存前进行数据判断
+    var flag = true;
+    $("input[name='img_url']").each(function(){
+      if ($(this).val().replace(" ","") == ""){
+        flag = false;
+        alert("图片 URL不能为空");
+        return false;
+      }
+    });
+    $("input[name='sort']").each(function(){
+      if (!/^\d+$/.test($(this).val())){
+        flag = false;
+        alert("排序只能为数字！");
+        return false;
+      }
+    });
+    if (!flag) {
+      common.alert.closeLoading();
+      return false;
+    }
+    //组装数据
+    var post = [], JsonStr = "";
+    $(".one_slider").each(function(){
+      var data = {};
+      var current = $(this);
+      data.id = current.find("input[name='id']").val();
+      data.title = current.find("input[name='title']").val();
+      data.sort = current.find("input[name='sort']").val();
+      data.img_url = current.find("input[name='img_url']").val();
+      data.target_url = current.find("input[name='target_url']").val();
+      //将结果压入数组
+      post.push(data);
+    });
+    JsonStr = $.toJSON(post);
+    var href = $(this).attr("data-href");
+    $.post(href, {"sliders" : encodeURIComponent(JsonStr)}, function(data){
+      common.alert.closeLoading();
+      if (data.success) {
+        alert("保存成功!");
+        location.href = '/admin/setting';
+      }
+      else alert(data.info);
+    }, 'json');
+    return false;
+  }); //取消按钮
+  $("#cancel").click(function(){
+    window.history.back();
+  });
+ });
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="content" class="clearfix">
+  <div class="settings">
+    <div class="index-title">添加首页图片</div>
+    <div class="clearfix">
+      <div class="">
+        <table class="admin-table">
+          <tr>
+            <th>排序</th>
+            <th>标题</th>
+            <th>图片 URL</th>
+            <th>链接 URL</th>
+          </tr>
+          <tr class="one_slider">
+            <input name="id" value="{{ s.id }}" type="hidden" />
+            <td>
+              <input name="sort" type="text" style="width: 20px;" value="" />
+            </td>
+            <td>
+              <input name="title" type="text" style="width: 200px;" value="" />
+            </td>
+            <td>
+              <input name="img_url" type="text" value="" style="width: 300px;" />
+            </td>
+            <td>
+              <input name="target_url" type="text" value="" style="width: 250px;" />
+            </tsd>
+          </tr>
+        </table>
+      </div>
+      <div style="height: 10px;"></div>
+    </div>
+  </div>
+
+</div>
+<div class="text_end">
+  <span>
+    <a data-href="{{ siteUrl('admin/setting/slider/create') }}" href="javascript:void(0);" id="submit">保存</a>
+    <a href="javascript:void(0);" id="cancel">取消</a>
+  </span>
+</div>
+{% endblock %}
