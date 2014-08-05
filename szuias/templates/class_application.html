@@ -60,7 +60,7 @@
         <span class="error">身份证号码不能为空</span>
         {% endif %}
         {% else %}
-      <form method="post" id="sign_form" action="{{ siteUrl('apply') }}">
+      <form method="post" id="sign_form" action="{{ siteUrl('apply') }}" enctype="multipart/form-data">
         <h4> 基本信息 </h4>
         <label>姓名：</label>
         <input type="text" name="name" value="{{ post.name | default(application.name) }}" /> *
