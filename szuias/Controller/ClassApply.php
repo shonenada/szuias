@@ -85,15 +85,17 @@ class ClassApply extends Base {
 
         if ($success) {
             $result = \Util\Upload::uploadApplicationPhoto();
-            if ($result['error'] == 1) {
-                $tips = $result['message'];
-                $success = false;
-            }
+            // if ($result['error'] == 1) {
+                // $tips = $result['message'];
+                // $success = false;
+            // }
         }
 
         if ($success) {
             $apply->name = $post['name'];
-            $apply->photo = $result['url'];
+            if (isset($result['url']) && !empty($result['url'])) {
+                $apply->photo = $result['url'];
+            }
             $apply->gender = $post['gender'];
             $apply->birthday = \DateTime::createFromFormat('Y-m-d', $post['birthday']);
             $apply->identity = $post['identity'];
