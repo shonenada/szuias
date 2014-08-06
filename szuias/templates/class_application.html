@@ -196,7 +196,7 @@
         <br />
         <br />
         <label>理综：</label>
-        <input type="text" name="science" value="{{ post.science | default(application.science) }}" /> *
+        <input type="text" name="science" value="{{ post.science | default(application.science) }}" />
         {% if 'science' in not_empty_errors %}
         <span class="error">理综不能为空</span>
         {% endif %}

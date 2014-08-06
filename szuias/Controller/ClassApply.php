@@ -44,7 +44,6 @@ class ClassApply extends Base {
             'chinese',
             'math',
             'english',
-            'science',
             'source',
             'score_line',
             'parent',
