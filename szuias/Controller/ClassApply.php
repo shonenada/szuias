@@ -20,6 +20,7 @@ class ClassApply extends Base {
     }
 
     static public function post() {
+        header('Content-Type: text/html; charset=utf-8');
         $post = self::$request->post();
         $tips = '';
         $success = true;
