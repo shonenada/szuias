@@ -999,6 +999,7 @@ article.hentry + article.hentry:before {
 	font-weight: bold;
 	font-size: 28px;
 	text-align: center;
+	line-height: 1.5em;
 }
 
 .article .info {
@@ -1027,7 +1028,7 @@ article.hentry + article.hentry:before {
 }
 .article-list ul .datetime {
 	float: right;
-	margin-right: 1em;
+	margin-right: 1px;
 }
 .article-list #pager ul.pager-list li {
 	float: left;
@@ -1074,8 +1075,8 @@ article.hentry + article.hentry:before {
 	text-overflow: ellipsis;
 }
 
-.width350 {
-	width: 350px;
+.width300 {
+	width: 300px;
 }
 
 .width200 {
