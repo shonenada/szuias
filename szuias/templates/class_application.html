@@ -261,7 +261,8 @@
         <div align="center">
         {% if show_identity %}
           <input type="submit" value="下一步" class="large" />
-        {% else %}
+        {% endif %}
+        {% if show_info %}
           <input type="submit" value="提交" class="large" />
         {% endif %}
         </div>

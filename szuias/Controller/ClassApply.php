@@ -14,6 +14,7 @@ class ClassApply extends Base {
         $identity = self::$request->get('identity');
         $application = ClassApplication::findOneBy(array('identity' => $identity));
         if ($application != NULL || (is_numeric(substr($identity, 0, 16)) && strlen($identity) == 18)) {
+            $show_info = true;
             $show_identity = false;
         }
         return self::render("class_application.html", get_defined_vars());
