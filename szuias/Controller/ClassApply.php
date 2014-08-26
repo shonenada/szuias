@@ -125,7 +125,11 @@ class ClassApply extends Base {
             return self::render("class_application.html", get_defined_vars());
         }
         else {
-            return '<html><head><script>alert("提交成功！");location.href="/";</script></head></html>';
+            $html = ('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>' +
+                     '<body>' +
+                     '<div style="text-align:center;">提交成功</div>' +
+                     '</body></html>');
+            return $html;
         }
         // return json_encode(array('success' => $success, 'info' => $tips));
     }

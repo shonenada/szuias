@@ -72,7 +72,7 @@
         <label>性别：</label> *
         <select name="gender">
           <option value="男">男</option>
-          <option value="女">女</option>
+          <option {% if application.gender == '女' %}selected="selected"{% endif %}value="女">女</option>
         </select>
         {% if 'gender' in not_empty_errors %}
         <span class="error">性别不能为空</span>
@@ -80,6 +80,7 @@
         <br />
         <br />
         <label>照片：</label>
+        {% if application.photo %}<a href="{{ application.photo }}" target="_blank">照片</a>{% endif %}
         <input type="file" name="photo" /> * （照片大小需小于 2M）
         <br />
         <br />
