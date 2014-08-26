@@ -23,6 +23,7 @@ class ClassApply extends Base {
         header('Content-Type: text/html; charset=utf-8');
         $post = self::$request->post();
         $tips = '';
+        $show_info = true;
         $success = true;
         $identity = self::$request->post('identity');
         $apply = ClassApplication::findOneBy(array('identity' => $identity));
@@ -125,11 +126,7 @@ class ClassApply extends Base {
             return self::render("class_application.html", get_defined_vars());
         }
         else {
-            $html = ('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>' +
-                     '<body>' +
-                     '<div style="text-align:center;">提交成功</div>' +
-                     '</body></html>');
-            return $html;
+            return self::render("class_application.html", array('do_success' => true, 'name' => $post['name'], 'identity' => $post['identity']));
         }
         // return json_encode(array('success' => $success, 'info' => $tips));
     }

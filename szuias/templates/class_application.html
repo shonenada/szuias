@@ -52,6 +52,10 @@
     <div class="sign-form">
       <h2>深圳大学高等研究院2014级“理工创新实验班”申请表</h2>
       <hr>
+        {% if do_success %}
+            <h4> {{ name }}您好，您已成功提交了请求。 </h4>
+            <a href="{{ siteUrl('apply' ~ '?identity=' ~ identity) }}">返回修改</a>
+        {% endif %}
         {% if show_identity %}
       <form method="get">
         <label>请输入身份证号:</label>
@@ -59,7 +63,8 @@
         {% if identity_error %}
         <span class="error">身份证号码不能为空</span>
         {% endif %}
-        {% else %}
+        {% endif %}
+        {% if show_info %}
       <form method="post" id="sign_form" action="{{ siteUrl('apply') }}" enctype="multipart/form-data">
         <h4> 基本信息 </h4>
         <label>姓名：</label>
