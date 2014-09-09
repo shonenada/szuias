@@ -11,6 +11,12 @@ class SignIn extends \Controller\Base {
 
     static public function get () {
         $is_captcha = SettingModel::get('admin_signin', 'captcha');
+        $userid = self::$app->getEncryptedCookie('user_id');
+        $token = self::$app->getEncryptedCookie('token');
+        $user = User::find($userid);
+        if (isset($user) && $user->getToken() == $token) {
+            return self::redirect('/admin/content');
+        }
         return self::render("admin/signin.html", get_defined_vars());
     }
 

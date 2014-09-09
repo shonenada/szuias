@@ -149,6 +149,10 @@ class User extends ModelBase {
         $this->token = $token;
     }
 
+    public function getToken() {
+        return $this->token;
+    }
+
     public function isActivity() {
         return ($this->is_deleted == 0);
     }

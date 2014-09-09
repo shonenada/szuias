@@ -82,9 +82,7 @@ function translation(code, next) {
       <ul>
         <li><a href="{{ siteUrl('article/494') }}">{{ trans('About us') }}</a></li>
         <li><a href="{{ siteUrl('article/501') }}">{{ trans('Contact us') }}</a></li>
-        {% if loggedUser.hasPermission('/admin', 'GET') %}
         <li><a href="{{ siteUrl('admin') }}">{{ trans('Admin Login') }}</a></li>
-        {% endif %}
       </ul>
     </div>
 
