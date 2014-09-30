@@ -1,273 +1,56 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>深圳大学高等研究院2014级“理工创新实验班”申请表</title>
-  <script type="text/javascript" src="{{ siteUrl('static/scripts/plugins/DatePicker/WdatePicker.js') }}" charset="utf-8"></script>
-  <style>
-    body {
-      background: #ddd;
-      padding-top: 20px;
-    }
-    .container {
-      width: 800px;
-      margin: 0 auto;
-      background: #FFF;
-      padding: 10px;
-      -webkit-box-shadow: 0 0 10px rgba(0,0,0,.2);
-      -moz-box-shadow: 0 0 10px rgba(0,0,0,.2);
-      box-shadow: 0 0 10px rgba(0,0,0,.2);
-    }
-    .sign-form h2, .sign-form h4 {
-      text-align: center;
-    }
-    .sign-form form {
-    }
-    .sign-form form label {
-      display: inline-block;
-      width: 200px;
-      text-align: right;
-    }
-    .sign-form .right {
-      text-align: right;
-    }
-    input[type=text], textarea {
-      width: 350px;
-    }
-    textarea {
-      height: 100px;
-    }
-    .large {
-      padding: 10px 20px;
-    }
-    .error {
-      color: #FF0000;
-      font-size: 14px;
-    }
-  </style>
-</head>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>跳转中</title>
+        <style>
+        
+        
+        </style>
+    </head>
+    <body>
+    
 
-<body>
-  <div class="container">
-    <div class="sign-form">
-      <h2>深圳大学高等研究院2014级“理工创新实验班”申请表</h2>
-      <hr>
-        {% if do_success %}
-            <h4> {{ name }}您好，您已成功提交了请求。 </h4>
-            <a href="{{ siteUrl('apply' ~ '?identity=' ~ identity) }}">返回修改</a>
-        {% endif %}
-        {% if show_identity %}
-      <form method="get">
-        <label>请输入身份证号:</label>
-        <input type="text" name="identity" /> *
-        {% if identity_error %}
-        <span class="error">身份证号码不能为空</span>
-        {% endif %}
-        {% endif %}
-        {% if show_info %}
-      <form method="post" id="sign_form" action="{{ siteUrl('apply') }}" enctype="multipart/form-data">
-        <h4> 基本信息 </h4>
-        <label>姓名：</label>
-        <input type="text" name="name" value="{{ post.name | default(application.name) }}" /> *
-        {% if 'name' in not_empty_errors %}
-        <span class="error">姓名不能为空</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>性别：</label> *
-        <select name="gender">
-          <option value="男">男</option>
-          <option {% if application.gender == '女' %}selected="selected"{% endif %}value="女">女</option>
-        </select>
-        {% if 'gender' in not_empty_errors %}
-        <span class="error">性别不能为空</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>照片：</label>
-        {% if application.photo %}<a href="{{ application.photo }}" target="_blank">照片</a>{% endif %}
-        <input type="file" name="photo" /> * （照片大小需小于 2M）
-        <br />
-        <br />
-        <label>出生日期：</label>
-        <input type="text" name="birthday" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="{{ post.birthday | default(application.birthday) | date('Y-m-d') }}" /> *
-        {% if 'birthday' in not_empty_errors %}
-        <span class="error">出生日期不能为空</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>身份证号：</label>
-        <input type="text" name="identity" value="{{ post.identity | default(identity) }}" readonly="readonly" /> *
-        {% if 'identity' in not_empty_errors %}
-        <span class="error">身份证号不能为空</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>毕业中学：</label>
-        <input type="text" name="middle_school" value="{{ post.middle_school | default(application.middle_school) }}" /> *
-        {% if 'middle_school' in not_empty_errors %}
-        <span class="error">毕业中学不能为空</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>准考证号：</label>
-        <input type="text" name="exam_id" value="{{ post.exam_id | default(application.exam_id) }}" /> *
-        {% if 'exam_id' in not_empty_errors %}
-        <span class="error">准考证号不能为空</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>录取专业：</label>
-        <input type="text" name="major" value="{{ post.major | default(application.major) }}" />
-        <br />
-        <br />
-        <label>学号：</label>
-        <input type="text" name="stu_id" value="{{ post.stu_id | default(application.stu_id) }}" />
-        <br />
-        <br />
-        <label>手机号码：</label>
-        <input type="text" name="phone" value="{{ post.phone | default(application.phone) }}" /> *
-        {% if 'phone' in not_empty_errors %}
-        <span class="error">手机号码不能为空</span>
-        {% endif %}
-        {% if 'phone' in numeric_errors %}
-        <span class="error">手机号码必须为数字</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>Email：</label>
-        <input type="text" name="email" value="{{ post.email | default(application.email) }}"/> *
-        {% if 'email' in not_empty_errors %}
-        <span class="error">Email不能为空</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>宿舍地址：</label>
-        <input type="text" name="addr" value="{{ post.addr | default(application.addr) }}" />
-        <br />
-        <br />
-        <label>个人简介：</label>
-        <textarea name="intro">{{ post.intro | default(application.intro) }}</textarea> *
-        {% if 'intro' in not_empty_errors %}
-        <span class="error">个人简介不能为空</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>报考理由：</label>
-        <textarea name="reason">{{ post.reason | default(application.reason) }}</textarea> *
-        {% if 'reason' in not_empty_errors %}
-        <span class="error">报考理由不能为空</span>
-        {% endif %}
-        <br />
-        <br />
-        <h4> 高考成绩 </h4>
-        <label>总分：</label>
-        <input type="text" name="total" value="{{ post.total | default(application.total) }}" /> *
-        {% if 'total' in not_empty_errors %}
-        <span class="error">总分不能为空</span>
-        {% endif %}
-        {% if 'total' in numeric_errors %}
-        <span class="error">总分必须为数字</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>语文：</label>
-        <input type="text" name="chinese" value="{{ post.chinese | default(application.chinese) }}" /> *
-        {% if 'chinese' in not_empty_errors %}
-        <span class="error">语文不能为空</span>
-        {% endif %}
-        {% if 'chinese' in numeric_errors %}
-        <span class="error">语文必须为数字</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>数学：</label>
-        <input type="text" name="math" value="{{ post.math | default(application.math) }}" /> *
-        {% if 'math' in not_empty_errors %}
-        <span class="error">数学不能为空</span>
-        {% endif %}
-        {% if 'math' in numeric_errors %}
-        <span class="error">数学必须为数字</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>英语：</label>
-        <input type="text" name="english" value="{{ post.english | default(application.english) }}" /> *
-        {% if 'english' in not_empty_errors %}
-        <span class="error">英语不能为空</span>
-        {% endif %}
-        {% if 'english' in numeric_errors %}
-        <span class="error">英语必须为数字</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>理综：</label>
-        <input type="text" name="science" value="{{ post.science | default(application.science) }}" />
-        {% if 'science' in not_empty_errors %}
-        <span class="error">理综不能为空</span>
-        {% endif %}
-        {% if 'science' in numeric_errors %}
-        <span class="error">理综必须为数字</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>生源地：</label>
-        <input type="text" name="source" value="{{ post.source | default(application.student_source) }}" /> *
-        {% if 'source' in not_empty_errors %}
-        <span class="error">生源地不能为空</span>
-        {% endif %} 
-        <br />
-        <br />
-        <label>生源地一本分数线：</label>
-        <input type="text" name="score_line" value="{{ post.score_line | default(application.score_line) }}" /> *
-        {% if 'score_line' in not_empty_errors %}
-        <span class="error">生源地一本分数线不能为空</span>
-        {% endif %} 
-        <br />
-        <br />
-        <h4> 家长联系方式 </h4>
-        <label>家长姓名：</label>
-        <input type="text" name="parent" value="{{ post.parent | default(application.parent_name) }}" /> *
-        {% if 'parent' in not_empty_errors %}
-        <span class="error">家长不能为空</span>
-        {% endif %} 
-        <br />
-        <br />
-        <label>关系：</label>
-        <input type="text" name="relationship" value="{{ post.relationship | default(application.relation) }}" /> *
-        {% if 'relationship' in not_empty_errors %}
-        <span class="error">关系不能为空</span>
-        {% endif %} 
-        <br />
-        <br />
-        <label>联系电话：</label>
-        <input type="text" name="parent_phone" value="{{ post.parent_phone | default(application.parent_phone) }}" /> *
-        {% if 'parent_phone' in not_empty_errors %}
-        <span class="error">联系电话不能为空</span>
-        {% endif %}
-        {% if 'parent_phone' in numeric_errors %}
-        <span class="error">联系电话必须为数字</span>
-        {% endif %}
-        <br />
-        <br />
-        <label>通信地址：</label>
-        <input type="text" name="parent_addr" value="{{ post.parent_addr | default(application.parent_addr) }}" /> *
-        {% if 'parent_addr' in not_empty_errors %}
-        <span class="error">通信地址不能为空</span>
-        {% endif %} 
-        <br />
-        <br />
-        {% endif %}
-        <div align="center">
-        {% if show_identity %}
-          <input type="submit" value="下一步" class="large" />
-        {% endif %}
-        {% if show_info %}
-          <input type="submit" value="提交" class="large" />
-        {% endif %}
-        </div>
-      </form>
+    <div align="center" style="padding:20px; font-family:'Microsoft YaHei'">
+    <h1>高等研究院</h1>
+    <h3>理工创新实验班2014级网上报名已经结束</h3>
+    <h2><a href="http://ias.szu.edu.cn">http://ias.szu.edu.cn</a></h2>
+    <p><span id="totalSecond" style="padding-right:5px; font-weight:bold;">8</span>秒后自动返回</p>
+    <p style="padding-top:10px; font-size:9px;">2014/09/30</p>
     </div>
-  </div>
-</body>
+
+
+
+
+
+<script language="javascript" type="text/javascript">
+    var second = document.getElementById('totalSecond').textContent;
+
+    if (navigator.appName.indexOf("Explorer") > -1)
+    {
+        second = document.getElementById('totalSecond').innerText;
+    } else
+    {
+        second = document.getElementById('totalSecond').textContent;
+    }
+
+setInterval("redirect()", 1000);
+    function redirect()
+    {
+        if (second < 0)
+        {
+            location.href = 'http://ias.szu.edu.cn';
+        } else
+        {
+            if (navigator.appName.indexOf("Explorer") > -1)
+            {
+                document.getElementById('totalSecond').innerText = second--;
+            } else
+            {
+                document.getElementById('totalSecond').textContent = second--;
+            }
+        }
+    }
+</script>
+    </body>
 </html>

@@ -26,7 +26,7 @@ class Auth {
             $auth = new \RBAC\Authentication();
             $auth->load($ptable);
             if (!$auth->accessiable($user, $resource, $method)) {
-                $app->halt(403, "Cookies is expired, please sign in again.");
+                $app->redirect('/account/signin');
             }
         });
     }
