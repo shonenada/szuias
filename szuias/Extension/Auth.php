@@ -26,7 +26,7 @@ class Auth {
             $auth = new \RBAC\Authentication();
             $auth->load($ptable);
             if (!$auth->accessiable($user, $resource, $method)) {
-                $app->redirect('/account/signin');
+                $app->redirect('/admin/signin');
             }
         });
     }
