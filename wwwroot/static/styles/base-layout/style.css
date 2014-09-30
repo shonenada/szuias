@@ -1079,6 +1079,10 @@ article.hentry + article.hentry:before {
 	width: 300px;
 }
 
+.width350 {
+	width: 350px;
+}
+
 .width200 {
 	width: 200px;
 }

@@ -16,7 +16,7 @@
    <div class="articles">
     <ul>
       {% for n in news %}
-      <li><span class="ellipsis width300"><a href="{{ siteUrl('article/' ~ n.id) }}">{{ n.title }}</a> {% if n.is_top %}<img src="{{ siteUrl('static/images/admin/icon_up.gif') }}" alt="置顶" title="置顶"> {% endif %}</span> <span class="datetime">{{ n.created | date('Y-m-d') }}</span></li>
+      <li><span class="ellipsis width350"><a href="{{ siteUrl('article/' ~ n.id) }}" title="{{ n.title }}">{{ n.title }}</a> {% if n.is_top %}<img src="{{ siteUrl('static/images/admin/icon_up.gif') }}" alt="置顶" title="置顶"> {% endif %}</span> <span class="datetime">{{ n.created | date('Y-m-d') }}</span></li>
       {% endfor %}
     </ul>
    </div>
@@ -30,7 +30,7 @@
       <div>
         <ul>
           {% for a in undergraduate %}
-          <li><span class="ellipsis width200"> ● <a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title }}</a></span> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
+          <li><span class="ellipsis width200"> ● <a href="{{ siteUrl('article/' ~ a.id) }}" title="{{ a.title }}">{{ a.title }}</a></span> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
           {% endfor %}
         </ul>
       </div>
@@ -42,7 +42,7 @@
       <div>
         <ul>
           {% for a in graduate %}
-          <li><span class="ellipsis width200"> ● <a href="{{ siteUrl('article/' ~ a.id) }}">{{ a.title }}</a></span> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
+          <li><span class="ellipsis width200"> ● <a href="{{ siteUrl('article/' ~ a.id) }}" title="{{ a.title }}">{{ a.title }}</a></span> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
           {% endfor %}
         </ul>
       </div>
@@ -53,7 +53,7 @@
       <div>
         <ul>
           {% for a in research %}
-          <li><span class="ellipsis width200"> ● <a href="{{ siteUrl('article/' ~ a.id ) }}">{{ a.title }}</a></span> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
+          <li><span class="ellipsis width200"> ● <a href="{{ siteUrl('article/' ~ a.id ) }}" title="{{ a.title }}">{{ a.title }}</a></span> <span class="datetime">{{ a.created | date('Y-m-d') }}</span></li>
           {% endfor %}
         </ul>
       </div>
